@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -20,6 +23,12 @@ import javax.swing.JScrollBar;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.List;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class MainMenu {
 
@@ -29,6 +38,15 @@ public class MainMenu {
 	private JPanel panelLoadDraft;
 	private JPanel panel_tierlist;
 	private List list;
+	private JTextField tFPoke;
+	private JRadioButton radioButtonS;
+	private JRadioButton radioButtonA;
+	private JRadioButton radioButtonB;
+	private JRadioButton radioButtonC;
+	private JRadioButton radioButtonD;
+	private JRadioButton radioButtonX;
+	private JRadioButton radioButtonnull;
+	private ButtonGroup tierlistbuttongruppe;
 
 	public static void startMainMenu() {
 		EventQueue.invokeLater(new Runnable() {
@@ -47,6 +65,27 @@ public class MainMenu {
 		openMainMenu();
 	}
 	
+	private void changetier() {
+		tFPoke.setText(list.getSelectedItem());
+		switch (data.Data.Tierlist[list.getSelectedIndex()]) {
+        case "S":  radioButtonS.setSelected(true);
+            break;
+        case "A":  radioButtonA.setSelected(true);
+        	break;
+        case "B":  radioButtonB.setSelected(true);
+        	break;
+        case "C":  radioButtonC.setSelected(true);
+        	break;
+        case "D":  radioButtonD.setSelected(true);
+        	break;
+        case "X": radioButtonX.setSelected(true);
+        	break;
+        case "0":  radioButtonnull.setSelected(true);                			
+        	break;
+        default: radioButtonnull.setSelected(true);
+        	break;
+		}
+	}
 
 	private void openMainMenu() {
 		frame = new JFrame();
@@ -138,12 +177,140 @@ public class MainMenu {
 		panel_tierlist.add(lblPokemon);
 		
 		list = new List();
+		list.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changetier();
+			}
+		});
 		list.setBounds(20, 33, 197, 511);
 		panel_tierlist.add(list);
+		
+		
+		tFPoke = new JTextField();
+		tFPoke.setBounds(256, 56, 86, 20);
+		panel_tierlist.add(tFPoke);
+		tFPoke.setColumns(10);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		tierlistbuttongruppe = new ButtonGroup();
+		
+		radioButtonS = new JRadioButton("S");
+		radioButtonS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				data.Data.Tierlist[list.getSelectedIndex()]="S";
+				if(list.getSelectedIndex()<data.Data.Pokedex.length)
+				list.select(list.getSelectedIndex()+1);
+				changetier();
+			}
+		});
+	
+		radioButtonS.setBounds(256, 101, 109, 23);
+		panel_tierlist.add(radioButtonS);
+		tierlistbuttongruppe.add(radioButtonS);
+		
+		radioButtonA = new JRadioButton("A");
+		radioButtonA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				data.Data.Tierlist[list.getSelectedIndex()]="A";
+				if(list.getSelectedIndex()<data.Data.Pokedex.length)
+					list.select(list.getSelectedIndex()+1);
+				changetier();
+			}
+		});
+	
+		radioButtonA.setBounds(256, 127, 109, 23);
+		panel_tierlist.add(radioButtonA);
+		tierlistbuttongruppe.add(radioButtonA);
+		
+		radioButtonB = new JRadioButton("B");
+		radioButtonB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				data.Data.Tierlist[list.getSelectedIndex()]="B";
+				if(list.getSelectedIndex()<data.Data.Pokedex.length)
+					list.select(list.getSelectedIndex()+1);
+				changetier();
+			}
+		});
+		
+		radioButtonB.setBounds(256, 151, 109, 23);
+		panel_tierlist.add(radioButtonB);
+		tierlistbuttongruppe.add(radioButtonB);
+		
+		radioButtonC = new JRadioButton("C");
+		radioButtonC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				data.Data.Tierlist[list.getSelectedIndex()]="C";
+				if(list.getSelectedIndex()<data.Data.Pokedex.length)
+					list.select(list.getSelectedIndex()+1);
+				changetier();
+			}
+		});
+		
+		radioButtonC.setBounds(256, 177, 109, 23);
+		panel_tierlist.add(radioButtonC);
+		tierlistbuttongruppe.add(radioButtonC);
+		
+		radioButtonD = new JRadioButton("D");
+		radioButtonD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				data.Data.Tierlist[list.getSelectedIndex()]="D";
+				if(list.getSelectedIndex()<data.Data.Pokedex.length)
+					list.select(list.getSelectedIndex()+1);
+				changetier();
+			}
+		});
+		
+		radioButtonD.setBounds(256, 203, 109, 23);
+		panel_tierlist.add(radioButtonD);
+		tierlistbuttongruppe.add(radioButtonD);
+		
+		radioButtonX = new JRadioButton("Banned");
+		radioButtonX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				data.Data.Tierlist[list.getSelectedIndex()]="X";
+				if(list.getSelectedIndex()<data.Data.Pokedex.length)
+					list.select(list.getSelectedIndex()+1);
+				changetier();
+				}
+		});
+	
+		radioButtonX.setBounds(256, 229, 109, 23);
+		panel_tierlist.add(radioButtonX);
+		tierlistbuttongruppe.add(radioButtonX);
+		
+		radioButtonnull = new JRadioButton("");
+		radioButtonnull.setEnabled(false);
+		radioButtonnull.setBounds(256, 259, 109, 23);
+		panel_tierlist.add(radioButtonnull);
+		tierlistbuttongruppe.add(radioButtonnull);
+		radioButtonnull.setVisible(false);
 		
 		JPanel panel_draft = new JPanel();
 		frame.getContentPane().add(panel_draft, "name_2679324427935");
 		panel_draft.setLayout(null);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		JLabel lblTeam = new JLabel("Team 1");
 		lblTeam.setFont(new Font("Tahoma", Font.PLAIN, 21));
@@ -181,6 +348,10 @@ public class MainMenu {
 		JButton button_6 = new JButton("New button");
 		button_6.setBounds(860, 441, 169, 98);
 		panel_draft.add(button_6);
+		
+		
+		
+		
 		
 		
 		JButton btnMainmenu = new JButton("MainMenu");

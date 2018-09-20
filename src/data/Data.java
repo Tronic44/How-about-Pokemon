@@ -915,4 +915,7 @@ public class Data {
 	"Kopplosio",
 	"Zeraora"};
 	
+	public static String[] Tierlist = new String[Pokedex.length]; 
+	
+	
 }
