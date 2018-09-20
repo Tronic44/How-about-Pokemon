@@ -1,7 +1,7 @@
 package data;
 
 public class Data {
-	public String[] Pokedex = {"Name", "Name", "Name"};
+	public String[] Pokedex = {
 	"Bisasam",
 	"Bisaknosp",
 	"Bisaflor",
@@ -41,7 +41,7 @@ public class Data {
 	"Sandan Alola",
 	"Sandamer",
 	"Sandamer Alola",
-	"Nidoran♀";
+	"Nidoran♀",
 	"Nidorina",
 	"Nidoqueen",
 	"Nidoran♂",
@@ -648,8 +648,8 @@ public class Data {
 	"Zorua",
 	"Zoroark",
 	"Picochilla",
-	"Chillabell".
-	"Mollimorba".
+	"Chillabell",
+	"Mollimorba",
 	"Hypnomorba",
 	"Morbitesse",
 	"Monozyto",
@@ -661,7 +661,7 @@ public class Data {
 	"Gelatroppo",
 	"Gelatwino",
 	"Sesokitz",
-	"Kronjuwild", 
+	"Kronjuwild",
 	"Emolga",
 	"Laukaps",
 	"Cavalanzas",
@@ -730,7 +730,7 @@ public class Data {
 	"Keldeo",
 	"Meloetta Gesangsform",
 	"Meloetta Tanzform",
-	"Genesect", 
+	"Genesect",
 	"Igamaro",
 	"Igastarnish",
 	"Brigaron",
@@ -758,7 +758,7 @@ public class Data {
 	"Chevrumm",
 	"Pam-Pam",
 	"Pandagro",
-	"Coiffwaff", 
+	"Coiffwaff",
 	"Psiau",
 	"Psiaugon",
 	"Gramokles",
@@ -871,7 +871,7 @@ public class Data {
 	"Colossand",
 	"Gufa",
 	"Typ:Null",
-	"Amigento", 
+	"Amigento",
 	"Meteno",
 	"Koalelu",
 	"Tortunator",
@@ -896,7 +896,7 @@ public class Data {
 	"Schabelle",
 	"Voltriant",
 	"Kaguron",
-	"Katagami".
+	"Katagami",
 	"Schlingking",
 	"Necrozma",
 	"Necrozma Abendmähne",
@@ -908,6 +908,6 @@ public class Data {
 	"Agoyon",
 	"Muramura",
 	"Kopplosio",
-	"Zeraora",
+	"Zeraora"};
 	
 }
