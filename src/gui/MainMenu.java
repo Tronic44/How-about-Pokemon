@@ -16,6 +16,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JList;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextPane;
+import javax.swing.JScrollBar;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.List;
 
 public class MainMenu {
 
@@ -23,6 +27,8 @@ public class MainMenu {
 	private JPanel panelMainMenu;
 	private JPanel panelStartDraft;
 	private JPanel panelLoadDraft;
+	private JPanel panel_tierlist;
+	private List list;
 
 	public static void startMainMenu() {
 		EventQueue.invokeLater(new Runnable() {
@@ -40,6 +46,7 @@ public class MainMenu {
 	public MainMenu() {
 		openMainMenu();
 	}
+	
 
 	private void openMainMenu() {
 		frame = new JFrame();
@@ -66,6 +73,15 @@ public class MainMenu {
 		panelStartDraft.add(lblNewLabel);
 		
 		JButton btnTierlist = new JButton("Tierlist");
+		btnTierlist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelStartDraft.setVisible(false);
+				for(int i= 0 ; i<data.Data.getPokedex().length;i++) {
+					list.add(data.Data.Pokedex[i]);
+				}
+				panel_tierlist.setVisible(true);
+			}
+		});
 		btnTierlist.setBounds(63, 11, 255, 71);
 		panelStartDraft.add(btnTierlist);
 		
@@ -111,17 +127,18 @@ public class MainMenu {
 		btnExit.setBounds(132, 373, 126, 66);
 		panelMainMenu.add(btnExit);
 		
-		JPanel panel_tierlist = new JPanel();
+		panel_tierlist = new JPanel();
 		frame.getContentPane().add(panel_tierlist, "name_2032838076395");
 		panel_tierlist.setLayout(null);
+		panel_tierlist.setVisible(false);
 		
 		JLabel lblPokemon = new JLabel("Pokemon");
 		lblPokemon.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPokemon.setBounds(10, 0, 73, 28);
 		panel_tierlist.add(lblPokemon);
 		
-		JList list = new JList();
-		list.setBounds(20, 39, 174, 467);
+		list = new List();
+		list.setBounds(20, 33, 197, 511);
 		panel_tierlist.add(list);
 		
 		JPanel panel_draft = new JPanel();
@@ -169,6 +186,7 @@ public class MainMenu {
 		JButton btnMainmenu = new JButton("MainMenu");
 		btnMainmenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panel_tierlist.setVisible(false);
 				panelLoadDraft.setVisible(false);
 				panelStartDraft.setVisible(false);
 				panelMainMenu.setVisible(true);

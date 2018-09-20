@@ -1,7 +1,12 @@
 package data;
 
 public class Data {
-	public String[] Pokedex = {
+	
+	public static String[] getPokedex() {
+		return Pokedex;
+	}
+	
+	public static String[] Pokedex = {
 	"Bisasam",
 	"Bisaknosp",
 	"Bisaflor",
