@@ -18,6 +18,12 @@ import javax.swing.JTextField;
 import client.Writer;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
+import javax.swing.JSpinner;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.JEditorPane;
+import javax.swing.JTextPane;
+import javax.swing.JList;
 
 public class MainMenu {
 
@@ -45,6 +51,9 @@ public class MainMenu {
 	private String[] tiername;
 	private JTextField tF_tiername;
 	private JComboBox<String> cBTierlist;
+	private JEditorPane ePTeam;
+	public String[] Player;
+	private JEditorPane ePfinalteam;
 
 	public static void startMainMenu() {
 		gui.Manage.initPoketier();
@@ -76,6 +85,7 @@ public class MainMenu {
 		initmenubar();
 		inittierlist();
 		initdraft();
+		initplayer();
 
 	}
 
@@ -119,6 +129,93 @@ public class MainMenu {
 		frame.getContentPane().add(panel_draft, "name_2679324427935");
 		panel_draft.setLayout(null);
 		panel_draft.setLayout(null);
+
+	}
+
+	private void initplayer() {
+		JSpinner spinner = new JSpinner();
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				int count = (int) spinner.getValue();
+				if (count < 0) {
+					spinner.setValue(0);
+				} else {
+					Player = new String[count];
+				}
+
+			}
+		});
+		spinner.setBounds(22, 11, 50, 20);
+		panel_player.add(spinner);
+
+		JLabel lblSpieleranzahl = new JLabel("Team-Anzahl");
+		lblSpieleranzahl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSpieleranzahl.setBounds(78, 13, 106, 17);
+		panel_player.add(lblSpieleranzahl);
+
+		ePTeam = new JEditorPane();
+		ePTeam.setBounds(22, 52, 176, 479);
+		panel_player.add(ePTeam);
+
+		JButton btnPlayer = new JButton("Bestätige");
+		btnPlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String[] Eingabe = ePTeam.getText().split("\n");
+				System.out.print(Eingabe[1]);
+				int count = 0;
+				for (int i = 0; i < Eingabe.length; i++) {
+					if (Eingabe[i].trim().length() > 1) {
+						count++;
+						System.out.print(Eingabe[i]);
+					}
+				}
+				if ((int) spinner.getValue() == 0) {
+					Manage.msgbox("Du willst doch nicht ohne auch nur ein Team spielen, oder?");
+				} else {
+					if (count != (int) spinner.getValue()) {
+						Manage.msgbox("Deine Liste Stimmt nicht mit der Team Anzahl überein" + "\n"
+								+ "Denk dran: Teams haben niemals nur einen Buchstaben!");
+					} else {
+						String[] Spieler = new String[count];
+						for (int k = 0; k < Spieler.length; k++) {
+							for (int i = k; i < Eingabe.length; i++) {
+								if (Eingabe[i].trim().length() > 1) {
+									if (k > 0) {
+										if (Eingabe[i].trim().equals(Spieler[k - 1])) {
+											continue;
+										}
+									}
+									Spieler[k] = Eingabe[i].trim();
+									break;
+								}
+							}
+						}
+						String list = "";
+						for (int k = 0; k < Spieler.length; k++) {
+							Player = new String[Spieler.length];
+							Player[k] = Spieler[k];
+							list = list + (k + 1) + "   " + Player[k] + "\n";
+						}
+						ePfinalteam.setText(list);
+					}
+				}
+			}
+		});
+		btnPlayer.setBounds(65, 542, 89, 23);
+		panel_player.add(btnPlayer);
+
+		ePfinalteam = new JEditorPane();
+		ePfinalteam.setEditable(false);
+		ePfinalteam.setBounds(207, 52, 176, 479);
+		panel_player.add(ePfinalteam);
+		
+		JLabel lblNewLabel = new JLabel("Gespeicherte Teams");
+		lblNewLabel.setBounds(239, 37, 106, 14);
+		panel_player.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Team-Namen");
+		lblNewLabel_1.setBounds(65, 37, 69, 14);
+		panel_player.add(lblNewLabel_1);
 
 	}
 
@@ -420,8 +517,8 @@ public class MainMenu {
 
 		JButton btnLaden = new JButton("Laden");
 		btnLaden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) { 
-				data.Data.settierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());				
+			public void actionPerformed(ActionEvent arg0) {
+				data.Data.settierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
 				list.select(0);
 				changetier();
 				;
@@ -531,5 +628,4 @@ public class MainMenu {
 			break;
 		}
 	}
-
 }
