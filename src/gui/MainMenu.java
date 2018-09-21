@@ -47,6 +47,7 @@ public class MainMenu {
 	private JComboBox<String> cBTierlist;
 
 	public static void startMainMenu() {
+		gui.Manage.initPoketier();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
