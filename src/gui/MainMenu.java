@@ -4,10 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -16,19 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
-import javax.swing.JList;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextPane;
-import javax.swing.JScrollBar;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.AdjustmentEvent;
 import java.awt.List;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import javax.swing.JDesktopPane;
 
 public class MainMenu {
 
@@ -47,6 +35,10 @@ public class MainMenu {
 	private JRadioButton radioButtonX;
 	private JRadioButton radioButtonnull;
 	private ButtonGroup tierlistbuttongruppe;
+	private JPanel panel_draft;
+	private JPanel panel_player;
+	private JPanel panel_settings;
+	private JPanel panel_order;
 
 	public static void startMainMenu() {
 		EventQueue.invokeLater(new Runnable() {
@@ -60,30 +52,38 @@ public class MainMenu {
 			}
 		});
 	}
-	
+
 	public MainMenu() {
 		openMainMenu();
 	}
-	
+
 	private void changetier() {
 		tFPoke.setText(list.getSelectedItem());
 		switch (data.Data.Tierlist[list.getSelectedIndex()]) {
-        case "S":  radioButtonS.setSelected(true);
-            break;
-        case "A":  radioButtonA.setSelected(true);
-        	break;
-        case "B":  radioButtonB.setSelected(true);
-        	break;
-        case "C":  radioButtonC.setSelected(true);
-        	break;
-        case "D":  radioButtonD.setSelected(true);
-        	break;
-        case "X": radioButtonX.setSelected(true);
-        	break;
-        case "0":  radioButtonnull.setSelected(true);                			
-        	break;
-        default: radioButtonnull.setSelected(true);
-        	break;
+		case "S":
+			radioButtonS.setSelected(true);
+			break;
+		case "A":
+			radioButtonA.setSelected(true);
+			break;
+		case "B":
+			radioButtonB.setSelected(true);
+			break;
+		case "C":
+			radioButtonC.setSelected(true);
+			break;
+		case "D":
+			radioButtonD.setSelected(true);
+			break;
+		case "X":
+			radioButtonX.setSelected(true);
+			break;
+		case "0":
+			radioButtonnull.setSelected(true);
+			break;
+		default:
+			radioButtonnull.setSelected(true);
+			break;
 		}
 	}
 
@@ -92,48 +92,82 @@ public class MainMenu {
 		frame.setBounds(100, 100, 409, 640);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
-		
+
 		panelMainMenu = new JPanel();
 		frame.getContentPane().add(panelMainMenu, "name_526992955635103");
 		panelMainMenu.setLayout(null);
 		panelMainMenu.setVisible(true);
-		
+
 		panelStartDraft = new JPanel();
 		frame.getContentPane().add(panelStartDraft, "name_527021172921335");
-		panelStartDraft.setLayout(null);
-		
+
 		panelLoadDraft = new JPanel();
 		frame.getContentPane().add(panelLoadDraft, "name_527666975961040");
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		JLabel lblNewLabel = new JLabel("\"Draft\"");
-		lblNewLabel.setBounds(169, 212, 46, 14);
-		panelStartDraft.add(lblNewLabel);
-		
+
 		JButton btnTierlist = new JButton("Tierlist");
+		btnTierlist.setBounds(63, 23, 255, 71);
 		btnTierlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelStartDraft.setVisible(false);
-				for(int i= 0 ; i<data.Data.getPokedex().length;i++) {
-					list.add(data.Data.Pokedex[i]);
+				for (int i = 0; i < data.Data.getPokedex().length; i++) {
+					list.add(data.Data.getPokedex(i));
 				}
 				panel_tierlist.setVisible(true);
 			}
 		});
-		btnTierlist.setBounds(63, 11, 255, 71);
+		panelStartDraft.setLayout(null);
 		panelStartDraft.add(btnTierlist);
-		
+
+		JButton btnSpielerTeams = new JButton("Spieler / Teams");
+		btnSpielerTeams.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelStartDraft.setVisible(false);
+				panel_player.setVisible(true);
+
+			}
+		});
+		btnSpielerTeams.setBounds(63, 133, 255, 71);
+		panelStartDraft.add(btnSpielerTeams);
+
+		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
+		btnAnzahlDerPokemon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelStartDraft.setVisible(false);
+				panel_settings.setVisible(true);
+			}
+		});
+		btnAnzahlDerPokemon.setBounds(63, 249, 255, 71);
+		panelStartDraft.add(btnAnzahlDerPokemon);
+
+		JButton btnReihenfolge = new JButton("Reihenfolge");
+		btnReihenfolge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelStartDraft.setVisible(false);
+				panel_order.setVisible(true);
+			}
+		});
+		btnReihenfolge.setBounds(63, 362, 255, 71);
+		panelStartDraft.add(btnReihenfolge);
+
 		JButton btnFertig = new JButton("Fertig");
-		btnFertig.setBounds(63, 408, 255, 76);
+		btnFertig.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelStartDraft.setVisible(false);
+				panel_draft.setVisible(true);
+			}
+		});
+		btnFertig.setBounds(63, 476, 255, 71);
 		panelStartDraft.add(btnFertig);
 		panelStartDraft.setVisible(false);
-		
+
 		JLabel lblPokemonRandomDraft = new JLabel("Pokemon Random Draft");
 		lblPokemonRandomDraft.setBounds(15, 5, 374, 38);
 		panelMainMenu.add(lblPokemonRandomDraft);
 		lblPokemonRandomDraft.setFont(new Font("Tahoma", Font.BOLD, 31));
-		
+
 		JButton btnNewButton = new JButton("Start Draft");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -144,7 +178,7 @@ public class MainMenu {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton.setBounds(132, 97, 126, 66);
 		panelMainMenu.add(btnNewButton);
-		
+
 		JButton btnLoadDraft = new JButton("Load Draft");
 		btnLoadDraft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -155,7 +189,7 @@ public class MainMenu {
 		btnLoadDraft.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnLoadDraft.setBounds(132, 234, 126, 66);
 		panelMainMenu.add(btnLoadDraft);
-		
+
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,17 +199,17 @@ public class MainMenu {
 		btnExit.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnExit.setBounds(132, 373, 126, 66);
 		panelMainMenu.add(btnExit);
-		
+
 		panel_tierlist = new JPanel();
 		frame.getContentPane().add(panel_tierlist, "name_2032838076395");
 		panel_tierlist.setLayout(null);
 		panel_tierlist.setVisible(false);
-		
+
 		JLabel lblPokemon = new JLabel("Pokemon");
 		lblPokemon.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPokemon.setBounds(10, 0, 73, 28);
 		panel_tierlist.add(lblPokemon);
-		
+
 		list = new List();
 		list.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -184,187 +218,193 @@ public class MainMenu {
 		});
 		list.setBounds(20, 33, 197, 511);
 		panel_tierlist.add(list);
-		
-		
+
 		tFPoke = new JTextField();
+		tFPoke.setEditable(false);
 		tFPoke.setBounds(256, 56, 86, 20);
 		panel_tierlist.add(tFPoke);
 		tFPoke.setColumns(10);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		tierlistbuttongruppe = new ButtonGroup();
-		
+
 		radioButtonS = new JRadioButton("S");
 		radioButtonS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()]="S";
-				if(list.getSelectedIndex()<data.Data.Pokedex.length)
-				list.select(list.getSelectedIndex()+1);
+				data.Data.Tierlist[list.getSelectedIndex()] = "S";
+				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
 		});
-	
+
 		radioButtonS.setBounds(256, 101, 109, 23);
 		panel_tierlist.add(radioButtonS);
 		tierlistbuttongruppe.add(radioButtonS);
-		
+
 		radioButtonA = new JRadioButton("A");
 		radioButtonA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()]="A";
-				if(list.getSelectedIndex()<data.Data.Pokedex.length)
-					list.select(list.getSelectedIndex()+1);
+				data.Data.Tierlist[list.getSelectedIndex()] = "A";
+				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
 		});
-	
+
 		radioButtonA.setBounds(256, 127, 109, 23);
 		panel_tierlist.add(radioButtonA);
 		tierlistbuttongruppe.add(radioButtonA);
-		
+
 		radioButtonB = new JRadioButton("B");
 		radioButtonB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()]="B";
-				if(list.getSelectedIndex()<data.Data.Pokedex.length)
-					list.select(list.getSelectedIndex()+1);
+				data.Data.Tierlist[list.getSelectedIndex()] = "B";
+				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
 		});
-		
+
 		radioButtonB.setBounds(256, 151, 109, 23);
 		panel_tierlist.add(radioButtonB);
 		tierlistbuttongruppe.add(radioButtonB);
-		
+
 		radioButtonC = new JRadioButton("C");
 		radioButtonC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()]="C";
-				if(list.getSelectedIndex()<data.Data.Pokedex.length)
-					list.select(list.getSelectedIndex()+1);
+				data.Data.Tierlist[list.getSelectedIndex()] = "C";
+				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
 		});
-		
+
 		radioButtonC.setBounds(256, 177, 109, 23);
 		panel_tierlist.add(radioButtonC);
 		tierlistbuttongruppe.add(radioButtonC);
-		
+
 		radioButtonD = new JRadioButton("D");
 		radioButtonD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()]="D";
-				if(list.getSelectedIndex()<data.Data.Pokedex.length)
-					list.select(list.getSelectedIndex()+1);
+				data.Data.Tierlist[list.getSelectedIndex()] = "D";
+				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
 		});
-		
+
 		radioButtonD.setBounds(256, 203, 109, 23);
 		panel_tierlist.add(radioButtonD);
 		tierlistbuttongruppe.add(radioButtonD);
-		
+
 		radioButtonX = new JRadioButton("Banned");
 		radioButtonX.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()]="X";
-				if(list.getSelectedIndex()<data.Data.Pokedex.length)
-					list.select(list.getSelectedIndex()+1);
+				data.Data.Tierlist[list.getSelectedIndex()] = "X";
+				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+					list.select(list.getSelectedIndex() + 1);
 				changetier();
-				}
+			}
 		});
-	
+
 		radioButtonX.setBounds(256, 229, 109, 23);
 		panel_tierlist.add(radioButtonX);
 		tierlistbuttongruppe.add(radioButtonX);
-		
+
 		radioButtonnull = new JRadioButton("");
 		radioButtonnull.setEnabled(false);
 		radioButtonnull.setBounds(256, 259, 109, 23);
 		panel_tierlist.add(radioButtonnull);
 		tierlistbuttongruppe.add(radioButtonnull);
 		radioButtonnull.setVisible(false);
-		
-		JPanel panel_draft = new JPanel();
+
+		panel_player = new JPanel();
+		frame.getContentPane().add(panel_player, "name_601620298180688");
+		panel_player.setVisible(false);
+
+		panel_settings = new JPanel();
+		frame.getContentPane().add(panel_settings, "name_601636768594680");
+		panel_settings.setVisible(false);
+
+		panel_order = new JPanel();
+		frame.getContentPane().add(panel_order, "name_601652242106220");
+		panel_order.setVisible(false);
+
+		panel_draft = new JPanel();
 		frame.getContentPane().add(panel_draft, "name_2679324427935");
 		panel_draft.setLayout(null);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		JLabel lblTeam = new JLabel("Team 1");
 		lblTeam.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		lblTeam.setBounds(519, 11, 80, 31);
 		panel_draft.add(lblTeam);
-		
+
 		JButton btnNewButton_1 = new JButton("New button");
 		btnNewButton_1.setBounds(54, 110, 169, 98);
 		panel_draft.add(btnNewButton_1);
-		
+
 		JButton button = new JButton("New button");
 		button.setBounds(464, 110, 169, 98);
 		panel_draft.add(button);
-		
+
 		JButton button_1 = new JButton("New button");
 		button_1.setBounds(860, 110, 169, 98);
 		panel_draft.add(button_1);
-		
+
 		JButton button_2 = new JButton("New button");
 		button_2.setBounds(260, 280, 169, 98);
 		panel_draft.add(button_2);
-		
+
 		JButton button_3 = new JButton("New button");
 		button_3.setBounds(675, 280, 169, 98);
 		panel_draft.add(button_3);
-		
+
 		JButton button_4 = new JButton("New button");
 		button_4.setBounds(54, 441, 169, 98);
 		panel_draft.add(button_4);
-		
+
 		JButton button_5 = new JButton("New button");
 		button_5.setBounds(464, 441, 169, 98);
 		panel_draft.add(button_5);
-		
+
 		JButton button_6 = new JButton("New button");
 		button_6.setBounds(860, 441, 169, 98);
 		panel_draft.add(button_6);
-		
-		
-		
-		
-		
-		
-		JButton btnMainmenu = new JButton("MainMenu");
+
+		JButton btnMainmenu = new JButton("MainMen\u00FC");
 		btnMainmenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel_tierlist.setVisible(false);
 				panelLoadDraft.setVisible(false);
 				panelStartDraft.setVisible(false);
+				panel_player.setVisible(false);
+				panel_settings.setVisible(false);
+				panel_order.setVisible(false);
+				panel_draft.setVisible(false);
 				panelMainMenu.setVisible(true);
 			}
 		});
 		menuBar.add(btnMainmenu);
-		
+
+		JButton btnmenuback = new JButton("zur\u00FCck");
+		btnmenuback.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (panelStartDraft.isVisible()) {
+					panelStartDraft.setVisible(false);
+					panelMainMenu.setVisible(true);
+				}
+				if (panel_tierlist.isVisible() || panel_player.isVisible() || panel_settings.isVisible()
+						|| panel_order.isVisible() || panel_draft.isVisible()) {
+					panelStartDraft.setVisible(true);
+					panel_tierlist.setVisible(false);
+					panel_player.setVisible(false);
+					panel_settings.setVisible(false);
+					panel_order.setVisible(false);
+					panel_draft.setVisible(false);
+				}
+			}
+		});
+		menuBar.add(btnmenuback);
 
 	}
 }
