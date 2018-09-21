@@ -10,50 +10,67 @@ import java.io.PrintWriter;
 
 public class Writer {
 
-	public static void print(String name, String text) {
+	public static void printtierlist(String name, char[] text) {
 		PrintWriter pWriter = null;
-		if (read(name) == null) {
-			try {
-				pWriter = new PrintWriter(new BufferedWriter(new FileWriter(name.toLowerCase() + ".txt")));
-				pWriter.println(text);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			} finally {
-				if (pWriter != null) {
-					pWriter.flush();
-					pWriter.close();
-				}
+		try {
+			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("tierlist.txt", true)), true);
+			pWriter.print(name + ":");
+			for (int i = 0; i < text.length; i++) {
+				pWriter.print(text[i]);
 			}
-		}else {
-			try {
-				pWriter = new PrintWriter(new BufferedWriter(new FileWriter(name.toLowerCase() + ".txt")), true);
-				pWriter.println(text);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			} finally {
-				if (pWriter != null) {
-					pWriter.flush();
-					pWriter.close();
-				}
-			}
+			pWriter.println();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 	}
 
-	public static String read(String name) {
+	public static String[][] readtierlist() {
+		String[][] list = new String[100][2];
+		String[][] tierlist;
+		String linesp[];
+		String line;
 		FileReader fr;
 		try {
-			fr = new FileReader(name.toLowerCase() + ".txt");
+			fr = new FileReader("tierlist.txt");
 			try {
 				BufferedReader br = new BufferedReader(fr);
 
-				String line = br.readLine();
+				try {
+					int i = 0;
+					do {
+						line = br.readLine();
+						linesp = line.split(":");
+						list[i][0] = linesp[0];
+						list[i][1] = linesp[1];
+						i++;
+					} while (line != null);
+				} catch (Exception e) {
 
+//					e.printStackTrace();
+				}
+				int count = 0;
+				do {
+					count++;
+				} while (list[count][0] != null);
+				tierlist = new String[count][2];
+				for (int i = 0; i < tierlist.length; i++) {
+					tierlist[i][0] = list[i][0];
+					tierlist[i][1] = list[i][1];
+				}
 				br.close();
-				return line;
+				return tierlist;
 			} catch (IOException e) {
+				
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			PrintWriter pWriter = null;
+			try {
+				pWriter = new PrintWriter(new BufferedWriter(new FileWriter("tierlist.txt", true)), true);					
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+			
+//			e.printStackTrace();
 		}
 		return null;
 	}
