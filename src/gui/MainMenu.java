@@ -295,7 +295,7 @@ public class MainMenu {
 		radioButtonS = new JRadioButton("S");
 		radioButtonS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()] = 'S';
+				data.Data.tierlist[list.getSelectedIndex()] = 'S';
 				if (list.getSelectedIndex() < data.Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
@@ -309,7 +309,7 @@ public class MainMenu {
 		radioButtonA = new JRadioButton("A");
 		radioButtonA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()] = 'A';
+				data.Data.tierlist[list.getSelectedIndex()] = 'A';
 				if (list.getSelectedIndex() < data.Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
@@ -323,7 +323,7 @@ public class MainMenu {
 		radioButtonB = new JRadioButton("B");
 		radioButtonB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()] = 'B';
+				data.Data.tierlist[list.getSelectedIndex()] = 'B';
 				if (list.getSelectedIndex() < data.Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
@@ -337,7 +337,7 @@ public class MainMenu {
 		radioButtonC = new JRadioButton("C");
 		radioButtonC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()] = 'C';
+				data.Data.tierlist[list.getSelectedIndex()] = 'C';
 				if (list.getSelectedIndex() < data.Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
@@ -351,7 +351,7 @@ public class MainMenu {
 		radioButtonD = new JRadioButton("D");
 		radioButtonD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()] = 'D';
+				data.Data.tierlist[list.getSelectedIndex()] = 'D';
 				if (list.getSelectedIndex() < data.Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
@@ -365,7 +365,7 @@ public class MainMenu {
 		radioButtonX = new JRadioButton("Banned");
 		radioButtonX.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.Tierlist[list.getSelectedIndex()] = 'X';
+				data.Data.tierlist[list.getSelectedIndex()] = 'X';
 				if (list.getSelectedIndex() < data.Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
@@ -389,21 +389,26 @@ public class MainMenu {
 					gui.Manage.msgbox("Du hast keinen Namen eingegeben");
 					tF_tiername.setText("");
 				} else {
-					Boolean b = true;
-					for (String k : tiername) {
-						if (tF_tiername.getText().equals(k)) {
-							gui.Manage.msgbox("Der Name existiert schon");
-							b = false;
-							break;
-						}
-					}
-					if (b) {
-						Writer.printtierlist(tF_tiername.getText(), data.Data.Tierlist);
-						tF_tiername.setText("Gespeichert");
-						panel_tierlist.remove(cBTierlist);
-						tierlist();
-					}
+					if (tF_tiername.getText().contains(":")) {
+						gui.Manage.msgbox("Der Name das keinen Doppelpunkt enthalten");
 
+					} else {
+						Boolean b = true;
+						for (String k : tiername) {
+							if (tF_tiername.getText().equals(k)) {
+								gui.Manage.msgbox("Der Name existiert schon");
+								b = false;
+								break;
+							}
+						}
+						if (b) {
+							Writer.printtierlist(tF_tiername.getText(), data.Data.tierlist);
+							tF_tiername.setText("Gespeichert");
+							panel_tierlist.remove(cBTierlist);
+							tierlist();
+						}
+
+					}
 				}
 			}
 		});
@@ -413,6 +418,14 @@ public class MainMenu {
 		tierlist();
 
 		JButton btnLaden = new JButton("Laden");
+		btnLaden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) { 
+				data.Data.settierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());				
+				list.select(0);
+				changetier();
+				;
+			}
+		});
 		btnLaden.setBounds(256, 486, 89, 23);
 		panel_tierlist.add(btnLaden);
 
@@ -490,7 +503,7 @@ public class MainMenu {
 
 	private void changetier() {
 		tFPoke.setText(list.getSelectedItem());
-		switch (data.Data.Tierlist[list.getSelectedIndex()]) {
+		switch (data.Data.tierlist[list.getSelectedIndex()]) {
 		case 'S':
 			radioButtonS.setSelected(true);
 			break;

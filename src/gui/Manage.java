@@ -5,8 +5,8 @@ import javax.swing.JOptionPane;
 public class Manage {
 
 	public static void initPoketier() {
-		for (int i = 0; i < data.Data.Tierlist.length; i++) {
-			data.Data.Tierlist[i] = '0';
+		for (int i = 0; i < data.Data.tierlist.length; i++) {
+			data.Data.tierlist[i] = '0';
 		}
 	}
 
