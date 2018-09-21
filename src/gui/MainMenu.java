@@ -178,7 +178,7 @@ public class MainMenu {
 						tiername[i] = tierlist[i][0];
 					}
 				} catch (Exception e) {
-					
+
 				}
 				panel_tierlist.setVisible(true);
 
