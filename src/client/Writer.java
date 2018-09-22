@@ -41,63 +41,54 @@ public class Writer {
 	}
 
 	public static String[][] read(String datei) {
-		String[][] list = new String[100][2];
-		String[][] tlist;
-		String linesp[] = new String[1];
-		String line;
 		FileReader fr;
-		try {
-			fr = new FileReader(datei + ".txt");
+		String line;
+		String[] zeile;
+		String[][] list;
+		String[][] buffer = new String[50][];
+
+		for (int rewrite = 0; rewrite <= 1; rewrite++) {
 			try {
-				BufferedReader br = new BufferedReader(fr);
+				fr = new FileReader(datei + ".txt");
 				try {
+					// List Zeile für Zeile die Datei und buffert diese
+					BufferedReader br = new BufferedReader(fr);
 					int i = 0;
 					do {
 						line = br.readLine();
-						if (line == null||line.trim().length()<2) {
-							break;							
-						}else {
-							linesp = line.split(":");
-							for (int k = 0; k < linesp.length; k++) {
-								list[i][k] = linesp[k];
-							}
+						if (line != null) {
+							zeile = line.split(":");
+							buffer[i] = zeile;
 							i++;
 						}
 					} while (line != null);
 
+					list = new String[i][];
+					for (int k = 0; k < i; k++) {
+						list[k] = buffer[k];
+
+					}
+					br.close();
+					return list;
 				} catch (Exception e) {
 					gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
-				int count = 0;
-				while (list[count][0] != null) {
-					count++;
-				}
-				tlist = new String[count][list[0].length];
-				for (int i = 0; i < tlist.length; i++) {
-					for (int k = 0; k < tlist[0].length;) {
-						tlist[i][k] = list[i][k];
+				rewrite++;
+			} catch (FileNotFoundException e) {
+				PrintWriter pWriter = null;
+				try {
+					pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
+					pWriter.close();
+				} catch (IOException ioe) {
+					if (rewrite != 0) {
+						gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
+//						ioe.printStackTrace();
 					}
 				}
-				br.close();
-				return tlist;
-			} catch (IOException e) {
-				gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-2" + "\n" + e.toString());
-//				e.printStackTrace();
 			}
-		} catch (FileNotFoundException e) {
-			PrintWriter pWriter = null;
-			try {
-				pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
-//				pWriter.close();
-			} catch (IOException ioe) {
-				gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
-//				ioe.printStackTrace();
-			}
-			gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-4"+"   "+datei + "\n" + e.toString());
-			e.printStackTrace();
 		}
+
 		return null;
 	}
-
 }

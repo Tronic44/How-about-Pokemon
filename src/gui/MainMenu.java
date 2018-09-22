@@ -250,10 +250,15 @@ public class MainMenu {
 								}
 							}
 							if (b) {
+								System.out.print("A");
 								Writer.print("teamlist", tF_Teams.getText(), teamname);
+								System.out.print("B");
 								tF_Teams.setText("Gespeichert");
+								System.out.print("C");
 								panel_player.remove(cBTeams);
+								System.out.print("C");
 								teamlist();
+								System.out.print("D");
 							}
 						}
 
