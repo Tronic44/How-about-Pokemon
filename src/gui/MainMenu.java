@@ -272,9 +272,9 @@ public class MainMenu {
 		JButton btnloadteams = new JButton("Laden");
 		btnloadteams.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String read="";
-				for(int k=1;k<teamlist.length;k++) {
-					read= read + teamlist[cBTeams.getSelectedIndex()][k]+"\n";
+				String read = "";
+				for (int k = 1; k < teamlist.length; k++) {
+					read = read + teamlist[cBTeams.getSelectedIndex()][k] + "\n";
 				}
 				ePTeam.setText(read);
 				ePfinalteam.setText(read);
@@ -354,8 +354,16 @@ public class MainMenu {
 		btnSpielerTeams.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelStartDraft.setVisible(false);
+				try {
+					teamlist = client.Writer.read("teamlist");
+				} catch (Exception g) {
+					try {
+						teamlist = client.Writer.read("teamlist");
+					} catch (Exception f) {
 
-				teamlist = client.Writer.read("teamlist");
+					}
+				}
+
 				try {
 					for (int i = 0; i < teamlist.length; i++) {
 						teamname[i] = teamlist[i][0];
@@ -653,7 +661,11 @@ public class MainMenu {
 		try {
 			tierlist = client.Writer.read("tierlist");
 		} catch (Exception e) {
-			tierlist = client.Writer.read("tierlist");
+			try {
+				tierlist = client.Writer.read("tierlist");
+			} catch (Exception f) {
+
+			}
 		}
 		try {
 			tiername = new String[tierlist.length];
@@ -679,7 +691,11 @@ public class MainMenu {
 		try {
 			teamlist = client.Writer.read("teamlist");
 		} catch (Exception e) {
-			teamlist = client.Writer.read("teamlist");
+			try {
+				teamlist = client.Writer.read("teamlist");
+			} catch (Exception f) {
+
+			}
 		}
 		try {
 			teamname = new String[teamlist.length];

@@ -50,7 +50,6 @@ public class Writer {
 			fr = new FileReader(datei + ".txt");
 			try {
 				BufferedReader br = new BufferedReader(fr);
-
 				try {
 					int i = 0;
 					do {
@@ -70,11 +69,10 @@ public class Writer {
 					gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
 					e.printStackTrace();
 				}
-		
 				int count = 0;
-				do {
+				while (list[count][0] != null) {
 					count++;
-				} while (list[count][0] != null);
+				}
 				tlist = new String[count][list[0].length];
 				for (int i = 0; i < tlist.length; i++) {
 					for (int k = 0; k < tlist[0].length;) {
@@ -91,13 +89,13 @@ public class Writer {
 			PrintWriter pWriter = null;
 			try {
 				pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
-				pWriter.close();
+//				pWriter.close();
 			} catch (IOException ioe) {
 				gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
 //				ioe.printStackTrace();
 			}
-			gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-4" + "\n" + e.toString());
-//			e.printStackTrace();
+			gui.Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-4"+"   "+datei + "\n" + e.toString());
+			e.printStackTrace();
 		}
 		return null;
 	}
