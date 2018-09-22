@@ -51,9 +51,13 @@ public class MainMenu {
 	private String[] tiername;
 	private JTextField tF_tiername;
 	private JComboBox<String> cBTierlist;
+	private String[][] teamlist;
+	private String[] teamname;
 	private JEditorPane ePTeam;
 	public String[] Player;
 	private JEditorPane ePfinalteam;
+	private JTextField tF_Teams;
+	private JComboBox cBTeams;
 
 	public static void startMainMenu() {
 		gui.Manage.initPoketier();
@@ -159,14 +163,13 @@ public class MainMenu {
 
 		JButton btnPlayer = new JButton("Bestätige");
 		btnPlayer.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent arg0) {
 				String[] Eingabe = ePTeam.getText().split("\n");
-				System.out.print(Eingabe[1]);
 				int count = 0;
 				for (int i = 0; i < Eingabe.length; i++) {
 					if (Eingabe[i].trim().length() > 1) {
 						count++;
-						System.out.print(Eingabe[i]);
 					}
 				}
 				if ((int) spinner.getValue() == 0) {
@@ -190,12 +193,16 @@ public class MainMenu {
 								}
 							}
 						}
+						teamname = new String[count];
 						String list = "";
 						for (int k = 0; k < Spieler.length; k++) {
 							Player = new String[Spieler.length];
 							Player[k] = Spieler[k];
+							teamname[k] = Player[k] + ":";
 							list = list + (k + 1) + "   " + Player[k] + "\n";
 						}
+						teamname[teamname.length - 1] = teamname[teamname.length - 1].substring(0,
+								teamname[teamname.length - 1].length() - 1);
 						ePfinalteam.setText(list);
 					}
 				}
@@ -206,16 +213,75 @@ public class MainMenu {
 
 		ePfinalteam = new JEditorPane();
 		ePfinalteam.setEditable(false);
-		ePfinalteam.setBounds(207, 52, 176, 479);
+		ePfinalteam.setBounds(207, 52, 176, 293);
 		panel_player.add(ePfinalteam);
-		
+
 		JLabel lblNewLabel = new JLabel("Gespeicherte Teams");
 		lblNewLabel.setBounds(239, 37, 106, 14);
 		panel_player.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Team-Namen");
 		lblNewLabel_1.setBounds(65, 37, 69, 14);
 		panel_player.add(lblNewLabel_1);
+
+		tF_Teams = new JTextField();
+		tF_Teams.setColumns(10);
+		tF_Teams.setBounds(249, 367, 86, 20);
+		panel_player.add(tF_Teams);
+
+		JButton btnsafeteams = new JButton("Speichern");
+		btnsafeteams.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (tF_Teams.getText().equals("") || tF_Teams.getText().equals("Gespeichert")) {
+					gui.Manage.msgbox("Du hast keinen Namen eingegeben");
+					tF_Teams.setText("");
+				} else {
+					if (tF_Teams.getText().contains(":")) {
+						gui.Manage.msgbox("Der Name das keinen Doppelpunkt enthalten");
+					} else {
+						if (ePfinalteam.getText().length() > 2) {
+							Boolean b = true;
+							for (String k : teamname) {
+								if (tF_Teams.getText().equals(k)) {
+									gui.Manage.msgbox("Der Name existiert schon");
+									b = false;
+									break;
+								}
+							}
+							if (b) {
+								Writer.print("teamlist", tF_Teams.getText(), teamname);
+								tF_Teams.setText("Gespeichert");
+								panel_player.remove(cBTeams);
+								teamlist();
+							}
+						}
+
+					}
+				}
+			}
+
+		});
+		btnsafeteams.setBounds(249, 398, 89, 23);
+		panel_player.add(btnsafeteams);
+
+		cBTeams = new JComboBox(new Object[] {});
+		cBTeams.setBounds(234, 469, 124, 28);
+		panel_player.add(cBTeams);
+
+		JButton btnloadteams = new JButton("Laden");
+		btnloadteams.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String read="";
+				for(int k=1;k<teamlist.length;k++) {
+					read= read + teamlist[cBTeams.getSelectedIndex()][k]+"\n";
+				}
+				ePTeam.setText(read);
+				ePfinalteam.setText(read);
+			}
+		});
+		btnloadteams.setBounds(249, 508, 89, 23);
+		panel_player.add(btnloadteams);
 
 	}
 
@@ -270,7 +336,7 @@ public class MainMenu {
 				list.select(0);
 				changetier();
 
-				tierlist = client.Writer.readtierlist();
+				tierlist = client.Writer.read("tierlist");
 				try {
 					for (int i = 0; i < tierlist.length; i++) {
 						tiername[i] = tierlist[i][0];
@@ -288,6 +354,15 @@ public class MainMenu {
 		btnSpielerTeams.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelStartDraft.setVisible(false);
+
+				teamlist = client.Writer.read("teamlist");
+				try {
+					for (int i = 0; i < teamlist.length; i++) {
+						teamname[i] = teamlist[i][0];
+					}
+				} catch (Exception f) {
+
+				}
 				panel_player.setVisible(true);
 
 			}
@@ -500,7 +575,7 @@ public class MainMenu {
 							}
 						}
 						if (b) {
-							Writer.printtierlist(tF_tiername.getText(), data.Data.tierlist);
+							Writer.print("tierlist", tF_tiername.getText(), data.Data.tierlist);
 							tF_tiername.setText("Gespeichert");
 							panel_tierlist.remove(cBTierlist);
 							tierlist();
@@ -512,11 +587,11 @@ public class MainMenu {
 		});
 		btnsafetierlist.setBounds(256, 376, 89, 23);
 		panel_tierlist.add(btnsafetierlist);
-//		
+
 		tierlist();
 
-		JButton btnLaden = new JButton("Laden");
-		btnLaden.addActionListener(new ActionListener() {
+		JButton btnloadtier = new JButton("Laden");
+		btnloadtier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				data.Data.settierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
 				list.select(0);
@@ -524,8 +599,8 @@ public class MainMenu {
 				;
 			}
 		});
-		btnLaden.setBounds(256, 486, 89, 23);
-		panel_tierlist.add(btnLaden);
+		btnloadtier.setBounds(256, 486, 89, 23);
+		panel_tierlist.add(btnloadtier);
 
 		tF_tiername = new JTextField();
 		tF_tiername.setBounds(256, 345, 86, 20);
@@ -576,9 +651,9 @@ public class MainMenu {
 
 	private void tierlist() {
 		try {
-			tierlist = client.Writer.readtierlist();
+			tierlist = client.Writer.read("tierlist");
 		} catch (Exception e) {
-			tierlist = client.Writer.readtierlist();
+			tierlist = client.Writer.read("tierlist");
 		}
 		try {
 			tiername = new String[tierlist.length];
@@ -597,6 +672,31 @@ public class MainMenu {
 		cBTierlist.setBounds(241, 447, 124, 28);
 		panel_tierlist.add(cBTierlist);
 
+	}
+
+	private void teamlist() {
+
+		try {
+			teamlist = client.Writer.read("teamlist");
+		} catch (Exception e) {
+			teamlist = client.Writer.read("teamlist");
+		}
+		try {
+			teamname = new String[teamlist.length];
+			for (int i = 0; i < teamname.length; i++) {
+				try {
+					teamname[i] = teamlist[i][0];
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			teamname = new String[0];
+		}
+
+		cBTeams = new JComboBox(teamname);
+		cBTeams.setBounds(234, 469, 124, 28);
+		panel_player.add(cBTeams);
 	}
 
 	private void changetier() {
