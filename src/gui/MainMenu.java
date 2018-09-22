@@ -58,6 +58,8 @@ public class MainMenu {
 	private JEditorPane ePfinalteam;
 	private JTextField tF_Teams;
 	private JComboBox cBTeams;
+	private boolean teamload = false;
+	private boolean tierload = false;
 
 	public static void startMainMenu() {
 		gui.Manage.initPoketier();
@@ -242,23 +244,20 @@ public class MainMenu {
 					} else {
 						if (ePfinalteam.getText().length() > 2) {
 							Boolean b = true;
-							for (String k : teamname) {
-								if (tF_Teams.getText().equals(k)) {
-									gui.Manage.msgbox("Der Name existiert schon");
-									b = false;
-									break;
+//							if (!teamload) {  das wäre für überschreiben
+								for (String k : teamname) {
+									if (tF_Teams.getText().equals(k)) {
+										gui.Manage.msgbox("Der Name existiert schon");
+										b = false;
+										break;
+									}
 								}
-							}
+//							}
 							if (b) {
-								System.out.print("A");
 								Writer.print("teamlist", tF_Teams.getText(), teamname);
-								System.out.print("B");
 								tF_Teams.setText("Gespeichert");
-								System.out.print("C");
 								panel_player.remove(cBTeams);
-								System.out.print("C");
 								teamlist();
-								System.out.print("D");
 							}
 						}
 
@@ -278,11 +277,11 @@ public class MainMenu {
 		btnloadteams.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String read = "";
-				for (int k = 1; k < teamlist.length; k++) {
+				for (int k = 1; k < teamlist[cBTeams.getSelectedIndex()].length; k++) {
 					read = read + teamlist[cBTeams.getSelectedIndex()][k] + "\n";
 				}
 				ePTeam.setText(read);
-				ePfinalteam.setText(read);
+				ePfinalteam.setText("");
 			}
 		});
 		btnloadteams.setBounds(249, 508, 89, 23);
@@ -340,15 +339,7 @@ public class MainMenu {
 				}
 				list.select(0);
 				changetier();
-
-				tierlist = client.Writer.read("tierlist");
-				try {
-					for (int i = 0; i < tierlist.length; i++) {
-						tiername[i] = tierlist[i][0];
-					}
-				} catch (Exception e) {
-
-				}
+				tierlist();
 				panel_tierlist.setVisible(true);
 
 			}
@@ -357,25 +348,10 @@ public class MainMenu {
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
 		btnSpielerTeams.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent as) {
 				panelStartDraft.setVisible(false);
-				try {
-					teamlist = client.Writer.read("teamlist");
-				} catch (Exception g) {
-					try {
-						teamlist = client.Writer.read("teamlist");
-					} catch (Exception f) {
-
-					}
-				}
-
-				try {
-					for (int i = 0; i < teamlist.length; i++) {
-						teamname[i] = teamlist[i][0];
-					}
-				} catch (Exception f) {
-
-				}
+				panel_player.remove(cBTeams);
+				teamlist();
 				panel_player.setVisible(true);
 
 			}
@@ -666,11 +642,7 @@ public class MainMenu {
 		try {
 			tierlist = client.Writer.read("tierlist");
 		} catch (Exception e) {
-			try {
-				tierlist = client.Writer.read("tierlist");
-			} catch (Exception f) {
 
-			}
 		}
 		try {
 			tiername = new String[tierlist.length];
@@ -692,15 +664,10 @@ public class MainMenu {
 	}
 
 	private void teamlist() {
-
 		try {
 			teamlist = client.Writer.read("teamlist");
 		} catch (Exception e) {
-			try {
-				teamlist = client.Writer.read("teamlist");
-			} catch (Exception f) {
 
-			}
 		}
 		try {
 			teamname = new String[teamlist.length];
