@@ -245,13 +245,13 @@ public class MainMenu {
 						if (ePfinalteam.getText().length() > 2) {
 							Boolean b = true;
 //							if (!teamload) {  das wäre für überschreiben
-								for (String k : teamname) {
-									if (tF_Teams.getText().equals(k)) {
-										gui.Manage.msgbox("Der Name existiert schon");
-										b = false;
-										break;
-									}
+							for (String k : teamname) {
+								if (tF_Teams.getText().equals(k)) {
+									gui.Manage.msgbox("Der Name existiert schon");
+									b = false;
+									break;
 								}
+							}
 //							}
 							if (b) {
 								Writer.print("teamlist", tF_Teams.getText(), teamname);
@@ -642,7 +642,6 @@ public class MainMenu {
 		try {
 			tierlist = client.Writer.read("tierlist");
 		} catch (Exception e) {
-
 		}
 		try {
 			tiername = new String[tierlist.length];
@@ -656,7 +655,11 @@ public class MainMenu {
 		} catch (Exception e) {
 			tiername = new String[0];
 		}
+		try {
+			panel_tierlist.remove(cBTierlist);
+		} catch (Exception e) {
 
+		}
 		cBTierlist = new JComboBox(tiername);
 		cBTierlist.setBounds(241, 447, 124, 28);
 		panel_tierlist.add(cBTierlist);
