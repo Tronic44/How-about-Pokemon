@@ -689,7 +689,10 @@ public class MainMenu {
 		JButton btnsafeteams = new JButton("Speichern");
 		btnsafeteams.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				if(ePfinalteam.getText().toString().length()<1) {
+					Manage.msgbox("Du hast keine Teams bestätigt", frmPokemonDraft);
+					return;
+				}
 				if (tF_Teams.getText().equals("") || tF_Teams.getText().equals("Gespeichert")) {
 					Manage.msgbox("Du hast keinen Namen eingegeben", frmPokemonDraft);
 					tF_Teams.setText("");
@@ -821,7 +824,7 @@ public class MainMenu {
 		btnReihenfolge = new JButton("Reihenfolge");
 		btnReihenfolge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(teamname==null) {
+				if(teamname==null||ePfinalteam.getText().toString().length()<1) {
 					Manage.msgbox("Du kannst nicht ohne Teams eine Reihenfolge bilden", frmPokemonDraft);
 				}else {
 					panelStartDraft.setVisible(false);
@@ -844,8 +847,8 @@ public class MainMenu {
 						count++;
 					}
 				}
-				if (count > 870) {
-					Manage.msgbox("Du hast zu wenige Pokemon ausgewählt, um einen Draft zu starten", frmPokemonDraft);
+				if (count > 880) {
+					Manage.msgbox("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten", frmPokemonDraft);
 					opentierlist();
 					panelStartDraft.setVisible(false);
 					return;
