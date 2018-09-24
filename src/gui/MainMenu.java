@@ -24,6 +24,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 import javax.swing.JList;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
 
 public class MainMenu {
 
@@ -60,6 +62,17 @@ public class MainMenu {
 	private JComboBox cBTeams;
 	private boolean teamload = false;
 	private boolean tierload = false;
+	private JComboBox cBsettings;
+	private JTextField tF2;
+	private JTextField tF3;
+	private JTextField tF4;
+	private JTextField tF5;
+	private JTextField tF1;
+	private JLabel lblTier1;
+	private JLabel lblTier2;
+	private JLabel lblTier3;
+	private JLabel lblTier4;
+	private JLabel lblTier5;
 
 	public static void startMainMenu() {
 		gui.Manage.initPoketier();
@@ -92,6 +105,7 @@ public class MainMenu {
 		inittierlist();
 		initdraft();
 		initplayer();
+		initsettings();
 
 	}
 
@@ -138,21 +152,188 @@ public class MainMenu {
 
 	}
 
+	private void initsettings() {
+
+		JTextPane txtpnAchtungnderungenHier = new JTextPane();
+		txtpnAchtungnderungenHier.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtpnAchtungnderungenHier.setText(
+				"Achtung: Änderungen hier führen zu einer\r\nAnpassung der aktuell eingegenbenen Tierlist. \r\nWenn du das nicht möchtest, speichere sie vorher!");
+		txtpnAchtungnderungenHier.setBounds(32, 11, 323, 51);
+		panel_settings.add(txtpnAchtungnderungenHier);
+
+		JLabel lblWieVieleTiers = new JLabel("Wie viele Tiers soll es geben?");
+		lblWieVieleTiers.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblWieVieleTiers.setBounds(156, 104, 180, 17);
+		panel_settings.add(lblWieVieleTiers);
+		
+		
+		cBsettings = new JComboBox(new String[] { "1", "2", "3", "4", "5" });
+		cBsettings.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				tF1.setEditable(false);
+				tF2.setEditable(false);
+				tF3.setEditable(false);
+				tF4.setEditable(false);
+				tF5.setEditable(false);
+				switch(cBsettings.getSelectedIndex()) {
+				case 0:
+					tF1.setEditable(true);
+					tF2.setText("");
+					tF3.setText("");
+					tF4.setText("");
+					tF5.setText("");
+					break;
+				case 1:
+					tF1.setEditable(true);
+					tF2.setEditable(true);
+					tF3.setText("");
+					tF4.setText("");
+					tF5.setText("");
+					break;
+				case 2:
+					tF1.setEditable(true);
+					tF2.setEditable(true);
+					tF3.setEditable(true);
+					tF4.setText("");
+					tF5.setText("");
+					break;
+				case 3: 
+					tF1.setEditable(true);
+					tF2.setEditable(true);
+					tF3.setEditable(true);
+					tF4.setEditable(true);
+					tF5.setText("");
+					break;
+				case 4: 
+					tF1.setEditable(true);
+					tF2.setEditable(true);
+					tF3.setEditable(true);
+					tF4.setEditable(true);
+					tF5.setEditable(true);
+					break;
+				default:
+					break;
+				}
+			}
+
+		});
+		cBsettings.setBounds(32, 104, 114, 20);
+		panel_settings.add(cBsettings);
+
+		JButton btnsafetier = new JButton("Bestätige");
+		btnsafetier.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				switch(cBsettings.getSelectedIndex()) {
+				case 0:
+					radioButtonS.setText(tF1.getText());
+					break;
+				case 1:
+					radioButtonS.setText(tF1.getText());
+					radioButtonA.setText(tF2.getText());
+					break;
+				case 2:
+					radioButtonS.setText(tF1.getText());
+					radioButtonA.setText(tF2.getText());
+					radioButtonB.setText(tF3.getText());
+					break;
+				case 3: 
+					radioButtonS.setText(tF1.getText());
+					radioButtonA.setText(tF2.getText());
+					radioButtonB.setText(tF3.getText());
+					radioButtonC.setText(tF4.getText());
+					break;
+				case 4: 
+					radioButtonS.setText(tF1.getText());
+					radioButtonA.setText(tF2.getText());
+					radioButtonB.setText(tF3.getText());
+					radioButtonC.setText(tF4.getText());
+					radioButtonD.setText(tF5.getText());
+					break;
+				default:
+					break;
+				}
+				Manage.initPoketier();
+				
+
+			}
+		});
+		btnsafetier.setBounds(67, 394, 89, 23);
+		panel_settings.add(btnsafetier);
+		
+		lblTier1 = new JLabel("Tier 1:");
+		lblTier1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier1.setBounds(32, 181, 56, 17);
+		panel_settings.add(lblTier1);
+		
+		lblTier2 = new JLabel("Tier 2:");
+		lblTier2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier2.setBounds(32, 221, 56, 17);
+		panel_settings.add(lblTier2);
+		
+		lblTier3 = new JLabel("Tier 3:");
+		lblTier3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier3.setBounds(32, 262, 56, 17);
+		panel_settings.add(lblTier3);
+		
+		lblTier4 = new JLabel("Tier 4:");
+		lblTier4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier4.setBounds(32, 302, 56, 17);
+		panel_settings.add(lblTier4);
+		
+		lblTier5 = new JLabel("Tier 5:");
+		lblTier5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier5.setBounds(32, 345, 56, 17);
+		panel_settings.add(lblTier5);
+		
+		tF2 = new JTextField();
+		tF2.setColumns(10);
+		tF2.setBounds(98, 221, 86, 20);
+		panel_settings.add(tF2);
+		
+		tF3 = new JTextField();
+		tF3.setColumns(10);
+		tF3.setBounds(98, 262, 86, 20);
+		panel_settings.add(tF3);
+		
+		tF4 = new JTextField();
+		tF4.setColumns(10);
+		tF4.setBounds(98, 302, 86, 20);
+		panel_settings.add(tF4);
+		
+		tF5 = new JTextField();
+		tF5.setColumns(10);
+		tF5.setBounds(98, 345, 86, 20);
+		panel_settings.add(tF5);
+		
+		tF1 = new JTextField();
+		tF1.setColumns(10);
+		tF1.setBounds(98, 181, 86, 20);
+		panel_settings.add(tF1);
+
+		tF2.setEditable(false);
+		tF3.setEditable(false);
+		tF4.setEditable(false);
+		tF5.setEditable(false);
+		
+	}
+
 	private void initplayer() {
-		JSpinner spinner = new JSpinner();
-		spinner.addChangeListener(new ChangeListener() {
+		JSpinner spinnerteam = new JSpinner();
+		spinnerteam.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				int count = (int) spinner.getValue();
+				int count = (int) spinnerteam.getValue();
 				if (count < 0) {
-					spinner.setValue(0);
+					spinnerteam.setValue(0);
 				} else {
 					Player = new String[count];
 				}
 
 			}
 		});
-		spinner.setBounds(22, 11, 50, 20);
-		panel_player.add(spinner);
+		spinnerteam.setBounds(22, 11, 50, 20);
+		panel_player.add(spinnerteam);
 
 		JLabel lblSpieleranzahl = new JLabel("Team-Anzahl");
 		lblSpieleranzahl.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -174,10 +355,10 @@ public class MainMenu {
 						count++;
 					}
 				}
-				if ((int) spinner.getValue() == 0) {
+				if ((int) spinnerteam.getValue() == 0) {
 					Manage.msgbox("Du willst doch nicht ohne auch nur ein Team spielen, oder?");
 				} else {
-					if (count != (int) spinner.getValue()) {
+					if (count != (int) spinnerteam.getValue()) {
 						Manage.msgbox("Deine Liste Stimmt nicht mit der Team Anzahl überein" + "\n"
 								+ "Denk dran: Teams haben niemals nur einen Buchstaben!");
 					} else {
