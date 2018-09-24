@@ -30,7 +30,7 @@ import javax.swing.JSeparator;
 
 public class MainMenu {
 
-	private JFrame frame;
+	private JFrame frmPokemonDraft;
 	private JPanel panelMainMenu;
 	private JPanel panelStartDraft;
 	private JPanel panelLoadDraft;
@@ -96,7 +96,7 @@ public class MainMenu {
 			public void run() {
 				try {
 					MainMenu window = new MainMenu();
-					window.frame.setVisible(true);
+					window.frmPokemonDraft.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -109,10 +109,13 @@ public class MainMenu {
 	}
 
 	private void openMainMenu() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 409, 640);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new CardLayout(0, 0));
+		frmPokemonDraft = new JFrame();
+		frmPokemonDraft.setTitle("Pokemon Draft        Alpha by Tronic44");
+		frmPokemonDraft.setResizable(false);
+		frmPokemonDraft.setBounds(100, 100, 409, 640);
+		frmPokemonDraft.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPokemonDraft.getContentPane().setLayout(new CardLayout(0, 0));
+//		frame.
 
 		initpanel();
 		initmenu();
@@ -127,42 +130,42 @@ public class MainMenu {
 
 	private void initpanel() {
 		panelMainMenu = new JPanel();
-		frame.getContentPane().add(panelMainMenu, "name_526992955635103");
+		frmPokemonDraft.getContentPane().add(panelMainMenu, "name_526992955635103");
 		panelMainMenu.setLayout(null);
 		panelMainMenu.setVisible(true);
 
 		panelStartDraft = new JPanel();
-		frame.getContentPane().add(panelStartDraft, "name_527021172921335");
+		frmPokemonDraft.getContentPane().add(panelStartDraft, "name_527021172921335");
 		panelStartDraft.setLayout(null);
 		panelStartDraft.setVisible(false);
 
 		panelLoadDraft = new JPanel();
-		frame.getContentPane().add(panelLoadDraft, "name_527666975961040");
+		frmPokemonDraft.getContentPane().add(panelLoadDraft, "name_527666975961040");
 		panelLoadDraft.setLayout(null);
 		panelLoadDraft.setVisible(false);
 
 		panel_tierlist = new JPanel();
-		frame.getContentPane().add(panel_tierlist, "name_2032838076395");
+		frmPokemonDraft.getContentPane().add(panel_tierlist, "name_2032838076395");
 		panel_tierlist.setLayout(null);
 		panel_tierlist.setVisible(false);
 
 		panel_player = new JPanel();
-		frame.getContentPane().add(panel_player, "name_601620298180688");
+		frmPokemonDraft.getContentPane().add(panel_player, "name_601620298180688");
 		panel_player.setVisible(false);
 		panel_player.setLayout(null);
 
 		panel_settings = new JPanel();
-		frame.getContentPane().add(panel_settings, "name_601636768594680");
+		frmPokemonDraft.getContentPane().add(panel_settings, "name_601636768594680");
 		panel_settings.setVisible(false);
 		panel_settings.setLayout(null);
 
 		panel_order = new JPanel();
-		frame.getContentPane().add(panel_order, "name_601652242106220");
+		frmPokemonDraft.getContentPane().add(panel_order, "name_601652242106220");
 		panel_order.setVisible(false);
 		panel_order.setLayout(null);
 
 		panel_draft = new JPanel();
-		frame.getContentPane().add(panel_draft, "name_2679324427935");
+		frmPokemonDraft.getContentPane().add(panel_draft, "name_2679324427935");
 		panel_draft.setLayout(null);
 		panel_draft.setLayout(null);
 
@@ -845,7 +848,7 @@ public class MainMenu {
 
 	private void initmenubar() {
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmPokemonDraft.setJMenuBar(menuBar);
 
 		JButton btnMainmenu = new JButton("MainMen\u00FC");
 		btnMainmenu.addActionListener(new ActionListener() {
