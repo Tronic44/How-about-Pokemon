@@ -18,11 +18,11 @@ public class Manage {
 	}
 
 	public static void msgbox(String s) {
-		JOptionPane.showMessageDialog(null, s, "Da ist was schief gelaufen", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, s, "Da ist was schief gelaufen", JOptionPane.ERROR_MESSAGE);
 	}
 
 	public static void msgboxerf(String s) {
-		JOptionPane.showMessageDialog(null, s, "Aktion erfolgreich", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, s, "Aktion erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }

@@ -889,7 +889,7 @@ public class MainMenu {
 		lblPokemon.setBounds(10, 0, 73, 28);
 		panel_tierlist.add(lblPokemon);
 
-		List list = new List();
+		list = new List();
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
