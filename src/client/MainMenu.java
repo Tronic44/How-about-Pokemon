@@ -1,4 +1,4 @@
-package gui;
+package client;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -11,8 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-
 import java.awt.List;
 import javax.swing.JTextField;
 import client.Writer;
@@ -23,25 +21,24 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
-import javax.swing.JList;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.AncestorEvent;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
+import javax.swing.JSeparator;
 
 public class MainMenu {
 
-	public static JOptionPane alert;
 	private JFrame frame;
 	private JPanel panelMainMenu;
 	private JPanel panelStartDraft;
 	private JPanel panelLoadDraft;
 	private JPanel panel_tierlist;
+	private JPanel panel_draft;
+	private JPanel panel_player;
+	private JPanel panel_settings;
+	private JPanel panel_order;	
 	private List list;
 	private JTextField tFPoke;
 	private JRadioButton radioButtonS;
@@ -53,10 +50,6 @@ public class MainMenu {
 	private JRadioButton radioButtonX;
 	private JRadioButton radioButtonnull;
 	private ButtonGroup tierlistbuttongruppe;
-	private JPanel panel_draft;
-	private JPanel panel_player;
-	private JPanel panel_settings;
-	private JPanel panel_order;
 	private String[][] tierlist;
 	private String[] tiername;
 	private JTextField tF_tiername;
@@ -98,7 +91,7 @@ public class MainMenu {
 	private JLabel lblbest;
 
 	public static void startMainMenu() {
-		gui.Manage.initPoketier();
+		Manage.initPoketier();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -176,6 +169,39 @@ public class MainMenu {
 	}
 
 	private void initsettings() {
+		lblTier1 = new JLabel("S:");
+		lblTier1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier1.setBounds(32, 83, 56, 17);
+		panel_settings.add(lblTier1);
+
+		lblTier2 = new JLabel("A:");
+		lblTier2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier2.setBounds(32, 123, 56, 17);
+		panel_settings.add(lblTier2);
+
+		lblTier3 = new JLabel("B:");
+		lblTier3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier3.setBounds(32, 164, 56, 17);
+		panel_settings.add(lblTier3);
+
+		lblTier4 = new JLabel("C:");
+		lblTier4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier4.setBounds(32, 204, 56, 17);
+		panel_settings.add(lblTier4);
+
+		lblTier5 = new JLabel("D:");
+		lblTier5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier5.setBounds(32, 247, 56, 17);
+		panel_settings.add(lblTier5);
+
+		lblbest = new JLabel("");
+		lblbest.setBounds(204, 341, 139, 14);
+		panel_settings.add(lblbest);
+		
+		lblTier6 = new JLabel("E:");
+		lblTier6.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier6.setBounds(32, 290, 56, 17);
+		panel_settings.add(lblTier6);
 
 		JTextPane txtpnAchtungnderungenHier = new JTextPane();
 		txtpnAchtungnderungenHier.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -188,38 +214,41 @@ public class MainMenu {
 		btnsafetier.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected() && !cBD.isSelected()
-						&& !cBE.isSelected()) {
+				if (Data.tierlistclone == null) {
+					Data.tierlistclone = Data.tierlist.clone();
+				}
+				if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected()
+						&& !cBD.isSelected() && !cBE.isSelected()) {
 					Manage.msgbox("Kein Tier? So geht das aber nicht!");
 					return;
 				}
-				if(cBS.isSelected()&&tF1.getText().trim().length()<1) {
+				if (cBS.isSelected() && tF1.getText().trim().length() < 1) {
 					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
 					return;
 				}
-				if(cBA.isSelected()&&tF2.getText().trim().length()<1) {
+				if (cBA.isSelected() && tF2.getText().trim().length() < 1) {
 					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
 					return;
 				}
-				if(cBB.isSelected()&&tF3.getText().trim().length()<1) {
+				if (cBB.isSelected() && tF3.getText().trim().length() < 1) {
 					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
 					return;
 				}
-				if(cBC.isSelected()&&tF4.getText().trim().length()<1) {
+				if (cBC.isSelected() && tF4.getText().trim().length() < 1) {
 					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
 					return;
 				}
-				if(cBD.isSelected()&&tF5.getText().trim().length()<1) {
+				if (cBD.isSelected() && tF5.getText().trim().length() < 1) {
 					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
 					return;
 				}
-				if(cBE.isSelected()&&tF6.getText().trim().length()<1) {
+				if (cBE.isSelected() && tF6.getText().trim().length() < 1) {
 					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
 					return;
 				}
-				
+
 				int count = 0;
-				if (cBS.isSelected()) {				
+				if (cBS.isSelected()) {
 					radioButtonS.setEnabled(true);
 					radioButtonS.setText(tF1.getText());
 				} else {
@@ -268,50 +297,48 @@ public class MainMenu {
 					count++;
 				}
 				for (int i = 0; i < count; i++) {
-					for (int k =0;k<data.Data.tierlist.length;k++) {
-						switch (data.Data.tierlist[k]) {
+					for (int k = 0; k < Data.tierlist.length; k++) {
+						switch (Data.tierlist[k]) {
 						case 'S':
 							if (lblTierS.getText().equals("wird gebannt")) {
-								System.out.print(data.Data.tierlist[k]);
-								data.Data.tierlist[k] = 'X';
-								System.out.print(data.Data.tierlist[k]+" ");
-								}
+								Data.tierlist[k] = 'X';
+							}
 							break;
 						case 'A':
 							if (lblTierA.getText().equals("wird gebannt")) {
-								data.Data.tierlist[k] = 'X';
+								Data.tierlist[k] = 'X';
 							}
 							if (lblTierA.getText().equals("wird hochgestuft")) {
-								data.Data.tierlist[k] = 'S';
+								Data.tierlist[k] = 'S';
 							}
 							break;
 						case 'B':
 							if (lblTierB.getText().equals("wird gebannt")) {
-								data.Data.tierlist[k] = 'X';
+								Data.tierlist[k] = 'X';
 							}
 							if (lblTierB.getText().equals("wird hochgestuft")) {
-								data.Data.tierlist[k] = 'A';
+								Data.tierlist[k] = 'A';
 							}
 							break;
 						case 'C':
 							if (lblTierC.getText().equals("wird gebannt")) {
-								data.Data.tierlist[k] = 'X';
+								Data.tierlist[k] = 'X';
 							}
 							if (lblTierC.getText().equals("wird hochgestuft")) {
-								data.Data.tierlist[k]= 'B';
+								Data.tierlist[k] = 'B';
 							}
 							break;
 						case 'D':
 							if (lblTierD.getText().equals("wird gebannt")) {
-								data.Data.tierlist[k] = 'X';
+								Data.tierlist[k] = 'X';
 							}
 							if (lblTierD.getText().equals("wird hochgestuft")) {
-								data.Data.tierlist[k] = 'C';
+								Data.tierlist[k] = 'C';
 							}
 							break;
 						case 'E':
 							if (lblTierE.getText().equals("wird hochgestuft")) {
-								data.Data.tierlist[k] = 'D';
+								Data.tierlist[k] = 'D';
 							}
 							break;
 						default:
@@ -323,38 +350,12 @@ public class MainMenu {
 				lblbest.setText("Änderungen wurden übernommen!");
 			}
 		});
-		btnsafetier.setBounds(69, 435, 89, 23);
+		btnsafetier.setBounds(69, 337, 89, 23);
 		panel_settings.add(btnsafetier);
 
-		lblTier1 = new JLabel("S:");
-		lblTier1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier1.setBounds(32, 181, 56, 17);
-		panel_settings.add(lblTier1);
 
-		lblTier2 = new JLabel("A:");
-		lblTier2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier2.setBounds(32, 221, 56, 17);
-		panel_settings.add(lblTier2);
 
-		lblTier3 = new JLabel("B:");
-		lblTier3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier3.setBounds(32, 262, 56, 17);
-		panel_settings.add(lblTier3);
 
-		lblTier4 = new JLabel("C:");
-		lblTier4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier4.setBounds(32, 302, 56, 17);
-		panel_settings.add(lblTier4);
-
-		lblTier5 = new JLabel("D:");
-		lblTier5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier5.setBounds(32, 345, 56, 17);
-		panel_settings.add(lblTier5);
-
-		lblbest = new JLabel("");
-		lblbest.setBounds(204, 439, 139, 14);
-		panel_settings.add(lblbest);
-		
 		tF2 = new JTextField();
 		tF2.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent arg0) {
@@ -362,7 +363,7 @@ public class MainMenu {
 			}
 		});
 		tF2.setColumns(10);
-		tF2.setBounds(98, 221, 86, 20);
+		tF2.setBounds(98, 123, 86, 20);
 		panel_settings.add(tF2);
 
 		tF3 = new JTextField();
@@ -372,7 +373,7 @@ public class MainMenu {
 			}
 		});
 		tF3.setColumns(10);
-		tF3.setBounds(98, 262, 86, 20);
+		tF3.setBounds(98, 164, 86, 20);
 		panel_settings.add(tF3);
 
 		tF4 = new JTextField();
@@ -382,7 +383,7 @@ public class MainMenu {
 			}
 		});
 		tF4.setColumns(10);
-		tF4.setBounds(98, 302, 86, 20);
+		tF4.setBounds(98, 204, 86, 20);
 		panel_settings.add(tF4);
 
 		tF5 = new JTextField();
@@ -392,7 +393,7 @@ public class MainMenu {
 			}
 		});
 		tF5.setColumns(10);
-		tF5.setBounds(98, 345, 86, 20);
+		tF5.setBounds(98, 247, 86, 20);
 		panel_settings.add(tF5);
 
 		tF1 = new JTextField();
@@ -402,13 +403,8 @@ public class MainMenu {
 			}
 		});
 		tF1.setColumns(10);
-		tF1.setBounds(98, 181, 86, 20);
+		tF1.setBounds(98, 83, 86, 20);
 		panel_settings.add(tF1);
-
-		lblTier6 = new JLabel("E:");
-		lblTier6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier6.setBounds(32, 388, 56, 17);
-		panel_settings.add(lblTier6);
 
 		tF6 = new JTextField();
 		tF6.addCaretListener(new CaretListener() {
@@ -417,7 +413,7 @@ public class MainMenu {
 			}
 		});
 		tF6.setColumns(10);
-		tF6.setBounds(98, 388, 86, 20);
+		tF6.setBounds(98, 290, 86, 20);
 		panel_settings.add(tF6);
 
 		tF1.setEditable(false);
@@ -428,31 +424,29 @@ public class MainMenu {
 		tF6.setEditable(false);
 
 		lblTierS = new JLabel("");
-		lblTierS.setBounds(204, 184, 151, 14);
+		lblTierS.setBounds(204, 86, 151, 14);
 		panel_settings.add(lblTierS);
 
 		lblTierA = new JLabel("");
-		lblTierA.setBounds(204, 224, 151, 14);
+		lblTierA.setBounds(204, 126, 151, 14);
 		panel_settings.add(lblTierA);
 
 		lblTierB = new JLabel("");
-		lblTierB.setBounds(204, 265, 151, 14);
+		lblTierB.setBounds(204, 167, 151, 14);
 		panel_settings.add(lblTierB);
 
 		lblTierC = new JLabel("");
-		lblTierC.setBounds(204, 305, 151, 14);
+		lblTierC.setBounds(204, 207, 151, 14);
 		panel_settings.add(lblTierC);
 
 		lblTierD = new JLabel("");
-		lblTierD.setBounds(204, 348, 151, 14);
+		lblTierD.setBounds(204, 250, 151, 14);
 		panel_settings.add(lblTierD);
 
 		lblTierE = new JLabel("");
-		lblTierE.setBounds(204, 391, 151, 14);
+		lblTierE.setBounds(204, 293, 151, 14);
 		panel_settings.add(lblTierE);
-		
 
-		
 		cBS = new JCheckBox("");
 		cBS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -465,7 +459,7 @@ public class MainMenu {
 				changesetting();
 			}
 		});
-		cBS.setBounds(67, 181, 21, 23);
+		cBS.setBounds(67, 83, 21, 23);
 		panel_settings.add(cBS);
 
 		cBA = new JCheckBox("");
@@ -481,7 +475,7 @@ public class MainMenu {
 				changesetting();
 			}
 		});
-		cBA.setBounds(67, 220, 21, 23);
+		cBA.setBounds(67, 122, 21, 23);
 		panel_settings.add(cBA);
 
 		cBB = new JCheckBox("");
@@ -497,7 +491,7 @@ public class MainMenu {
 				changesetting();
 			}
 		});
-		cBB.setBounds(67, 261, 21, 23);
+		cBB.setBounds(67, 163, 21, 23);
 		panel_settings.add(cBB);
 
 		cBC = new JCheckBox("");
@@ -513,7 +507,7 @@ public class MainMenu {
 				changesetting();
 			}
 		});
-		cBC.setBounds(67, 301, 21, 23);
+		cBC.setBounds(67, 203, 21, 23);
 		panel_settings.add(cBC);
 
 		cBD = new JCheckBox("");
@@ -529,7 +523,7 @@ public class MainMenu {
 				changesetting();
 			}
 		});
-		cBD.setBounds(67, 344, 21, 23);
+		cBD.setBounds(67, 246, 21, 23);
 		panel_settings.add(cBD);
 
 		cBE = new JCheckBox("");
@@ -545,10 +539,56 @@ public class MainMenu {
 				changesetting();
 			}
 		});
-		cBE.setBounds(67, 387, 21, 23);
+		cBE.setBounds(67, 289, 21, 23);
 		panel_settings.add(cBE);
-		
 
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 383, 393, 2);
+		panel_settings.add(separator);
+
+		JTextPane txtpnResetetDieOben = new JTextPane();
+		txtpnResetetDieOben.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtpnResetetDieOben.setText(
+				"Resetet die oben gemachten Einstellungen auf den Urspungswert.\r\nKann gemachte Änderungen an der Tierlist nicht rückgängig machen!");
+		txtpnResetetDieOben.setEditable(false);
+		txtpnResetetDieOben.setBounds(24, 396, 148, 144);
+		panel_settings.add(txtpnResetetDieOben);
+
+		JTextPane txtpnStelltDieEinstellungen = new JTextPane();
+		txtpnStelltDieEinstellungen.setText(
+				"Stellt die Einstellungen oben auf Standart zurück und setzt die Tierlist auf dem Wert, bevor du das erste mal hier was geändert hast!");
+		txtpnStelltDieEinstellungen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtpnStelltDieEinstellungen.setEditable(false);
+		txtpnStelltDieEinstellungen.setBounds(207, 396, 148, 144);
+		panel_settings.add(txtpnStelltDieEinstellungen);
+
+		JButton btnresettier = new JButton("RESET");
+		btnresettier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				resetsettings();
+				Manage.msgboxerf("Erfolgreich Resetet!");
+			}
+		});
+		btnresettier.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnresettier.setBounds(50, 542, 89, 23);
+		panel_settings.add(btnresettier);
+
+		JButton btnrestoretier = new JButton("RESTORE");
+		btnrestoretier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Data.tierlist = Data.tierlistclone.clone();
+					Data.tierlistclone = null;
+					resetsettings();
+					Manage.msgboxerf("Erfolgreich wiederhergestellt!");
+				} catch (Exception f) {
+					Manage.msgbox("Nichts zum wiederherstellen gefunden!");
+				}
+			}
+		});
+		btnrestoretier.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnrestoretier.setBounds(236, 542, 89, 23);
+		panel_settings.add(btnrestoretier);
 
 	}
 
@@ -650,18 +690,18 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (tF_Teams.getText().equals("") || tF_Teams.getText().equals("Gespeichert")) {
-					gui.Manage.msgbox("Du hast keinen Namen eingegeben");
+					Manage.msgbox("Du hast keinen Namen eingegeben");
 					tF_Teams.setText("");
 				} else {
 					if (tF_Teams.getText().contains(":")) {
-						gui.Manage.msgbox("Der Name das keinen Doppelpunkt enthalten");
+						Manage.msgbox("Der Name das keinen Doppelpunkt enthalten");
 					} else {
 						if (ePfinalteam.getText().length() > 2) {
 							Boolean b = true;
 //							if (!teamload) {  das wäre für überschreiben
 							for (String k : teamname) {
 								if (tF_Teams.getText().equals(k)) {
-									gui.Manage.msgbox("Der Name existiert schon");
+									Manage.msgbox("Der Name existiert schon");
 									b = false;
 									break;
 								}
@@ -749,8 +789,8 @@ public class MainMenu {
 		btnTierlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelStartDraft.setVisible(false);
-				for (int i = 0; i < data.Data.getPokedex().length; i++) {
-					list.add(data.Data.getPokedex(i));
+				for (int i = 0; i < Data.getPokedex().length; i++) {
+					list.add(Data.getPokedex(i));
 				}
 				list.select(0);
 				changetier();
@@ -852,7 +892,7 @@ public class MainMenu {
 		lblPokemon.setBounds(10, 0, 73, 28);
 		panel_tierlist.add(lblPokemon);
 
-		list = new List();
+		List list = new List();
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -873,8 +913,8 @@ public class MainMenu {
 		radioButtonS = new JRadioButton("S");
 		radioButtonS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.tierlist[list.getSelectedIndex()] = 'S';
-				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+				Data.tierlist[list.getSelectedIndex()] = 'S';
+				if (list.getSelectedIndex() < Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
@@ -887,8 +927,8 @@ public class MainMenu {
 		radioButtonA = new JRadioButton("A");
 		radioButtonA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.tierlist[list.getSelectedIndex()] = 'A';
-				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+				Data.tierlist[list.getSelectedIndex()] = 'A';
+				if (list.getSelectedIndex() < Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
@@ -901,8 +941,8 @@ public class MainMenu {
 		radioButtonB = new JRadioButton("B");
 		radioButtonB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.tierlist[list.getSelectedIndex()] = 'B';
-				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+				Data.tierlist[list.getSelectedIndex()] = 'B';
+				if (list.getSelectedIndex() < Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
@@ -915,8 +955,8 @@ public class MainMenu {
 		radioButtonC = new JRadioButton("C");
 		radioButtonC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.tierlist[list.getSelectedIndex()] = 'C';
-				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+				Data.tierlist[list.getSelectedIndex()] = 'C';
+				if (list.getSelectedIndex() < Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
@@ -929,8 +969,8 @@ public class MainMenu {
 		radioButtonD = new JRadioButton("D");
 		radioButtonD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.tierlist[list.getSelectedIndex()] = 'D';
-				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+				Data.tierlist[list.getSelectedIndex()] = 'D';
+				if (list.getSelectedIndex() < Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
@@ -943,8 +983,8 @@ public class MainMenu {
 		radioButtonX = new JRadioButton("Banned");
 		radioButtonX.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.tierlist[list.getSelectedIndex()] = 'X';
-				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+				Data.tierlist[list.getSelectedIndex()] = 'X';
+				if (list.getSelectedIndex() < Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
@@ -964,23 +1004,23 @@ public class MainMenu {
 		btnsafetierlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (tF_tiername.getText().equals("") || tF_tiername.getText().equals("Gespeichert")) {
-					gui.Manage.msgbox("Du hast keinen Namen eingegeben");
+					Manage.msgbox("Du hast keinen Namen eingegeben");
 					tF_tiername.setText("");
 				} else {
 					if (tF_tiername.getText().contains(":")) {
-						gui.Manage.msgbox("Der Name das keinen Doppelpunkt enthalten");
+						Manage.msgbox("Der Name das keinen Doppelpunkt enthalten");
 
 					} else {
 						Boolean b = true;
 						for (String k : tiername) {
 							if (tF_tiername.getText().equals(k)) {
-								gui.Manage.msgbox("Der Name existiert schon");
+								Manage.msgbox("Der Name existiert schon");
 								b = false;
 								break;
 							}
 						}
 						if (b) {
-							Writer.print("tierlist", tF_tiername.getText(), data.Data.tierlist);
+							Writer.print("tierlist", tF_tiername.getText(), Data.tierlist);
 							tF_tiername.setText("Gespeichert");
 							panel_tierlist.remove(cBTierlist);
 							tierlist();
@@ -998,7 +1038,7 @@ public class MainMenu {
 		JButton btnloadtier = new JButton("Laden");
 		btnloadtier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				data.Data.settierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
+				Data.settierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
 				list.select(0);
 				changetier();
 				;
@@ -1015,8 +1055,8 @@ public class MainMenu {
 		radioButtonE = new JRadioButton("E");
 		radioButtonE.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				data.Data.tierlist[list.getSelectedIndex()] = 'E';
-				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+				Data.tierlist[list.getSelectedIndex()] = 'E';
+				if (list.getSelectedIndex() < Data.getPokedex().length)
 					list.select(list.getSelectedIndex() + 1);
 				changetier();
 			}
@@ -1121,7 +1161,7 @@ public class MainMenu {
 
 	private void changetier() {
 		tFPoke.setText(list.getSelectedItem());
-		switch (data.Data.tierlist[list.getSelectedIndex()]) {
+		switch (Data.tierlist[list.getSelectedIndex()]) {
 		case 'S':
 			radioButtonS.setSelected(true);
 			break;
@@ -1257,5 +1297,39 @@ public class MainMenu {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	private void resetsettings() {
+		cBS.setSelected(false);
+		cBA.setSelected(false);
+		cBB.setSelected(false);
+		cBC.setSelected(false);
+		cBD.setSelected(false);
+		cBE.setSelected(false);
+		changesetting();
+		radioButtonS.setEnabled(true);
+		radioButtonA.setEnabled(true);
+		radioButtonB.setEnabled(true);
+		radioButtonC.setEnabled(true);
+		radioButtonD.setEnabled(true);
+		radioButtonE.setEnabled(true);
+		radioButtonS.setText("S");
+		radioButtonA.setText("A");
+		radioButtonB.setText("B");
+		radioButtonC.setText("C");
+		radioButtonD.setText("D");
+		radioButtonE.setText("E");
+		tF1.setText("");
+		tF2.setText("");
+		tF3.setText("");
+		tF4.setText("");
+		tF5.setText("");
+		tF6.setText("");
+		tF1.setEditable(false);
+		tF2.setEditable(false);
+		tF3.setEditable(false);
+		tF4.setEditable(false);
+		tF5.setEditable(false);
+		tF6.setEditable(false);
 	}
 }

@@ -1,4 +1,4 @@
-package data;
+package client;
 
 public class Data {
 
@@ -122,9 +122,10 @@ public class Data {
 			"Necrozma Ultra", "Magearna", "Marshadow", "Venicro", "Agoyon", "Muramura", "Kopplosio", "Zeraora" };
 
 	public static char[] tierlist = new char[Pokedex.length];
-	
+
 	public static void settierlist(char[] a) {
-		tierlist=a;
+		tierlist = a;
 	}
 
+	public static char[] tierlistclone;
 }
