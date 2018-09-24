@@ -26,6 +26,13 @@ import javax.swing.JTextPane;
 import javax.swing.JList;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.AncestorEvent;
+import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class MainMenu {
 
@@ -42,6 +49,7 @@ public class MainMenu {
 	private JRadioButton radioButtonB;
 	private JRadioButton radioButtonC;
 	private JRadioButton radioButtonD;
+	private JRadioButton radioButtonE;
 	private JRadioButton radioButtonX;
 	private JRadioButton radioButtonnull;
 	private ButtonGroup tierlistbuttongruppe;
@@ -62,7 +70,6 @@ public class MainMenu {
 	private JComboBox cBTeams;
 	private boolean teamload = false;
 	private boolean tierload = false;
-	private JComboBox cBsettings;
 	private JTextField tF2;
 	private JTextField tF3;
 	private JTextField tF4;
@@ -73,6 +80,22 @@ public class MainMenu {
 	private JLabel lblTier3;
 	private JLabel lblTier4;
 	private JLabel lblTier5;
+	private JLabel lblTier6;
+	private JTextField tF6;
+	private JCheckBox cBS;
+	private JCheckBox cBA;
+	private JCheckBox cBB;
+	private JCheckBox cBC;
+	private JCheckBox cBD;
+	private JCheckBox cBE;
+	private boolean[] change = new boolean[6];
+	private JLabel lblTierS;
+	private JLabel lblTierA;
+	private JLabel lblTierB;
+	private JLabel lblTierC;
+	private JLabel lblTierD;
+	private JLabel lblTierE;
+	private JLabel lblbest;
 
 	public static void startMainMenu() {
 		gui.Manage.initPoketier();
@@ -161,162 +184,372 @@ public class MainMenu {
 		txtpnAchtungnderungenHier.setBounds(32, 11, 323, 51);
 		panel_settings.add(txtpnAchtungnderungenHier);
 
-		JLabel lblWieVieleTiers = new JLabel("Wie viele Tiers soll es geben?");
-		lblWieVieleTiers.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblWieVieleTiers.setBounds(156, 104, 180, 17);
-		panel_settings.add(lblWieVieleTiers);
-		
-		
-		cBsettings = new JComboBox(new String[] { "1", "2", "3", "4", "5" });
-		cBsettings.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-				tF1.setEditable(false);
-				tF2.setEditable(false);
-				tF3.setEditable(false);
-				tF4.setEditable(false);
-				tF5.setEditable(false);
-				switch(cBsettings.getSelectedIndex()) {
-				case 0:
-					tF1.setEditable(true);
-					tF2.setText("");
-					tF3.setText("");
-					tF4.setText("");
-					tF5.setText("");
-					break;
-				case 1:
-					tF1.setEditable(true);
-					tF2.setEditable(true);
-					tF3.setText("");
-					tF4.setText("");
-					tF5.setText("");
-					break;
-				case 2:
-					tF1.setEditable(true);
-					tF2.setEditable(true);
-					tF3.setEditable(true);
-					tF4.setText("");
-					tF5.setText("");
-					break;
-				case 3: 
-					tF1.setEditable(true);
-					tF2.setEditable(true);
-					tF3.setEditable(true);
-					tF4.setEditable(true);
-					tF5.setText("");
-					break;
-				case 4: 
-					tF1.setEditable(true);
-					tF2.setEditable(true);
-					tF3.setEditable(true);
-					tF4.setEditable(true);
-					tF5.setEditable(true);
-					break;
-				default:
-					break;
-				}
-			}
-
-		});
-		cBsettings.setBounds(32, 104, 114, 20);
-		panel_settings.add(cBsettings);
-
 		JButton btnsafetier = new JButton("Bestätige");
 		btnsafetier.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				switch(cBsettings.getSelectedIndex()) {
-				case 0:
-					radioButtonS.setText(tF1.getText());
-					break;
-				case 1:
-					radioButtonS.setText(tF1.getText());
-					radioButtonA.setText(tF2.getText());
-					break;
-				case 2:
-					radioButtonS.setText(tF1.getText());
-					radioButtonA.setText(tF2.getText());
-					radioButtonB.setText(tF3.getText());
-					break;
-				case 3: 
-					radioButtonS.setText(tF1.getText());
-					radioButtonA.setText(tF2.getText());
-					radioButtonB.setText(tF3.getText());
-					radioButtonC.setText(tF4.getText());
-					break;
-				case 4: 
-					radioButtonS.setText(tF1.getText());
-					radioButtonA.setText(tF2.getText());
-					radioButtonB.setText(tF3.getText());
-					radioButtonC.setText(tF4.getText());
-					radioButtonD.setText(tF5.getText());
-					break;
-				default:
-					break;
+				if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected() && !cBD.isSelected()
+						&& !cBE.isSelected()) {
+					Manage.msgbox("Kein Tier? So geht das aber nicht!");
+					return;
 				}
-				Manage.initPoketier();
+				if(cBS.isSelected()&&tF1.getText().trim().length()<1) {
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					return;
+				}
+				if(cBA.isSelected()&&tF2.getText().trim().length()<1) {
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					return;
+				}
+				if(cBB.isSelected()&&tF3.getText().trim().length()<1) {
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					return;
+				}
+				if(cBC.isSelected()&&tF4.getText().trim().length()<1) {
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					return;
+				}
+				if(cBD.isSelected()&&tF5.getText().trim().length()<1) {
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					return;
+				}
+				if(cBE.isSelected()&&tF6.getText().trim().length()<1) {
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					return;
+				}
 				
+				int count = 0;
+				if (cBS.isSelected()) {				
+					radioButtonS.setEnabled(true);
+					radioButtonS.setText(tF1.getText());
+				} else {
+					radioButtonS.setEnabled(false);
+					radioButtonS.setText("");
+					count++;
+				}
+				if (cBA.isSelected()) {
+					radioButtonA.setEnabled(true);
+					radioButtonA.setText(tF2.getText());
+				} else {
+					radioButtonA.setEnabled(false);
+					radioButtonA.setText("");
+					count++;
+				}
+				if (cBB.isSelected()) {
+					radioButtonB.setEnabled(true);
+					radioButtonB.setText(tF3.getText());
+				} else {
+					radioButtonB.setEnabled(false);
+					radioButtonB.setText("");
+					count++;
+				}
+				if (cBC.isSelected()) {
+					radioButtonC.setEnabled(true);
+					radioButtonC.setText(tF4.getText());
+				} else {
+					radioButtonC.setEnabled(false);
+					radioButtonC.setText("");
+					count++;
+				}
+				if (cBD.isSelected()) {
+					radioButtonD.setEnabled(true);
+					radioButtonD.setText(tF5.getText());
+				} else {
+					radioButtonD.setEnabled(false);
+					radioButtonD.setText("");
+					count++;
+				}
+				if (cBE.isSelected()) {
+					radioButtonE.setEnabled(true);
+					radioButtonE.setText(tF6.getText());
+				} else {
+					radioButtonE.setEnabled(false);
+					radioButtonE.setText("");
+					count++;
+				}
+				for (int i = 0; i < count; i++) {
+					for (int k =0;k<data.Data.tierlist.length;k++) {
+						switch (data.Data.tierlist[k]) {
+						case 'S':
+							if (lblTierS.getText().equals("wird gebannt")) {
+								System.out.print(data.Data.tierlist[k]);
+								data.Data.tierlist[k] = 'X';
+								System.out.print(data.Data.tierlist[k]+" ");
+								}
+							break;
+						case 'A':
+							if (lblTierA.getText().equals("wird gebannt")) {
+								data.Data.tierlist[k] = 'X';
+							}
+							if (lblTierA.getText().equals("wird hochgestuft")) {
+								data.Data.tierlist[k] = 'S';
+							}
+							break;
+						case 'B':
+							if (lblTierB.getText().equals("wird gebannt")) {
+								data.Data.tierlist[k] = 'X';
+							}
+							if (lblTierB.getText().equals("wird hochgestuft")) {
+								data.Data.tierlist[k] = 'A';
+							}
+							break;
+						case 'C':
+							if (lblTierC.getText().equals("wird gebannt")) {
+								data.Data.tierlist[k] = 'X';
+							}
+							if (lblTierC.getText().equals("wird hochgestuft")) {
+								data.Data.tierlist[k]= 'B';
+							}
+							break;
+						case 'D':
+							if (lblTierD.getText().equals("wird gebannt")) {
+								data.Data.tierlist[k] = 'X';
+							}
+							if (lblTierD.getText().equals("wird hochgestuft")) {
+								data.Data.tierlist[k] = 'C';
+							}
+							break;
+						case 'E':
+							if (lblTierE.getText().equals("wird hochgestuft")) {
+								data.Data.tierlist[k] = 'D';
+							}
+							break;
+						default:
+							break;
 
+						}
+					}
+				}
+				lblbest.setText("Änderungen wurden übernommen!");
 			}
 		});
-		btnsafetier.setBounds(67, 394, 89, 23);
+		btnsafetier.setBounds(69, 435, 89, 23);
 		panel_settings.add(btnsafetier);
-		
-		lblTier1 = new JLabel("Tier 1:");
+
+		lblTier1 = new JLabel("S:");
 		lblTier1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTier1.setBounds(32, 181, 56, 17);
 		panel_settings.add(lblTier1);
-		
-		lblTier2 = new JLabel("Tier 2:");
+
+		lblTier2 = new JLabel("A:");
 		lblTier2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTier2.setBounds(32, 221, 56, 17);
 		panel_settings.add(lblTier2);
-		
-		lblTier3 = new JLabel("Tier 3:");
+
+		lblTier3 = new JLabel("B:");
 		lblTier3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTier3.setBounds(32, 262, 56, 17);
 		panel_settings.add(lblTier3);
-		
-		lblTier4 = new JLabel("Tier 4:");
+
+		lblTier4 = new JLabel("C:");
 		lblTier4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTier4.setBounds(32, 302, 56, 17);
 		panel_settings.add(lblTier4);
-		
-		lblTier5 = new JLabel("Tier 5:");
+
+		lblTier5 = new JLabel("D:");
 		lblTier5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTier5.setBounds(32, 345, 56, 17);
 		panel_settings.add(lblTier5);
+
+		lblbest = new JLabel("");
+		lblbest.setBounds(204, 439, 139, 14);
+		panel_settings.add(lblbest);
 		
 		tF2 = new JTextField();
+		tF2.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				lblbest.setText("");
+			}
+		});
 		tF2.setColumns(10);
 		tF2.setBounds(98, 221, 86, 20);
 		panel_settings.add(tF2);
-		
+
 		tF3 = new JTextField();
+		tF3.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				lblbest.setText("");
+			}
+		});
 		tF3.setColumns(10);
 		tF3.setBounds(98, 262, 86, 20);
 		panel_settings.add(tF3);
-		
+
 		tF4 = new JTextField();
+		tF4.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				lblbest.setText("");
+			}
+		});
 		tF4.setColumns(10);
 		tF4.setBounds(98, 302, 86, 20);
 		panel_settings.add(tF4);
-		
+
 		tF5 = new JTextField();
+		tF5.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				lblbest.setText("");
+			}
+		});
 		tF5.setColumns(10);
 		tF5.setBounds(98, 345, 86, 20);
 		panel_settings.add(tF5);
-		
+
 		tF1 = new JTextField();
+		tF1.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				lblbest.setText("");
+			}
+		});
 		tF1.setColumns(10);
 		tF1.setBounds(98, 181, 86, 20);
 		panel_settings.add(tF1);
 
+		lblTier6 = new JLabel("E:");
+		lblTier6.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTier6.setBounds(32, 388, 56, 17);
+		panel_settings.add(lblTier6);
+
+		tF6 = new JTextField();
+		tF6.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				lblbest.setText("");
+			}
+		});
+		tF6.setColumns(10);
+		tF6.setBounds(98, 388, 86, 20);
+		panel_settings.add(tF6);
+
+		tF1.setEditable(false);
 		tF2.setEditable(false);
 		tF3.setEditable(false);
 		tF4.setEditable(false);
 		tF5.setEditable(false);
+		tF6.setEditable(false);
+
+		lblTierS = new JLabel("");
+		lblTierS.setBounds(204, 184, 151, 14);
+		panel_settings.add(lblTierS);
+
+		lblTierA = new JLabel("");
+		lblTierA.setBounds(204, 224, 151, 14);
+		panel_settings.add(lblTierA);
+
+		lblTierB = new JLabel("");
+		lblTierB.setBounds(204, 265, 151, 14);
+		panel_settings.add(lblTierB);
+
+		lblTierC = new JLabel("");
+		lblTierC.setBounds(204, 305, 151, 14);
+		panel_settings.add(lblTierC);
+
+		lblTierD = new JLabel("");
+		lblTierD.setBounds(204, 348, 151, 14);
+		panel_settings.add(lblTierD);
+
+		lblTierE = new JLabel("");
+		lblTierE.setBounds(204, 391, 151, 14);
+		panel_settings.add(lblTierE);
 		
+
+		
+		cBS = new JCheckBox("");
+		cBS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cBS.isSelected()) {
+					tF1.setEditable(true);
+				} else {
+					tF1.setEditable(false);
+					tF1.setText("");
+				}
+				changesetting();
+			}
+		});
+		cBS.setBounds(67, 181, 21, 23);
+		panel_settings.add(cBS);
+
+		cBA = new JCheckBox("");
+		cBA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cBA.isSelected()) {
+					tF2.setEditable(true);
+				} else {
+					tF2.setEditable(false);
+					tF2.setText("");
+
+				}
+				changesetting();
+			}
+		});
+		cBA.setBounds(67, 220, 21, 23);
+		panel_settings.add(cBA);
+
+		cBB = new JCheckBox("");
+		cBB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cBB.isSelected()) {
+					tF3.setEditable(true);
+				} else {
+					tF3.setEditable(false);
+					tF3.setText("");
+
+				}
+				changesetting();
+			}
+		});
+		cBB.setBounds(67, 261, 21, 23);
+		panel_settings.add(cBB);
+
+		cBC = new JCheckBox("");
+		cBC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cBC.isSelected()) {
+					tF4.setEditable(true);
+				} else {
+					tF4.setEditable(false);
+					tF4.setText("");
+
+				}
+				changesetting();
+			}
+		});
+		cBC.setBounds(67, 301, 21, 23);
+		panel_settings.add(cBC);
+
+		cBD = new JCheckBox("");
+		cBD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cBD.isSelected()) {
+					tF5.setEditable(true);
+				} else {
+					tF5.setEditable(false);
+					tF5.setText("");
+
+				}
+				changesetting();
+			}
+		});
+		cBD.setBounds(67, 344, 21, 23);
+		panel_settings.add(cBD);
+
+		cBE = new JCheckBox("");
+		cBE.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cBE.isSelected()) {
+					tF6.setEditable(true);
+				} else {
+					tF6.setEditable(false);
+					tF6.setText("");
+
+				}
+				changesetting();
+			}
+		});
+		cBE.setBounds(67, 387, 21, 23);
+		panel_settings.add(cBE);
+		
+
+
 	}
 
 	private void initplayer() {
@@ -463,7 +696,7 @@ public class MainMenu {
 				}
 				ePTeam.setText(read);
 				ePfinalteam.setText("");
-				spinnerteam.setValue(teamlist[cBTeams.getSelectedIndex()].length-1);
+				spinnerteam.setValue(teamlist[cBTeams.getSelectedIndex()].length - 1);
 			}
 		});
 		btnloadteams.setBounds(249, 508, 89, 23);
@@ -620,8 +853,9 @@ public class MainMenu {
 		panel_tierlist.add(lblPokemon);
 
 		list = new List();
-		list.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
 				changetier();
 			}
 		});
@@ -716,13 +950,13 @@ public class MainMenu {
 			}
 		});
 
-		radioButtonX.setBounds(256, 229, 109, 23);
+		radioButtonX.setBounds(256, 255, 109, 23);
 		panel_tierlist.add(radioButtonX);
 		tierlistbuttongruppe.add(radioButtonX);
 
 		radioButtonnull = new JRadioButton("");
 		radioButtonnull.setEnabled(false);
-		radioButtonnull.setBounds(256, 259, 109, 23);
+		radioButtonnull.setBounds(256, 286, 109, 23);
 		panel_tierlist.add(radioButtonnull);
 		tierlistbuttongruppe.add(radioButtonnull);
 
@@ -776,8 +1010,21 @@ public class MainMenu {
 		tF_tiername = new JTextField();
 		tF_tiername.setBounds(256, 345, 86, 20);
 		panel_tierlist.add(tF_tiername);
-		tF_tiername.setColumns(10);
+//		tF_tiername.setColumns(10);
+
+		radioButtonE = new JRadioButton("E");
+		radioButtonE.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				data.Data.tierlist[list.getSelectedIndex()] = 'E';
+				if (list.getSelectedIndex() < data.Data.getPokedex().length)
+					list.select(list.getSelectedIndex() + 1);
+				changetier();
+			}
+		});
+		radioButtonE.setBounds(256, 229, 109, 23);
+		panel_tierlist.add(radioButtonE);
 		radioButtonnull.setVisible(false);
+		tierlistbuttongruppe.add(radioButtonE);
 	}
 
 	private void initdraft() {
@@ -890,6 +1137,9 @@ public class MainMenu {
 		case 'D':
 			radioButtonD.setSelected(true);
 			break;
+		case 'E':
+			radioButtonE.setSelected(true);
+			break;
 		case 'X':
 			radioButtonX.setSelected(true);
 			break;
@@ -899,6 +1149,113 @@ public class MainMenu {
 		default:
 			radioButtonnull.setSelected(true);
 			break;
+		}
+	}
+
+	private void changesetting() {
+		lblbest.setText("");
+		if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected() && !cBD.isSelected()
+				&& !cBE.isSelected()) {
+			lblTierS.setText(" ");
+			lblTierA.setText(" ");
+			lblTierB.setText(" ");
+			lblTierC.setText(" ");
+			lblTierD.setText(" ");
+			lblTierE.setText(" ");
+			return;
+		}
+
+		if (cBS.isSelected()) {
+			change[0] = true;
+			lblTierS.setText("");
+		} else {
+			change[0] = false;
+			if (up(0) == false) {
+				lblTierS.setText("wird gebannt");
+			}
+		}
+		if (cBA.isSelected()) {
+			change[1] = true;
+			lblTierA.setText("");
+		} else {
+			change[1] = false;
+			if (up(1) == false) {
+				lblTierA.setText("wird gebannt");
+			}
+			if (down(1) == false || (up(1) && down(1))) {
+				lblTierA.setText("wird hochgestuft");
+			}
+		}
+		if (cBB.isSelected()) {
+			change[2] = true;
+			lblTierB.setText("");
+		} else {
+			change[2] = false;
+			if (up(2) == false) {
+				lblTierB.setText("wird gebannt");
+			}
+			if (down(2) == false || (up(2) && down(2))) {
+				lblTierB.setText("wird hochgestuft");
+			}
+		}
+		if (cBC.isSelected()) {
+			change[3] = true;
+			lblTierC.setText("");
+		} else {
+			change[3] = false;
+			if (up(3) == false) {
+				lblTierC.setText("wird gebannt");
+			}
+			if (down(3) == false || (up(3) && down(3))) {
+				lblTierC.setText("wird hochgestuft");
+			}
+
+		}
+		if (cBD.isSelected()) {
+			change[4] = true;
+			lblTierD.setText("");
+		} else {
+			change[4] = false;
+			if (up(4) == false) {
+				lblTierD.setText("wird gebannt");
+			}
+			if (down(4) == false || (up(4) && down(4))) {
+				lblTierD.setText("wird hochgestuft");
+			}
+		}
+		if (cBE.isSelected()) {
+			change[5] = true;
+			lblTierE.setText("");
+		} else {
+			change[5] = false;
+			if (down(5) == false) {
+				lblTierE.setText("wird hochgestuft");
+			}
+		}
+
+	}
+
+	private boolean up(int a) {
+		try {
+			if (change[a - 1]) {
+				return true;
+			} else {
+				return up(a - 1);
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private boolean down(int a) {
+		try {
+			if (change[a + 1]) {
+				return true;
+			} else {
+				return down(a + 1);
+			}
+		} catch (Exception e) {
+			return false;
 		}
 	}
 }
