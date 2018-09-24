@@ -463,6 +463,7 @@ public class MainMenu {
 				}
 				ePTeam.setText(read);
 				ePfinalteam.setText("");
+				spinnerteam.setValue(teamlist[cBTeams.getSelectedIndex()].length-1);
 			}
 		});
 		btnloadteams.setBounds(249, 508, 89, 23);
