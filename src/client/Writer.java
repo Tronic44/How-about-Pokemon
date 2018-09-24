@@ -20,7 +20,7 @@ public class Writer {
 			}
 			pWriter.println();
 		} catch (IOException ioe) {
-			Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWp-1" + "\n" + ioe.toString());
+			Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWp-1" + "\n" + ioe.toString());
 //			ioe.printStackTrace();
 		}
 	}
@@ -35,7 +35,7 @@ public class Writer {
 			}
 			pWriter.println();
 		} catch (IOException ioe) {
-			Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWp-2" + "\n" + ioe.toString());
+			Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWp-2" + "\n" + ioe.toString());
 //			ioe.printStackTrace();
 		}
 	}
@@ -71,7 +71,7 @@ public class Writer {
 					br.close();
 					return list;
 				} catch (Exception e) {
-					Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
+					Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
 //					e.printStackTrace();
 				}
 				rewrite++;
@@ -82,7 +82,7 @@ public class Writer {
 					pWriter.close();
 				} catch (IOException ioe) {
 					if (rewrite != 0) {
-						Manage.msgbox("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
+						Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
 //						ioe.printStackTrace();
 					}
 				}

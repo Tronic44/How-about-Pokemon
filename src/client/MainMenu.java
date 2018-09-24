@@ -89,6 +89,7 @@ public class MainMenu {
 	private JLabel lblTierD;
 	private JLabel lblTierE;
 	private JLabel lblbest;
+	private JButton btnReihenfolge;
 
 	public static void startMainMenu() {
 		Manage.initPoketier();
@@ -115,7 +116,6 @@ public class MainMenu {
 		frmPokemonDraft.setBounds(100, 100, 409, 640);
 		frmPokemonDraft.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPokemonDraft.getContentPane().setLayout(new CardLayout(0, 0));
-//		frame.
 
 		initpanel();
 		initmenu();
@@ -198,7 +198,7 @@ public class MainMenu {
 		panel_settings.add(lblTier5);
 
 		lblbest = new JLabel("");
-		lblbest.setBounds(204, 341, 139, 14);
+		lblbest.setBounds(168, 346, 206, 14);
 		panel_settings.add(lblbest);
 
 		lblTier6 = new JLabel("E:");
@@ -222,31 +222,31 @@ public class MainMenu {
 				}
 				if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected()
 						&& !cBD.isSelected() && !cBE.isSelected()) {
-					Manage.msgbox("Kein Tier? So geht das aber nicht!");
+					Manage.msgbox("Kein Tier? So geht das aber nicht!", frmPokemonDraft);
 					return;
 				}
 				if (cBS.isSelected() && tF1.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
 					return;
 				}
 				if (cBA.isSelected() && tF2.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
 					return;
 				}
 				if (cBB.isSelected() && tF3.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
 					return;
 				}
 				if (cBC.isSelected() && tF4.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
 					return;
 				}
 				if (cBD.isSelected() && tF5.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
 					return;
 				}
 				if (cBE.isSelected() && tF6.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?");
+					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
 					return;
 				}
 
@@ -566,7 +566,7 @@ public class MainMenu {
 		btnresettier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetsettings();
-				Manage.msgboxerf("Erfolgreich Resetet!");
+				Manage.msgboxerf("Erfolgreich Resetet!", frmPokemonDraft);
 			}
 		});
 		btnresettier.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -580,9 +580,9 @@ public class MainMenu {
 					Data.tierlist = Data.tierlistclone.clone();
 					Data.tierlistclone = null;
 					resetsettings();
-					Manage.msgboxerf("Erfolgreich wiederhergestellt!");
+					Manage.msgboxerf("Erfolgreich wiederhergestellt!", frmPokemonDraft);
 				} catch (Exception f) {
-					Manage.msgbox("Nichts zum wiederherstellen gefunden!");
+					Manage.msgbox("Nichts zum wiederherstellen gefunden!", frmPokemonDraft);
 				}
 			}
 		});
@@ -629,11 +629,11 @@ public class MainMenu {
 					}
 				}
 				if ((int) spinnerteam.getValue() == 0) {
-					Manage.msgbox("Du willst doch nicht ohne auch nur ein Team spielen, oder?");
+					Manage.msgbox("Du willst doch nicht ohne auch nur ein Team spielen, oder?", frmPokemonDraft);
 				} else {
 					if (count != (int) spinnerteam.getValue()) {
 						Manage.msgbox("Deine Liste Stimmt nicht mit der Team Anzahl überein" + "\n"
-								+ "Denk dran: Teams haben niemals nur einen Buchstaben!");
+								+ "Denk dran: Teams haben niemals nur einen Buchstaben!", frmPokemonDraft);
 					} else {
 						String[] Spieler = new String[count];
 						for (int k = 0; k < Spieler.length; k++) {
@@ -660,6 +660,7 @@ public class MainMenu {
 						teamname[teamname.length - 1] = teamname[teamname.length - 1].substring(0,
 								teamname[teamname.length - 1].length() - 1);
 						ePfinalteam.setText(list);
+						btnReihenfolge.setEnabled(true);
 					}
 				}
 			}
@@ -690,23 +691,21 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (tF_Teams.getText().equals("") || tF_Teams.getText().equals("Gespeichert")) {
-					Manage.msgbox("Du hast keinen Namen eingegeben");
+					Manage.msgbox("Du hast keinen Namen eingegeben", frmPokemonDraft);
 					tF_Teams.setText("");
 				} else {
 					if (tF_Teams.getText().contains(":")) {
-						Manage.msgbox("Der Name das keinen Doppelpunkt enthalten");
+						Manage.msgbox("Der Name das keinen Doppelpunkt enthalten", frmPokemonDraft);
 					} else {
 						if (ePfinalteam.getText().length() > 2) {
 							Boolean b = true;
-//							if (!teamload) {  das wäre für überschreiben
 							for (String k : teamname) {
 								if (tF_Teams.getText().equals(k)) {
-									Manage.msgbox("Der Name existiert schon");
+									Manage.msgbox("Der Name existiert schon", frmPokemonDraft);
 									b = false;
 									break;
 								}
 							}
-//							}
 							if (b) {
 								Writer.print("teamlist", tF_Teams.getText(), teamname);
 								tF_Teams.setText("Gespeichert");
@@ -789,15 +788,10 @@ public class MainMenu {
 		btnTierlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelStartDraft.setVisible(false);
-				for (int i = 0; i < Data.getPokedex().length; i++) {
-					list.add(Data.getPokedex(i));
-				}
-				list.select(0);
-				changetier();
-				tierlist();
-				panel_tierlist.setVisible(true);
+				opentierlist();
 
 			}
+
 		});
 		panelStartDraft.add(btnTierlist);
 
@@ -824,25 +818,102 @@ public class MainMenu {
 		btnAnzahlDerPokemon.setBounds(63, 249, 255, 71);
 		panelStartDraft.add(btnAnzahlDerPokemon);
 
-		JButton btnReihenfolge = new JButton("Reihenfolge");
+		btnReihenfolge = new JButton("Reihenfolge");
 		btnReihenfolge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelStartDraft.setVisible(false);
-				panel_order.setVisible(true);
+				if(teamname==null) {
+					Manage.msgbox("Du kannst nicht ohne Teams eine Reihenfolge bilden", frmPokemonDraft);
+				}else {
+					panelStartDraft.setVisible(false);
+					panel_order.setVisible(true);
+				}
+				
+
 			}
 		});
 		btnReihenfolge.setBounds(63, 362, 255, 71);
 		panelStartDraft.add(btnReihenfolge);
+		btnReihenfolge.setEnabled(true);
 
 		JButton btnFertig = new JButton("Fertig");
 		btnFertig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelStartDraft.setVisible(false);
-				panel_draft.setVisible(true);
+				int count = 0;
+				for (char k : Data.tierlist) {
+					if (k == '0') {
+						count++;
+					}
+				}
+				if (count > 870) {
+					Manage.msgbox("Du hast zu wenige Pokemon ausgewählt, um einen Draft zu starten", frmPokemonDraft);
+					opentierlist();
+					panelStartDraft.setVisible(false);
+					return;
+				}
+				if (count > 0) {
+					switch (Manage.msgfertig(frmPokemonDraft)) {
+					case 0:
+						panelStartDraft.setVisible(false);
+						for (int k = 0; k < Data.tierlist.length; k++) {
+							if (Data.tierlist[k] == '0') {
+								Data.tierlist[k] = 'X';
+							}
+						}
+						panel_order.setVisible(true);
+						break;
+					case 1:
+						if (lblbest.getText().equals("Änderungen wurden übernommen!")) {
+							for (int k = 0; k < Data.tierlist.length; k++) {
+								if (Data.tierlist[k] == '0') {
+									if (cBE.isSelected()) {
+										Data.tierlist[k] = 'E';
+									} else {
+										if (cBD.isSelected()) {
+											Data.tierlist[k] = 'D';
+										} else {
+											if (cBC.isSelected()) {
+												Data.tierlist[k] = 'C';
+											} else {
+												if (cBB.isSelected()) {
+													Data.tierlist[k] = 'B';
+												} else {
+													if (cBA.isSelected()) {
+														Data.tierlist[k] = 'A';
+													} else {
+														if (cBS.isSelected()) {
+															Data.tierlist[k] = 'S';
+														} else {
+
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+							panelStartDraft.setVisible(false);
+							panel_order.setVisible(true);
+						}else {
+							Manage.msgbox("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen", frmPokemonDraft);
+							panelStartDraft.setVisible(false);
+							panel_settings.setVisible(true);
+						}
+						break;
+					case 2:
+						panelStartDraft.setVisible(false);
+						opentierlist();
+						break;
+					}
+				}else {
+					panelStartDraft.setVisible(false);
+					panel_draft.setVisible(true);
+				}
 			}
 		});
 		btnFertig.setBounds(63, 476, 255, 71);
 		panelStartDraft.add(btnFertig);
+		btnFertig.setEnabled(true);
 
 	}
 
@@ -1004,17 +1075,17 @@ public class MainMenu {
 		btnsafetierlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (tF_tiername.getText().equals("") || tF_tiername.getText().equals("Gespeichert")) {
-					Manage.msgbox("Du hast keinen Namen eingegeben");
+					Manage.msgbox("Du hast keinen Namen eingegeben", frmPokemonDraft);
 					tF_tiername.setText("");
 				} else {
 					if (tF_tiername.getText().contains(":")) {
-						Manage.msgbox("Der Name das keinen Doppelpunkt enthalten");
+						Manage.msgbox("Der Name das keinen Doppelpunkt enthalten", frmPokemonDraft);
 
 					} else {
 						Boolean b = true;
 						for (String k : tiername) {
 							if (tF_tiername.getText().equals(k)) {
-								Manage.msgbox("Der Name existiert schon");
+								Manage.msgbox("Der Name existiert schon", frmPokemonDraft);
 								b = false;
 								break;
 							}
@@ -1331,5 +1402,16 @@ public class MainMenu {
 		tF4.setEditable(false);
 		tF5.setEditable(false);
 		tF6.setEditable(false);
+	}
+
+	private void opentierlist() {
+		panelMainMenu.setVisible(false);
+		for (int i = 0; i < Data.getPokedex().length; i++) {
+			list.add(Data.getPokedex(i));
+		}
+		list.select(0);
+		changetier();
+		tierlist();
+		panel_tierlist.setVisible(true);
 	}
 }
