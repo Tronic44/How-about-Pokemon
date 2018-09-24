@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+//import org.json.*;
 
 public class Writer {
 
@@ -62,7 +62,7 @@ public class Writer {
 							buffer[i] = zeile;
 							i++;
 						}
-					} while (line != null&&i<50);
+					} while (line != null && i < 50);
 					list = new String[i][];
 					for (int k = 0; k < i; k++) {
 						list[k] = buffer[k];
@@ -90,5 +90,9 @@ public class Writer {
 		}
 
 		return null;
+	}
+
+	public static void safeasjson() {
+		
 	}
 }

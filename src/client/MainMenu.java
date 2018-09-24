@@ -692,7 +692,7 @@ public class MainMenu {
 		JButton btnsafeteams = new JButton("Speichern");
 		btnsafeteams.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(ePfinalteam.getText().toString().length()<1) {
+				if (ePfinalteam.getText().toString().length() < 1) {
 					Manage.msgbox("Du hast keine Teams bestätigt", frmPokemonDraft);
 					return;
 				}
@@ -827,13 +827,12 @@ public class MainMenu {
 		btnReihenfolge = new JButton("Reihenfolge");
 		btnReihenfolge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(teamname==null||ePfinalteam.getText().toString().length()<1) {
+				if (teamname == null || ePfinalteam.getText().toString().length() < 1) {
 					Manage.msgbox("Du kannst nicht ohne Teams keine Reihenfolge bilden", frmPokemonDraft);
-				}else {
+				} else {
 					panelStartDraft.setVisible(false);
 					panel_order.setVisible(true);
 				}
-				
 
 			}
 		});
@@ -851,17 +850,20 @@ public class MainMenu {
 					}
 				}
 				if (count > 880) {
-					
-					Manage.msgbox("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten", frmPokemonDraft);
+
+					Manage.msgbox("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
+							frmPokemonDraft);
 					opentierlist();
 					panelStartDraft.setVisible(false);
 					return;
 				}
 				if (count > 0) {
-					Object[] options = {  "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };				
-					switch (JOptionPane.showOptionDialog(frmPokemonDraft, "Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? "+"\n"+"Alle nicht zugewisenen:",
-							"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
-							options[2])) {
+					Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
+					switch (JOptionPane.showOptionDialog(frmPokemonDraft,
+							"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"
+									+ "Alle nicht zugewisenen:",
+							"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE, null, options, options[2])) {
 					case 0:
 						panelStartDraft.setVisible(false);
 						for (int k = 0; k < Data.tierlist.length; k++) {
@@ -893,7 +895,9 @@ public class MainMenu {
 														if (cBS.isSelected()) {
 															Data.tierlist[k] = 'S';
 														} else {
-															Manage.msgbox("Es wurde noch keine Tier Einstellung getroffen", frmPokemonDraft);
+															Manage.msgbox(
+																	"Es wurde noch keine Tier Einstellung getroffen",
+																	frmPokemonDraft);
 														}
 													}
 												}
@@ -904,8 +908,9 @@ public class MainMenu {
 							}
 							panelStartDraft.setVisible(false);
 							panel_order.setVisible(true);
-						}else {
-							Manage.msgbox("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen", frmPokemonDraft);
+						} else {
+							Manage.msgbox("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen",
+									frmPokemonDraft);
 							panelStartDraft.setVisible(false);
 							panel_settings.setVisible(true);
 						}
@@ -915,7 +920,7 @@ public class MainMenu {
 						opentierlist();
 						break;
 					}
-				}else {
+				} else {
 					panelStartDraft.setVisible(false);
 					panel_draft.setVisible(true);
 				}
@@ -962,7 +967,7 @@ public class MainMenu {
 					panel_order.setVisible(false);
 					panel_draft.setVisible(false);
 				}
-				if(panelLoadDraft.isVisible()) {
+				if (panelLoadDraft.isVisible()) {
 					panelLoadDraft.setVisible(false);
 					panelMainMenu.setVisible(true);
 				}
