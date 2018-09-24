@@ -4,7 +4,13 @@ import javax.swing.JOptionPane;
 
 public class Manage {
 	public static JOptionPane alert;
-	
+
+	public static void main(String[] args) {
+
+		MainMenu.startMainMenu();
+
+	}
+
 	public static void initPoketier() {
 		for (int i = 0; i < Data.tierlist.length; i++) {
 			Data.tierlist[i] = '0';

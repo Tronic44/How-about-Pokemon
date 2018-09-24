@@ -38,7 +38,7 @@ public class MainMenu {
 	private JPanel panel_draft;
 	private JPanel panel_player;
 	private JPanel panel_settings;
-	private JPanel panel_order;	
+	private JPanel panel_order;
 	private List list;
 	private JTextField tFPoke;
 	private JRadioButton radioButtonS;
@@ -197,7 +197,7 @@ public class MainMenu {
 		lblbest = new JLabel("");
 		lblbest.setBounds(204, 341, 139, 14);
 		panel_settings.add(lblbest);
-		
+
 		lblTier6 = new JLabel("E:");
 		lblTier6.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTier6.setBounds(32, 290, 56, 17);
@@ -352,9 +352,6 @@ public class MainMenu {
 		});
 		btnsafetier.setBounds(69, 337, 89, 23);
 		panel_settings.add(btnsafetier);
-
-
-
 
 		tF2 = new JTextField();
 		tF2.addCaretListener(new CaretListener() {
