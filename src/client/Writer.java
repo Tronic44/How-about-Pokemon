@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class Writer {
 
@@ -61,8 +62,7 @@ public class Writer {
 							buffer[i] = zeile;
 							i++;
 						}
-					} while (line != null);
-
+					} while (line != null&&i<50);
 					list = new String[i][];
 					for (int k = 0; k < i; k++) {
 						list[k] = buffer[k];

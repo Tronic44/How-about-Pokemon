@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+
 import java.awt.List;
 import javax.swing.JTextField;
 import client.Writer;
@@ -207,6 +209,7 @@ public class MainMenu {
 		panel_settings.add(lblTier6);
 
 		JTextPane txtpnAchtungnderungenHier = new JTextPane();
+		txtpnAchtungnderungenHier.setEditable(false);
 		txtpnAchtungnderungenHier.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtpnAchtungnderungenHier.setText(
 				"Achtung: Änderungen hier führen zu einer\r\nAnpassung der aktuell eingegenbenen Tierlist. \r\nWenn du das nicht möchtest, speichere sie vorher!");
@@ -674,11 +677,11 @@ public class MainMenu {
 		panel_player.add(ePfinalteam);
 
 		JLabel lblNewLabel = new JLabel("Gespeicherte Teams");
-		lblNewLabel.setBounds(239, 37, 106, 14);
+		lblNewLabel.setBounds(239, 37, 133, 14);
 		panel_player.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Team-Namen");
-		lblNewLabel_1.setBounds(65, 37, 69, 14);
+		lblNewLabel_1.setBounds(53, 37, 106, 14);
 		panel_player.add(lblNewLabel_1);
 
 		tF_Teams = new JTextField();
@@ -722,7 +725,7 @@ public class MainMenu {
 			}
 
 		});
-		btnsafeteams.setBounds(249, 398, 89, 23);
+		btnsafeteams.setBounds(239, 398, 109, 23);
 		panel_player.add(btnsafeteams);
 
 		cBTeams = new JComboBox(new Object[] {});
@@ -825,7 +828,7 @@ public class MainMenu {
 		btnReihenfolge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(teamname==null||ePfinalteam.getText().toString().length()<1) {
-					Manage.msgbox("Du kannst nicht ohne Teams eine Reihenfolge bilden", frmPokemonDraft);
+					Manage.msgbox("Du kannst nicht ohne Teams keine Reihenfolge bilden", frmPokemonDraft);
 				}else {
 					panelStartDraft.setVisible(false);
 					panel_order.setVisible(true);
@@ -848,13 +851,17 @@ public class MainMenu {
 					}
 				}
 				if (count > 880) {
+					
 					Manage.msgbox("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten", frmPokemonDraft);
 					opentierlist();
 					panelStartDraft.setVisible(false);
 					return;
 				}
 				if (count > 0) {
-					switch (Manage.msgfertig(frmPokemonDraft)) {
+					Object[] options = {  "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };				
+					switch (JOptionPane.showOptionDialog(frmPokemonDraft, "Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? "+"\n"+"Alle nicht zugewisenen:",
+							"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
+							options[2])) {
 					case 0:
 						panelStartDraft.setVisible(false);
 						for (int k = 0; k < Data.tierlist.length; k++) {
@@ -886,7 +893,7 @@ public class MainMenu {
 														if (cBS.isSelected()) {
 															Data.tierlist[k] = 'S';
 														} else {
-
+															Manage.msgbox("Es wurde noch keine Tier Einstellung getroffen", frmPokemonDraft);
 														}
 													}
 												}
@@ -954,6 +961,10 @@ public class MainMenu {
 					panel_settings.setVisible(false);
 					panel_order.setVisible(false);
 					panel_draft.setVisible(false);
+				}
+				if(panelLoadDraft.isVisible()) {
+					panelLoadDraft.setVisible(false);
+					panelMainMenu.setVisible(true);
 				}
 			}
 		});
