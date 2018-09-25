@@ -7,7 +7,7 @@ public class Manage {
 	public static JOptionPane alert;
 
 	public static void main(String[] args) {
-
+		Writer.safeasjson();
 		MainMenu.startMainMenu();
 
 	}

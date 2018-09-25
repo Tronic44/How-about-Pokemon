@@ -2,12 +2,15 @@ package client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-//import org.json.*;
+
+import org.apache.commons.io.FileUtils;
+import org.json.*;
 
 public class Writer {
 
@@ -93,6 +96,40 @@ public class Writer {
 	}
 
 	public static void safeasjson() {
+//		JSONObject tomJsonObj = new JSONObject();
+//		tomJsonObj.put("name", "Tom");
+//		tomJsonObj.put("birthday", "1940-02-10");
+//		tomJsonObj.put("age", 76);
+//		tomJsonObj.put("married", false);
+//
+//		// Cannot set null directly
+//		tomJsonObj.put("car", JSONObject.NULL);
+//
+//		tomJsonObj.put("favorite_foods", new String[] { "cookie", "fish", "chips" });
+//
+//		// {"id": 100001, "nationality", "American"}
+//		JSONObject passportJsonObj = new JSONObject();
+//		passportJsonObj.put("id", 100001);
+//		passportJsonObj.put("nationality", "American");
+//		// Value of a key is a JSONObject
+//		tomJsonObj.put("passport", passportJsonObj);
+//
+//		System.out.println(tomJsonObj.toString(4)+"\n");
+//		System.out.println(tomJsonObj.toString());
+//		
+		try {
+			JSONObject drafts = loadjson();
+			System.out.println(drafts.toString());
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		JSONObject aktuell = new JSONObject();
 		
+
+	}
+
+	public static JSONObject loadjson() throws Exception {
+		File file = new File("Drafts.json");
+		return new JSONObject(FileUtils.readFileToString(file, "utf-8"));
 	}
 }
