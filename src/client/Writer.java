@@ -21,7 +21,6 @@ public class Writer {
 			pWriter.println();
 		} catch (IOException ioe) {
 			Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWp-1" + "\n" + ioe.toString());
-//			ioe.printStackTrace();
 		}
 	}
 
@@ -36,7 +35,6 @@ public class Writer {
 			pWriter.println();
 		} catch (IOException ioe) {
 			Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWp-2" + "\n" + ioe.toString());
-//			ioe.printStackTrace();
 		}
 	}
 
@@ -115,7 +113,6 @@ public class Writer {
 			JSONArray listname;
 			JSONObject drafts = readjson(frame);
 			System.out.println("Datei:" + drafts.toString());
-			JSONObject aktuell = new JSONObject();
 			listname = drafts.getJSONArray("name");
 			drafts.remove("name");
 			if (listname.toList().contains(name)) {
@@ -124,14 +121,20 @@ public class Writer {
 			}
 			listname.put(name);
 			drafts.put("name", listname);
-
+			
+			JSONObject aktuell = new JSONObject();
+			aktuell.put("poketier", Data.tierlist);
+//			aktuell.put("", value)
+			
+			
+			
 			drafts.put(name, aktuell);
 
 			try (FileWriter file = new FileWriter("Draft.json")) {
 				file.write(drafts.toString());
 				return 1;
 			} catch (IOException e) {
-				Manage.msgbox("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-1" + "\n"
+				Manage.msgbox("Beim schreiben der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-1" + "\n"
 						+ e.toString(),frame);
 			}
 		} catch (Exception e) {
@@ -157,6 +160,9 @@ public class Writer {
 		}
 		return 0;
 
+	}
+	protected static void loadjson(JFrame frame) {
+		JSONObject file = readjson(frame);
 	}
 
 	protected static JSONObject readjson(JFrame frame) {

@@ -6,9 +6,8 @@ import javax.swing.JOptionPane;
 public class Manage {
 	protected static JOptionPane alert;
 
-	protected static void main(String[] args) {
+	public static void main(String[] args) {
 		MainMenu.startMainMenu();
-
 	}
 
 	protected static void initPoketier() {
