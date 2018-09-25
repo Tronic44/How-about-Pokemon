@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
+import java.awt.Component;
+
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -59,7 +61,7 @@ public class MainMenu {
 	private String[][] teamlist;
 	private String[] teamname;
 	private JEditorPane ePTeam;
-	public String[] Player;
+	protected String[] Player;
 	private JEditorPane ePfinalteam;
 	private JTextField tF_Teams;
 	private JComboBox cBTeams;
@@ -92,8 +94,10 @@ public class MainMenu {
 	private JLabel lblTierE;
 	private JLabel lblbest;
 	private JButton btnReihenfolge;
+	private JTextField tFsafename;
+	private JComboBox cBloaddraft;
 
-	public static void startMainMenu() {
+	protected static void startMainMenu() {
 		Manage.initPoketier();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -107,7 +111,7 @@ public class MainMenu {
 		});
 	}
 
-	public MainMenu() {
+	protected MainMenu() {
 		openMainMenu();
 	}
 
@@ -127,6 +131,7 @@ public class MainMenu {
 		initdraft();
 		initplayer();
 		initsettings();
+		initload();
 
 	}
 
@@ -144,7 +149,6 @@ public class MainMenu {
 		panelLoadDraft = new JPanel();
 		frmPokemonDraft.getContentPane().add(panelLoadDraft, "name_527666975961040");
 		panelLoadDraft.setLayout(null);
-		panelLoadDraft.setVisible(false);
 
 		panel_tierlist = new JPanel();
 		frmPokemonDraft.getContentPane().add(panel_tierlist, "name_2032838076395");
@@ -170,6 +174,51 @@ public class MainMenu {
 		frmPokemonDraft.getContentPane().add(panel_draft, "name_2679324427935");
 		panel_draft.setLayout(null);
 		panel_draft.setLayout(null);
+
+	}
+
+	private void initload() {
+		JLabel lblstatus = new JLabel("");
+		lblstatus.setBounds(154, 158, 152, 14);
+		panelLoadDraft.add(lblstatus);
+		panelLoadDraft.setVisible(false);
+
+		JButton btnloaddraft = new JButton("Laden");
+		btnloaddraft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+			}
+		});
+		btnloaddraft.setBounds(217, 439, 89, 23);
+		panelLoadDraft.add(btnloaddraft);
+
+		tFsafename = new JTextField();
+		tFsafename.setBounds(144, 93, 86, 20);
+		panelLoadDraft.add(tFsafename);
+		tFsafename.setColumns(10);
+
+		JButton btnsafedraft = new JButton("Speichern");
+		btnsafedraft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (tFsafename.getText().trim().length() < 1) {
+					Manage.msgbox("Du solltest schon ein Namen zum Speichern eingeben", frmPokemonDraft);
+				} else {
+					int status = Writer.safeasjson(tFsafename.getText(), frmPokemonDraft);
+					if (status == 0) {
+						lblstatus.setText("Error");
+					} else {
+						lblstatus.setText("Erfolgreich gespeichert");
+					}
+
+				}
+			}
+		});
+		btnsafedraft.setBounds(144, 124, 89, 23);
+		panelLoadDraft.add(btnsafedraft);
+
+		cBloaddraft = new JComboBox();
+		cBloaddraft.setBounds(72, 440, 125, 20);
+		panelLoadDraft.add(cBloaddraft);
 
 	}
 
@@ -771,6 +820,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				panelMainMenu.setVisible(false);
 				panelLoadDraft.setVisible(true);
+
 			}
 		});
 		btnLoadDraft.setFont(new Font("Tahoma", Font.BOLD, 15));

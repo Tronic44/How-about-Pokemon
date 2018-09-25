@@ -2,11 +2,11 @@ package client;
 
 public class Data {
 
-	public static String[] getPokedex() {
+	protected static String[] getPokedex() {
 		return Pokedex;
 	}
 
-	public static String getPokedex(int i) {
+	protected static String getPokedex(int i) {
 		return Pokedex[i];
 	}
 
@@ -121,11 +121,11 @@ public class Data {
 			"Kaguron", "Katagami", "Schlingking", "Necrozma", "Necrozma Abendmähne", "Necrozma Morgenschwingen",
 			"Necrozma Ultra", "Magearna", "Marshadow", "Venicro", "Agoyon", "Muramura", "Kopplosio", "Zeraora" };
 
-	public static char[] tierlist = new char[Pokedex.length];
+	protected static char[] tierlist = new char[Pokedex.length];
 
-	public static void settierlist(char[] a) {
+	protected static void settierlist(char[] a) {
 		tierlist = a;
 	}
 
-	public static char[] tierlistclone;
+	protected static char[] tierlistclone;
 }
