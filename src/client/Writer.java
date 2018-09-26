@@ -20,7 +20,17 @@ import org.json.*;
  *
  */
 public class Writer {
-
+	/**
+	 * Die Methode print ist dazu ausgelegt ein Array in eine .txt zu schreiben.
+	 * Kann die Datei neu anlegen.
+	 * 
+	 * @param datei - Der Dateiname
+	 * @param name  - Der Zuordnungsname, dieser wird verknüpft mit dem text in die
+	 *              Datei geschrieben um später ein gezieltes lesen und verarbeiten
+	 *              zu ermöglichen
+	 * @param text  - Ein CharArray, dass ohne Zeichentrennung in die Datei
+	 *              geschreiben wird
+	 */
 	protected static void print(String datei, String name, char[] text) {
 		PrintWriter pWriter = null;
 		try {
@@ -35,6 +45,18 @@ public class Writer {
 		}
 	}
 
+	/**
+	 * Ist dazu ausgelegt ein Array in eine .txt zu schreiben. Kann die Datei neu
+	 * anlegen.
+	 * 
+	 * @param datei - Der Dateiname
+	 * @param name  - Der Zuordnungsname, dieser wird verknüpft mit dem text in die
+	 *              Datei geschrieben um später ein gezieltes lesen und verarbeiten
+	 *              zu ermöglichen
+	 * @param text  - Ein StringArray, dass ohne Zeichentrennung in die Datei
+	 *              geschreiben wird. Es wird Empfohlen, dass das hinter jedem
+	 *              Eintrag des Array schon ein Zeichentrenner eingefügt wurde
+	 */
 	protected static void print(String datei, String name, String[] text) {
 		PrintWriter pWriter = null;
 		try {
@@ -49,6 +71,15 @@ public class Writer {
 		}
 	}
 
+	/**
+	 * Liest eine .txt Datei Zeile für Zeile ein, und schreibt diese in ein 2
+	 * Dimensionales Array, wobei die erste Dimension die einzelnen Zeilen sind, und
+	 * die zweite der Zeileninhalt gesplittet bei jedem ':'. Kann die Datei neu
+	 * anlegen.
+	 * 
+	 * @param datei - Der Dateiname, der einzulesen ist
+	 * @return String[][]
+	 */
 	protected static String[][] read(String datei) {
 		FileReader fr;
 		String line;
@@ -100,6 +131,16 @@ public class Writer {
 		return null;
 	}
 
+	/**
+	 * Schreibt alle den Benutzer veränderbaren Variablen in die Draft.json Datei.
+	 * Überprüft auf doppelte Namensnennung. Kann die Datei neu Anlegen.
+	 * 
+	 * @param name  - Der Zuordungsname, unter dem das gepeichtere wieder einzulesen
+	 *              ist
+	 * @param frame - den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
+	 *              Allertboxes zentriert anzuzeigen
+	 * @return int - 0 bei einem Fehler, 1 bei Erfolg, weites in Planung
+	 */
 	protected static int safeasjson(String name, JFrame frame) {
 		try {
 			JSONArray listname;
@@ -156,10 +197,24 @@ public class Writer {
 
 	}
 
+	/**
+	 * Soll eine neu eingelesende .json Datei auf Syntax und Eingabe Fehler prüfen
+	 * 
+	 * @param frame - den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
+	 *              Allertboxes zentriert anzuzeigen
+	 */
 	protected static void loadjson(JFrame frame) {
 		JSONObject file = readjson(frame);
 	}
 
+	/**
+	 * list die Datei Draft.json im Ausführungsverzeichniss und prüft auf einfache
+	 * Syntaxfehler. Kann die Datei neu anlegen.
+	 * 
+	 * @param frame - den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
+	 *              Allertboxes zentriert anzuzeigen
+	 * @return JSONObject
+	 */
 	protected static JSONObject readjson(JFrame frame) {
 		try {
 			File file = new File("./Draft.json");
