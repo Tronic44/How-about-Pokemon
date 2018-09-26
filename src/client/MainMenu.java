@@ -177,7 +177,7 @@ public class MainMenu {
 
 		panel_draft = new JPanel();
 		frmPokemonDraft.getContentPane().add(panel_draft, "name_2679324427935");
-		panel_draft.setLayout(null);
+		panel_draft.setVisible(false);
 		panel_draft.setLayout(null);
 
 	}
@@ -926,7 +926,7 @@ public class MainMenu {
 								Data.tierlist[k] = 'X';
 							}
 						}
-						panel_order.setVisible(true);
+						opendraft();
 						break;
 					case 1:
 						if (lblbest.getText().equals("Änderungen wurden übernommen!")) {
@@ -976,8 +976,7 @@ public class MainMenu {
 						break;
 					}
 				} else {
-					panelStartDraft.setVisible(false);
-					panel_draft.setVisible(true);
+					opendraft();
 				}
 			}
 		});
@@ -994,6 +993,7 @@ public class MainMenu {
 		JButton btnMainmenu = new JButton("MainMen\u00FC");
 		btnMainmenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frmPokemonDraft.setBounds(100, 100, 409, 640);
 				panel_tierlist.setVisible(false);
 				panelLoadDraft.setVisible(false);
 				panelStartDraft.setVisible(false);
@@ -1009,6 +1009,7 @@ public class MainMenu {
 		JButton btnmenuback = new JButton("zur\u00FCck");
 		btnmenuback.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frmPokemonDraft.setBounds(100, 100, 409, 640);
 				if (panelStartDraft.isVisible()) {
 					panelStartDraft.setVisible(false);
 					panelMainMenu.setVisible(true);
@@ -1607,5 +1608,11 @@ public class MainMenu {
 
 		}
 		changesetting();
+	}
+	
+	protected void opendraft() {
+		panelStartDraft.setVisible(false);
+		frmPokemonDraft.setBounds(100, 100, 1100, 800);
+		panel_draft.setVisible(true);
 	}
 }
