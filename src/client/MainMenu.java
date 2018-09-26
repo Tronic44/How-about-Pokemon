@@ -1210,6 +1210,11 @@ public class MainMenu {
 		panel_tierlist.add(radioButtonE);
 		radioButtonnull.setVisible(false);
 		tierlistbuttongruppe.add(radioButtonE);
+		
+		JCheckBox cBTiersort = new JCheckBox("New check box");
+		cBTiersort.setEnabled(false);
+		cBTiersort.setBounds(54, 550, 97, 23);
+		panel_tierlist.add(cBTiersort);
 	}
 
 	private void initdraft() {
@@ -1603,5 +1608,4 @@ public class MainMenu {
 		}
 		changesetting();
 	}
-
 }
