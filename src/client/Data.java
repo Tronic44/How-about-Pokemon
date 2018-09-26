@@ -127,5 +127,26 @@ public class Data {
 		tierlist = a;
 	}
 
+	protected static String getTierlist() {
+		String list = "";
+		for (char k : tierlist) {
+			list = list + k ;
+		}
+		return list;
+	}
+
+	protected static Object getTierlistclone() {
+		String list = "";
+		try {
+			for (char k : tierlistclone) {
+				list = list + k ;
+			}
+			return list;
+		} catch (Exception e) {
+			return org.json.JSONObject.NULL;
+		}
+
+	}
+
 	protected static char[] tierlistclone;
 }

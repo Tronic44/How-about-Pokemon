@@ -28,12 +28,15 @@ import javax.swing.JTextPane;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
+
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import javax.swing.JSeparator;
 
 public class MainMenu {
 
+	private static MainMenu window;
 	private JFrame frmPokemonDraft;
 	private JPanel panelMainMenu;
 	private JPanel panelStartDraft;
@@ -96,13 +99,15 @@ public class MainMenu {
 	private JButton btnReihenfolge;
 	private JTextField tFsafename;
 	private JComboBox cBloaddraft;
+	private JSpinner spinnerteam;
+	private String[] Spieler;
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainMenu window = new MainMenu();
+					window = new MainMenu();
 					window.frmPokemonDraft.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -645,7 +650,7 @@ public class MainMenu {
 	}
 
 	private void initplayer() {
-		JSpinner spinnerteam = new JSpinner();
+		spinnerteam = new JSpinner();
 		spinnerteam.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				int count = (int) spinnerteam.getValue();
@@ -687,7 +692,7 @@ public class MainMenu {
 						Manage.msgbox("Deine Liste Stimmt nicht mit der Team Anzahl überein" + "\n"
 								+ "Denk dran: Teams haben niemals nur einen Buchstaben!", frmPokemonDraft);
 					} else {
-						String[] Spieler = new String[count];
+						Spieler = new String[count];
 						for (int k = 0; k < Spieler.length; k++) {
 							for (int i = k; i < Eingabe.length; i++) {
 								if (Eingabe[i].trim().length() > 1) {
@@ -1483,4 +1488,119 @@ public class MainMenu {
 		tierlist();
 		panel_tierlist.setVisible(true);
 	}
+
+	protected static MainMenu getwindow() {
+		return window;
+	}
+
+	protected Object[] getteam() {
+		String finalteam = "";
+		try {
+			for (String k : Spieler) {
+				finalteam = finalteam + k + ":";
+			}
+			finalteam.substring(0, finalteam.length() - 1);
+		} catch (Exception e) {
+			return new Object[] { window.spinnerteam.getValue().toString(), window.ePTeam.getText(),
+					org.json.JSONObject.NULL };
+
+		}
+		return new String[] { window.spinnerteam.getValue().toString(), window.ePTeam.getText(), finalteam };
+	}
+
+	protected Object[] getsettings() {
+		return new Object[] { window.cBS.isSelected(), window.cBA.isSelected(), window.cBB.isSelected(),
+				window.cBC.isSelected(), window.cBD.isSelected(), window.cBE.isSelected(), window.tF1.getText(),
+				window.tF2.getText(), window.tF3.getText(), window.tF4.getText(), window.tF5.getText(),
+				window.tF6.getText() };
+	}
+
+	protected void setteam(String[] list) throws Exception {
+		int count = Integer.parseInt(list[0]);
+		spinnerteam.setValue(count);
+		ePTeam.setText(list[1]);
+		String[] Spieler = list[2].split(":");
+		teamname = new String[count];
+		String print = "";
+		for (int k = 0; k < Spieler.length; k++) {
+			Player = new String[Spieler.length];
+			Player[k] = Spieler[k];
+			teamname[k] = Player[k] + ":";
+			print = print + (k + 1) + "   " + Player[k] + "\n";
+		}
+		teamname[teamname.length - 1] = teamname[teamname.length - 1].substring(0,
+				teamname[teamname.length - 1].length() - 1);
+		ePfinalteam.setText(print);
+	}
+
+	protected void setsettings(Object[] list) throws Exception {
+		resetsettings();
+		for (int k = 0; k < list.length; k++) {
+			switch (k) {
+			case 1:
+				if (list[k].equals(true)) {
+					cBS.setSelected(true);
+				} else {
+					cBS.setSelected(false);
+				}
+				break;
+			case 2:
+				if (list[k].equals(true)) {
+					cBS.setSelected(true);
+				} else {
+					cBS.setSelected(false);
+				}
+				break;
+			case 3:
+				if (list[k].equals(true)) {
+					cBS.setSelected(true);
+				} else {
+					cBS.setSelected(false);
+				}
+				break;
+			case 4:
+				if (list[k].equals(true)) {
+					cBS.setSelected(true);
+				} else {
+					cBS.setSelected(false);
+				}
+				break;
+			case 5:
+				if (list[k].equals(true)) {
+					cBS.setSelected(true);
+				} else {
+					cBS.setSelected(false);
+				}
+				break;
+			case 6:
+				if (list[k].equals(true)) {
+					cBS.setSelected(true);
+				} else {
+					cBS.setSelected(false);
+				}
+				break;
+			case 7:
+				tF1.setText(list[k].toString());
+				break;
+			case 8:
+				tF2.setText(list[k].toString());
+				break;
+			case 9:
+				tF3.setText(list[k].toString());
+				break;
+			case 10:
+				tF4.setText(list[k].toString());
+				break;
+			case 11:
+				tF5.setText(list[k].toString());
+				break;
+			case 12:
+				tF6.setText(list[k].toString());
+				break;
+			}
+
+		}
+		changesetting();
+	}
+
 }

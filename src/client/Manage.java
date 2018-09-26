@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.Frame;
+
 import javax.swing.JOptionPane;
 
 public class Manage {
