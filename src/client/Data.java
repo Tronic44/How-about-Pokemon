@@ -1,5 +1,7 @@
 package client;
 
+import java.util.Arrays;
+
 /**
  * Die Klasse Data, dient einzig und alleine dem Speichern von Programm
  * übergreifenden Daten, wie dem Pokedex oder der Tierlist.
@@ -190,6 +192,17 @@ public class Data {
 		} catch (Exception e) {
 			return org.json.JSONObject.NULL;
 		}
+	}
+
+	/**
+	 * Gibt eine nach Alphabet sortierte Pokemon liste zurück
+	 * 
+	 * @return String[]
+	 */
+	public static String[] sortPokedex() {
+		String[] Pokedexsort = Pokedex.clone();
+		Arrays.sort(Pokedexsort);
+		return Pokedexsort;
 	}
 
 }

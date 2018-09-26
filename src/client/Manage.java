@@ -17,6 +17,7 @@ public class Manage {
 	 * @param args - keine Verwendung bisher
 	 */
 	public static void main(String[] args) {
+		Data.sortPokedex();
 		MainMenu.startMainMenu();
 	}
 

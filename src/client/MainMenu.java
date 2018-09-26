@@ -1480,6 +1480,7 @@ public class MainMenu {
 
 	private void opentierlist() {
 		panelMainMenu.setVisible(false);
+		list.removeAll();
 		for (int i = 0; i < Data.getPokedex().length; i++) {
 			list.add(Data.getPokedex(i));
 		}
