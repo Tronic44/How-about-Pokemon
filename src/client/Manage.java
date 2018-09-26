@@ -1,6 +1,8 @@
 package client;
 
 import java.awt.Frame;
+import java.awt.event.ItemListener;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -62,5 +64,6 @@ public class Manage {
 	protected static void msgboxerf(String nachricht, Frame frame) {
 		JOptionPane.showMessageDialog(frame, nachricht, "Aktion erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 	}
+	      
 
 }

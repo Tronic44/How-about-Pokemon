@@ -33,6 +33,8 @@ import java.util.Collection;
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import javax.swing.JSeparator;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class MainMenu {
 
@@ -101,6 +103,14 @@ public class MainMenu {
 	private JComboBox cBloaddraft;
 	private JSpinner spinnerteam;
 	private String[] Spieler;
+	private JComboBox comboBoxS;
+	private JComboBox comboBoxA;
+	private JComboBox comboBoxB;
+	private JComboBox comboBoxC;
+	private JComboBox comboBoxD;
+	private JComboBox comboBoxE;
+	private int pokeanzahl = 0;
+	int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
@@ -481,37 +491,172 @@ public class MainMenu {
 		tF6.setEditable(false);
 
 		lblTierS = new JLabel("");
-		lblTierS.setBounds(204, 86, 151, 14);
+		lblTierS.setBounds(276, 86, 117, 14);
 		panel_settings.add(lblTierS);
 
 		lblTierA = new JLabel("");
-		lblTierA.setBounds(204, 126, 151, 14);
+		lblTierA.setBounds(276, 126, 117, 14);
 		panel_settings.add(lblTierA);
 
 		lblTierB = new JLabel("");
-		lblTierB.setBounds(204, 167, 151, 14);
+		lblTierB.setBounds(276, 167, 117, 14);
 		panel_settings.add(lblTierB);
 
 		lblTierC = new JLabel("");
-		lblTierC.setBounds(204, 207, 151, 14);
+		lblTierC.setBounds(276, 207, 117, 14);
 		panel_settings.add(lblTierC);
 
 		lblTierD = new JLabel("");
-		lblTierD.setBounds(204, 250, 151, 14);
+		lblTierD.setBounds(276, 250, 117, 14);
 		panel_settings.add(lblTierD);
 
 		lblTierE = new JLabel("");
-		lblTierE.setBounds(204, 293, 151, 14);
+		lblTierE.setBounds(276, 293, 117, 14);
 		panel_settings.add(lblTierE);
+
+		String[] countPoke = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
+				"15" };
+
+		comboBoxS = new JComboBox<String>(countPoke);
+		comboBoxS.setEnabled(false);
+		comboBoxS.setSelectedIndex(-1);
+		comboBoxS.setBounds(194, 83, 61, 20);
+		panel_settings.add(comboBoxS);
+
+		comboBoxA = new JComboBox<String>(countPoke);
+		comboBoxA.setEnabled(false);
+		comboBoxA.setSelectedIndex(-1);
+		comboBoxA.setBounds(194, 123, 61, 20);
+		panel_settings.add(comboBoxA);
+
+		comboBoxB = new JComboBox<String>(countPoke);
+		comboBoxB.setEnabled(false);
+		comboBoxB.setSelectedIndex(-1);
+		comboBoxB.setBounds(194, 164, 61, 20);
+		panel_settings.add(comboBoxB);
+
+		comboBoxC = new JComboBox<String>(countPoke);
+		comboBoxC.setEnabled(false);
+		comboBoxC.setSelectedIndex(-1);
+		comboBoxC.setBounds(194, 204, 61, 20);
+		panel_settings.add(comboBoxC);
+
+		comboBoxD = new JComboBox<String>(countPoke);
+		comboBoxD.setEnabled(false);
+		comboBoxD.setSelectedIndex(-1);
+		comboBoxD.setBounds(194, 247, 61, 20);
+		panel_settings.add(comboBoxD);
+
+		comboBoxE = new JComboBox<String>(countPoke);
+		comboBoxE.setEnabled(false);
+		comboBoxE.setSelectedIndex(-1);
+		comboBoxE.setBounds(194, 290, 61, 20);
+		panel_settings.add(comboBoxE);
+
+		comboBoxS.addItemListener(new ItemChangeListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					System.out.println("S");
+					int auswahl;
+					try {
+						auswahl = Integer.parseInt((String) comboBoxS.getSelectedItem());
+						if (auswahl > 0)
+							changepokeanzahl(0, auswahl);
+					} catch (Exception f) {
+					}
+				}
+			}
+		});
+
+		comboBoxA.addItemListener(new ItemChangeListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					System.out.println("A");
+					int auswahl;
+					try {
+						auswahl = Integer.parseInt((String) comboBoxA.getSelectedItem());
+						if (auswahl > 0)
+							changepokeanzahl(1, auswahl);
+					} catch (Exception f) {
+					}
+				}
+			}
+		});
+
+		comboBoxB.addItemListener(new ItemChangeListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					System.out.println("B");
+					int auswahl;
+					try {
+						auswahl = Integer.parseInt((String) comboBoxB.getSelectedItem());
+						if (auswahl > 0)
+							changepokeanzahl(2, auswahl);
+					} catch (Exception f) {
+					}
+				}
+			}
+		});
+		comboBoxC.addItemListener(new ItemChangeListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					System.out.println("C");
+					int auswahl;
+					try {
+						auswahl = Integer.parseInt((String) comboBoxC.getSelectedItem());
+						if (auswahl > 0)
+							changepokeanzahl(3, auswahl);
+					} catch (Exception f) {
+					}
+				}
+			}
+		});
+		comboBoxD.addItemListener(new ItemChangeListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					System.out.println("D");
+					int auswahl;
+					try {
+						auswahl = Integer.parseInt((String) comboBoxD.getSelectedItem());
+						if (auswahl > 0)
+							changepokeanzahl(4, auswahl);
+					} catch (Exception f) {
+					}
+				}
+			}
+		});
+		comboBoxE.addItemListener(new ItemChangeListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					System.out.println("E");
+					int auswahl;
+					try {
+						auswahl = Integer.parseInt((String) comboBoxE.getSelectedItem());
+						if (auswahl > 0)
+							changepokeanzahl(5, auswahl);
+					} catch (Exception f) {
+					}
+				}
+			}
+		});
 
 		cBS = new JCheckBox("");
 		cBS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cBS.isSelected()) {
 					tF1.setEditable(true);
+					comboBoxS.setEnabled(true);
 				} else {
 					tF1.setEditable(false);
 					tF1.setText("");
+					comboBoxS.setEnabled(false);
+					comboBoxS.setSelectedIndex(-1);
 				}
 				changesetting();
 			}
@@ -524,10 +669,12 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBA.isSelected()) {
 					tF2.setEditable(true);
+					comboBoxA.setEnabled(true);
 				} else {
 					tF2.setEditable(false);
 					tF2.setText("");
-
+					comboBoxA.setEnabled(false);
+					comboBoxA.setSelectedIndex(-1);
 				}
 				changesetting();
 			}
@@ -540,10 +687,12 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBB.isSelected()) {
 					tF3.setEditable(true);
+					comboBoxB.setEnabled(true);
 				} else {
 					tF3.setEditable(false);
 					tF3.setText("");
-
+					comboBoxB.setEnabled(false);
+					comboBoxB.setSelectedIndex(-1);
 				}
 				changesetting();
 			}
@@ -556,10 +705,12 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBC.isSelected()) {
 					tF4.setEditable(true);
+					comboBoxC.setEnabled(true);
 				} else {
 					tF4.setEditable(false);
 					tF4.setText("");
-
+					comboBoxC.setEnabled(false);
+					comboBoxC.setSelectedIndex(-1);
 				}
 				changesetting();
 			}
@@ -572,10 +723,12 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBD.isSelected()) {
 					tF5.setEditable(true);
+					comboBoxD.setEnabled(true);
 				} else {
 					tF5.setEditable(false);
 					tF5.setText("");
-
+					comboBoxD.setEnabled(false);
+					comboBoxD.setSelectedIndex(-1);
 				}
 				changesetting();
 			}
@@ -588,10 +741,12 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBE.isSelected()) {
 					tF6.setEditable(true);
+					comboBoxE.setEnabled(true);
 				} else {
 					tF6.setEditable(false);
 					tF6.setText("");
-
+					comboBoxE.setEnabled(false);
+					comboBoxE.setSelectedIndex(-1);
 				}
 				changesetting();
 			}
@@ -1211,7 +1366,7 @@ public class MainMenu {
 		panel_tierlist.add(radioButtonE);
 		radioButtonnull.setVisible(false);
 		tierlistbuttongruppe.add(radioButtonE);
-		
+
 		JCheckBox cBTiersort = new JCheckBox("New check box");
 		cBTiersort.setEnabled(false);
 		cBTiersort.setBounds(54, 550, 97, 23);
@@ -1609,10 +1764,68 @@ public class MainMenu {
 		}
 		changesetting();
 	}
-	
+
 	protected void opendraft() {
 		panelStartDraft.setVisible(false);
 		frmPokemonDraft.setBounds(100, 100, 1100, 800);
 		panel_draft.setVisible(true);
+	}
+
+	protected void changepokeanzahl(int a, int auswahl) {
+		if (countauswahl[a] < auswahl) {
+			int count = 15 - auswahl + countauswahl[a];
+			for (int k : countauswahl) {
+				count -= k;
+			}
+			System.out.println("- " + count + " " + auswahl);
+			for (int k = 15; k >= count; k--) {
+				try {
+					if (comboBoxS.getSelectedIndex() < k)
+						comboBoxS.removeItemAt(k);
+					if (comboBoxA.getSelectedIndex() < k)
+						comboBoxA.removeItemAt(k);
+					if (comboBoxB.getSelectedIndex() < k)
+						comboBoxB.removeItemAt(k);
+					if (comboBoxC.getSelectedIndex() < k)
+						comboBoxC.removeItemAt(k);
+					if (comboBoxD.getSelectedIndex() < k)
+						comboBoxD.removeItemAt(k);
+					if (comboBoxE.getSelectedIndex() < k)
+						comboBoxE.removeItemAt(k);
+				} catch (Exception e) {
+
+				}
+			}
+		} else {
+			int count = 15 - auswahl + countauswahl[a];
+			for (int k : countauswahl) {
+				count -= k;
+			}
+			System.out.println("+ " + count + " " + auswahl);
+			for (int k = 0; k <= count; k++) {
+				try {
+					if (comboBoxS.getItemCount() < k) {
+						comboBoxS.addItem(k);
+					}
+					if (comboBoxA.getItemCount() < k) {
+						comboBoxA.addItem(k);
+					}
+					if (comboBoxB.getItemCount() < k) {
+						comboBoxB.addItem(k);
+					}
+					if (comboBoxC.getItemCount() < k) {
+						comboBoxC.addItem(k);
+					}
+					if (comboBoxD.getItemCount() < k) {
+						comboBoxD.addItem(k);
+					}
+					if (comboBoxE.getItemCount() < k) {
+						comboBoxE.addItem(k);
+					}
+				} catch (Exception f) {
+				}
+			}
+		}
+		countauswahl[a] = auswahl;
 	}
 }
