@@ -1,15 +1,35 @@
 package client;
 
+/**
+ * Die Klasse Data, dient einzig und alleine dem Speichern von Programm
+ * übergreifenden Daten, wie dem Pokedex oder der Tierlist.
+ * 
+ * @author Yannick Dreher, Realchicken
+ *
+ */
 public class Data {
-
+	/**
+	 * Gibt den Pokedex zurück.
+	 * 
+	 * @return String[] den Pokedex
+	 */
 	protected static String[] getPokedex() {
 		return Pokedex;
 	}
 
+	/**
+	 * Gibt den Eintrag des Pokedex an der Stelle i zurück.
+	 * 
+	 * @param i - int, der zu betrachtende Eintrag im Pokedex
+	 * @return String - Der Eintrag im Pokedex
+	 */
 	protected static String getPokedex(int i) {
 		return Pokedex[i];
 	}
 
+	/**
+	 * Der Pokedex in einem einzige StringArray.
+	 */
 	private static String[] Pokedex = { "Bisasam", "Bisaknosp", "Bisaflor", "Bisaflor Mega", "Glumanda", "Glutexo",
 			"Glurak", "Glurak Mega X", "Glurak Mega Y", "Schiggy", "Schillok", "Turtok", "Turtok Mega", "Raupy",
 			"Safcon", "Smettbo", "Hornliu", "Kokuna", "Bibor", "Bibor Mega", "Taubsi", "Tauboga", "Tauboss",
@@ -121,32 +141,55 @@ public class Data {
 			"Kaguron", "Katagami", "Schlingking", "Necrozma", "Necrozma Abendmähne", "Necrozma Morgenschwingen",
 			"Necrozma Ultra", "Magearna", "Marshadow", "Venicro", "Agoyon", "Muramura", "Kopplosio", "Zeraora" };
 
+	/**
+	 * Die Tierlist, ist dazu da jedem Pokemon ein Tier zuzuweisen.
+	 */
 	protected static char[] tierlist = new char[Pokedex.length];
 
+	/**
+	 * Ein Clone der Tierlist um Änderungen Rückgängig machen zu können. Muss
+	 * manuell initialisiert werden.
+	 */
+	protected static char[] tierlistclone;
+
+	/**
+	 * Setzt die gesamte Tierlist.
+	 * 
+	 * @param a - char[] der Länge des Pokedex
+	 */
 	protected static void settierlist(char[] a) {
 		tierlist = a;
 	}
 
+	/**
+	 * Gibt die Tierlist als ein String ohne Zeichentrenner zurück.
+	 * 
+	 * @return String
+	 */
 	protected static String getTierlist() {
 		String list = "";
 		for (char k : tierlist) {
-			list = list + k ;
+			list = list + k;
 		}
 		return list;
 	}
 
+	/**
+	 * Gibt den Tierlistclone zurück. Als String wenn schon initialisiert, wenn
+	 * nicht als JSONOBject.NULL.
+	 * 
+	 * @return Object - String oder JSONObject.NULL
+	 */
 	protected static Object getTierlistclone() {
 		String list = "";
 		try {
 			for (char k : tierlistclone) {
-				list = list + k ;
+				list = list + k;
 			}
 			return list;
 		} catch (Exception e) {
 			return org.json.JSONObject.NULL;
 		}
-
 	}
 
-	protected static char[] tierlistclone;
 }
