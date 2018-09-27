@@ -64,6 +64,20 @@ public class Manage {
 	protected static void msgboxerf(String nachricht, Frame frame) {
 		JOptionPane.showMessageDialog(frame, nachricht, "Aktion erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 	}
-	      
+	    
+	
+	protected static String[] getaarray(int length) {
+		if (length <= 0) {
+			return new String[] {};
+		}
+		if (length > 15) {
+			length = 15;
+		}
+		String[] a = new String[length];
+		for (int k = 0; k < a.length; k++) {
+			a[k] = String.valueOf(k + 1);
+		}
+		return a;
+	}
 
 }

@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -35,6 +38,8 @@ import javax.swing.event.CaretEvent;
 import javax.swing.JSeparator;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 
 public class MainMenu {
 
@@ -103,12 +108,12 @@ public class MainMenu {
 	private JComboBox cBloaddraft;
 	private JSpinner spinnerteam;
 	private String[] Spieler;
-	private JComboBox comboBoxS;
-	private JComboBox comboBoxA;
-	private JComboBox comboBoxB;
-	private JComboBox comboBoxC;
-	private JComboBox comboBoxD;
-	private JComboBox comboBoxE;
+	private JComboBox<String> comboBoxS;
+	private JComboBox<String> comboBoxA;
+	private JComboBox<String> comboBoxB;
+	private JComboBox<String> comboBoxC;
+	private JComboBox<String> comboBoxD;
+	private JComboBox<String> comboBoxE;
 	private int pokeanzahl = 0;
 	int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 
@@ -284,9 +289,7 @@ public class MainMenu {
 		btnsafetier.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (Data.tierlistclone == null) {
-					Data.tierlistclone = Data.tierlist.clone();
-				}
+
 				if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected()
 						&& !cBD.isSelected() && !cBE.isSelected()) {
 					Manage.msgbox("Kein Tier? So geht das aber nicht!", frmPokemonDraft);
@@ -316,7 +319,55 @@ public class MainMenu {
 					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
 					return;
 				}
+				if (cBS.isSelected() && comboBoxS.getSelectedIndex() < 0) {
+					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
+							+ "Wo gibt es denn sowas?", frmPokemonDraft);
+					return;
+				}
+				if (cBA.isSelected() && comboBoxA.getSelectedIndex() < 0) {
+					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
+							+ "Wo gibt es denn sowas?", frmPokemonDraft);
+					return;
+				}
+				if (cBB.isSelected() && comboBoxB.getSelectedIndex() < 0) {
+					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
+							+ "Wo gibt es denn sowas?", frmPokemonDraft);
+					return;
+				}
+				if (cBC.isSelected() && comboBoxC.getSelectedIndex() < 0) {
+					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
+							+ "Wo gibt es denn sowas?", frmPokemonDraft);
+					return;
+				}
+				if (cBD.isSelected() && comboBoxD.getSelectedIndex() < 0) {
+					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
+							+ "Wo gibt es denn sowas?", frmPokemonDraft);
+					return;
+				}
+				if (cBE.isSelected() && comboBoxE.getSelectedIndex() < 0) {
+					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
+							+ "Wo gibt es denn sowas?", frmPokemonDraft);
+					return;
+				}
+				String[] tiernamenlist = new String[] { tF1.getText().trim(), tF2.getText().trim(),
+						tF3.getText().trim(), tF4.getText().trim(), tF5.getText().trim(), tF6.getText().trim() };
 
+				for (int k = 0; k < tiernamenlist.length; k++) {
+					for (int j = 0; j < tiernamenlist.length; j++) {
+						if (tiernamenlist[k].equals("") || tiernamenlist[j].equals("") || j == k) {
+							continue;
+						}
+						if (tiernamenlist[k].equals(tiernamenlist[j])) {
+							Manage.msgbox("Den selben Namen für zwei Tierlist? Das ist doch nur verwirrend!",
+									frmPokemonDraft);
+							return;
+						}
+					}
+				}
+
+				if (Data.tierlistclone == null) {
+					Data.tierlistclone = Data.tierlist.clone();
+				}
 				int count = 0;
 				if (cBS.isSelected()) {
 					radioButtonS.setEnabled(true);
@@ -517,132 +568,174 @@ public class MainMenu {
 		String[] countPoke = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
 				"15" };
 
-		comboBoxS = new JComboBox<String>(countPoke);
+//		comboBoxS = new JComboBox<String>(countPoke);
+//		comboBoxS.setEnabled(false);
+//		comboBoxS.setSelectedIndex(-1);
+//		comboBoxS.setBounds(194, 83, 61, 20);
+//		panel_settings.add(comboBoxS);
+//
+//		comboBoxA = new JComboBox<String>(countPoke);
+//		comboBoxA.setEnabled(false);
+//		comboBoxA.setSelectedIndex(-1);
+//		comboBoxA.setBounds(194, 123, 61, 20);
+//		panel_settings.add(comboBoxA);
+//
+//		comboBoxB = new JComboBox<String>(countPoke);
+//		comboBoxB.setEnabled(false);
+//		comboBoxB.setSelectedIndex(-1);
+//		comboBoxB.setBounds(194, 164, 61, 20);
+//		panel_settings.add(comboBoxB);
+//
+//		comboBoxC = new JComboBox<String>(countPoke);
+//		comboBoxC.setEnabled(false);
+//		comboBoxC.setSelectedIndex(-1);
+//		comboBoxC.setBounds(194, 204, 61, 20);
+//		panel_settings.add(comboBoxC);
+//
+//		comboBoxD = new JComboBox<String>(countPoke);
+//		comboBoxD.setEnabled(false);
+//		comboBoxD.setSelectedIndex(-1);
+//		comboBoxD.setBounds(194, 247, 61, 20);
+//		panel_settings.add(comboBoxD);
+//
+//		comboBoxE = new JComboBox<String>(countPoke);
+//		comboBoxE.setEnabled(false);
+//		comboBoxE.setSelectedIndex(-1);
+//		comboBoxE.setBounds(194, 290, 61, 20);
+//		panel_settings.add(comboBoxE);
+
+		comboBoxS = new JComboBox(countPoke);
 		comboBoxS.setEnabled(false);
 		comboBoxS.setSelectedIndex(-1);
 		comboBoxS.setBounds(194, 83, 61, 20);
 		panel_settings.add(comboBoxS);
 
-		comboBoxA = new JComboBox<String>(countPoke);
+		comboBoxA = new JComboBox(countPoke);
 		comboBoxA.setEnabled(false);
 		comboBoxA.setSelectedIndex(-1);
 		comboBoxA.setBounds(194, 123, 61, 20);
 		panel_settings.add(comboBoxA);
 
-		comboBoxB = new JComboBox<String>(countPoke);
+		comboBoxB = new JComboBox(countPoke);
 		comboBoxB.setEnabled(false);
 		comboBoxB.setSelectedIndex(-1);
 		comboBoxB.setBounds(194, 164, 61, 20);
 		panel_settings.add(comboBoxB);
 
-		comboBoxC = new JComboBox<String>(countPoke);
+		comboBoxC = new JComboBox(countPoke);
 		comboBoxC.setEnabled(false);
 		comboBoxC.setSelectedIndex(-1);
 		comboBoxC.setBounds(194, 204, 61, 20);
 		panel_settings.add(comboBoxC);
 
-		comboBoxD = new JComboBox<String>(countPoke);
+		comboBoxD = new JComboBox(countPoke);
 		comboBoxD.setEnabled(false);
 		comboBoxD.setSelectedIndex(-1);
 		comboBoxD.setBounds(194, 247, 61, 20);
 		panel_settings.add(comboBoxD);
 
-		comboBoxE = new JComboBox<String>(countPoke);
+		comboBoxE = new JComboBox(countPoke);
 		comboBoxE.setEnabled(false);
 		comboBoxE.setSelectedIndex(-1);
 		comboBoxE.setBounds(194, 290, 61, 20);
 		panel_settings.add(comboBoxE);
 
-		comboBoxS.addItemListener(new ItemChangeListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					System.out.println("S");
-					int auswahl;
-					try {
-						auswahl = Integer.parseInt((String) comboBoxS.getSelectedItem());
-						if (auswahl > 0)
-							changepokeanzahl(0, auswahl);
-					} catch (Exception f) {
-					}
-				}
+		comboBoxS.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent arg0) {
+			}
+
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+				System.out.print("S");
+				int auswahl;
+				auswahl = comboBoxS.getSelectedIndex() + 1;
+				System.out.print(auswahl + "\n");
+				changepokeanzahl(0, auswahl);
+
+			}
+
+			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
 			}
 		});
 
-		comboBoxA.addItemListener(new ItemChangeListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					System.out.println("A");
-					int auswahl;
-					try {
-						auswahl = Integer.parseInt((String) comboBoxA.getSelectedItem());
-						if (auswahl > 0)
-							changepokeanzahl(1, auswahl);
-					} catch (Exception f) {
-					}
-				}
+		comboBoxA.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent arg0) {
+			}
+
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+				System.out.print("S");
+				int auswahl;
+				auswahl = comboBoxA.getSelectedIndex() + 1;
+				System.out.print(auswahl + "\n");
+				changepokeanzahl(1, auswahl);
+
+			}
+
+			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
 			}
 		});
 
-		comboBoxB.addItemListener(new ItemChangeListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					System.out.println("B");
-					int auswahl;
-					try {
-						auswahl = Integer.parseInt((String) comboBoxB.getSelectedItem());
-						if (auswahl > 0)
-							changepokeanzahl(2, auswahl);
-					} catch (Exception f) {
-					}
-				}
+		comboBoxB.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent arg0) {
+			}
+
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+				System.out.print("S");
+				int auswahl;
+				auswahl = comboBoxB.getSelectedIndex() + 1;
+				System.out.print(auswahl + "\n");
+				changepokeanzahl(2, auswahl);
+
+			}
+
+			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
 			}
 		});
-		comboBoxC.addItemListener(new ItemChangeListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					System.out.println("C");
-					int auswahl;
-					try {
-						auswahl = Integer.parseInt((String) comboBoxC.getSelectedItem());
-						if (auswahl > 0)
-							changepokeanzahl(3, auswahl);
-					} catch (Exception f) {
-					}
-				}
+		comboBoxC.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent arg0) {
+			}
+
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+				System.out.print("S");
+				int auswahl;
+				auswahl = comboBoxC.getSelectedIndex() + 1;
+				System.out.print(auswahl + "\n");
+				changepokeanzahl(3, auswahl);
+
+			}
+
+			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
 			}
 		});
-		comboBoxD.addItemListener(new ItemChangeListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					System.out.println("D");
-					int auswahl;
-					try {
-						auswahl = Integer.parseInt((String) comboBoxD.getSelectedItem());
-						if (auswahl > 0)
-							changepokeanzahl(4, auswahl);
-					} catch (Exception f) {
-					}
-				}
+		comboBoxD.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent arg0) {
+			}
+
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+				System.out.print("S");
+				int auswahl;
+				auswahl = comboBoxD.getSelectedIndex() + 1;
+				System.out.print(auswahl + "\n");
+				changepokeanzahl(4, auswahl);
+
+			}
+
+			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
 			}
 		});
-		comboBoxE.addItemListener(new ItemChangeListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					System.out.println("E");
-					int auswahl;
-					try {
-						auswahl = Integer.parseInt((String) comboBoxE.getSelectedItem());
-						if (auswahl > 0)
-							changepokeanzahl(5, auswahl);
-					} catch (Exception f) {
-					}
-				}
+		comboBoxE.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent arg0) {
+			}
+
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+				System.out.print("S");
+				int auswahl;
+				auswahl = comboBoxE.getSelectedIndex() + 1;
+				System.out.print(auswahl + "\n");
+				changepokeanzahl(5, auswahl);
+
+			}
+
+			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
 			}
 		});
 
@@ -657,6 +750,7 @@ public class MainMenu {
 					tF1.setText("");
 					comboBoxS.setEnabled(false);
 					comboBoxS.setSelectedIndex(-1);
+					changepokeanzahl(0, 0);
 				}
 				changesetting();
 			}
@@ -675,6 +769,7 @@ public class MainMenu {
 					tF2.setText("");
 					comboBoxA.setEnabled(false);
 					comboBoxA.setSelectedIndex(-1);
+					changepokeanzahl(1, 0);
 				}
 				changesetting();
 			}
@@ -693,6 +788,7 @@ public class MainMenu {
 					tF3.setText("");
 					comboBoxB.setEnabled(false);
 					comboBoxB.setSelectedIndex(-1);
+					changepokeanzahl(2, 0);
 				}
 				changesetting();
 			}
@@ -711,6 +807,7 @@ public class MainMenu {
 					tF4.setText("");
 					comboBoxC.setEnabled(false);
 					comboBoxC.setSelectedIndex(-1);
+					changepokeanzahl(3, 0);
 				}
 				changesetting();
 			}
@@ -729,6 +826,7 @@ public class MainMenu {
 					tF5.setText("");
 					comboBoxD.setEnabled(false);
 					comboBoxD.setSelectedIndex(-1);
+					changepokeanzahl(4, 0);
 				}
 				changesetting();
 			}
@@ -747,6 +845,7 @@ public class MainMenu {
 					tF6.setText("");
 					comboBoxE.setEnabled(false);
 					comboBoxE.setSelectedIndex(-1);
+					changepokeanzahl(5, 0);
 				}
 				changesetting();
 			}
@@ -1772,60 +1871,40 @@ public class MainMenu {
 	}
 
 	protected void changepokeanzahl(int a, int auswahl) {
-		if (countauswahl[a] < auswahl) {
-			int count = 15 - auswahl + countauswahl[a];
-			for (int k : countauswahl) {
-				count -= k;
-			}
-			System.out.println("- " + count + " " + auswahl);
-			for (int k = 15; k >= count; k--) {
-				try {
-					if (comboBoxS.getSelectedIndex() < k)
-						comboBoxS.removeItemAt(k);
-					if (comboBoxA.getSelectedIndex() < k)
-						comboBoxA.removeItemAt(k);
-					if (comboBoxB.getSelectedIndex() < k)
-						comboBoxB.removeItemAt(k);
-					if (comboBoxC.getSelectedIndex() < k)
-						comboBoxC.removeItemAt(k);
-					if (comboBoxD.getSelectedIndex() < k)
-						comboBoxD.removeItemAt(k);
-					if (comboBoxE.getSelectedIndex() < k)
-						comboBoxE.removeItemAt(k);
-				} catch (Exception e) {
-
-				}
-			}
-		} else {
-			int count = 15 - auswahl + countauswahl[a];
-			for (int k : countauswahl) {
-				count -= k;
-			}
-			System.out.println("+ " + count + " " + auswahl);
-			for (int k = 0; k <= count; k++) {
-				try {
-					if (comboBoxS.getItemCount() < k) {
-						comboBoxS.addItem(k);
-					}
-					if (comboBoxA.getItemCount() < k) {
-						comboBoxA.addItem(k);
-					}
-					if (comboBoxB.getItemCount() < k) {
-						comboBoxB.addItem(k);
-					}
-					if (comboBoxC.getItemCount() < k) {
-						comboBoxC.addItem(k);
-					}
-					if (comboBoxD.getItemCount() < k) {
-						comboBoxD.addItem(k);
-					}
-					if (comboBoxE.getItemCount() < k) {
-						comboBoxE.addItem(k);
-					}
-				} catch (Exception f) {
-				}
-			}
+		if (auswahl == -1) {
+			auswahl = 0;
+		}
+		int count = 15 - auswahl + countauswahl[a];
+		for (int k : countauswahl) {
+			count -= k;
 		}
 		countauswahl[a] = auswahl;
+		System.out.println("- " + a + " " + count + " " + auswahl);
+		try {
+			comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[0] + count)));
+			comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[1] + count)));
+			comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[2] + count)));
+			comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[3] + count)));
+			comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[4] + count)));
+			comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[5] + count)));
+
+			comboBoxS.setSelectedIndex(countauswahl[0] - 1);
+			comboBoxA.setSelectedIndex(countauswahl[1] - 1);
+			comboBoxB.setSelectedIndex(countauswahl[2] - 1);
+			comboBoxC.setSelectedIndex(countauswahl[3] - 1);
+			comboBoxD.setSelectedIndex(countauswahl[4] - 1);
+			comboBoxE.setSelectedIndex(countauswahl[5] - 1);
+		} catch (Exception g) {
+			Manage.msgbox("Huch da ist was bei der Anzahl der Pokemon schief gelaufen" + "\n"
+					+ "Keine Sorge das war nicht deine Schuld aber leider können deine Einstellungen nicht übernommen werden",
+					frmPokemonDraft);
+			comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+			comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+			comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+			comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+			comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+			comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+		}
 	}
+
 }
