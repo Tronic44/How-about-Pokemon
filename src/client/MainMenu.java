@@ -4,20 +4,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
-import java.awt.Component;
-
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-
 import java.awt.List;
 import javax.swing.JTextField;
 import client.Writer;
@@ -31,13 +26,9 @@ import javax.swing.JTextPane;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
-
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import javax.swing.JSeparator;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 
@@ -74,9 +65,7 @@ public class MainMenu {
 	protected String[] Player;
 	private JEditorPane ePfinalteam;
 	private JTextField tF_Teams;
-	private JComboBox cBTeams;
-	private boolean teamload = false;
-	private boolean tierload = false;
+	private JComboBox<String> cBTeams;
 	private JTextField tF2;
 	private JTextField tF3;
 	private JTextField tF4;
@@ -105,7 +94,7 @@ public class MainMenu {
 	private JLabel lblbest;
 	private JButton btnReihenfolge;
 	private JTextField tFsafename;
-	private JComboBox cBloaddraft;
+	private JComboBox<String> cBloaddraft;
 	private JSpinner spinnerteam;
 	private String[] Spieler;
 	private JComboBox<String> comboBoxS;
@@ -114,7 +103,6 @@ public class MainMenu {
 	private JComboBox<String> comboBoxC;
 	private JComboBox<String> comboBoxD;
 	private JComboBox<String> comboBoxE;
-	private int pokeanzahl = 0;
 	int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 
 	protected static void startMainMenu() {
@@ -358,7 +346,7 @@ public class MainMenu {
 							continue;
 						}
 						if (tiernamenlist[k].equals(tiernamenlist[j])) {
-							Manage.msgbox("Den selben Namen für zwei Tierlist? Das ist doch nur verwirrend!",
+							Manage.msgbox("Den selben Namen für zwei Tier's? Das ist doch nur verwirrend!",
 									frmPokemonDraft);
 							return;
 						}
@@ -1736,6 +1724,18 @@ public class MainMenu {
 		tF4.setEditable(false);
 		tF5.setEditable(false);
 		tF6.setEditable(false);
+		comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+		comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+		comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+		comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+		comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+		comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+		comboBoxS.setSelectedIndex(-1);
+		comboBoxA.setSelectedIndex(-1);
+		comboBoxB.setSelectedIndex(-1);
+		comboBoxC.setSelectedIndex(-1);
+		comboBoxD.setSelectedIndex(-1);
+		comboBoxE.setSelectedIndex(-1);
 	}
 
 	private void opentierlist() {
