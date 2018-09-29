@@ -31,6 +31,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
+import javax.swing.JList;
 
 public class MainMenu {
 
@@ -127,7 +128,8 @@ public class MainMenu {
 		frmPokemonDraft = new JFrame();
 		frmPokemonDraft.setTitle("Pokemon Draft        Alpha by Tronic44");
 		frmPokemonDraft.setResizable(false);
-		frmPokemonDraft.setBounds(100, 100, 409, 640);
+//		frmPokemonDraft.setBounds(100, 100, 409, 640);
+		frmPokemonDraft.setBounds(100, 100, 1100, 800);
 		frmPokemonDraft.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPokemonDraft.getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -456,6 +458,7 @@ public class MainMenu {
 						}
 					}
 				}
+				draftlayout();
 				lblbest.setText("Änderungen wurden übernommen!");
 			}
 		});
@@ -633,12 +636,9 @@ public class MainMenu {
 			}
 
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				System.out.print("S");
 				int auswahl;
 				auswahl = comboBoxS.getSelectedIndex() + 1;
-				System.out.print(auswahl + "\n");
 				changepokeanzahl(0, auswahl);
-
 			}
 
 			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
@@ -650,12 +650,9 @@ public class MainMenu {
 			}
 
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				System.out.print("S");
 				int auswahl;
 				auswahl = comboBoxA.getSelectedIndex() + 1;
-				System.out.print(auswahl + "\n");
 				changepokeanzahl(1, auswahl);
-
 			}
 
 			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
@@ -667,12 +664,9 @@ public class MainMenu {
 			}
 
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				System.out.print("S");
 				int auswahl;
 				auswahl = comboBoxB.getSelectedIndex() + 1;
-				System.out.print(auswahl + "\n");
 				changepokeanzahl(2, auswahl);
-
 			}
 
 			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
@@ -683,12 +677,9 @@ public class MainMenu {
 			}
 
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				System.out.print("S");
 				int auswahl;
 				auswahl = comboBoxC.getSelectedIndex() + 1;
-				System.out.print(auswahl + "\n");
 				changepokeanzahl(3, auswahl);
-
 			}
 
 			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
@@ -699,12 +690,9 @@ public class MainMenu {
 			}
 
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				System.out.print("S");
 				int auswahl;
 				auswahl = comboBoxD.getSelectedIndex() + 1;
-				System.out.print(auswahl + "\n");
 				changepokeanzahl(4, auswahl);
-
 			}
 
 			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
@@ -715,10 +703,8 @@ public class MainMenu {
 			}
 
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				System.out.print("S");
 				int auswahl;
 				auswahl = comboBoxE.getSelectedIndex() + 1;
-				System.out.print(auswahl + "\n");
 				changepokeanzahl(5, auswahl);
 
 			}
@@ -1461,10 +1447,6 @@ public class MainMenu {
 	}
 
 	private void initdraft() {
-		JLabel lblTeam = new JLabel("Team 1");
-		lblTeam.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		lblTeam.setBounds(519, 11, 80, 31);
-		panel_draft.add(lblTeam);
 
 		JButton btnNewButton_1 = new JButton("New button");
 		btnNewButton_1.setBounds(54, 110, 169, 98);
@@ -1497,6 +1479,10 @@ public class MainMenu {
 		JButton button_6 = new JButton("New button");
 		button_6.setBounds(860, 441, 169, 98);
 		panel_draft.add(button_6);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(464, 11, 169, 20);
+		panel_draft.add(comboBox);
 
 	}
 
@@ -1736,6 +1722,14 @@ public class MainMenu {
 		comboBoxC.setSelectedIndex(-1);
 		comboBoxD.setSelectedIndex(-1);
 		comboBoxE.setSelectedIndex(-1);
+		comboBoxS.setEnabled(false);
+		comboBoxA.setEnabled(false);
+		comboBoxB.setEnabled(false);
+		comboBoxC.setEnabled(false);
+		comboBoxD.setEnabled(false);
+		comboBoxE.setEnabled(false);
+		countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
+
 	}
 
 	private void opentierlist() {
@@ -1879,7 +1873,7 @@ public class MainMenu {
 			count -= k;
 		}
 		countauswahl[a] = auswahl;
-		System.out.println("- " + a + " " + count + " " + auswahl);
+//		System.out.println("- " + a + " " + count + " " + auswahl);
 		try {
 			comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[0] + count)));
 			comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[1] + count)));
@@ -1905,6 +1899,23 @@ public class MainMenu {
 			comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 			comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 		}
+	}
+
+	protected void draftlayout() {
+		for (int k : countauswahl) {
+			int line = 100;
+			if (k == 0) {
+				continue;
+			}
+			if (k > 3) {
+				line += 100;
+			}
+		}
+	}
+
+	protected int[] nextline(int k) {
+		int[] spalte = new int[k];
+		return spalte;
 	}
 
 }
