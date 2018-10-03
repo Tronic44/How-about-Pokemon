@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -32,7 +31,6 @@ import javax.swing.event.CaretEvent;
 import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
-import javax.swing.JList;
 import java.awt.Color;
 
 public class MainMenu {
@@ -1470,11 +1468,6 @@ public class MainMenu {
 		panel_tierlist.add(radioButtonE);
 		radioButtonnull.setVisible(false);
 		tierlistbuttongruppe.add(radioButtonE);
-
-		JCheckBox cBTiersort = new JCheckBox("New check box");
-		cBTiersort.setEnabled(false);
-		cBTiersort.setBounds(54, 550, 97, 23);
-		panel_tierlist.add(cBTiersort);
 	}
 
 	private void initdraft() {
@@ -1937,6 +1930,7 @@ public class MainMenu {
 	}
 
 	protected void changepokeanzahl(int a, int auswahl) {
+		lblbest.setText("");
 		if (auswahl == -1) {
 			auswahl = 0;
 		}
@@ -1974,6 +1968,13 @@ public class MainMenu {
 	}
 
 	protected void draftlayout() {
+		for (JComboBox<String> k : cbDraft) {
+			try {
+				panel_draft.remove(k);
+			} catch (Exception e) {
+
+			}
+		}
 		int[] pokeanzahl = countauswahl.clone();
 		int count = 0;
 		int line = 120;
@@ -1998,17 +1999,12 @@ public class MainMenu {
 				int[] nxco = nextcolumn(pkan);
 				for (int co = 0; co < pkan; co++) {
 					cbDraft[count] = new JComboBox<String>(Data.gettierpokemon(i));
-					cbDraft[count].addPopupMenuListener(new PopupMenuListener() {
-						public void popupMenuCanceled(PopupMenuEvent arg0) {
-						}
-
+					cbDraft[count].addPopupMenuListener(new PopupListener(cbDraft[count]) {
 						public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-//							changedraftpokemon();
-						}
-
-						public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
+							changedraftpokemon(this.box);
 						}
 					});
+					cbDraft[count].setSelectedIndex(-1);
 					cbDraft[count].setBounds(nxco[co], line, 169, 20);
 					switch (i) {
 					case 0:
@@ -2064,8 +2060,29 @@ public class MainMenu {
 		return spalte;
 	}
 
-	private void changedraftpokemon(Object selectedItem) {
-		
+	private void changedraftpokemon(JComboBox<String> box) {
+		for (int k = 0; k < cbDraft.length; k++) {
+			for (int j = 0; j < cbDraft.length; j++) {
+				if (k != j) {
+					try {
+						if (box.getSelectedItem() == "" || box.getSelectedItem().equals("keine Doppelten")) {
+							box.setSelectedIndex(-1);
+							return;
+						}
+						if (cbDraft[k].getSelectedItem().equals(cbDraft[j].getSelectedItem())) {
+							box.setEditable(true);
+							box.setSelectedItem("keine Doppelten");
+							box.setEditable(false);
+							return;
+						}
+
+					} catch (Exception e) {
+						
+					}
+				}
+
+			}
+		}
 
 	}
 }
