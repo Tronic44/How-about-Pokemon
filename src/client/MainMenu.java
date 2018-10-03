@@ -32,6 +32,7 @@ import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.JList;
+import java.awt.Color;
 
 public class MainMenu {
 
@@ -105,6 +106,24 @@ public class MainMenu {
 	private JComboBox<String> comboBoxD;
 	private JComboBox<String> comboBoxE;
 	int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
+	String[] tiernamen = new String[6];
+	private JComboBox<String> cBD01;
+	private JComboBox<String> cBD02;
+	private JComboBox<String> cBD03;
+	private JComboBox<String> cBD04;
+	private JComboBox<String> cBD05;
+	private JComboBox<String> cBD06;
+	private JComboBox<String> cBD07;
+	private JComboBox<String> cBD08;
+	private JComboBox<String> cBD09;
+	private JComboBox<String> cBD10;
+	private JComboBox<String> cBD11;
+	private JComboBox<String> cBD12;
+	private JComboBox<String> cBD13;
+	private JComboBox<String> cBD14;
+	private JComboBox<String> cBD15;
+	private JComboBox<String>[] cbDraft = new JComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
+			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
@@ -128,8 +147,8 @@ public class MainMenu {
 		frmPokemonDraft = new JFrame();
 		frmPokemonDraft.setTitle("Pokemon Draft        Alpha by Tronic44");
 		frmPokemonDraft.setResizable(false);
-//		frmPokemonDraft.setBounds(100, 100, 409, 640);
-		frmPokemonDraft.setBounds(100, 100, 1100, 800);
+		frmPokemonDraft.setBounds(100, 100, 409, 640);
+//		frmPokemonDraft.setBounds(100, 100, 1100, 800);
 		frmPokemonDraft.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPokemonDraft.getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -362,49 +381,61 @@ public class MainMenu {
 				if (cBS.isSelected()) {
 					radioButtonS.setEnabled(true);
 					radioButtonS.setText(tF1.getText());
+					tiernamen[0] = tF1.getText();
 				} else {
 					radioButtonS.setEnabled(false);
 					radioButtonS.setText("");
+					tiernamen[0] = null;
 					count++;
 				}
 				if (cBA.isSelected()) {
 					radioButtonA.setEnabled(true);
 					radioButtonA.setText(tF2.getText());
+					tiernamen[1] = tF2.getText();
 				} else {
 					radioButtonA.setEnabled(false);
 					radioButtonA.setText("");
+					tiernamen[1] = null;
 					count++;
 				}
 				if (cBB.isSelected()) {
 					radioButtonB.setEnabled(true);
 					radioButtonB.setText(tF3.getText());
+					tiernamen[2] = tF3.getText();
 				} else {
 					radioButtonB.setEnabled(false);
 					radioButtonB.setText("");
+					tiernamen[2] = null;
 					count++;
 				}
 				if (cBC.isSelected()) {
 					radioButtonC.setEnabled(true);
 					radioButtonC.setText(tF4.getText());
+					tiernamen[3] = tF4.getText();
 				} else {
 					radioButtonC.setEnabled(false);
 					radioButtonC.setText("");
+					tiernamen[3] = null;
 					count++;
 				}
 				if (cBD.isSelected()) {
 					radioButtonD.setEnabled(true);
 					radioButtonD.setText(tF5.getText());
+					tiernamen[4] = tF5.getText();
 				} else {
 					radioButtonD.setEnabled(false);
 					radioButtonD.setText("");
+					tiernamen[4] = null;
 					count++;
 				}
 				if (cBE.isSelected()) {
 					radioButtonE.setEnabled(true);
 					radioButtonE.setText(tF6.getText());
+					tiernamen[5] = tF6.getText();
 				} else {
 					radioButtonE.setEnabled(false);
 					radioButtonE.setText("");
+					tiernamen[5] = null;
 					count++;
 				}
 				for (int i = 0; i < count; i++) {
@@ -1448,41 +1479,53 @@ public class MainMenu {
 
 	private void initdraft() {
 
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(54, 110, 169, 98);
-		panel_draft.add(btnNewButton_1);
+//		JButton btnNewButton_1 = new JButton("New button");
+//		btnNewButton_1.setBounds(54, 110, 169, 98);
+//		panel_draft.add(btnNewButton_1);
+//
+//		JButton button = new JButton("New button");
+//		button.setBounds(464, 110, 169, 98);
+//		panel_draft.add(button);
+//
+//		JButton button_1 = new JButton("New button");
+//		button_1.setBounds(860, 110, 169, 98);
+//		panel_draft.add(button_1);
+//
+//		JButton button_2 = new JButton("New button");
+//		button_2.setBounds(260, 280, 169, 98);
+//		panel_draft.add(button_2);
+//
+//		JButton button_3 = new JButton("New button");
+//		button_3.setBounds(675, 280, 169, 98);
+//		panel_draft.add(button_3);
+//
+//		JButton button_4 = new JButton("New button");
+//		button_4.setBounds(54, 441, 169, 98);
+//		panel_draft.add(button_4);
+//
+//		JButton button_5 = new JButton("New button");
+//		button_5.setBounds(464, 441, 169, 98);
+//		panel_draft.add(button_5);
+//
+//		JButton button_6 = new JButton("New button");
+//		button_6.setBounds(860, 441, 169, 98);
+//		panel_draft.add(button_6);
+//
+//		JComboBox<String> comboBox = new JComboBox();
+//		comboBox.setBounds(464, 11, 169, 20);
+//		panel_draft.add(comboBox);
 
-		JButton button = new JButton("New button");
-		button.setBounds(464, 110, 169, 98);
-		panel_draft.add(button);
-
-		JButton button_1 = new JButton("New button");
-		button_1.setBounds(860, 110, 169, 98);
-		panel_draft.add(button_1);
-
-		JButton button_2 = new JButton("New button");
-		button_2.setBounds(260, 280, 169, 98);
-		panel_draft.add(button_2);
-
-		JButton button_3 = new JButton("New button");
-		button_3.setBounds(675, 280, 169, 98);
-		panel_draft.add(button_3);
-
-		JButton button_4 = new JButton("New button");
-		button_4.setBounds(54, 441, 169, 98);
-		panel_draft.add(button_4);
-
-		JButton button_5 = new JButton("New button");
-		button_5.setBounds(464, 441, 169, 98);
-		panel_draft.add(button_5);
-
-		JButton button_6 = new JButton("New button");
-		button_6.setBounds(860, 441, 169, 98);
-		panel_draft.add(button_6);
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setBounds(81, 14, 75, 14);
+		panel_draft.add(lblNewLabel_2);
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(464, 11, 169, 20);
+		comboBox.setBounds(178, 11, 114, 20);
 		panel_draft.add(comboBox);
+
+//		JSeparator separator = new JSeparator();
+//		separator.setBounds(10, 60, 201, 2);
+//		panel_draft.add(separator);
 
 	}
 
@@ -1860,7 +1903,35 @@ public class MainMenu {
 
 	protected void opendraft() {
 		panelStartDraft.setVisible(false);
-		frmPokemonDraft.setBounds(100, 100, 1100, 800);
+		int hight = 100;
+		for (int k : countauswahl) {
+			if (k == 0) {
+				continue;
+			}
+			if (k <= 3) {
+				hight += 130;
+				continue;
+			}
+			if (k <= 6) {
+				hight += 260;
+				continue;
+			}
+			if (k <= 9) {
+				hight += 390;
+				continue;
+			}
+			if (k <= 12) {
+				hight += 520;
+				continue;
+			}
+			if (k <= 15) {
+				hight += 650;
+				continue;
+			}
+
+		}
+		frmPokemonDraft.setBounds(100, 100, 1100, hight);
+		draftlayout();
 		panel_draft.setVisible(true);
 	}
 
@@ -1902,20 +1973,112 @@ public class MainMenu {
 	}
 
 	protected void draftlayout() {
-		for (int k : countauswahl) {
-			int line = 100;
-			if (k == 0) {
-				continue;
-			}
-			if (k > 3) {
-				line += 100;
+		int[] pokeanzahl = countauswahl.clone();
+		for (int k : pokeanzahl) {
+			System.out.print(k + " ");
+		}
+
+		int line = 120;
+		boolean sep= false;
+		// für die maximal 15 Panel
+		for (JComboBox<String> jBox : cbDraft) {
+			// die jeweils seleceteten Pokemon (Anzahl)
+			for (int i = 0; i < pokeanzahl.length; i++) {
+				int pkan = pokeanzahl[i];
+				if (pkan == 0) {
+					sep=false;
+					continue;
+				}
+				if(!sep) {
+				JSeparator separator = new JSeparator();
+				separator.setBounds(0, line - 60, 1100, 2);
+				panel_draft.add(separator);
+				JLabel lblNewLabel_2 = new JLabel(tiernamen[i]);
+				lblNewLabel_2.setBounds(54, line - 40, 550, 14);
+				panel_draft.add(lblNewLabel_2);
+				}
+				if (pkan >= 3) {
+						int[] nxco = nextcolumn(pkan);
+						for (int co = 0; co < 3; co++) {
+							jBox = new JComboBox<String>(Data.getPokedex());
+							jBox.setBounds(nxco[co], line, 169, 20);
+							switch (i) {
+							case 0:
+								jBox.setBackground(new Color(232, 198, 236));
+								break;
+							case 1:
+								jBox.setBackground(new Color(82, 192, 65));
+								break;
+							case 2:
+								jBox.setBackground(new Color(130, 213, 197));
+								break;
+							case 3:
+								jBox.setBackground(new Color(219, 214, 147));
+								break;
+							case 4:
+								jBox.setBackground(new Color(195, 75, 96));
+								break;
+							case 5:
+								jBox.setBackground(new Color(102, 103, 204));
+								break;
+							}
+							panel_draft.add(jBox);
+						}
+						pokeanzahl[i] -= 3;
+						i--;
+					sep=true;
+				} else {
+					int[] nxco = nextcolumn(pkan);
+					for (int co = 0; co < pkan; co++) {
+						jBox = new JComboBox<String>(Data.getPokedex());
+						jBox.setBounds(nxco[co], line, 169, 20);
+						switch (i) {
+						case 0:
+							jBox.setBackground(new Color(232, 198, 236));
+							break;
+						case 1:
+							jBox.setBackground(new Color(82, 192, 65));
+							break;
+						case 2:
+							jBox.setBackground(new Color(130, 213, 197));
+							break;
+						case 3:
+							jBox.setBackground(new Color(219, 214, 147));
+							break;
+						case 4:
+							jBox.setBackground(new Color(195, 75, 96));
+							break;
+						case 5:
+							jBox.setBackground(new Color(102, 103, 204));
+							break;
+						}
+						panel_draft.add(jBox);
+					}
+					sep=false;
+				}
+				line += 130;
 			}
 		}
 	}
 
-	protected int[] nextline(int k) {
-		int[] spalte = new int[k];
+	protected int[] nextcolumn(int k) {
+		if (k > 3) {
+			k = 3;
+		}
+		int[] spalte;
+		switch (k) {
+		case 1:
+			spalte = new int[] { 464 };
+			break;
+		case 2:
+			spalte = new int[] { 260, 675 };
+			break;
+		case 3:
+			spalte = new int[] { 54, 464, 860 };
+			break;
+		default:
+			return null;
+		}
 		return spalte;
 	}
-
 }

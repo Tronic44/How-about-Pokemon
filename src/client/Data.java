@@ -193,6 +193,16 @@ public class Data {
 			return org.json.JSONObject.NULL;
 		}
 	}
+	
+	protected static String[] gettierpokemon(int a) {
+		String[] list = new String[Pokedex.length];
+		
+		
+		return list;
+	}
+	
+	
+	
 
 	/**
 	 * Gibt eine nach Alphabet sortierte Pokemon liste zurück
