@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -489,7 +490,6 @@ public class MainMenu {
 						}
 					}
 				}
-				draftlayout();
 				lblbest.setText("Änderungen wurden übernommen!");
 			}
 		});
@@ -1931,6 +1931,7 @@ public class MainMenu {
 
 		}
 		frmPokemonDraft.setBounds(100, 100, 1100, hight);
+		Data.inittierpokemon();
 		draftlayout();
 		panel_draft.setVisible(true);
 	}
@@ -1974,90 +1975,71 @@ public class MainMenu {
 
 	protected void draftlayout() {
 		int[] pokeanzahl = countauswahl.clone();
-		for (int k : pokeanzahl) {
-			System.out.print(k + " ");
-		}
-
+		int count = 0;
 		int line = 120;
-		boolean sep= false;
-		// für die maximal 15 Panel
-		for (JComboBox<String> jBox : cbDraft) {
-			// die jeweils seleceteten Pokemon (Anzahl)
-			for (int i = 0; i < pokeanzahl.length; i++) {
-				int pkan = pokeanzahl[i];
-				if (pkan == 0) {
-					sep=false;
-					continue;
-				}
-				if(!sep) {
+		boolean sep = false;
+		// die jeweils seleceteten Pokemon (Anzahl)
+		for (int i = 0; i < pokeanzahl.length; i++) {
+			int pkan = pokeanzahl[i];
+			if (pkan == 0) {
+				sep = false;
+				continue;
+			}
+			if (!sep) {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, line - 60, 1100, 2);
 				panel_draft.add(separator);
 				JLabel lblNewLabel_2 = new JLabel(tiernamen[i]);
+				lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 				lblNewLabel_2.setBounds(54, line - 40, 550, 14);
 				panel_draft.add(lblNewLabel_2);
-				}
-				if (pkan >= 3) {
-						int[] nxco = nextcolumn(pkan);
-						for (int co = 0; co < 3; co++) {
-							jBox = new JComboBox<String>(Data.getPokedex());
-							jBox.setBounds(nxco[co], line, 169, 20);
-							switch (i) {
-							case 0:
-								jBox.setBackground(new Color(232, 198, 236));
-								break;
-							case 1:
-								jBox.setBackground(new Color(82, 192, 65));
-								break;
-							case 2:
-								jBox.setBackground(new Color(130, 213, 197));
-								break;
-							case 3:
-								jBox.setBackground(new Color(219, 214, 147));
-								break;
-							case 4:
-								jBox.setBackground(new Color(195, 75, 96));
-								break;
-							case 5:
-								jBox.setBackground(new Color(102, 103, 204));
-								break;
-							}
-							panel_draft.add(jBox);
-						}
-						pokeanzahl[i] -= 3;
-						i--;
-					sep=true;
-				} else {
-					int[] nxco = nextcolumn(pkan);
-					for (int co = 0; co < pkan; co++) {
-						jBox = new JComboBox<String>(Data.getPokedex());
-						jBox.setBounds(nxco[co], line, 169, 20);
-						switch (i) {
-						case 0:
-							jBox.setBackground(new Color(232, 198, 236));
-							break;
-						case 1:
-							jBox.setBackground(new Color(82, 192, 65));
-							break;
-						case 2:
-							jBox.setBackground(new Color(130, 213, 197));
-							break;
-						case 3:
-							jBox.setBackground(new Color(219, 214, 147));
-							break;
-						case 4:
-							jBox.setBackground(new Color(195, 75, 96));
-							break;
-						case 5:
-							jBox.setBackground(new Color(102, 103, 204));
-							break;
-						}
-						panel_draft.add(jBox);
-					}
-					sep=false;
-				}
-				line += 130;
 			}
+			try {
+				int[] nxco = nextcolumn(pkan);
+				for (int co = 0; co < pkan; co++) {
+					cbDraft[count] = new JComboBox<String>(Data.gettierpokemon(i));
+					cbDraft[count].addPopupMenuListener(new PopupMenuListener() {
+						public void popupMenuCanceled(PopupMenuEvent arg0) {
+						}
+
+						public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+//							changedraftpokemon();
+						}
+
+						public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
+						}
+					});
+					cbDraft[count].setBounds(nxco[co], line, 169, 20);
+					switch (i) {
+					case 0:
+						cbDraft[count].setBackground(new Color(232, 198, 236));
+						break;
+					case 1:
+						cbDraft[count].setBackground(new Color(82, 192, 65));
+						break;
+					case 2:
+						cbDraft[count].setBackground(new Color(130, 213, 197));
+						break;
+					case 3:
+						cbDraft[count].setBackground(new Color(219, 214, 147));
+						break;
+					case 4:
+						cbDraft[count].setBackground(new Color(195, 75, 96));
+						break;
+					case 5:
+						cbDraft[count].setBackground(new Color(102, 103, 204));
+						break;
+					}
+					panel_draft.add(cbDraft[count]);
+					count++;
+				}
+				sep = false;
+			} catch (Exception e) {
+				pokeanzahl[i] -= 3;
+				i--;
+				sep = true;
+			}
+			line += 130;
 		}
 	}
 
@@ -2080,5 +2062,10 @@ public class MainMenu {
 			return null;
 		}
 		return spalte;
+	}
+
+	private void changedraftpokemon(Object selectedItem) {
+		
+
 	}
 }

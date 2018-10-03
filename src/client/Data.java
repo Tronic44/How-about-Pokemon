@@ -1,5 +1,6 @@
 package client;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -143,6 +144,13 @@ public class Data {
 			"Kaguron", "Katagami", "Schlingking", "Necrozma", "Necrozma Abendmähne", "Necrozma Morgenschwingen",
 			"Necrozma Ultra", "Magearna", "Marshadow", "Venicro", "Agoyon", "Muramura", "Kopplosio", "Zeraora" };
 
+	private static ArrayList<String> pokemontier1 = new ArrayList<String>();
+	private static ArrayList<String> pokemontier2 = new ArrayList<String>();
+	private static ArrayList<String> pokemontier3 = new ArrayList<String>();
+	private static ArrayList<String> pokemontier4 = new ArrayList<String>();
+	private static ArrayList<String> pokemontier5 = new ArrayList<String>();
+	private static ArrayList<String> pokemontier6 = new ArrayList<String>();
+
 	/**
 	 * Die Tierlist, ist dazu da jedem Pokemon ein Tier zuzuweisen.
 	 */
@@ -193,16 +201,52 @@ public class Data {
 			return org.json.JSONObject.NULL;
 		}
 	}
-	
+
 	protected static String[] gettierpokemon(int a) {
-		String[] list = new String[Pokedex.length];
-		
-		
-		return list;
+		switch (a) {
+		case 0:
+			return pokemontier1.toArray(new String[0]);
+		case 1:
+			return pokemontier2.toArray(new String[0]);
+		case 2:
+			return pokemontier3.toArray(new String[0]);
+		case 3:
+			return pokemontier4.toArray(new String[0]);
+		case 4:
+			return pokemontier5.toArray(new String[0]);
+		case 5:
+			return pokemontier6.toArray(new String[0]);
+		}
+		return null;
 	}
-	
-	
-	
+
+	protected static void inittierpokemon() {
+		for (int k = 0; k < Pokedex.length; k++) {
+			switch (tierlist[k]) {
+			case '0':
+				break;
+			case 'S':
+				pokemontier1.add(Pokedex[k]);
+				break;
+			case 'A':
+				pokemontier2.add(Pokedex[k]);
+				break;
+			case 'B':
+				pokemontier3.add(Pokedex[k]);
+				break;
+			case 'C':
+				pokemontier4.add(Pokedex[k]);
+				break;
+			case 'D':
+				pokemontier5.add(Pokedex[k]);
+				break;
+			case 'E':
+				pokemontier6.add(Pokedex[k]);
+				break;
+			}
+		}
+
+	}
 
 	/**
 	 * Gibt eine nach Alphabet sortierte Pokemon liste zurück
