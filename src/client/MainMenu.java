@@ -32,6 +32,8 @@ import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainMenu {
 
@@ -123,6 +125,7 @@ public class MainMenu {
 	private JComboBox<String> cBD15;
 	private JComboBox<String>[] cbDraft = new JComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
+	private JTextField tFsearch;
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
@@ -1302,12 +1305,12 @@ public class MainMenu {
 				changetier();
 			}
 		});
-		list.setBounds(20, 33, 197, 511);
+		list.setBounds(20, 33, 197, 516);
 		panel_tierlist.add(list);
 
 		tFPoke = new JTextField();
 		tFPoke.setEditable(false);
-		tFPoke.setBounds(256, 56, 86, 20);
+		tFPoke.setBounds(241, 56, 124, 20);
 		panel_tierlist.add(tFPoke);
 		tFPoke.setColumns(10);
 
@@ -1468,6 +1471,27 @@ public class MainMenu {
 		panel_tierlist.add(radioButtonE);
 		radioButtonnull.setVisible(false);
 		tierlistbuttongruppe.add(radioButtonE);
+
+		tFsearch = new JTextField();
+		tFsearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if (tFsearch.getText() != null || !tFsearch.getText().trim().equals("")) {
+					int a = Data.searchPokedex(tFsearch.getText().toLowerCase().trim());
+					if (a >= 0) {
+						list.select(a);
+						changetier();
+					}
+				}
+			}
+		});
+		tFsearch.setBounds(86, 555, 109, 20);
+		panel_tierlist.add(tFsearch);
+		tFsearch.setColumns(10);
+
+		JLabel lblSuche = new JLabel("Suche:");
+		lblSuche.setBounds(30, 558, 46, 14);
+		panel_tierlist.add(lblSuche);
 	}
 
 	private void initdraft() {
@@ -2077,7 +2101,7 @@ public class MainMenu {
 						}
 
 					} catch (Exception e) {
-						
+
 					}
 				}
 

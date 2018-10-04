@@ -259,4 +259,14 @@ public class Data {
 		return Pokedexsort;
 	}
 
+	public static int searchPokedex(String text) {
+		for (int k = 0; k < Pokedex.length; k++) {
+			if (Pokedex[k].toLowerCase().equals(text)) {
+				return k;
+			}
+		}
+
+		return -1;
+	}
+
 }
