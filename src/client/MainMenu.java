@@ -34,8 +34,6 @@ import javax.swing.event.PopupMenuEvent;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.AncestorEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -110,8 +108,8 @@ public class MainMenu {
 	private JComboBox<String> comboBoxC;
 	private JComboBox<String> comboBoxD;
 	private JComboBox<String> comboBoxE;
-	int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
-	String[] tiernamen = new String[6];
+	private int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
+	private String[] tiernamen = new String[6];
 	private JComboBox<String> cBD01;
 	private JComboBox<String> cBD02;
 	private JComboBox<String> cBD03;
@@ -135,6 +133,7 @@ public class MainMenu {
 	private int[][] draftauswahl;
 	private boolean finishdraft = false;
 	private Boolean order;
+	private String[] teamfolge;
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
@@ -248,6 +247,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (chckbxRandom.isSelected()) {
 					order = false;
+					randomiseteam();
 				} else {
 					order = null;
 				}
@@ -360,64 +360,27 @@ public class MainMenu {
 					Manage.msgbox("Kein Tier? So geht das aber nicht!", frmPokemonDraft);
 					return;
 				}
-				if (cBS.isSelected() && tF1.getText().trim().length() < 1) {
+				if ((cBS.isSelected() && tF1.getText().trim().length() < 1)
+						|| (cBA.isSelected() && tF2.getText().trim().length() < 1)
+						|| (cBB.isSelected() && tF3.getText().trim().length() < 1)
+						|| (cBC.isSelected() && tF4.getText().trim().length() < 1)
+						|| (cBD.isSelected() && tF5.getText().trim().length() < 1)
+						|| (cBE.isSelected() && tF6.getText().trim().length() < 1)) {
 					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
 					return;
 				}
-				if (cBA.isSelected() && tF2.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
-					return;
-				}
-				if (cBB.isSelected() && tF3.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
-					return;
-				}
-				if (cBC.isSelected() && tF4.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
-					return;
-				}
-				if (cBD.isSelected() && tF5.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
-					return;
-				}
-				if (cBE.isSelected() && tF6.getText().trim().length() < 1) {
-					Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?", frmPokemonDraft);
-					return;
-				}
-				if (cBS.isSelected() && comboBoxS.getSelectedIndex() < 0) {
+				if ((cBS.isSelected() && comboBoxS.getSelectedIndex() < 0)
+						|| (cBA.isSelected() && comboBoxA.getSelectedIndex() < 0)
+						|| (cBB.isSelected() && comboBoxB.getSelectedIndex() < 0)
+						|| (cBC.isSelected() && comboBoxC.getSelectedIndex() < 0)
+						|| (cBD.isSelected() && comboBoxD.getSelectedIndex() < 0)
+						|| (cBE.isSelected() && comboBoxE.getSelectedIndex() < 0)) {
 					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
 							+ "Wo gibt es denn sowas?", frmPokemonDraft);
 					return;
 				}
-				if (cBA.isSelected() && comboBoxA.getSelectedIndex() < 0) {
-					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
-							+ "Wo gibt es denn sowas?", frmPokemonDraft);
-					return;
-				}
-				if (cBB.isSelected() && comboBoxB.getSelectedIndex() < 0) {
-					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
-							+ "Wo gibt es denn sowas?", frmPokemonDraft);
-					return;
-				}
-				if (cBC.isSelected() && comboBoxC.getSelectedIndex() < 0) {
-					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
-							+ "Wo gibt es denn sowas?", frmPokemonDraft);
-					return;
-				}
-				if (cBD.isSelected() && comboBoxD.getSelectedIndex() < 0) {
-					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
-							+ "Wo gibt es denn sowas?", frmPokemonDraft);
-					return;
-				}
-				if (cBE.isSelected() && comboBoxE.getSelectedIndex() < 0) {
-					Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
-							+ "Wo gibt es denn sowas?", frmPokemonDraft);
-					return;
-				}
-				finishdraft = false;
 				String[] tiernamenlist = new String[] { tF1.getText().trim(), tF2.getText().trim(),
 						tF3.getText().trim(), tF4.getText().trim(), tF5.getText().trim(), tF6.getText().trim() };
-
 				for (int k = 0; k < tiernamenlist.length; k++) {
 					for (int j = 0; j < tiernamenlist.length; j++) {
 						if (tiernamenlist[k].equals("") || tiernamenlist[j].equals("") || j == k) {
@@ -431,6 +394,7 @@ public class MainMenu {
 					}
 				}
 
+				finishdraft = false;
 				if (Data.tierlistclone == null) {
 					Data.tierlistclone = Data.tierlist.clone();
 				}
@@ -643,40 +607,37 @@ public class MainMenu {
 		lblTierE.setBounds(276, 293, 117, 14);
 		panel_settings.add(lblTierE);
 
-		String[] countPoke = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
-				"15" };
-
-		comboBoxS = new JComboBox(countPoke);
+		comboBoxS = new JComboBox(Manage.getaarray(15));
 		comboBoxS.setEnabled(false);
 		comboBoxS.setSelectedIndex(-1);
 		comboBoxS.setBounds(194, 83, 61, 20);
 		panel_settings.add(comboBoxS);
 
-		comboBoxA = new JComboBox(countPoke);
+		comboBoxA = new JComboBox(Manage.getaarray(15));
 		comboBoxA.setEnabled(false);
 		comboBoxA.setSelectedIndex(-1);
 		comboBoxA.setBounds(194, 123, 61, 20);
 		panel_settings.add(comboBoxA);
 
-		comboBoxB = new JComboBox(countPoke);
+		comboBoxB = new JComboBox(Manage.getaarray(15));
 		comboBoxB.setEnabled(false);
 		comboBoxB.setSelectedIndex(-1);
 		comboBoxB.setBounds(194, 164, 61, 20);
 		panel_settings.add(comboBoxB);
 
-		comboBoxC = new JComboBox(countPoke);
+		comboBoxC = new JComboBox(Manage.getaarray(15));
 		comboBoxC.setEnabled(false);
 		comboBoxC.setSelectedIndex(-1);
 		comboBoxC.setBounds(194, 204, 61, 20);
 		panel_settings.add(comboBoxC);
 
-		comboBoxD = new JComboBox(countPoke);
+		comboBoxD = new JComboBox(Manage.getaarray(15));
 		comboBoxD.setEnabled(false);
 		comboBoxD.setSelectedIndex(-1);
 		comboBoxD.setBounds(194, 247, 61, 20);
 		panel_settings.add(comboBoxD);
 
-		comboBoxE = new JComboBox(countPoke);
+		comboBoxE = new JComboBox(Manage.getaarray(15));
 		comboBoxE.setEnabled(false);
 		comboBoxE.setSelectedIndex(-1);
 		comboBoxE.setBounds(194, 290, 61, 20);
@@ -1168,9 +1129,7 @@ public class MainMenu {
 		btnAnzahlDerPokemon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (finishdraft) {
-					Manage.msgbox(
-							"ACHTUNG: Änderungen hier, restarten den Draft!",
-							frmPokemonDraft);
+					Manage.msgbox("ACHTUNG: Änderungen hier, restarten den Draft!", frmPokemonDraft);
 				}
 				panelStartDraft.setVisible(false);
 				panel_settings.setVisible(true);
@@ -2249,6 +2208,37 @@ public class MainMenu {
 			} catch (Exception f) {
 			}
 		}
+	}
+
+	protected void randomiseteam() {
+		teamfolge = new String[Spieler.length * 2];
+		int[] random = new int[Spieler.length];
+		for (int i = 0; i < random.length; i++) {
+			int rd = (int) (Math.random() * Spieler.length);
+			for (int j = 0; j < i; j++) {
+				if (rd == random[j]) {
+					rd=-1;
+					break;
+				} 
+			}
+			if(rd>=0) {
+				random[i] = rd;
+			}else {
+				i--;
+			}
+		}
+		for (int k = 0; k < teamfolge.length; k++) {
+			if (k < Spieler.length) {
+				teamfolge[k] = Spieler[random[k]];
+			} else {
+				teamfolge[k] = teamfolge[teamfolge.length-k-1];
+			}
+		}
+		for(String l: teamfolge) {
+			System.out.print(l+"  ");
+			
+		}
+		System.out.println();
 	}
 
 	private void changedraftpokemon(JComboBox<String> box) {
