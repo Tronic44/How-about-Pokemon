@@ -220,7 +220,7 @@ public class MainMenu {
 	private void initorder() {
 		JLabel lblorder = new JLabel("Wie soll gedraftet werden?");
 		lblorder.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblorder.setBounds(10, 26, 227, 27);
+		lblorder.setBounds(110, 26, 183, 27);
 		panel_order.add(lblorder);
 
 		JCheckBox chckbxRandom = new JCheckBox("Random");
@@ -235,12 +235,12 @@ public class MainMenu {
 				chckbxRandom.setSelected(false);
 			}
 		});
-		chckbxManuell.setBounds(73, 92, 97, 23);
+		chckbxManuell.setBounds(153, 69, 97, 23);
 		panel_order.add(chckbxManuell);
 
 		JTextPane txtpnJederzeitZwischenTeanms = new JTextPane();
 		txtpnJederzeitZwischenTeanms.setText("Jederzeit zwischen Teanms wechseln, beliebig viele Pokemon auswählen");
-		txtpnJederzeitZwischenTeanms.setBounds(73, 122, 254, 39);
+		txtpnJederzeitZwischenTeanms.setBounds(74, 108, 254, 39);
 		panel_order.add(txtpnJederzeitZwischenTeanms);
 
 		chckbxRandom.addActionListener(new ActionListener() {
@@ -254,12 +254,12 @@ public class MainMenu {
 				chckbxManuell.setSelected(false);
 			}
 		});
-		chckbxRandom.setBounds(73, 174, 97, 23);
+		chckbxRandom.setBounds(153, 163, 97, 23);
 		panel_order.add(chckbxRandom);
 
 		JTextPane txtpnZuflligeReihenfolgeImmer = new JTextPane();
 		txtpnZuflligeReihenfolgeImmer.setText("Zufällige Reihenfolge, immer ein Pokemon\r\n");
-		txtpnZuflligeReihenfolgeImmer.setBounds(73, 204, 254, 39);
+		txtpnZuflligeReihenfolgeImmer.setBounds(74, 202, 254, 39);
 		panel_order.add(txtpnZuflligeReihenfolgeImmer);
 
 	}
@@ -276,11 +276,11 @@ public class MainMenu {
 
 			}
 		});
-		btnloaddraft.setBounds(217, 439, 89, 23);
+		btnloaddraft.setBounds(217, 437, 89, 23);
 		panelLoadDraft.add(btnloaddraft);
 
 		tFsafename = new JTextField();
-		tFsafename.setBounds(144, 93, 86, 20);
+		tFsafename.setBounds(158, 93, 86, 20);
 		panelLoadDraft.add(tFsafename);
 		tFsafename.setColumns(10);
 
@@ -300,7 +300,7 @@ public class MainMenu {
 				}
 			}
 		});
-		btnsafedraft.setBounds(144, 124, 89, 23);
+		btnsafedraft.setBounds(157, 124, 89, 23);
 		panelLoadDraft.add(btnsafedraft);
 
 		cBloaddraft = new JComboBox();
@@ -349,7 +349,7 @@ public class MainMenu {
 		txtpnAchtungnderungenHier.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtpnAchtungnderungenHier.setText(
 				"Achtung: Änderungen hier führen zu einer\r\nAnpassung der aktuell eingegenbenen Tierlist. \r\nWenn du das nicht möchtest, speichere sie vorher!");
-		txtpnAchtungnderungenHier.setBounds(32, 11, 323, 51);
+		txtpnAchtungnderungenHier.setBounds(40, 11, 323, 51);
 		panel_settings.add(txtpnAchtungnderungenHier);
 
 		JButton btnsafetier = new JButton("Bestätige");
@@ -853,7 +853,7 @@ public class MainMenu {
 		txtpnResetetDieOben.setText(
 				"Resetet die oben gemachten Einstellungen auf den Urspungswert.\r\nKann gemachte Änderungen an der Tierlist nicht rückgängig machen!");
 		txtpnResetetDieOben.setEditable(false);
-		txtpnResetetDieOben.setBounds(24, 396, 148, 144);
+		txtpnResetetDieOben.setBounds(35, 396, 148, 144);
 		panel_settings.add(txtpnResetetDieOben);
 
 		JTextPane txtpnStelltDieEinstellungen = new JTextPane();
@@ -861,7 +861,7 @@ public class MainMenu {
 				"Stellt die Einstellungen oben auf Standart zurück und setzt die Tierlist auf dem Wert, bevor du das erste mal hier was geändert hast!");
 		txtpnStelltDieEinstellungen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnStelltDieEinstellungen.setEditable(false);
-		txtpnStelltDieEinstellungen.setBounds(207, 396, 148, 144);
+		txtpnStelltDieEinstellungen.setBounds(218, 396, 148, 144);
 		panel_settings.add(txtpnStelltDieEinstellungen);
 
 		JButton btnresettier = new JButton("RESET");
@@ -872,7 +872,7 @@ public class MainMenu {
 			}
 		});
 		btnresettier.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnresettier.setBounds(50, 542, 89, 23);
+		btnresettier.setBounds(65, 542, 89, 23);
 		panel_settings.add(btnresettier);
 
 		JButton btnrestoretier = new JButton("RESTORE");
@@ -889,7 +889,7 @@ public class MainMenu {
 			}
 		});
 		btnrestoretier.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnrestoretier.setBounds(236, 542, 89, 23);
+		btnrestoretier.setBounds(248, 542, 89, 23);
 		panel_settings.add(btnrestoretier);
 
 	}
@@ -967,12 +967,12 @@ public class MainMenu {
 				}
 			}
 		});
-		btnPlayer.setBounds(65, 542, 89, 23);
+		btnPlayer.setBounds(66, 542, 89, 23);
 		panel_player.add(btnPlayer);
 
 		ePfinalteam = new JEditorPane();
 		ePfinalteam.setEditable(false);
-		ePfinalteam.setBounds(207, 52, 176, 293);
+		ePfinalteam.setBounds(217, 52, 176, 293);
 		panel_player.add(ePfinalteam);
 
 		JLabel lblNewLabel = new JLabel("Gespeicherte Teams");
@@ -980,12 +980,12 @@ public class MainMenu {
 		panel_player.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Team-Namen");
-		lblNewLabel_1.setBounds(53, 37, 106, 14);
+		lblNewLabel_1.setBounds(57, 37, 106, 14);
 		panel_player.add(lblNewLabel_1);
 
 		tF_Teams = new JTextField();
 		tF_Teams.setColumns(10);
-		tF_Teams.setBounds(249, 367, 86, 20);
+		tF_Teams.setBounds(262, 367, 86, 20);
 		panel_player.add(tF_Teams);
 
 		JButton btnsafeteams = new JButton("Speichern");
@@ -1024,11 +1024,11 @@ public class MainMenu {
 			}
 
 		});
-		btnsafeteams.setBounds(239, 398, 109, 23);
+		btnsafeteams.setBounds(251, 398, 109, 23);
 		panel_player.add(btnsafeteams);
 
 		cBTeams = new JComboBox(new Object[] {});
-		cBTeams.setBounds(234, 469, 124, 28);
+		cBTeams.setBounds(243, 469, 124, 28);
 		panel_player.add(cBTeams);
 
 		JButton btnloadteams = new JButton("Laden");
@@ -1043,14 +1043,14 @@ public class MainMenu {
 				spinnerteam.setValue(teamlist[cBTeams.getSelectedIndex()].length - 1);
 			}
 		});
-		btnloadteams.setBounds(249, 508, 89, 23);
+		btnloadteams.setBounds(261, 508, 89, 23);
 		panel_player.add(btnloadteams);
 
 	}
 
 	private void initmenu() {
 		JLabel lblPokemonRandomDraft = new JLabel("Pokemon Random Draft");
-		lblPokemonRandomDraft.setBounds(15, 5, 374, 38);
+		lblPokemonRandomDraft.setBounds(14, 5, 374, 38);
 		panelMainMenu.add(lblPokemonRandomDraft);
 		lblPokemonRandomDraft.setFont(new Font("Tahoma", Font.BOLD, 31));
 
@@ -1062,7 +1062,7 @@ public class MainMenu {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton.setBounds(132, 97, 126, 66);
+		btnNewButton.setBounds(138, 97, 126, 66);
 		panelMainMenu.add(btnNewButton);
 
 		JButton btnLoadDraft = new JButton("Load Draft");
@@ -1074,7 +1074,7 @@ public class MainMenu {
 			}
 		});
 		btnLoadDraft.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnLoadDraft.setBounds(132, 234, 126, 66);
+		btnLoadDraft.setBounds(138, 260, 126, 66);
 		panelMainMenu.add(btnLoadDraft);
 
 		JButton btnExit = new JButton("Exit");
@@ -1084,13 +1084,13 @@ public class MainMenu {
 			}
 		});
 		btnExit.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnExit.setBounds(132, 373, 126, 66);
+		btnExit.setBounds(138, 423, 126, 66);
 		panelMainMenu.add(btnExit);
 	}
 
 	private void initstartdraft() {
 		JButton btnTierlist = new JButton("Tierlist");
-		btnTierlist.setBounds(63, 23, 255, 71);
+		btnTierlist.setBounds(74, 38, 255, 71);
 		btnTierlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (finishdraft) {
@@ -1122,7 +1122,7 @@ public class MainMenu {
 
 			}
 		});
-		btnSpielerTeams.setBounds(63, 133, 255, 71);
+		btnSpielerTeams.setBounds(74, 147, 255, 71);
 		panelStartDraft.add(btnSpielerTeams);
 
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
@@ -1135,7 +1135,7 @@ public class MainMenu {
 				panel_settings.setVisible(true);
 			}
 		});
-		btnAnzahlDerPokemon.setBounds(63, 249, 255, 71);
+		btnAnzahlDerPokemon.setBounds(74, 256, 255, 71);
 		panelStartDraft.add(btnAnzahlDerPokemon);
 
 		btnReihenfolge = new JButton("Reihenfolge");
@@ -1150,7 +1150,7 @@ public class MainMenu {
 
 			}
 		});
-		btnReihenfolge.setBounds(63, 362, 255, 71);
+		btnReihenfolge.setBounds(74, 365, 255, 71);
 		panelStartDraft.add(btnReihenfolge);
 		btnReihenfolge.setEnabled(true);
 
@@ -1301,7 +1301,7 @@ public class MainMenu {
 				}
 			}
 		});
-		btnFertig.setBounds(63, 476, 255, 71);
+		btnFertig.setBounds(74, 474, 255, 71);
 		panelStartDraft.add(btnFertig);
 		btnFertig.setEnabled(true);
 	}
@@ -1365,7 +1365,7 @@ public class MainMenu {
 	private void inittierlist() {
 		JLabel lblPokemon = new JLabel("Pokemon");
 		lblPokemon.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPokemon.setBounds(10, 0, 73, 28);
+		lblPokemon.setBounds(20, 0, 73, 28);
 		panel_tierlist.add(lblPokemon);
 
 		list = new List();
@@ -1380,7 +1380,7 @@ public class MainMenu {
 
 		tFPoke = new JTextField();
 		tFPoke.setEditable(false);
-		tFPoke.setBounds(241, 56, 124, 20);
+		tFPoke.setBounds(248, 56, 124, 20);
 		panel_tierlist.add(tFPoke);
 		tFPoke.setColumns(10);
 
@@ -1506,7 +1506,7 @@ public class MainMenu {
 				}
 			}
 		});
-		btnsafetierlist.setBounds(256, 376, 89, 23);
+		btnsafetierlist.setBounds(266, 376, 89, 23);
 		panel_tierlist.add(btnsafetierlist);
 
 		tierlist();
@@ -1520,11 +1520,11 @@ public class MainMenu {
 				;
 			}
 		});
-		btnloadtier.setBounds(256, 486, 89, 23);
+		btnloadtier.setBounds(266, 486, 89, 23);
 		panel_tierlist.add(btnloadtier);
 
 		tF_tiername = new JTextField();
-		tF_tiername.setBounds(256, 345, 86, 20);
+		tF_tiername.setBounds(267, 345, 86, 20);
 		panel_tierlist.add(tF_tiername);
 //		tF_tiername.setColumns(10);
 
@@ -1570,9 +1570,19 @@ public class MainMenu {
 		lbteams.setBounds(123, 14, 45, 14);
 		panel_draft.add(lbteams);
 
-//		comboBox = new JComboBox();
-//		comboBox.addItemListener(new ItemListener() {
-//			public void itemStateChanged(ItemEvent arg0) {
+//		JComboBox comboBox = new JComboBox();
+//		comboBox.addPopupMenuListener(new PopupListener(comboBox) {
+//			public void popupMenuCanceled(PopupMenuEvent arg0) {
+//			}
+//
+//			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+//				if (box.getSelectedIndex() >= 0) {
+//					selectnext(cBchangeteam.getSelectedIndex());
+//				}
+//			}
+//
+//			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
+//
 //			}
 //		});
 //		comboBox.setBounds(195, 11, 28, 20);
@@ -1603,7 +1613,7 @@ public class MainMenu {
 
 		}
 		cBTierlist = new JComboBox(tiername);
-		cBTierlist.setBounds(241, 447, 124, 28);
+		cBTierlist.setBounds(248, 447, 124, 28);
 		panel_tierlist.add(cBTierlist);
 
 	}
@@ -2030,6 +2040,9 @@ public class MainMenu {
 		});
 		cBchangeteam.setModel(new DefaultComboBoxModel<String>(Spieler));
 		cBchangeteam.setBounds(178, 11, 114, 20);
+		if (!order) {
+			cBchangeteam.setEnabled(false);
+		}
 		panel_draft.add(cBchangeteam);
 
 		int hight = 100;
@@ -2141,10 +2154,16 @@ public class MainMenu {
 					cbDraft[count].addPopupMenuListener(new PopupListener(cbDraft[count]) {
 						public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 							changedraftpokemon(this.box);
+							if (box.getSelectedItem()!=null && (box.getSelectedIndex() >= 0 || !box.getSelectedItem().equals("keine Doppelten"))) {
+								selectnext(cBchangeteam.getSelectedIndex());
+							}
 						}
 					});
 					cbDraft[count].setSelectedIndex(-1);
 					cbDraft[count].setBounds(nxco[co], line, 169, 20);
+					if (!order) {
+						cbDraft[count].setEnabled(false);
+					}
 					switch (i) {
 					case 0:
 						cbDraft[count].setBackground(new Color(232, 198, 236));
@@ -2177,6 +2196,7 @@ public class MainMenu {
 			line += 130;
 		}
 		finishdraft = true;
+		cbDraft[0].setEnabled(true);
 	}
 
 	protected int[] nextcolumn(int k) {
@@ -2217,13 +2237,13 @@ public class MainMenu {
 			int rd = (int) (Math.random() * Spieler.length);
 			for (int j = 0; j < i; j++) {
 				if (rd == random[j]) {
-					rd=-1;
+					rd = -1;
 					break;
-				} 
+				}
 			}
-			if(rd>=0) {
+			if (rd >= 0) {
 				random[i] = rd;
-			}else {
+			} else {
 				i--;
 			}
 		}
@@ -2231,14 +2251,13 @@ public class MainMenu {
 			if (k < Spieler.length) {
 				teamfolge[k] = Spieler[random[k]];
 			} else {
-				teamfolge[k] = teamfolge[teamfolge.length-k-1];
+				teamfolge[k] = teamfolge[teamfolge.length - k - 1];
 			}
 		}
-		for(String l: teamfolge) {
-			System.out.print(l+"  ");
-			
-		}
-		System.out.println();
+	}
+
+	private void selectnext(int teamindex) {
+		System.out.print("jaa   ");
 	}
 
 	private void changedraftpokemon(JComboBox<String> box) {
