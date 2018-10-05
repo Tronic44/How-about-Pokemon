@@ -354,9 +354,7 @@ public class MainMenu {
 
 		JButton btnsafetier = new JButton("Bestätige");
 		btnsafetier.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-
 				if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected()
 						&& !cBD.isSelected() && !cBE.isSelected()) {
 					Manage.msgbox("Kein Tier? So geht das aber nicht!", frmPokemonDraft);
@@ -416,6 +414,7 @@ public class MainMenu {
 							+ "Wo gibt es denn sowas?", frmPokemonDraft);
 					return;
 				}
+				finishdraft = false;
 				String[] tiernamenlist = new String[] { tF1.getText().trim(), tF2.getText().trim(),
 						tF3.getText().trim(), tF4.getText().trim(), tF5.getText().trim(), tF6.getText().trim() };
 
@@ -1133,6 +1132,11 @@ public class MainMenu {
 		btnTierlist.setBounds(63, 23, 255, 71);
 		btnTierlist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (finishdraft) {
+					Manage.msgbox(
+							"ACHTUNG: Änderungen hier, führen zum ... sollten funktionieren, tut es nur noch nicht^^ ",
+							frmPokemonDraft);
+				}
 				panelStartDraft.setVisible(false);
 				opentierlist();
 
@@ -1144,6 +1148,12 @@ public class MainMenu {
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
 		btnSpielerTeams.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent as) {
+				if (finishdraft) {
+					Manage.msgbox(
+							"ACHTUNG: Teams können vertauscht und der Name verändert werden " + "\n"
+									+ " Aber das hinzufügen und entfernen von Teams restart den Draft",
+							frmPokemonDraft);
+				}
 				panelStartDraft.setVisible(false);
 				panel_player.remove(cBTeams);
 				teamlist();
@@ -1157,6 +1167,11 @@ public class MainMenu {
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
 		btnAnzahlDerPokemon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (finishdraft) {
+					Manage.msgbox(
+							"ACHTUNG: Änderungen hier, restarten den Draft!",
+							frmPokemonDraft);
+				}
 				panelStartDraft.setVisible(false);
 				panel_settings.setVisible(true);
 			}
