@@ -133,6 +133,7 @@ public class MainMenu {
 	private JComboBox<String> cBchangeteam;
 	private int changeteam = 0;
 	private int[][] draftauswahl;
+	private boolean finishdraft = false;
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
@@ -1171,78 +1172,81 @@ public class MainMenu {
 		JButton btnFertig = new JButton("Fertig");
 		btnFertig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int count = 0;
-				for (char k : Data.tierlist) {
-					if (k == '0') {
-						count++;
-					}
-				}
-				if (count > 880) {
-					Manage.msgbox("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
-							frmPokemonDraft);
-					opentierlist();
-					panelStartDraft.setVisible(false);
-					return;
-				}
-				if (teamname == null || ePfinalteam.getText().toString().length() < 1) {
-					Manage.msgbox("Du hast keine Teams eingetragen", frmPokemonDraft);
-					panelStartDraft.setVisible(false);
-					panel_player.remove(cBTeams);
-					teamlist();
-					panel_player.setVisible(true);
-					return;
-				}
-				int pokeanzahl = 0;
-				for (int k : countauswahl) {
-					pokeanzahl += k;
-				}
-				if (pokeanzahl == 0) {
-					Manage.msgbox("Du hast noch nicht die Anzhal der Pokemon ausgewählt", frmPokemonDraft);
-					panelStartDraft.setVisible(false);
-					panel_settings.setVisible(true);
-					return;
-				}
-				if (count > 0) {
-					Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
-					switch (JOptionPane.showOptionDialog(frmPokemonDraft,
-							"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"
-									+ "Alle nicht zugewisenen:",
-							"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION,
-							JOptionPane.QUESTION_MESSAGE, null, options, options[2])) {
-					case 0:
-						panelStartDraft.setVisible(false);
-						for (int k = 0; k < Data.tierlist.length; k++) {
-							if (Data.tierlist[k] == '0') {
-								Data.tierlist[k] = 'X';
-							}
+				if (!finishdraft) {
+					int count = 0;
+					for (char k : Data.tierlist) {
+						if (k == '0') {
+							count++;
 						}
-						opendraft();
-						break;
-					case 1:
-						if (lblbest.getText().equals("Änderungen wurden übernommen!")) {
+					}
+					if (count > 880) {
+						Manage.msgbox("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
+								frmPokemonDraft);
+						opentierlist();
+						panelStartDraft.setVisible(false);
+						return;
+					}
+					if (teamname == null || ePfinalteam.getText().toString().length() < 1) {
+						Manage.msgbox("Du hast keine Teams eingetragen", frmPokemonDraft);
+						panelStartDraft.setVisible(false);
+						panel_player.remove(cBTeams);
+						teamlist();
+						panel_player.setVisible(true);
+						return;
+					}
+					int pokeanzahl = 0;
+					for (int k : countauswahl) {
+						pokeanzahl += k;
+					}
+					if (pokeanzahl == 0) {
+						Manage.msgbox("Du hast noch nicht die Anzhal der Pokemon ausgewählt", frmPokemonDraft);
+						panelStartDraft.setVisible(false);
+						panel_settings.setVisible(true);
+						return;
+					}
+					if (count > 0) {
+						Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
+						switch (JOptionPane.showOptionDialog(frmPokemonDraft,
+								"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"
+										+ "Alle nicht zugewisenen:",
+								"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION,
+								JOptionPane.QUESTION_MESSAGE, null, options, options[2])) {
+						case 0:
+							panelStartDraft.setVisible(false);
 							for (int k = 0; k < Data.tierlist.length; k++) {
 								if (Data.tierlist[k] == '0') {
-									if (cBE.isSelected()) {
-										Data.tierlist[k] = 'E';
-									} else {
-										if (cBD.isSelected()) {
-											Data.tierlist[k] = 'D';
+									Data.tierlist[k] = 'X';
+								}
+							}
+							opendraft();
+							break;
+						case 1:
+							if (lblbest.getText().equals("Änderungen wurden übernommen!")) {
+								for (int k = 0; k < Data.tierlist.length; k++) {
+									if (Data.tierlist[k] == '0') {
+										if (cBE.isSelected()) {
+											Data.tierlist[k] = 'E';
 										} else {
-											if (cBC.isSelected()) {
-												Data.tierlist[k] = 'C';
+											if (cBD.isSelected()) {
+												Data.tierlist[k] = 'D';
 											} else {
-												if (cBB.isSelected()) {
-													Data.tierlist[k] = 'B';
+												if (cBC.isSelected()) {
+													Data.tierlist[k] = 'C';
 												} else {
-													if (cBA.isSelected()) {
-														Data.tierlist[k] = 'A';
+													if (cBB.isSelected()) {
+														Data.tierlist[k] = 'B';
 													} else {
-														if (cBS.isSelected()) {
-															Data.tierlist[k] = 'S';
+														if (cBA.isSelected()) {
+															Data.tierlist[k] = 'A';
 														} else {
-															Manage.msgbox(
-																	"Es wurde noch keine Tier Einstellung getroffen",
-																	frmPokemonDraft);
+															if (cBS.isSelected()) {
+																Data.tierlist[k] = 'S';
+															} else {
+																Manage.msgbox(
+																		"Es wurde noch keine Tier Einstellung getroffen",
+																		frmPokemonDraft);
+																return;
+															}
 														}
 													}
 												}
@@ -1250,29 +1254,71 @@ public class MainMenu {
 										}
 									}
 								}
+								opendraft();
+							} else {
+								Manage.msgbox("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen",
+										frmPokemonDraft);
+								panelStartDraft.setVisible(false);
+								panel_settings.setVisible(true);
 							}
-							opendraft();
-						} else {
-							Manage.msgbox("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen",
-									frmPokemonDraft);
+							break;
+						case 2:
 							panelStartDraft.setVisible(false);
-							panel_settings.setVisible(true);
+							opentierlist();
+							break;
 						}
-						break;
-					case 2:
-						panelStartDraft.setVisible(false);
-						opentierlist();
-						break;
+					} else {
+						opendraft();
 					}
 				} else {
-					opendraft();
+					if (Spieler.length != draftauswahl.length) {
+						draftauswahl = null;
+						for (JComboBox<String> k : cbDraft) {
+							try {
+								k.setSelectedIndex(-1);
+							} catch (Exception f) {
+							}
+						}
+						panel_draft.remove(cBchangeteam);
+						opendraft();
+						return;
+					}
+					panelStartDraft.setVisible(false);
+					int hight = 100;
+					for (int k : countauswahl) {
+						if (k == 0) {
+							continue;
+						}
+						if (k <= 3) {
+							hight += 130;
+							continue;
+						}
+						if (k <= 6) {
+							hight += 260;
+							continue;
+						}
+						if (k <= 9) {
+							hight += 390;
+							continue;
+						}
+						if (k <= 12) {
+							hight += 520;
+							continue;
+						}
+						if (k <= 15) {
+							hight += 650;
+							continue;
+						}
+
+					}
+					frmPokemonDraft.setBounds(100, 100, 1100, hight);
+					panel_draft.setVisible(true);
 				}
 			}
 		});
 		btnFertig.setBounds(63, 476, 255, 71);
 		panelStartDraft.add(btnFertig);
 		btnFertig.setEnabled(true);
-
 	}
 
 	private void initmenubar() {
@@ -1914,11 +1960,24 @@ public class MainMenu {
 	protected void opendraft() {
 		panelStartDraft.setVisible(false);
 		try {
-			if (Spieler.length != draftauswahl.length) {
+			if (draftauswahl == null) {
 				draftauswahl = new int[Spieler.length][15];
 				for (int k = 0; k < draftauswahl.length; k++) {
 					for (int j = 0; j < 15; j++) {
 						draftauswahl[k][j] = -1;
+					}
+				}
+			}
+			if (Spieler.length != draftauswahl.length) {
+				int[][] clonedraftauswahl = draftauswahl.clone();
+				draftauswahl = new int[Spieler.length][15];
+				for (int k = 0; k < draftauswahl.length; k++) {
+					for (int j = 0; j < 15; j++) {
+						try {
+							draftauswahl[k][j] = clonedraftauswahl[k][j];
+						} catch (Exception e) {
+							draftauswahl[k][j] = -1;
+						}
 					}
 				}
 			}
@@ -1961,6 +2020,7 @@ public class MainMenu {
 				}
 			}
 		});
+		cBchangeteam.setModel(new DefaultComboBoxModel<String>(Spieler));
 		cBchangeteam.setBounds(178, 11, 114, 20);
 		panel_draft.add(cBchangeteam);
 
@@ -1992,8 +2052,10 @@ public class MainMenu {
 
 		}
 		frmPokemonDraft.setBounds(100, 100, 1100, hight);
-		Data.inittierpokemon();
-		draftlayout();
+		if (!finishdraft) {
+			Data.inittierpokemon();
+			draftlayout();
+		}
 		panel_draft.setVisible(true);
 	}
 
@@ -2037,8 +2099,6 @@ public class MainMenu {
 
 	protected void draftlayout() {
 		panelStartDraft.setVisible(false);
-
-		cBchangeteam.setModel(new DefaultComboBoxModel<String>(Spieler));
 		for (JComboBox<String> k : cbDraft) {
 			try {
 				panel_draft.remove(k);
@@ -2108,6 +2168,7 @@ public class MainMenu {
 			}
 			line += 130;
 		}
+		finishdraft = true;
 	}
 
 	protected int[] nextcolumn(int k) {
