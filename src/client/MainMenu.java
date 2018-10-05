@@ -134,6 +134,7 @@ public class MainMenu {
 	private int changeteam = 0;
 	private int[][] draftauswahl;
 	private boolean finishdraft = false;
+	private Boolean order;
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
@@ -171,6 +172,7 @@ public class MainMenu {
 		initplayer();
 		initsettings();
 		initload();
+		initorder();
 
 	}
 
@@ -213,6 +215,52 @@ public class MainMenu {
 		frmPokemonDraft.getContentPane().add(panel_draft, "name_2679324427935");
 		panel_draft.setVisible(false);
 		panel_draft.setLayout(null);
+
+	}
+
+	private void initorder() {
+		JLabel lblorder = new JLabel("Wie soll gedraftet werden?");
+		lblorder.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblorder.setBounds(10, 26, 227, 27);
+		panel_order.add(lblorder);
+
+		JCheckBox chckbxRandom = new JCheckBox("Random");
+		JCheckBox chckbxManuell = new JCheckBox("Manuell");
+		chckbxManuell.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (chckbxManuell.isSelected()) {
+					order = true;
+				} else {
+					order = null;
+				}
+				chckbxRandom.setSelected(false);
+			}
+		});
+		chckbxManuell.setBounds(73, 92, 97, 23);
+		panel_order.add(chckbxManuell);
+
+		JTextPane txtpnJederzeitZwischenTeanms = new JTextPane();
+		txtpnJederzeitZwischenTeanms.setText("Jederzeit zwischen Teanms wechseln, beliebig viele Pokemon auswählen");
+		txtpnJederzeitZwischenTeanms.setBounds(73, 122, 254, 39);
+		panel_order.add(txtpnJederzeitZwischenTeanms);
+
+		chckbxRandom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxRandom.isSelected()) {
+					order = false;
+				} else {
+					order = null;
+				}
+				chckbxManuell.setSelected(false);
+			}
+		});
+		chckbxRandom.setBounds(73, 174, 97, 23);
+		panel_order.add(chckbxRandom);
+
+		JTextPane txtpnZuflligeReihenfolgeImmer = new JTextPane();
+		txtpnZuflligeReihenfolgeImmer.setText("Zufällige Reihenfolge, immer ein Pokemon\r\n");
+		txtpnZuflligeReihenfolgeImmer.setBounds(73, 204, 254, 39);
+		panel_order.add(txtpnZuflligeReihenfolgeImmer);
 
 	}
 
@@ -599,42 +647,6 @@ public class MainMenu {
 		String[] countPoke = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
 				"15" };
 
-//		comboBoxS = new JComboBox<String>(countPoke);
-//		comboBoxS.setEnabled(false);
-//		comboBoxS.setSelectedIndex(-1);
-//		comboBoxS.setBounds(194, 83, 61, 20);
-//		panel_settings.add(comboBoxS);
-//
-//		comboBoxA = new JComboBox<String>(countPoke);
-//		comboBoxA.setEnabled(false);
-//		comboBoxA.setSelectedIndex(-1);
-//		comboBoxA.setBounds(194, 123, 61, 20);
-//		panel_settings.add(comboBoxA);
-//
-//		comboBoxB = new JComboBox<String>(countPoke);
-//		comboBoxB.setEnabled(false);
-//		comboBoxB.setSelectedIndex(-1);
-//		comboBoxB.setBounds(194, 164, 61, 20);
-//		panel_settings.add(comboBoxB);
-//
-//		comboBoxC = new JComboBox<String>(countPoke);
-//		comboBoxC.setEnabled(false);
-//		comboBoxC.setSelectedIndex(-1);
-//		comboBoxC.setBounds(194, 204, 61, 20);
-//		panel_settings.add(comboBoxC);
-//
-//		comboBoxD = new JComboBox<String>(countPoke);
-//		comboBoxD.setEnabled(false);
-//		comboBoxD.setSelectedIndex(-1);
-//		comboBoxD.setBounds(194, 247, 61, 20);
-//		panel_settings.add(comboBoxD);
-//
-//		comboBoxE = new JComboBox<String>(countPoke);
-//		comboBoxE.setEnabled(false);
-//		comboBoxE.setSelectedIndex(-1);
-//		comboBoxE.setBounds(194, 290, 61, 20);
-//		panel_settings.add(comboBoxE);
-
 		comboBoxS = new JComboBox(countPoke);
 		comboBoxS.setEnabled(false);
 		comboBoxS.setSelectedIndex(-1);
@@ -746,7 +758,6 @@ public class MainMenu {
 				int auswahl;
 				auswahl = comboBoxE.getSelectedIndex() + 1;
 				changepokeanzahl(5, auswahl);
-
 			}
 
 			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
@@ -1204,6 +1215,12 @@ public class MainMenu {
 						panel_settings.setVisible(true);
 						return;
 					}
+					if (order == null) {
+						Manage.msgbox("Du hast noch keine Reihenfolge ausgewählt", frmPokemonDraft);
+						panelStartDraft.setVisible(false);
+						panel_order.setVisible(true);
+						return;
+					}
 					if (count > 0) {
 						Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
 						switch (JOptionPane.showOptionDialog(frmPokemonDraft,
@@ -1272,13 +1289,7 @@ public class MainMenu {
 					}
 				} else {
 					if (Spieler.length != draftauswahl.length) {
-						draftauswahl = null;
-						for (JComboBox<String> k : cbDraft) {
-							try {
-								k.setSelectedIndex(-1);
-							} catch (Exception f) {
-							}
-						}
+						resetdraft();
 						panel_draft.remove(cBchangeteam);
 						opendraft();
 						return;
@@ -1328,6 +1339,10 @@ public class MainMenu {
 		JButton btnMainmenu = new JButton("MainMen\u00FC");
 		btnMainmenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (panel_draft.isVisible()) {
+					Manage.msgbox("ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
+							frmPokemonDraft);
+				}
 				frmPokemonDraft.setBounds(100, 100, 409, 640);
 				panel_tierlist.setVisible(false);
 				panelLoadDraft.setVisible(false);
@@ -1344,24 +1359,30 @@ public class MainMenu {
 		JButton btnmenuback = new JButton("zur\u00FCck");
 		btnmenuback.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmPokemonDraft.setBounds(100, 100, 409, 640);
+
 				if (panelStartDraft.isVisible()) {
 					panelStartDraft.setVisible(false);
 					panelMainMenu.setVisible(true);
 				}
+				if (panel_draft.isVisible()) {
+					Manage.msgbox("ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
+							frmPokemonDraft);
+					panelStartDraft.setVisible(true);
+					panel_draft.setVisible(false);
+				}
 				if (panel_tierlist.isVisible() || panel_player.isVisible() || panel_settings.isVisible()
-						|| panel_order.isVisible() || panel_draft.isVisible()) {
+						|| panel_order.isVisible()) {
 					panelStartDraft.setVisible(true);
 					panel_tierlist.setVisible(false);
 					panel_player.setVisible(false);
 					panel_settings.setVisible(false);
 					panel_order.setVisible(false);
-					panel_draft.setVisible(false);
 				}
 				if (panelLoadDraft.isVisible()) {
 					panelLoadDraft.setVisible(false);
 					panelMainMenu.setVisible(true);
 				}
+				frmPokemonDraft.setBounds(100, 100, 409, 640);
 			}
 		});
 		menuBar.add(btnmenuback);
@@ -1685,6 +1706,24 @@ public class MainMenu {
 
 		if (cBS.isSelected()) {
 			change[0] = true;
+		}
+		if (cBA.isSelected()) {
+			change[1] = true;
+		}
+		if (cBB.isSelected()) {
+			change[2] = true;
+		}
+		if (cBC.isSelected()) {
+			change[3] = true;
+		}
+		if (cBD.isSelected()) {
+			change[4] = true;
+		}
+		if (cBE.isSelected()) {
+			change[5] = true;
+		}
+
+		if (cBS.isSelected()) {
 			lblTierS.setText("");
 		} else {
 			change[0] = false;
@@ -1693,7 +1732,6 @@ public class MainMenu {
 			}
 		}
 		if (cBA.isSelected()) {
-			change[1] = true;
 			lblTierA.setText("");
 		} else {
 			change[1] = false;
@@ -1705,7 +1743,6 @@ public class MainMenu {
 			}
 		}
 		if (cBB.isSelected()) {
-			change[2] = true;
 			lblTierB.setText("");
 		} else {
 			change[2] = false;
@@ -1717,7 +1754,6 @@ public class MainMenu {
 			}
 		}
 		if (cBC.isSelected()) {
-			change[3] = true;
 			lblTierC.setText("");
 		} else {
 			change[3] = false;
@@ -1730,7 +1766,6 @@ public class MainMenu {
 
 		}
 		if (cBD.isSelected()) {
-			change[4] = true;
 			lblTierD.setText("");
 		} else {
 			change[4] = false;
@@ -1742,7 +1777,6 @@ public class MainMenu {
 			}
 		}
 		if (cBE.isSelected()) {
-			change[5] = true;
 			lblTierE.setText("");
 		} else {
 			change[5] = false;
@@ -2190,6 +2224,16 @@ public class MainMenu {
 			return null;
 		}
 		return spalte;
+	}
+
+	protected void resetdraft() {
+		draftauswahl = null;
+		for (JComboBox<String> k : cbDraft) {
+			try {
+				k.setSelectedIndex(-1);
+			} catch (Exception f) {
+			}
+		}
 	}
 
 	private void changedraftpokemon(JComboBox<String> box) {
