@@ -34,6 +34,10 @@ import javax.swing.event.PopupMenuEvent;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class MainMenu {
 
@@ -99,7 +103,7 @@ public class MainMenu {
 	private JTextField tFsafename;
 	private JComboBox<String> cBloaddraft;
 	private JSpinner spinnerteam;
-	private String[] Spieler;
+	private String[] Spieler = new String[0];
 	private JComboBox<String> comboBoxS;
 	private JComboBox<String> comboBoxA;
 	private JComboBox<String> comboBoxB;
@@ -126,6 +130,9 @@ public class MainMenu {
 	private JComboBox<String>[] cbDraft = new JComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
 	private JTextField tFsearch;
+	private JComboBox<String> cBchangeteam;
+	private int changeteam = 0;
+	private int[][] draftauswahl;
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
@@ -750,6 +757,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBS.isSelected()) {
 					tF1.setEditable(true);
+					tF1.setText("S");
 					comboBoxS.setEnabled(true);
 				} else {
 					tF1.setEditable(false);
@@ -769,6 +777,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBA.isSelected()) {
 					tF2.setEditable(true);
+					tF2.setText("A");
 					comboBoxA.setEnabled(true);
 				} else {
 					tF2.setEditable(false);
@@ -788,6 +797,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBB.isSelected()) {
 					tF3.setEditable(true);
+					tF3.setText("B");
 					comboBoxB.setEnabled(true);
 				} else {
 					tF3.setEditable(false);
@@ -807,6 +817,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBC.isSelected()) {
 					tF4.setEditable(true);
+					tF4.setText("C");
 					comboBoxC.setEnabled(true);
 				} else {
 					tF4.setEditable(false);
@@ -826,6 +837,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBD.isSelected()) {
 					tF5.setEditable(true);
+					tF5.setText("D");
 					comboBoxD.setEnabled(true);
 				} else {
 					tF5.setEditable(false);
@@ -845,6 +857,7 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (cBE.isSelected()) {
 					tF6.setEditable(true);
+					tF6.setText("E");
 					comboBoxE.setEnabled(true);
 				} else {
 					tF6.setEditable(false);
@@ -1165,11 +1178,28 @@ public class MainMenu {
 					}
 				}
 				if (count > 880) {
-
 					Manage.msgbox("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
 							frmPokemonDraft);
 					opentierlist();
 					panelStartDraft.setVisible(false);
+					return;
+				}
+				if (teamname == null || ePfinalteam.getText().toString().length() < 1) {
+					Manage.msgbox("Du hast keine Teams eingetragen", frmPokemonDraft);
+					panelStartDraft.setVisible(false);
+					panel_player.remove(cBTeams);
+					teamlist();
+					panel_player.setVisible(true);
+					return;
+				}
+				int pokeanzahl = 0;
+				for (int k : countauswahl) {
+					pokeanzahl += k;
+				}
+				if (pokeanzahl == 0) {
+					Manage.msgbox("Du hast noch nicht die Anzhal der Pokemon ausgewählt", frmPokemonDraft);
+					panelStartDraft.setVisible(false);
+					panel_settings.setVisible(true);
 					return;
 				}
 				if (count > 0) {
@@ -1221,8 +1251,7 @@ public class MainMenu {
 									}
 								}
 							}
-							panelStartDraft.setVisible(false);
-							panel_order.setVisible(true);
+							opendraft();
 						} else {
 							Manage.msgbox("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen",
 									frmPokemonDraft);
@@ -1496,53 +1525,17 @@ public class MainMenu {
 
 	private void initdraft() {
 
-//		JButton btnNewButton_1 = new JButton("New button");
-//		btnNewButton_1.setBounds(54, 110, 169, 98);
-//		panel_draft.add(btnNewButton_1);
-//
-//		JButton button = new JButton("New button");
-//		button.setBounds(464, 110, 169, 98);
-//		panel_draft.add(button);
-//
-//		JButton button_1 = new JButton("New button");
-//		button_1.setBounds(860, 110, 169, 98);
-//		panel_draft.add(button_1);
-//
-//		JButton button_2 = new JButton("New button");
-//		button_2.setBounds(260, 280, 169, 98);
-//		panel_draft.add(button_2);
-//
-//		JButton button_3 = new JButton("New button");
-//		button_3.setBounds(675, 280, 169, 98);
-//		panel_draft.add(button_3);
-//
-//		JButton button_4 = new JButton("New button");
-//		button_4.setBounds(54, 441, 169, 98);
-//		panel_draft.add(button_4);
-//
-//		JButton button_5 = new JButton("New button");
-//		button_5.setBounds(464, 441, 169, 98);
-//		panel_draft.add(button_5);
-//
-//		JButton button_6 = new JButton("New button");
-//		button_6.setBounds(860, 441, 169, 98);
-//		panel_draft.add(button_6);
-//
-//		JComboBox<String> comboBox = new JComboBox();
-//		comboBox.setBounds(464, 11, 169, 20);
+		JLabel lbteams = new JLabel("Teams:");
+		lbteams.setBounds(123, 14, 45, 14);
+		panel_draft.add(lbteams);
+
+//		comboBox = new JComboBox();
+//		comboBox.addItemListener(new ItemListener() {
+//			public void itemStateChanged(ItemEvent arg0) {
+//			}
+//		});
+//		comboBox.setBounds(195, 11, 28, 20);
 //		panel_draft.add(comboBox);
-
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(81, 14, 75, 14);
-		panel_draft.add(lblNewLabel_2);
-
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(178, 11, 114, 20);
-		panel_draft.add(comboBox);
-
-//		JSeparator separator = new JSeparator();
-//		separator.setBounds(10, 60, 201, 2);
-//		panel_draft.add(separator);
 
 	}
 
@@ -1920,6 +1913,57 @@ public class MainMenu {
 
 	protected void opendraft() {
 		panelStartDraft.setVisible(false);
+		try {
+			if (Spieler.length != draftauswahl.length) {
+				draftauswahl = new int[Spieler.length][15];
+				for (int k = 0; k < draftauswahl.length; k++) {
+					for (int j = 0; j < 15; j++) {
+						draftauswahl[k][j] = -1;
+					}
+				}
+			}
+		} catch (Exception e) {
+			draftauswahl = new int[Spieler.length][15];
+			for (int k = 0; k < draftauswahl.length; k++) {
+				for (int j = 0; j < 15; j++) {
+					draftauswahl[k][j] = -1;
+				}
+			}
+		}
+		cBchangeteam = new JComboBox<String>();
+		cBchangeteam.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.DESELECTED) {
+					for (int k = 0; k < 15; k++) {
+						try {
+							draftauswahl[changeteam][k] = cbDraft[k].getSelectedIndex();
+						} catch (Exception e) {
+
+						}
+					}
+				}
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					changeteam = cBchangeteam.getSelectedIndex();
+					int i = 0;
+					for (JComboBox<String> k : cbDraft) {
+						try {
+							k.setSelectedIndex(draftauswahl[changeteam][i]);
+							i++;
+						} catch (Exception e) {
+							try {
+								k.setSelectedIndex(-1);
+								i++;
+							} catch (Exception f) {
+								i++;
+							}
+						}
+					}
+				}
+			}
+		});
+		cBchangeteam.setBounds(178, 11, 114, 20);
+		panel_draft.add(cBchangeteam);
+
 		int hight = 100;
 		for (int k : countauswahl) {
 			if (k == 0) {
@@ -1992,6 +2036,9 @@ public class MainMenu {
 	}
 
 	protected void draftlayout() {
+		panelStartDraft.setVisible(false);
+
+		cBchangeteam.setModel(new DefaultComboBoxModel<String>(Spieler));
 		for (JComboBox<String> k : cbDraft) {
 			try {
 				panel_draft.remove(k);
