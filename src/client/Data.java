@@ -261,7 +261,7 @@ public class Data {
 
 	public static int searchPokedex(String text) {
 		for (int k = 0; k < Pokedex.length; k++) {
-			if (Pokedex[k].toLowerCase().equals(text)) {
+			if (Pokedex[k].equals(text)) {
 				return k;
 			}
 		}

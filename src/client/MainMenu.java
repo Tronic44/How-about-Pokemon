@@ -26,6 +26,9 @@ import javax.swing.JTextPane;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import javax.swing.JSeparator;
@@ -110,22 +113,22 @@ public class MainMenu {
 	private JComboBox<String> comboBoxE;
 	private int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 	private String[] tiernamen = new String[6];
-	private JComboBox<String> cBD01;
-	private JComboBox<String> cBD02;
-	private JComboBox<String> cBD03;
-	private JComboBox<String> cBD04;
-	private JComboBox<String> cBD05;
-	private JComboBox<String> cBD06;
-	private JComboBox<String> cBD07;
-	private JComboBox<String> cBD08;
-	private JComboBox<String> cBD09;
-	private JComboBox<String> cBD10;
-	private JComboBox<String> cBD11;
-	private JComboBox<String> cBD12;
-	private JComboBox<String> cBD13;
-	private JComboBox<String> cBD14;
-	private JComboBox<String> cBD15;
-	private JComboBox<String>[] cbDraft = new JComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
+	private FilterComboBox cBD01;
+	private FilterComboBox cBD02;
+	private FilterComboBox cBD03;
+	private FilterComboBox cBD04;
+	private FilterComboBox cBD05;
+	private FilterComboBox cBD06;
+	private FilterComboBox cBD07;
+	private FilterComboBox cBD08;
+	private FilterComboBox cBD09;
+	private FilterComboBox cBD10;
+	private FilterComboBox cBD11;
+	private FilterComboBox cBD12;
+	private FilterComboBox cBD13;
+	private FilterComboBox cBD14;
+	private FilterComboBox cBD15;
+	private FilterComboBox[] cbDraft = new FilterComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
 	private JTextField tFsearch;
 	private JComboBox<String> cBchangeteam;
@@ -1570,7 +1573,17 @@ public class MainMenu {
 		lbteams.setBounds(123, 14, 45, 14);
 		panel_draft.add(lbteams);
 
-//		JComboBox comboBox = new JComboBox();
+		ArrayList<String> test = new ArrayList<String>();
+		test.add("");
+		test.add("Mountain Flight");
+		test.add("Mount Climbing");
+		test.add("Trekking");
+		test.add("Rafting");
+		test.add("Jungle Safari");
+		test.add("Bungie Jumping");
+		test.add("Para Gliding");
+
+//		FilterComboBox comboBox = new FilterComboBox(new ArrayList<>(Arrays.asList(Data.getPokedex())));
 //		comboBox.addPopupMenuListener(new PopupListener(comboBox) {
 //			public void popupMenuCanceled(PopupMenuEvent arg0) {
 //			}
@@ -1585,7 +1598,8 @@ public class MainMenu {
 //
 //			}
 //		});
-//		comboBox.setBounds(195, 11, 28, 20);
+//		comboBox.setBounds(250, 11, 100, 20);
+//		comboBox.setEditable(true);
 //		panel_draft.add(comboBox);
 
 	}
@@ -2120,7 +2134,7 @@ public class MainMenu {
 
 	protected void draftlayout() {
 		panelStartDraft.setVisible(false);
-		for (JComboBox<String> k : cbDraft) {
+		for (FilterComboBox k : cbDraft) {
 			try {
 				panel_draft.remove(k);
 			} catch (Exception e) {
@@ -2150,12 +2164,14 @@ public class MainMenu {
 			try {
 				int[] nxco = nextcolumn(pkan);
 				for (int co = 0; co < pkan; co++) {
-					cbDraft[count] = new JComboBox<String>(Data.gettierpokemon(i));
+					cbDraft[count] = new FilterComboBox(Arrays.asList(Data.gettierpokemon(i)));
 					cbDraft[count].addPopupMenuListener(new PopupListener(cbDraft[count]) {
 						public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 							changedraftpokemon(this.box);
-							if (box.getSelectedItem()!=null && (box.getSelectedIndex() >= 0 || !box.getSelectedItem().equals("keine Doppelten"))) {
-								selectnext(cBchangeteam.getSelectedIndex());
+							if (box.getSelectedItem() != null && (box.getSelectedIndex() >= 0
+									|| !box.getSelectedItem().equals("keine Doppelten"))) {
+								selectnext(cBchangeteam.getSelectedIndex(),
+										cbDraft[count].getSelectedItem().toString());
 							}
 						}
 					});
@@ -2189,6 +2205,7 @@ public class MainMenu {
 				}
 				sep = false;
 			} catch (Exception e) {
+				e.getStackTrace();
 				pokeanzahl[i] -= 3;
 				i--;
 				sep = true;
@@ -2196,7 +2213,7 @@ public class MainMenu {
 			line += 130;
 		}
 		finishdraft = true;
-		cbDraft[0].setEnabled(true);
+//		cbDraft[0].setEnabled(true);
 	}
 
 	protected int[] nextcolumn(int k) {
@@ -2256,8 +2273,11 @@ public class MainMenu {
 		}
 	}
 
-	private void selectnext(int teamindex) {
-		System.out.print("jaa   ");
+	private void selectnext(int teamindex, String name) {
+		System.out.print(name);
+		if (Data.searchPokedex(name) != -1) {
+			System.out.print("jaa   ");
+		}
 	}
 
 	private void changedraftpokemon(JComboBox<String> box) {
