@@ -2170,12 +2170,13 @@ public class MainMenu {
 							changedraftpokemon(this.box);
 							if (box.getSelectedItem() != null && (box.getSelectedIndex() >= 0
 									|| !box.getSelectedItem().equals("keine Doppelten"))) {
-								selectnext(cBchangeteam.getSelectedIndex(),
-										cbDraft[count].getSelectedItem().toString());
+								box.updateUI();
+								selectnext(cBchangeteam.getSelectedIndex(), box.getSelectedItem().toString());
 							}
 						}
 					});
 					cbDraft[count].setSelectedIndex(-1);
+					cbDraft[count].setEnabled(false);
 					cbDraft[count].setBounds(nxco[co], line, 169, 20);
 					if (!order) {
 						cbDraft[count].setEnabled(false);
@@ -2275,9 +2276,6 @@ public class MainMenu {
 
 	private void selectnext(int teamindex, String name) {
 		System.out.print(name);
-		if (Data.searchPokedex(name) != -1) {
-			System.out.print("jaa   ");
-		}
 	}
 
 	private void changedraftpokemon(JComboBox<String> box) {
