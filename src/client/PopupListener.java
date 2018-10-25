@@ -6,7 +6,7 @@ import javax.swing.event.PopupMenuListener;
 
 public class PopupListener implements PopupMenuListener {
 	
-	JComboBox<String> box;
+	protected JComboBox<String> box;
 	
 	public PopupListener(JComboBox<String> box) {
 		this.box = box;

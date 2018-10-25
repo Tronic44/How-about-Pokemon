@@ -31,7 +31,7 @@ public class Writer {
 	 * @param text  - Ein CharArray, dass ohne Zeichentrennung in die Datei
 	 *              geschreiben wird
 	 */
-	protected static void print(String datei, String name, char[] text) {
+	public static void print(String datei, String name, char[] text) {
 		PrintWriter pWriter = null;
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
@@ -57,7 +57,7 @@ public class Writer {
 	 *              geschreiben wird. Es wird Empfohlen, dass das hinter jedem
 	 *              Eintrag des Array schon ein Zeichentrenner eingefügt wurde
 	 */
-	protected static void print(String datei, String name, String[] text) {
+	public static void print(String datei, String name, String[] text) {
 		PrintWriter pWriter = null;
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
@@ -80,7 +80,7 @@ public class Writer {
 	 * @param datei - Der Dateiname, der einzulesen ist
 	 * @return String[][]
 	 */
-	protected static String[][] read(String datei) {
+	public static String[][] read(String datei) {
 		FileReader fr;
 		String line;
 		String[] zeile;

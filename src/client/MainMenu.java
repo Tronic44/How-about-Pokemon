@@ -43,6 +43,7 @@ import java.awt.event.ItemEvent;
 public class MainMenu {
 
 	private static MainMenu window;
+
 	private JFrame frmPokemonDraft;
 	private JPanel panelMainMenu;
 	private JPanel panelStartDraft;
@@ -52,8 +53,7 @@ public class MainMenu {
 	private JPanel panel_player;
 	private JPanel panel_settings;
 	private JPanel panel_order;
-	private List list;
-	private JTextField tFPoke;
+	private JButton btnReihenfolge;
 	private JRadioButton radioButtonS;
 	private JRadioButton radioButtonA;
 	private JRadioButton radioButtonB;
@@ -65,54 +65,58 @@ public class MainMenu {
 	private ButtonGroup tierlistbuttongruppe;
 	private String[][] tierlist;
 	private String[] tiername;
-	private JTextField tF_tiername;
+	private List list;
 	private JComboBox<String> cBTierlist;
-	private String[][] teamlist;
-	private String[] teamname;
-	private JEditorPane ePTeam;
+	private JSpinner spinnerteam;
 	protected String[] Player;
+	private JTextField tFPoke;
+	private JTextField tF_tiername;
+	private JEditorPane ePTeam;
+	private String[] Spieler = new String[0];
+	private String[] teamname;
 	private JEditorPane ePfinalteam;
 	private JTextField tF_Teams;
 	private JComboBox<String> cBTeams;
-	private JTextField tF2;
-	private JTextField tF3;
-	private JTextField tF4;
-	private JTextField tF5;
-	private JTextField tF1;
+	private String[][] teamlist;
+	private JTextField tFsearch;
 	private JLabel lblTier1;
 	private JLabel lblTier2;
 	private JLabel lblTier3;
 	private JLabel lblTier4;
 	private JLabel lblTier5;
 	private JLabel lblTier6;
-	private JTextField tF6;
+	private JLabel lblbest;
 	private JCheckBox cBS;
 	private JCheckBox cBA;
 	private JCheckBox cBB;
 	private JCheckBox cBC;
 	private JCheckBox cBD;
 	private JCheckBox cBE;
-	private boolean[] change = new boolean[6];
-	private JLabel lblTierS;
-	private JLabel lblTierA;
-	private JLabel lblTierB;
-	private JLabel lblTierC;
-	private JLabel lblTierD;
-	private JLabel lblTierE;
-	private JLabel lblbest;
-	private JButton btnReihenfolge;
-	private JTextField tFsafename;
-	private JComboBox<String> cBloaddraft;
-	private JSpinner spinnerteam;
-	private String[] Spieler = new String[0];
+	private JTextField tF2;
+	private JTextField tF3;
+	private JTextField tF4;
+	private JTextField tF5;
+	private JTextField tF1;
+	private JTextField tF6;
 	private JComboBox<String> comboBoxS;
 	private JComboBox<String> comboBoxA;
 	private JComboBox<String> comboBoxB;
 	private JComboBox<String> comboBoxC;
 	private JComboBox<String> comboBoxD;
 	private JComboBox<String> comboBoxE;
+	private JLabel lblTierS;
+	private JLabel lblTierA;
+	private JLabel lblTierB;
+	private JLabel lblTierC;
+	private JLabel lblTierD;
+	private JLabel lblTierE;
+	private boolean[] change = new boolean[6];
 	private int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
-	private String[] tiernamen = new String[6];
+	private Boolean order;
+	private String[] teamfolge;
+
+	private int[][] draftauswahl;
+	private JComboBox<String> cBchangeteam;
 	private FilterComboBox cBD01;
 	private FilterComboBox cBD02;
 	private FilterComboBox cBD03;
@@ -130,13 +134,14 @@ public class MainMenu {
 	private FilterComboBox cBD15;
 	private FilterComboBox[] cbDraft = new FilterComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
-	private JTextField tFsearch;
-	private JComboBox<String> cBchangeteam;
-	private int changeteam = 0;
-	private int[][] draftauswahl;
 	private boolean finishdraft = false;
-	private Boolean order;
-	private String[] teamfolge;
+	private int changeteam = 0;
+	
+	
+	private JTextField tFsafename;
+	private JComboBox<String> cBloaddraft;
+	private String[] tiernamen = new String[6];
+	
 
 	protected static void startMainMenu() {
 		Manage.initPoketier();
@@ -1572,16 +1577,6 @@ public class MainMenu {
 		JLabel lbteams = new JLabel("Teams:");
 		lbteams.setBounds(123, 14, 45, 14);
 		panel_draft.add(lbteams);
-
-		ArrayList<String> test = new ArrayList<String>();
-		test.add("");
-		test.add("Mountain Flight");
-		test.add("Mount Climbing");
-		test.add("Trekking");
-		test.add("Rafting");
-		test.add("Jungle Safari");
-		test.add("Bungie Jumping");
-		test.add("Para Gliding");
 
 //		FilterComboBox comboBox = new FilterComboBox(new ArrayList<>(Arrays.asList(Data.getPokedex())));
 //		comboBox.addPopupMenuListener(new PopupListener(comboBox) {

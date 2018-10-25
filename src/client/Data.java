@@ -16,7 +16,7 @@ public class Data {
 	 * 
 	 * @return String[] den Pokedex
 	 */
-	protected static String[] getPokedex() {
+	public static String[] getPokedex() {
 		return Pokedex;
 	}
 
@@ -26,7 +26,7 @@ public class Data {
 	 * @param i - int, der zu betrachtende Eintrag im Pokedex
 	 * @return String - Der Eintrag im Pokedex
 	 */
-	protected static String getPokedex(int i) {
+	public static String getPokedex(int i) {
 		return Pokedex[i];
 	}
 
@@ -154,20 +154,20 @@ public class Data {
 	/**
 	 * Die Tierlist, ist dazu da jedem Pokemon ein Tier zuzuweisen.
 	 */
-	protected static char[] tierlist = new char[Pokedex.length];
+	public static char[] tierlist = new char[Pokedex.length];
 
 	/**
 	 * Ein Clone der Tierlist um Änderungen Rückgängig machen zu können. Muss
 	 * manuell initialisiert werden.
 	 */
-	protected static char[] tierlistclone;
+	public static char[] tierlistclone;
 
 	/**
 	 * Setzt die gesamte Tierlist.
 	 * 
 	 * @param a - char[] der Länge des Pokedex
 	 */
-	protected static void settierlist(char[] a) {
+	public static void settierlist(char[] a) {
 		tierlist = a;
 	}
 
@@ -202,7 +202,7 @@ public class Data {
 		}
 	}
 
-	protected static String[] gettierpokemon(int a) {
+	public static String[] gettierpokemon(int a) {
 		switch (a) {
 		case 0:
 			return pokemontier1.toArray(new String[0]);
@@ -220,7 +220,7 @@ public class Data {
 		return null;
 	}
 
-	protected static void inittierpokemon() {
+	public static void inittierpokemon() {
 		for (int k = 0; k < Pokedex.length; k++) {
 			switch (tierlist[k]) {
 			case '0':
