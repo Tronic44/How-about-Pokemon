@@ -17,7 +17,7 @@ public class Gui {
 	private JFrame frmPokemonDraft;
 	private PanelMainMenu panelMainMenu;
 	private PanelStartDraft panelStartDraft;
-	private JPanel panelLoadDraft;
+	private PanelLoadDraft panelLoadDraft;
 	private PanelTierlist panel_tierlist;
 	private PanelDraft panel_draft;
 	private PanelPlayer panel_player;
@@ -68,7 +68,7 @@ public class Gui {
 		panelStartDraft.setLayout(null);
 		panelStartDraft.setVisible(false);
 
-		panelLoadDraft = new JPanel();
+		panelLoadDraft = new PanelLoadDraft();
 		frmPokemonDraft.getContentPane().add(panelLoadDraft, "name_527666975961040");
 		panelLoadDraft.setLayout(null);
 
@@ -160,7 +160,7 @@ public class Gui {
 		return panelStartDraft;
 	}
 
-	public JPanel getPanelLoadDraft() {
+	public PanelLoadDraft getPanelLoadDraft() {
 		return panelLoadDraft;
 	}
 

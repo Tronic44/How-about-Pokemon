@@ -134,11 +134,11 @@ public class OLDMainMenu {
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
 	private boolean finishdraft = false;
 	private int changeteam = 0;
-	
-	
 	private JTextField tFsafename;
 	private JComboBox<String> cBloaddraft;
 	private String[] tiernamen = new String[6];
+	
+
 	
 
 	protected static void startMainMenu() {

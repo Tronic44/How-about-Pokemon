@@ -1,8 +1,6 @@
 package client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Die Klasse Data, dient einzig und alleine dem Speichern von Programm

@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 import org.json.*;
 
+import panel.Gui;
+
 /**
  * Die Klasse Writer ist die Schnittstelle zwischen Programm und Datein. Sie
  * dient dem Speichnern von Programminhalten entweder als .txt Datei oder .json.
@@ -141,7 +143,7 @@ public class Writer {
 	 *              Allertboxes zentriert anzuzeigen
 	 * @return int - 0 bei einem Fehler, 1 bei Erfolg, weites in Planung
 	 */
-	protected static int safeasjson(String name, JFrame frame) {
+	public static int safeasjson(String name, JFrame frame) {
 		try {
 			JSONArray listname;
 			JSONObject drafts = readjson(frame);
@@ -157,8 +159,8 @@ public class Writer {
 			JSONObject aktuell = new JSONObject();
 			aktuell.put("poketier", Data.getTierlist());
 			aktuell.put("poketierclone", Data.getTierlistclone());
-			aktuell.put("team", MainMenu.getwindow().getteam());
-			aktuell.put("settings", MainMenu.getwindow().getsettings());
+			aktuell.put("team", Gui.getwindow().getPanelLoadDraft().getteam());
+			aktuell.put("settings", Gui.getwindow().getPanelLoadDraft().getsettings());
 
 			drafts.put(name, aktuell);
 

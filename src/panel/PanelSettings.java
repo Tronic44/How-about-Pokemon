@@ -37,11 +37,11 @@ public class PanelSettings extends JPanel {
 	protected JCheckBox cBC;
 	protected JCheckBox cBD;
 	protected JCheckBox cBE;
+	private JTextField tF1;
 	private JTextField tF2;
 	private JTextField tF3;
 	private JTextField tF4;
 	private JTextField tF5;
-	private JTextField tF1;
 	private JTextField tF6;
 	private JComboBox<String> comboBoxS;
 	private JComboBox<String> comboBoxA;
@@ -59,7 +59,7 @@ public class PanelSettings extends JPanel {
 	protected int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 
 	public PanelSettings() {
-		
+
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 
@@ -823,7 +823,7 @@ public class PanelSettings extends JPanel {
 
 	}
 
-	protected void changepokeanzahl(int a, int auswahl) {
+	private void changepokeanzahl(int a, int auswahl) {
 		lblbest.setText("");
 		if (auswahl == -1) {
 			auswahl = 0;
@@ -851,12 +851,91 @@ public class PanelSettings extends JPanel {
 			Manage.msgbox("Huch da ist was bei der Anzahl der Pokemon schief gelaufen" + "\n"
 					+ "Keine Sorge das war nicht deine Schuld aber leider können deine Einstellungen nicht übernommen werden",
 					Gui.getwindow().getFrmPokemonDraft());
+			try {
 			comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 			comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 			comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 			comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 			comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 			comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+			}catch (Exception e) {
+			}
 		}
 	}
+
+	protected void setsettings(Object[] list) {
+		resetsettings();
+		try {
+			for (int k = 0; k < list.length; k++) {
+				switch (k) {
+				case 1:
+					if (list[k].equals(true)) {
+						cBS.setSelected(true);
+					} else {
+						cBS.setSelected(false);
+					}
+					break;
+				case 2:
+					if (list[k].equals(true)) {
+						cBS.setSelected(true);
+					} else {
+						cBS.setSelected(false);
+					}
+					break;
+				case 3:
+					if (list[k].equals(true)) {
+						cBS.setSelected(true);
+					} else {
+						cBS.setSelected(false);
+					}
+					break;
+				case 4:
+					if (list[k].equals(true)) {
+						cBS.setSelected(true);
+					} else {
+						cBS.setSelected(false);
+					}
+					break;
+				case 5:
+					if (list[k].equals(true)) {
+						cBS.setSelected(true);
+					} else {
+						cBS.setSelected(false);
+					}
+					break;
+				case 6:
+					if (list[k].equals(true)) {
+						cBS.setSelected(true);
+					} else {
+						cBS.setSelected(false);
+					}
+					break;
+				case 7:
+					tF1.setText(list[k].toString());
+					break;
+				case 8:
+					tF2.setText(list[k].toString());
+					break;
+				case 9:
+					tF3.setText(list[k].toString());
+					break;
+				case 10:
+					tF4.setText(list[k].toString());
+					break;
+				case 11:
+					tF5.setText(list[k].toString());
+					break;
+				case 12:
+					tF6.setText(list[k].toString());
+					break;
+				}
+
+			}
+		} catch (Exception e) {
+			Manage.msgbox("Settings konnten nicht geladen werden", Gui.getwindow().getFrmPokemonDraft());
+			resetsettings();
+		}
+		changesetting();
+	}
+
 }

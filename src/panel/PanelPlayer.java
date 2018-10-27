@@ -18,9 +18,9 @@ import client.Writer;
 @SuppressWarnings("serial")
 public class PanelPlayer extends JPanel {
 	private JPanel panel = new JPanel();
-	private JSpinner spinnerteam;
+	protected JSpinner spinnerteam;
 	protected String[] Player;
-	private JEditorPane ePTeam;
+	protected JEditorPane ePTeam;
 	protected String[] Spieler = new String[0];
 	protected String[] teamname;
 	protected JEditorPane ePfinalteam;
