@@ -18,6 +18,7 @@ public class PanelStartDraft extends JPanel {
 
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
+		panel.setVisible(true);
 
 		JButton btnTierlist = new JButton("Tierlist");
 		btnTierlist.setBounds(74, 38, 255, 71);
@@ -28,7 +29,6 @@ public class PanelStartDraft extends JPanel {
 							"ACHTUNG: Änderungen hier, führen zum ... sollten funktionieren, tut es nur noch nicht^^ ",
 							Gui.getwindow().getFrmPokemonDraft());
 				}
-				panel.setVisible(false);
 				Gui.getwindow().getPanel_tierlist().opentierlist();
 
 			}
@@ -104,7 +104,6 @@ public class PanelStartDraft extends JPanel {
 					if (Gui.getwindow().getPanel_player().teamname == null
 							|| Gui.getwindow().getPanel_player().ePfinalteam.getText().toString().length() < 1) {
 						Manage.msgbox("Du hast keine Teams eingetragen", Gui.getwindow().getFrmPokemonDraft());
-						panel.setVisible(false);
 						Gui.getwindow().getPanel_player().remove(Gui.getwindow().getPanel_player().cBTeams);
 						Gui.getwindow().getPanel_player().teamlist();
 						Gui.getwindow().visPlayer();
@@ -134,7 +133,6 @@ public class PanelStartDraft extends JPanel {
 								"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION,
 								JOptionPane.QUESTION_MESSAGE, null, options, options[2])) {
 						case 0:
-							panel.setVisible(false);
 							for (int k = 0; k < Data.tierlist.length; k++) {
 								if (Data.tierlist[k] == '0') {
 									Data.tierlist[k] = 'X';
@@ -185,7 +183,6 @@ public class PanelStartDraft extends JPanel {
 							}
 							break;
 						case 2:
-							panel.setVisible(false);
 							Gui.getwindow().getPanel_tierlist().opentierlist();
 							break;
 						}
@@ -200,7 +197,6 @@ public class PanelStartDraft extends JPanel {
 						Gui.getwindow().getPanel_draft().opendraft();
 						return;
 					}
-					panel.setVisible(false);
 					int hight = 100;
 					for (int k : Gui.getwindow().getPanel_settings().countauswahl) {
 						if (k == 0) {

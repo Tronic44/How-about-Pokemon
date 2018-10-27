@@ -4,10 +4,9 @@ import java.io.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.json.*;
-
 import panel.Gui;
 
 /**
@@ -100,6 +99,12 @@ public class Writer {
 						line = br.readLine();
 						if (line != null) {
 							zeile = line.split(":");
+							if(zeile.length>0&&zeile[0].toString().trim().equals("")) {
+								zeile = (String[]) ArrayUtils.remove(zeile, 0);
+							}
+							if(zeile.length>2&&zeile[zeile.length-1].toString().trim().equals("")) {
+								zeile = (String[]) ArrayUtils.remove(zeile, zeile.length-1);
+							}
 							buffer[i] = zeile;
 							i++;
 						}
@@ -113,7 +118,7 @@ public class Writer {
 					return list;
 				} catch (Exception e) {
 					Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
-//					e.printStackTrace();
+					e.printStackTrace();
 				}
 				rewrite++;
 			} catch (FileNotFoundException e) {

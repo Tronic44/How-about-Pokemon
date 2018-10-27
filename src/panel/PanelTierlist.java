@@ -333,6 +333,9 @@ public class PanelTierlist extends JPanel {
 	}
 
 	protected String gettiernamen(int k) {
-		return tiernamen[k];
+		if (k < tiernamen.length) {
+			return tiernamen[k];
+		}
+		return null;
 	}
 }

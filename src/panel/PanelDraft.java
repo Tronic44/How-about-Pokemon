@@ -207,8 +207,10 @@ public class PanelDraft extends JPanel {
 					cbDraft[count].setSelectedIndex(-1);
 					cbDraft[count].setEnabled(false);
 					cbDraft[count].setBounds(nxco[co], line, 169, 20);
-					if (Gui.getwindow().getPanel_order().getOrder()!=1) {
+					if (Gui.getwindow().getPanel_order().getOrder()==2) {
 						cbDraft[count].setEnabled(false);
+					}else {
+						cbDraft[count].setEnabled(true);
 					}
 					switch (i) {
 					case 0:

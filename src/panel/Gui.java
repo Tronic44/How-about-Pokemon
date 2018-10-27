@@ -10,6 +10,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import client.Manage;
 import panel.PanelMainMenu;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Gui {
 
@@ -25,6 +27,7 @@ public class Gui {
 	private PanelOrder panel_order;
 	private JPanel panelloading;
 	boolean finishdraft;
+	private JLabel lblLabel;
 
 	public static void startMainMenu() {
 		client.Manage.initPoketier();
@@ -65,12 +68,13 @@ public class Gui {
 
 		panelStartDraft = new PanelStartDraft();
 		frmPokemonDraft.getContentPane().add(panelStartDraft, "name_527021172921335");
-		panelStartDraft.setLayout(null);
 		panelStartDraft.setVisible(false);
+		panelStartDraft.setLayout(null);
 
 		panelLoadDraft = new PanelLoadDraft();
 		frmPokemonDraft.getContentPane().add(panelLoadDraft, "name_527666975961040");
 		panelLoadDraft.setLayout(null);
+		panelLoadDraft.setVisible(false);
 
 		panel_tierlist = new PanelTierlist();
 		frmPokemonDraft.getContentPane().add(panel_tierlist, "name_2032838076395");
@@ -94,13 +98,25 @@ public class Gui {
 
 		panel_draft = new PanelDraft();
 		frmPokemonDraft.getContentPane().add(panel_draft, "name_2679324427935");
-		panel_draft.setVisible(false);
 		panel_draft.setLayout(null);
+		panel_draft.setVisible(false);
 
 		panelloading = new JPanel();
 		frmPokemonDraft.getContentPane().add(panelloading, "name_910613970759788");
-		panel_draft.setVisible(false);
+		initloading();
 
+	}
+
+	private void initloading() {
+		lblLabel = new JLabel("Loading");
+		lblLabel.setBounds(148, 40, 107, 33);
+		lblLabel.setFont(new Font("Tahoma", Font.BOLD, 27));
+		JLabel lblNewLabel = new JLabel("Wenn du das lesen kannst, hast du ein Problem. Verusch es bitte erneut");
+		lblNewLabel.setBounds(28, 79, 500, 14);
+		panelloading.setLayout(null);
+		panelloading.add(lblLabel);
+		panelloading.add(lblNewLabel);
+		panel_draft.setVisible(false);
 	}
 
 	private void initmenubar() {
@@ -128,16 +144,15 @@ public class Gui {
 					visMainMenu();
 				}
 				if (panel_draft.isVisible()) {
+					visLoading();
 					client.Manage.msgbox(
 							"ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
 							frmPokemonDraft);
-					visLoading();
-					panelMainMenu.setVisible(true);
+					visStartDraft();
 				}
 				if (panel_tierlist.isVisible() || panel_player.isVisible() || panel_settings.isVisible()
 						|| panel_order.isVisible()) {
 					visStartDraft();
-
 				}
 				if (panelLoadDraft.isVisible()) {
 					visMainMenu();
@@ -146,6 +161,19 @@ public class Gui {
 			}
 		});
 		menuBar.add(btnmenuback);
+
+		JButton btnDebug = new JButton("Debug");
+		btnDebug.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (Object k : Gui.getwindow().getFrmPokemonDraft().getContentPane().getComponents()) {
+					System.out.println(k);
+				}
+				System.out.println();
+				frmPokemonDraft.list();
+				System.out.println("\n");
+			}
+		});
+		menuBar.add(btnDebug);
 	}
 
 	public JFrame getFrmPokemonDraft() {
@@ -191,41 +219,49 @@ public class Gui {
 	protected void visStartDraft() {
 		visLoading();
 		panelStartDraft.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visLoadDraft() {
 		visLoading();
 		panelLoadDraft.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visMainMenu() {
 		visLoading();
 		panelMainMenu.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visPlayer() {
 		visLoading();
 		panel_player.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visTierlist() {
 		visLoading();
 		panel_tierlist.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visSettings() {
 		visLoading();
 		panel_settings.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visOrder() {
 		visLoading();
 		panel_order.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visDraft() {
 		visLoading();
 		panel_draft.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visLoading() {
@@ -239,5 +275,4 @@ public class Gui {
 		panelMainMenu.setVisible(false);
 		panelloading.setVisible(true);
 	}
-
 }

@@ -3,6 +3,8 @@ package panel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
@@ -30,10 +32,10 @@ public class PanelPlayer extends JPanel {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PanelPlayer() {
-		
+
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
-		
+
 		spinnerteam = new JSpinner();
 		spinnerteam.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -153,6 +155,9 @@ public class PanelPlayer extends JPanel {
 									b = false;
 									break;
 								}
+								if(k.equals("Lese Error")) {
+									return;
+								}
 							}
 							if (b) {
 								Writer.print("teamlist", tF_Teams.getText(), teamname);
@@ -210,14 +215,12 @@ public class PanelPlayer extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			teamname = new String[0];
+			teamname = new String[] {"Lese Error"};
 		}
 
-		cBTeams = new JComboBox(teamname);
-		cBTeams.setBounds(234, 469, 124, 28);
-		panel.add(cBTeams);
+		cBTeams.setModel(new DefaultComboBoxModel<String>(teamname));
 	}
-	
+
 	public Object[] getteam() {
 		String finalteam = "";
 		try {

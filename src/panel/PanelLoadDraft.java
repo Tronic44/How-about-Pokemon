@@ -67,6 +67,8 @@ public class PanelLoadDraft extends JPanel {
 		cBloaddraft = new JComboBox();
 		cBloaddraft.setBounds(72, 440, 125, 20);
 		panel.add(cBloaddraft);
+		
+		add(panel);
 
 	}
 	

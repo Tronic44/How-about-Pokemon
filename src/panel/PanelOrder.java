@@ -32,8 +32,6 @@ public class PanelOrder extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				if (chckbxManuell.isSelected()) {
 					order = 1;
-				} else {
-					order = 0;
 				}
 				chckbxRandom.setSelected(false);
 			}
@@ -42,7 +40,7 @@ public class PanelOrder extends JPanel {
 		panel.add(chckbxManuell);
 
 		JTextPane txtpnJederzeitZwischenTeanms = new JTextPane();
-		txtpnJederzeitZwischenTeanms.setText("Jederzeit zwischen Teanms wechseln, beliebig viele Pokemon auswählen");
+		txtpnJederzeitZwischenTeanms.setText("Jederzeit zwischen Teams wechseln, beliebig viele Pokemon auswählen");
 		txtpnJederzeitZwischenTeanms.setBounds(74, 108, 254, 39);
 		panel.add(txtpnJederzeitZwischenTeanms);
 
@@ -51,8 +49,6 @@ public class PanelOrder extends JPanel {
 				if (chckbxRandom.isSelected()) {
 					order = 2;
 					randomiseteam();
-				} else {
-					order = 0;
 				}
 				chckbxManuell.setSelected(false);
 			}
