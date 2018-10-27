@@ -28,6 +28,7 @@ public class PanelPlayer extends JPanel {
 	protected JComboBox<String> cBTeams;
 	private String[][] teamlist;
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PanelPlayer() {
 		
 		panel.setBounds(0, 0, 409, 640);
@@ -192,6 +193,7 @@ public class PanelPlayer extends JPanel {
 
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	void teamlist() {
 		try {
 			teamlist = client.Writer.read("teamlist");

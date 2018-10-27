@@ -8,8 +8,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.function.Predicate;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -251,6 +249,7 @@ public class PanelTierlist extends JPanel {
 		add(panel);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void tierlist() {
 		try {
 			tierlist = client.Writer.read("tierlist");

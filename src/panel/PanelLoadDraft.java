@@ -18,8 +18,8 @@ public class PanelLoadDraft extends JPanel {
 	private JPanel panel = new JPanel();
 	private JTextField tFsafename;
 	private JComboBox<String> cBloaddraft;
-	private String[] tiernamen = new String[6];
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public PanelLoadDraft() {
 
 		panel.setBounds(0, 0, 409, 640);

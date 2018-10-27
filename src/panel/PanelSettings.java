@@ -58,6 +58,7 @@ public class PanelSettings extends JPanel {
 	private boolean[] change = new boolean[6];
 	protected int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PanelSettings() {
 
 		panel.setBounds(0, 0, 409, 640);

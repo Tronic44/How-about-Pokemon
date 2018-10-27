@@ -87,6 +87,7 @@ public class PanelDraft extends JPanel {
 		}
 		cBchangeteam = new JComboBox<String>();
 		cBchangeteam.addItemListener(new ItemListener() {
+			@SuppressWarnings("unchecked")
 			public void itemStateChanged(ItemEvent event) {
 				if (event.getStateChange() == ItemEvent.DESELECTED) {
 					for (int k = 0; k < 15; k++) {
@@ -159,6 +160,7 @@ public class PanelDraft extends JPanel {
 		Gui.getwindow().visDraft();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void draftlayout() {
 		Gui.getwindow().visLoading();
 		for (FilterComboBox k : cbDraft) {
@@ -265,6 +267,7 @@ public class PanelDraft extends JPanel {
 		return spalte;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void resetdraft() {
 		draftauswahl = null;
 		for (JComboBox<String> k : cbDraft) {

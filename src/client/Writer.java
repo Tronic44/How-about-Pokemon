@@ -206,7 +206,7 @@ public class Writer {
 	 *              Allertboxes zentriert anzuzeigen
 	 */
 	protected static void loadjson(JFrame frame) {
-		JSONObject file = readjson(frame);
+//		JSONObject file = readjson(frame);
 	}
 
 	/**
