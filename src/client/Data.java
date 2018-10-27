@@ -31,13 +31,11 @@ public class Data {
 
 	public static int getPokedex(String a) {
 		for (int k = 0; k < Pokedex.length; k++) {
-
 			if (getPokedex(k).trim().toLowerCase().equals(a.trim().toLowerCase())) {
 				return k;
 			}
 		}
 		return 0;
-
 	}
 
 	/**
@@ -160,13 +158,16 @@ public class Data {
 	private static ArrayList<String> pokemontier4 = new ArrayList<String>();
 	private static ArrayList<String> pokemontier5 = new ArrayList<String>();
 	private static ArrayList<String> pokemontier6 = new ArrayList<String>();
+	private static ArrayList<String> pokedexlist = new ArrayList<String>();
 
 	public static ArrayList<String> getPokedexlist() {
-		ArrayList<String> pokelist = new ArrayList<String>();
-		for (String k : getPokedex()) {
-			pokelist.add(k);
+		if(pokedexlist.isEmpty()) {
+			for (String k : getPokedex()) {
+				pokedexlist.add(k);		
+			}
+			System.out.print("A");
 		}
-		return pokelist;
+		return pokedexlist;
 	}
 
 	/**

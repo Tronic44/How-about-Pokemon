@@ -111,7 +111,7 @@ public class Gui {
 		lblLabel = new JLabel("Loading");
 		lblLabel.setBounds(148, 40, 107, 33);
 		lblLabel.setFont(new Font("Tahoma", Font.BOLD, 27));
-		JLabel lblNewLabel = new JLabel("Wenn du das lesen kannst, hast du ein Problem. Verusch es bitte erneut");
+		JLabel lblNewLabel = new JLabel("Wenn du das lesen kannst, hast du ein Problem. Versusche es bitte erneut");
 		lblNewLabel.setBounds(28, 79, 500, 14);
 		panelloading.setLayout(null);
 		panelloading.add(lblLabel);
