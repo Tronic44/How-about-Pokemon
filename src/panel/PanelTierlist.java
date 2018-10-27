@@ -229,7 +229,7 @@ public class PanelTierlist extends JPanel {
 			public void keyReleased(KeyEvent arg0) {
 				String search = null;
 				try {
-					search = Data.getPokedexlist().stream().filter(element -> element.contains(tFsearch.getText()))
+					search = Data.getPokedexlist().stream().filter(element -> element.toLowerCase().contains(tFsearch.getText().toLowerCase()))
 							.findFirst().get().toString();
 				} catch (Exception e) {
 				}
