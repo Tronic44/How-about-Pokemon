@@ -69,34 +69,5 @@ public class PanelLoadDraft extends JPanel {
 		panel.add(cBloaddraft);
 
 	}
-
-	public Object[] getteam() {
-		String finalteam = "";
-		try {
-			for (String k : Gui.getwindow().getPanel_player().Spieler) {
-				finalteam = finalteam + k + ":";
-			}
-			finalteam.substring(0, finalteam.length() - 1);
-		} catch (Exception e) {
-			return new Object[] { Gui.getwindow().getPanel_player().spinnerteam.getValue().toString(),
-					Gui.getwindow().getPanel_player().ePTeam.getText(), org.json.JSONObject.NULL };
-
-		}
-		return new String[] { Gui.getwindow().getPanel_player().spinnerteam.getValue().toString(),
-				Gui.getwindow().getPanel_player().ePTeam.getText(), finalteam };
-	}
-
-	public Object[] getsettings() {
-		return new Object[] { Gui.getwindow().getPanel_settings().cBS.isSelected(),
-				Gui.getwindow().getPanel_settings().cBA.isSelected(),
-				Gui.getwindow().getPanel_settings().cBB.isSelected(),
-				Gui.getwindow().getPanel_settings().cBC.isSelected(),
-				Gui.getwindow().getPanel_settings().cBD.isSelected(),
-				Gui.getwindow().getPanel_settings().cBE.isSelected(), Gui.getwindow().getPanel_settings().tF1.getText(),
-				Gui.getwindow().getPanel_settings().tF2.getText(), Gui.getwindow().getPanel_settings().tF3.getText(),
-				Gui.getwindow().getPanel_settings().tF4.getText(), Gui.getwindow().getPanel_settings().tF5.getText(),
-				Gui.getwindow().getPanel_settings().tF6.getText() };
-	}
-
 	
 }

@@ -103,7 +103,7 @@ public class PanelPlayer extends JPanel {
 						teamname[teamname.length - 1] = teamname[teamname.length - 1].substring(0,
 								teamname[teamname.length - 1].length() - 1);
 						ePfinalteam.setText(list);
-						Gui.getwindow().getPanelStartDraft().btnReihenfolge.setEnabled(true);
+						Gui.getwindow().getPanelStartDraft().enablebtnReihenfolge();
 					}
 				}
 			}
@@ -214,5 +214,21 @@ public class PanelPlayer extends JPanel {
 		cBTeams = new JComboBox(teamname);
 		cBTeams.setBounds(234, 469, 124, 28);
 		panel.add(cBTeams);
+	}
+	
+	public Object[] getteam() {
+		String finalteam = "";
+		try {
+			for (String k : Gui.getwindow().getPanel_player().Spieler) {
+				finalteam = finalteam + k + ":";
+			}
+			finalteam.substring(0, finalteam.length() - 1);
+		} catch (Exception e) {
+			return new Object[] { Gui.getwindow().getPanel_player().spinnerteam.getValue().toString(),
+					Gui.getwindow().getPanel_player().ePTeam.getText(), org.json.JSONObject.NULL };
+
+		}
+		return new String[] { Gui.getwindow().getPanel_player().spinnerteam.getValue().toString(),
+				Gui.getwindow().getPanel_player().ePTeam.getText(), finalteam };
 	}
 }

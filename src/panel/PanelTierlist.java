@@ -30,12 +30,12 @@ public class PanelTierlist extends JPanel {
 	protected JRadioButton radioButtonB;
 	protected JRadioButton radioButtonC;
 	protected JRadioButton radioButtonD;
+	protected JRadioButton radioButtonE;
 	protected JRadioButton radioButtonX;
 	protected JRadioButton radioButtonnull;
-	protected JRadioButton radioButtonE;
 	private ButtonGroup tierlistbuttongruppe;
 	private String[][] tierlist;
-	protected String[] tiernamen;
+	private String[] tiernamen;
 	private JTextField tFsearch;
 	private List list;
 	private JTextField tFPoke;
@@ -235,7 +235,7 @@ public class PanelTierlist extends JPanel {
 							.findFirst().get().toString();
 				} catch (Exception e) {
 				}
-				if(search!=null) {
+				if (search != null) {
 					list.select(Data.getPokedex(search));
 				}
 			}
@@ -327,4 +327,13 @@ public class PanelTierlist extends JPanel {
 		Gui.getwindow().visTierlist();
 	}
 
+	protected void settiernamen(int k, String eintrag) {
+		if (k < tiernamen.length) {
+			tiernamen[k] = eintrag;
+		}
+	}
+
+	protected String gettiernamen(int k) {
+		return tiernamen[k];
+	}
 }

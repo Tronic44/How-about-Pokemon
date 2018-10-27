@@ -12,10 +12,10 @@ import client.Manage;
 public class PanelStartDraft extends JPanel {
 
 	private JPanel panel = new JPanel();
-	protected JButton btnReihenfolge;
+	private JButton btnReihenfolge;
 
 	public PanelStartDraft() {
-		
+
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 
@@ -120,7 +120,7 @@ public class PanelStartDraft extends JPanel {
 						Gui.getwindow().visSettings();
 						return;
 					}
-					if (Gui.getwindow().getPanel_order().order == null) {
+					if (Gui.getwindow().getPanel_order().getOrder() == 0) {
 						Manage.msgbox("Du hast noch keine Reihenfolge ausgewählt",
 								Gui.getwindow().getFrmPokemonDraft());
 						Gui.getwindow().visOrder();
@@ -193,7 +193,8 @@ public class PanelStartDraft extends JPanel {
 						Gui.getwindow().getPanel_draft().opendraft();
 					}
 				} else {
-					if (Gui.getwindow().getPanel_player().Spieler.length != Gui.getwindow().getPanel_draft().draftauswahl.length) {
+					if (Gui.getwindow().getPanel_player().Spieler.length != Gui.getwindow()
+							.getPanel_draft().draftauswahl.length) {
 						Gui.getwindow().getPanel_draft().resetdraft();
 						Gui.getwindow().getPanel_draft().remove(Gui.getwindow().getPanel_draft().cBchangeteam);
 						Gui.getwindow().getPanel_draft().opendraft();
@@ -239,4 +240,7 @@ public class PanelStartDraft extends JPanel {
 		add(panel);
 	}
 
+	protected void enablebtnReihenfolge() {
+		btnReihenfolge.setEnabled(true);
+	}
 }

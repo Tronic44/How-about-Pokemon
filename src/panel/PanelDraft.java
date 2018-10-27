@@ -38,11 +38,11 @@ public class PanelDraft extends JPanel {
 	private FilterComboBox cBD15;
 	private FilterComboBox[] cbDraft = new FilterComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
-	protected boolean finishdraft = false;
+	boolean finishdraft = false;
 	private int changeteam = 0;
 
 	public PanelDraft() {
-		
+
 		panel.setLayout(null);
 
 		JLabel lbteams = new JLabel("Teams:");
@@ -118,7 +118,7 @@ public class PanelDraft extends JPanel {
 		});
 		cBchangeteam.setModel(new DefaultComboBoxModel<String>(Spieler));
 		cBchangeteam.setBounds(178, 11, 114, 20);
-		if (!Gui.getwindow().getPanel_order().order) {
+		if (Gui.getwindow().getPanel_order().getOrder()!=1) {
 			cBchangeteam.setEnabled(false);
 		}
 		Gui.getwindow().getPanel_draft().add(cBchangeteam);
@@ -159,7 +159,7 @@ public class PanelDraft extends JPanel {
 		Gui.getwindow().visDraft();
 	}
 
-	protected void draftlayout() {
+	private void draftlayout() {
 		Gui.getwindow().visLoading();
 		for (FilterComboBox k : cbDraft) {
 			try {
@@ -183,7 +183,7 @@ public class PanelDraft extends JPanel {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, line - 60, 1100, 2);
 				Gui.getwindow().getPanel_draft().add(separator);
-				JLabel lblNewLabel_2 = new JLabel(Gui.getwindow().getPanel_tierlist().tiernamen[i]);
+				JLabel lblNewLabel_2 = new JLabel(Gui.getwindow().getPanel_tierlist().gettiernamen(i));
 				lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 				lblNewLabel_2.setBounds(54, line - 40, 550, 14);
 				Gui.getwindow().getPanel_draft().add(lblNewLabel_2);
@@ -205,7 +205,7 @@ public class PanelDraft extends JPanel {
 					cbDraft[count].setSelectedIndex(-1);
 					cbDraft[count].setEnabled(false);
 					cbDraft[count].setBounds(nxco[co], line, 169, 20);
-					if (!Gui.getwindow().getPanel_order().order) {
+					if (Gui.getwindow().getPanel_order().getOrder()!=1) {
 						cbDraft[count].setEnabled(false);
 					}
 					switch (i) {
@@ -244,7 +244,7 @@ public class PanelDraft extends JPanel {
 //		cbDraft[0].setEnabled(true);
 	}
 
-	protected int[] nextcolumn(int k) {
+	private int[] nextcolumn(int k) {
 		if (k > 3) {
 			k = 3;
 		}

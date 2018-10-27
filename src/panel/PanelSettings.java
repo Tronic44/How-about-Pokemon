@@ -156,61 +156,61 @@ public class PanelSettings extends JPanel {
 				if (cBS.isSelected()) {
 					Gui.getwindow().getPanel_tierlist().radioButtonS.setEnabled(true);
 					Gui.getwindow().getPanel_tierlist().radioButtonS.setText(tF1.getText());
-					Gui.getwindow().getPanel_tierlist().tiernamen[0] = tF1.getText();
+					Gui.getwindow().getPanel_tierlist().settiernamen(0, tF1.getText());
 				} else {
 					Gui.getwindow().getPanel_tierlist().radioButtonS.setEnabled(false);
 					Gui.getwindow().getPanel_tierlist().radioButtonS.setText("");
-					Gui.getwindow().getPanel_tierlist().tiernamen[0] = null;
+					Gui.getwindow().getPanel_tierlist().settiernamen(0, null);
 					count++;
 				}
 				if (cBA.isSelected()) {
 					Gui.getwindow().getPanel_tierlist().radioButtonA.setEnabled(true);
 					Gui.getwindow().getPanel_tierlist().radioButtonA.setText(tF2.getText());
-					Gui.getwindow().getPanel_tierlist().tiernamen[1] = tF2.getText();
+					Gui.getwindow().getPanel_tierlist().settiernamen(1, tF2.getText());
 				} else {
 					Gui.getwindow().getPanel_tierlist().radioButtonA.setEnabled(false);
 					Gui.getwindow().getPanel_tierlist().radioButtonA.setText("");
-					Gui.getwindow().getPanel_tierlist().tiernamen[1] = null;
+					Gui.getwindow().getPanel_tierlist().settiernamen(1, null);
 					count++;
 				}
 				if (cBB.isSelected()) {
 					Gui.getwindow().getPanel_tierlist().radioButtonB.setEnabled(true);
 					Gui.getwindow().getPanel_tierlist().radioButtonB.setText(tF3.getText());
-					Gui.getwindow().getPanel_tierlist().tiernamen[2] = tF3.getText();
+					Gui.getwindow().getPanel_tierlist().settiernamen(2, tF3.getText());
 				} else {
 					Gui.getwindow().getPanel_tierlist().radioButtonB.setEnabled(false);
 					Gui.getwindow().getPanel_tierlist().radioButtonB.setText("");
-					Gui.getwindow().getPanel_tierlist().tiernamen[2] = null;
+					Gui.getwindow().getPanel_tierlist().settiernamen(2, null);
 					count++;
 				}
 				if (cBC.isSelected()) {
 					Gui.getwindow().getPanel_tierlist().radioButtonC.setEnabled(true);
 					Gui.getwindow().getPanel_tierlist().radioButtonC.setText(tF4.getText());
-					Gui.getwindow().getPanel_tierlist().tiernamen[3] = tF4.getText();
+					Gui.getwindow().getPanel_tierlist().settiernamen(3, tF4.getText());
 				} else {
 					Gui.getwindow().getPanel_tierlist().radioButtonC.setEnabled(false);
 					Gui.getwindow().getPanel_tierlist().radioButtonC.setText("");
-					Gui.getwindow().getPanel_tierlist().tiernamen[3] = null;
+					Gui.getwindow().getPanel_tierlist().settiernamen(3, null);
 					count++;
 				}
 				if (cBD.isSelected()) {
 					Gui.getwindow().getPanel_tierlist().radioButtonD.setEnabled(true);
 					Gui.getwindow().getPanel_tierlist().radioButtonD.setText(tF5.getText());
-					Gui.getwindow().getPanel_tierlist().tiernamen[4] = tF5.getText();
+					Gui.getwindow().getPanel_tierlist().settiernamen(4, tF5.getText());
 				} else {
 					Gui.getwindow().getPanel_tierlist().radioButtonD.setEnabled(false);
 					Gui.getwindow().getPanel_tierlist().radioButtonD.setText("");
-					Gui.getwindow().getPanel_tierlist().tiernamen[4] = null;
+					Gui.getwindow().getPanel_tierlist().settiernamen(4, null);
 					count++;
 				}
 				if (cBE.isSelected()) {
 					Gui.getwindow().getPanel_tierlist().radioButtonE.setEnabled(true);
 					Gui.getwindow().getPanel_tierlist().radioButtonE.setText(tF6.getText());
-					Gui.getwindow().getPanel_tierlist().tiernamen[5] = tF6.getText();
+					Gui.getwindow().getPanel_tierlist().settiernamen(5, tF6.getText());
 				} else {
 					Gui.getwindow().getPanel_tierlist().radioButtonE.setEnabled(false);
 					Gui.getwindow().getPanel_tierlist().radioButtonE.setText("");
-					Gui.getwindow().getPanel_tierlist().tiernamen[5] = null;
+					Gui.getwindow().getPanel_tierlist().settiernamen(5, null);
 					count++;
 				}
 				for (int i = 0; i < count; i++) {
@@ -852,13 +852,13 @@ public class PanelSettings extends JPanel {
 					+ "Keine Sorge das war nicht deine Schuld aber leider können deine Einstellungen nicht übernommen werden",
 					Gui.getwindow().getFrmPokemonDraft());
 			try {
-			comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-			comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-			comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-			comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-			comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-			comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-			}catch (Exception e) {
+				comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+				comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+				comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+				comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+				comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+				comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+			} catch (Exception e) {
 			}
 		}
 	}
@@ -938,4 +938,15 @@ public class PanelSettings extends JPanel {
 		changesetting();
 	}
 
+	public Object[] getsettings() {
+		return new Object[] { Gui.getwindow().getPanel_settings().cBS.isSelected(),
+				Gui.getwindow().getPanel_settings().cBA.isSelected(),
+				Gui.getwindow().getPanel_settings().cBB.isSelected(),
+				Gui.getwindow().getPanel_settings().cBC.isSelected(),
+				Gui.getwindow().getPanel_settings().cBD.isSelected(),
+				Gui.getwindow().getPanel_settings().cBE.isSelected(), Gui.getwindow().getPanel_settings().tF1.getText(),
+				Gui.getwindow().getPanel_settings().tF2.getText(), Gui.getwindow().getPanel_settings().tF3.getText(),
+				Gui.getwindow().getPanel_settings().tF4.getText(), Gui.getwindow().getPanel_settings().tF5.getText(),
+				Gui.getwindow().getPanel_settings().tF6.getText() };
+	}
 }

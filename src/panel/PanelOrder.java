@@ -13,14 +13,14 @@ import javax.swing.JTextPane;
 public class PanelOrder extends JPanel {
 
 	private JPanel panel = new JPanel();
-	protected Boolean order;
+	private int order = 0;
 	private String[] teamfolge;
 
 	public PanelOrder() {
-		
+
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
-		
+
 		JLabel lblorder = new JLabel("Wie soll gedraftet werden?");
 		lblorder.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblorder.setBounds(110, 26, 183, 27);
@@ -31,9 +31,9 @@ public class PanelOrder extends JPanel {
 		chckbxManuell.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (chckbxManuell.isSelected()) {
-					order = true;
+					order = 1;
 				} else {
-					order = null;
+					order = 0;
 				}
 				chckbxRandom.setSelected(false);
 			}
@@ -49,10 +49,10 @@ public class PanelOrder extends JPanel {
 		chckbxRandom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (chckbxRandom.isSelected()) {
-					order = false;
+					order = 2;
 					randomiseteam();
 				} else {
-					order = null;
+					order = 0;
 				}
 				chckbxManuell.setSelected(false);
 			}
@@ -68,7 +68,8 @@ public class PanelOrder extends JPanel {
 		add(panel);
 
 	}
-	protected void randomiseteam() {
+
+	private void randomiseteam() {
 		String[] Spieler = Gui.getwindow().getPanel_player().Spieler;
 		teamfolge = new String[Spieler.length * 2];
 		int[] random = new int[Spieler.length];
@@ -94,4 +95,9 @@ public class PanelOrder extends JPanel {
 			}
 		}
 	}
+
+	protected int getOrder() {
+		return order;
+	}
+
 }

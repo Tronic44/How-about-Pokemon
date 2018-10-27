@@ -159,8 +159,8 @@ public class Writer {
 			JSONObject aktuell = new JSONObject();
 			aktuell.put("poketier", Data.getTierlist());
 			aktuell.put("poketierclone", Data.getTierlistclone());
-			aktuell.put("team", Gui.getwindow().getPanelLoadDraft().getteam());
-			aktuell.put("settings", Gui.getwindow().getPanelLoadDraft().getsettings());
+			aktuell.put("team", Gui.getwindow().getPanel_player().getteam());
+			aktuell.put("settings", Gui.getwindow().getPanel_settings().getsettings());
 
 			drafts.put(name, aktuell);
 
