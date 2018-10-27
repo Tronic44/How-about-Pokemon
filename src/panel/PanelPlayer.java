@@ -155,7 +155,7 @@ public class PanelPlayer extends JPanel {
 									b = false;
 									break;
 								}
-								if(k.equals("Lese Error")) {
+								if (k.equals("Lese Error")) {
 									return;
 								}
 							}
@@ -198,14 +198,9 @@ public class PanelPlayer extends JPanel {
 
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	void teamlist() {
 		try {
 			teamlist = client.Writer.read("teamlist");
-		} catch (Exception e) {
-
-		}
-		try {
 			teamname = new String[teamlist.length];
 			for (int i = 0; i < teamname.length; i++) {
 				try {
@@ -215,7 +210,7 @@ public class PanelPlayer extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			teamname = new String[] {"Lese Error"};
+			teamname = new String[] { "Lese Error" };
 		}
 
 		cBTeams.setModel(new DefaultComboBoxModel<String>(teamname));
