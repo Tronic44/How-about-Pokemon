@@ -23,7 +23,7 @@ import client.Manage;
 @SuppressWarnings("serial")
 public class PanelSettings extends JPanel {
 
-	private JPanel panel;
+	private JPanel panel = new JPanel();
 	private JLabel lblTier1;
 	private JLabel lblTier2;
 	private JLabel lblTier3;
@@ -59,6 +59,9 @@ public class PanelSettings extends JPanel {
 	protected int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 
 	public PanelSettings() {
+		
+		panel.setBounds(0, 0, 409, 640);
+		panel.setLayout(null);
 
 		lblTier1 = new JLabel("S:");
 		lblTier1.setFont(new Font("Tahoma", Font.PLAIN, 15));

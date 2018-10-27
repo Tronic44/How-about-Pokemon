@@ -17,7 +17,7 @@ import client.Writer;
 
 @SuppressWarnings("serial")
 public class PanelPlayer extends JPanel {
-	private JPanel panel;
+	private JPanel panel = new JPanel();
 	private JSpinner spinnerteam;
 	protected String[] Player;
 	private JEditorPane ePTeam;
@@ -29,6 +29,10 @@ public class PanelPlayer extends JPanel {
 	private String[][] teamlist;
 
 	public PanelPlayer() {
+		
+		panel.setBounds(0, 0, 409, 640);
+		panel.setLayout(null);
+		
 		spinnerteam = new JSpinner();
 		spinnerteam.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {

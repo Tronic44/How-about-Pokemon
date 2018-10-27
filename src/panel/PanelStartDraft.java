@@ -3,8 +3,6 @@ package panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import client.Data;
@@ -13,10 +11,13 @@ import client.Manage;
 @SuppressWarnings("serial")
 public class PanelStartDraft extends JPanel {
 
-	private JPanel panel;
+	private JPanel panel = new JPanel();
 	protected JButton btnReihenfolge;
 
 	public PanelStartDraft() {
+		
+		panel.setBounds(0, 0, 409, 640);
+		panel.setLayout(null);
 
 		JButton btnTierlist = new JButton("Tierlist");
 		btnTierlist.setBounds(74, 38, 255, 71);

@@ -26,9 +26,7 @@ import javax.swing.JTextPane;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import javax.swing.JSeparator;
@@ -40,9 +38,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
-public class MainMenu {
+public class OLDMainMenu {
 
-	private static MainMenu window;
+	private static OLDMainMenu window;
 
 	private JFrame frmPokemonDraft;
 	private JPanel panelMainMenu;
@@ -148,7 +146,7 @@ public class MainMenu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					window = new MainMenu();
+					window = new OLDMainMenu();
 					window.frmPokemonDraft.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -157,7 +155,7 @@ public class MainMenu {
 		});
 	}
 
-	protected MainMenu() {
+	protected OLDMainMenu() {
 		openMainMenu();
 	}
 
@@ -1554,13 +1552,7 @@ public class MainMenu {
 		tFsearch.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				if (tFsearch.getText() != null || !tFsearch.getText().trim().equals("")) {
-					int a = Data.searchPokedex(tFsearch.getText().toLowerCase().trim());
-					if (a >= 0) {
-						list.select(a);
-						changetier();
-					}
-				}
+				
 			}
 		});
 		tFsearch.setBounds(86, 555, 109, 20);
@@ -1870,7 +1862,7 @@ public class MainMenu {
 		panel_tierlist.setVisible(true);
 	}
 
-	protected static MainMenu getwindow() {
+	protected static OLDMainMenu getwindow() {
 		return window;
 	}
 

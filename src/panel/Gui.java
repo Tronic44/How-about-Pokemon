@@ -115,8 +115,7 @@ public class Gui {
 							frmPokemonDraft);
 				}
 				frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
-				visLoading();
-				panelMainMenu.setVisible(true);
+				visMainMenu();
 			}
 		});
 		menuBar.add(btnMainmenu);

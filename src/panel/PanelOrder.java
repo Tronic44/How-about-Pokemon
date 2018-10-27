@@ -12,11 +12,15 @@ import javax.swing.JTextPane;
 @SuppressWarnings("serial")
 public class PanelOrder extends JPanel {
 
-	private JPanel panel;
+	private JPanel panel = new JPanel();
 	protected Boolean order;
 	private String[] teamfolge;
 
 	public PanelOrder() {
+		
+		panel.setBounds(0, 0, 409, 640);
+		panel.setLayout(null);
+		
 		JLabel lblorder = new JLabel("Wie soll gedraftet werden?");
 		lblorder.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblorder.setBounds(110, 26, 183, 27);

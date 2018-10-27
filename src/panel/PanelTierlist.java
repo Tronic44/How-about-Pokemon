@@ -8,6 +8,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.function.Predicate;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,7 +24,7 @@ import client.Writer;
 @SuppressWarnings("serial")
 public class PanelTierlist extends JPanel {
 
-	private JPanel panel;
+	private JPanel panel = new JPanel();
 	protected JRadioButton radioButtonS;
 	protected JRadioButton radioButtonA;
 	protected JRadioButton radioButtonB;
@@ -41,6 +43,10 @@ public class PanelTierlist extends JPanel {
 	private JComboBox<String> cBTierlist;
 
 	public PanelTierlist() {
+
+		panel.setBounds(0, 0, 409, 640);
+		panel.setLayout(null);
+
 		JLabel lblPokemon = new JLabel("Pokemon");
 		lblPokemon.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPokemon.setBounds(20, 0, 73, 28);
@@ -222,13 +228,15 @@ public class PanelTierlist extends JPanel {
 		tFsearch = new JTextField();
 		tFsearch.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent arg0) {
-				if (tFsearch.getText() != null || !tFsearch.getText().trim().equals("")) {
-					int a = Data.searchPokedex(tFsearch.getText().toLowerCase().trim());
-					if (a >= 0) {
-						list.select(a);
-						changetier();
-					}
+			public void keyReleased(KeyEvent arg0) {
+				String search = null;
+				try {
+					search = Data.getPokedexlist().stream().filter(element -> element.contains(tFsearch.getText()))
+							.findFirst().get().toString();
+				} catch (Exception e) {
+				}
+				if(search!=null) {
+					list.select(Data.getPokedex(search));
 				}
 			}
 		});
@@ -267,7 +275,11 @@ public class PanelTierlist extends JPanel {
 		}
 		cBTierlist = new JComboBox(tiernamen);
 		cBTierlist.setBounds(248, 447, 124, 28);
-		Gui.getwindow().getPanel_tierlist().add(cBTierlist);
+		try {
+			Gui.getwindow().getPanel_tierlist().add(cBTierlist);
+		} catch (Exception e) {
+			panel.add(cBTierlist);
+		}
 
 	}
 

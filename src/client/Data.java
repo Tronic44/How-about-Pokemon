@@ -2,6 +2,7 @@ package client;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Die Klasse Data, dient einzig und alleine dem Speichern von Programm
@@ -28,6 +29,17 @@ public class Data {
 	 */
 	public static String getPokedex(int i) {
 		return Pokedex[i];
+	}
+
+	public static int getPokedex(String a) {
+		for (int k = 0; k < Pokedex.length; k++) {
+
+			if (getPokedex(k).trim().toLowerCase().equals(a.trim().toLowerCase())) {
+				return k;
+			}
+		}
+		return 0;
+
 	}
 
 	/**
@@ -151,6 +163,14 @@ public class Data {
 	private static ArrayList<String> pokemontier5 = new ArrayList<String>();
 	private static ArrayList<String> pokemontier6 = new ArrayList<String>();
 
+	public static ArrayList<String> getPokedexlist() {
+		ArrayList<String> pokelist = new ArrayList<String>();
+		for (String k : getPokedex()) {
+			pokelist.add(k);
+		}
+		return pokelist;
+	}
+
 	/**
 	 * Die Tierlist, ist dazu da jedem Pokemon ein Tier zuzuweisen.
 	 */
@@ -246,27 +266,6 @@ public class Data {
 			}
 		}
 
-	}
-
-	/**
-	 * Gibt eine nach Alphabet sortierte Pokemon liste zurück
-	 * 
-	 * @return String[]
-	 */
-	public static String[] sortPokedex() {
-		String[] Pokedexsort = Pokedex.clone();
-		Arrays.sort(Pokedexsort);
-		return Pokedexsort;
-	}
-
-	public static int searchPokedex(String text) {
-		for (int k = 0; k < Pokedex.length; k++) {
-			if (Pokedex[k].equals(text)) {
-				return k;
-			}
-		}
-
-		return -1;
 	}
 
 }

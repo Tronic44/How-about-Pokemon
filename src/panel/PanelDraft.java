@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -14,13 +13,12 @@ import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuEvent;
 import client.Data;
 import client.FilterComboBox;
-import client.Manage;
 import client.PopupListener;
 
 @SuppressWarnings("serial")
 public class PanelDraft extends JPanel {
 
-	private JPanel panel;
+	private JPanel panel = new JPanel();
 	protected int[][] draftauswahl;
 	protected JComboBox<String> cBchangeteam;
 	private FilterComboBox cBD01;
@@ -44,6 +42,8 @@ public class PanelDraft extends JPanel {
 	private int changeteam = 0;
 
 	public PanelDraft() {
+		
+		panel.setLayout(null);
 
 		JLabel lbteams = new JLabel("Teams:");
 		lbteams.setBounds(123, 14, 45, 14);
