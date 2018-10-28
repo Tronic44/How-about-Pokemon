@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+import client.Manage;
+
 @SuppressWarnings("serial")
 public class PanelOrder extends JPanel {
 
@@ -18,7 +20,7 @@ public class PanelOrder extends JPanel {
 		panel.setLayout(null);
 
 		JLabel lblorder = new JLabel("Wie soll gedraftet werden?");
-		lblorder.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblorder.setFont(new Font(Manage.FONT, Font.PLAIN, 15));
 		lblorder.setBounds(110, 26, 183, 27);
 		panel.add(lblorder);
 

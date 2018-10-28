@@ -19,39 +19,42 @@ import client.PopupListener;
 public class PanelSettings extends JPanel {
 
 	private JPanel panel = new JPanel();
-	private JLabel lblTier1;
-	private JLabel lblTier2;
-	private JLabel lblTier3;
-	private JLabel lblTier4;
-	private JLabel lblTier5;
-	private JLabel lblTier6;
-	protected JLabel lblbest;
-	protected JCheckBox cBS;
-	protected JCheckBox cBA;
-	protected JCheckBox cBB;
-	protected JCheckBox cBC;
-	protected JCheckBox cBD;
-	protected JCheckBox cBE;
-	private JTextField tF1;
-	private JTextField tF2;
-	private JTextField tF3;
-	private JTextField tF4;
-	private JTextField tF5;
-	private JTextField tF6;
-	private JComboBox<String> comboBoxS;
-	private JComboBox<String> comboBoxA;
-	private JComboBox<String> comboBoxB;
-	private JComboBox<String> comboBoxC;
-	private JComboBox<String> comboBoxD;
-	private JComboBox<String> comboBoxE;
 	private JLabel lblTierS;
 	private JLabel lblTierA;
 	private JLabel lblTierB;
 	private JLabel lblTierC;
 	private JLabel lblTierD;
 	private JLabel lblTierE;
+	protected JLabel lblissettingsbestätigung;
+	protected JCheckBox checkBoxS;
+	protected JCheckBox checkBoxA;
+	protected JCheckBox checkBoxB;
+	protected JCheckBox checkBoxC;
+	protected JCheckBox checkBoxD;
+	protected JCheckBox checkBoxE;
+	private JTextField tFS;
+	private JTextField tFA;
+	private JTextField tFB;
+	private JTextField tFC;
+	private JTextField tFD;
+	private JTextField tFE;
+	private JComboBox<String> comboBoxS;
+	private JComboBox<String> comboBoxA;
+	private JComboBox<String> comboBoxB;
+	private JComboBox<String> comboBoxC;
+	private JComboBox<String> comboBoxD;
+	private JComboBox<String> comboBoxE;
+	private JLabel lblTierStatusS;
+	private JLabel lblTierStatusA;
+	private JLabel lblTierStatusB;
+	private JLabel lblTierStatusC;
+	private JLabel lblTierStatusD;
+	private JLabel lblTierStatusE;
 	private boolean[] change = new boolean[6];
 	protected int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
+	private static final String GEBANNT = "wird GEBANNT";
+	private static final String HOCHGESTUFT = "wird HOCHGESTUFT";
+	private static final Font TEXTFONT = new Font(Manage.FONT, Font.PLAIN, 15);
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PanelSettings() {
@@ -59,43 +62,43 @@ public class PanelSettings extends JPanel {
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 
-		lblTier1 = new JLabel("S:");
-		lblTier1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier1.setBounds(32, 83, 56, 17);
-		panel.add(lblTier1);
+		lblTierS = new JLabel("S:");
+		lblTierS.setFont(TEXTFONT);
+		lblTierS.setBounds(32, 83, 35, 17);
+		panel.add(lblTierS);
 
-		lblTier2 = new JLabel("A:");
-		lblTier2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier2.setBounds(32, 123, 56, 17);
-		panel.add(lblTier2);
+		lblTierA = new JLabel("A:");
+		lblTierA.setFont(TEXTFONT);
+		lblTierA.setBounds(32, 123, 35, 17);
+		panel.add(lblTierA);
 
-		lblTier3 = new JLabel("B:");
-		lblTier3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier3.setBounds(32, 164, 56, 17);
-		panel.add(lblTier3);
+		lblTierB = new JLabel("B:");
+		lblTierB.setFont(TEXTFONT);
+		lblTierB.setBounds(32, 164, 35, 17);
+		panel.add(lblTierB);
 
-		lblTier4 = new JLabel("C:");
-		lblTier4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier4.setBounds(32, 204, 56, 17);
-		panel.add(lblTier4);
+		lblTierC = new JLabel("C:");
+		lblTierC.setFont(TEXTFONT);
+		lblTierC.setBounds(32, 204, 35, 17);
+		panel.add(lblTierC);
 
-		lblTier5 = new JLabel("D:");
-		lblTier5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier5.setBounds(32, 247, 56, 17);
-		panel.add(lblTier5);
+		lblTierD = new JLabel("D:");
+		lblTierD.setFont(TEXTFONT);
+		lblTierD.setBounds(32, 247, 35, 17);
+		panel.add(lblTierD);
 
-		lblbest = new JLabel("");
-		lblbest.setBounds(168, 346, 206, 14);
-		panel.add(lblbest);
+		lblissettingsbestätigung = new JLabel("");
+		lblissettingsbestätigung.setBounds(168, 346, 206, 14);
+		panel.add(lblissettingsbestätigung);
 
-		lblTier6 = new JLabel("E:");
-		lblTier6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTier6.setBounds(32, 290, 56, 17);
-		panel.add(lblTier6);
+		lblTierE = new JLabel("E:");
+		lblTierE.setFont(TEXTFONT);
+		lblTierE.setBounds(32, 290, 35, 17);
+		panel.add(lblTierE);
 
 		JTextPane txtpnAchtungnderungenHier = new JTextPane();
 		txtpnAchtungnderungenHier.setEditable(false);
-		txtpnAchtungnderungenHier.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtpnAchtungnderungenHier.setFont(new Font(Manage.FONT, Font.BOLD, 12));
 		txtpnAchtungnderungenHier.setText(
 				"Achtung: Änderungen hier führen zu einer\r\nAnpassung der aktuell eingegenbenen Tierlist. \r\nWenn du das nicht möchtest, speichere sie vorher!");
 		txtpnAchtungnderungenHier.setBounds(40, 11, 323, 51);
@@ -103,33 +106,33 @@ public class PanelSettings extends JPanel {
 
 		JButton btnsafetier = new JButton("Bestätige");
 		btnsafetier.addActionListener(e -> {
-			if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected() && !cBD.isSelected()
-					&& !cBE.isSelected()) {
+			if (!checkBoxS.isSelected() && !checkBoxA.isSelected() && !checkBoxB.isSelected() && !checkBoxC.isSelected()
+					&& !checkBoxD.isSelected() && !checkBoxE.isSelected()) {
 				Manage.msgbox("Kein Tier? So geht das aber nicht!", Gui.getwindow().getFrmPokemonDraft());
 				return;
 			}
-			if ((cBS.isSelected() && tF1.getText().trim().length() < 1)
-					|| (cBA.isSelected() && tF2.getText().trim().length() < 1)
-					|| (cBB.isSelected() && tF3.getText().trim().length() < 1)
-					|| (cBC.isSelected() && tF4.getText().trim().length() < 1)
-					|| (cBD.isSelected() && tF5.getText().trim().length() < 1)
-					|| (cBE.isSelected() && tF6.getText().trim().length() < 1)) {
+			if ((checkBoxS.isSelected() && tFS.getText().trim().length() < 1)
+					|| (checkBoxA.isSelected() && tFA.getText().trim().length() < 1)
+					|| (checkBoxB.isSelected() && tFB.getText().trim().length() < 1)
+					|| (checkBoxC.isSelected() && tFC.getText().trim().length() < 1)
+					|| (checkBoxD.isSelected() && tFD.getText().trim().length() < 1)
+					|| (checkBoxE.isSelected() && tFE.getText().trim().length() < 1)) {
 				Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?",
 						Gui.getwindow().getFrmPokemonDraft());
 				return;
 			}
-			if ((cBS.isSelected() && comboBoxS.getSelectedIndex() < 0)
-					|| (cBA.isSelected() && comboBoxA.getSelectedIndex() < 0)
-					|| (cBB.isSelected() && comboBoxB.getSelectedIndex() < 0)
-					|| (cBC.isSelected() && comboBoxC.getSelectedIndex() < 0)
-					|| (cBD.isSelected() && comboBoxD.getSelectedIndex() < 0)
-					|| (cBE.isSelected() && comboBoxE.getSelectedIndex() < 0)) {
+			if ((checkBoxS.isSelected() && comboBoxS.getSelectedIndex() < 0)
+					|| (checkBoxA.isSelected() && comboBoxA.getSelectedIndex() < 0)
+					|| (checkBoxB.isSelected() && comboBoxB.getSelectedIndex() < 0)
+					|| (checkBoxC.isSelected() && comboBoxC.getSelectedIndex() < 0)
+					|| (checkBoxD.isSelected() && comboBoxD.getSelectedIndex() < 0)
+					|| (checkBoxE.isSelected() && comboBoxE.getSelectedIndex() < 0)) {
 				Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
 						+ "Wo gibt es denn sowas?", Gui.getwindow().getFrmPokemonDraft());
 				return;
 			}
-			String[] tiernamenlist = new String[] { tF1.getText().trim(), tF2.getText().trim(), tF3.getText().trim(),
-					tF4.getText().trim(), tF5.getText().trim(), tF6.getText().trim() };
+			String[] tiernamenlist = new String[] { tFS.getText().trim(), tFA.getText().trim(), tFB.getText().trim(),
+					tFC.getText().trim(), tFD.getText().trim(), tFE.getText().trim() };
 			for (int k = 0; k < tiernamenlist.length; k++) {
 				for (int j = 0; j < tiernamenlist.length; j++) {
 					if (tiernamenlist[k].equals("") || tiernamenlist[j].equals("") || j == k) {
@@ -144,113 +147,112 @@ public class PanelSettings extends JPanel {
 			}
 			Gui.getwindow().getPanelDraft().finishdraft = false;
 			if (Data.tierlistclone == null) {
-				Data.tierlistclone = Data.getTierlist().toCharArray().clone();
+				Data.tierlistclone = Data.getTierlist().clone();
 			}
 			int count = 0;
-			if (cBS.isSelected()) {
+			if (checkBoxS.isSelected()) {
 				Gui.getwindow().getPanelTierlist().radioButtonS.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonS.setText(tF1.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(0, tF1.getText());
+				Gui.getwindow().getPanelTierlist().radioButtonS.setText(tFS.getText());
+				Gui.getwindow().getPanelTierlist().settiernamen(0, tFS.getText());
 			} else {
 				Gui.getwindow().getPanelTierlist().radioButtonS.setEnabled(false);
 				Gui.getwindow().getPanelTierlist().radioButtonS.setText("");
 				Gui.getwindow().getPanelTierlist().settiernamen(0, null);
 				count++;
 			}
-			if (cBA.isSelected()) {
+			if (checkBoxA.isSelected()) {
 				Gui.getwindow().getPanelTierlist().radioButtonA.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonA.setText(tF2.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(1, tF2.getText());
+				Gui.getwindow().getPanelTierlist().radioButtonA.setText(tFA.getText());
+				Gui.getwindow().getPanelTierlist().settiernamen(1, tFA.getText());
 			} else {
 				Gui.getwindow().getPanelTierlist().radioButtonA.setEnabled(false);
 				Gui.getwindow().getPanelTierlist().radioButtonA.setText("");
 				Gui.getwindow().getPanelTierlist().settiernamen(1, null);
 				count++;
 			}
-			if (cBB.isSelected()) {
+			if (checkBoxB.isSelected()) {
 				Gui.getwindow().getPanelTierlist().radioButtonB.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonB.setText(tF3.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(2, tF3.getText());
+				Gui.getwindow().getPanelTierlist().radioButtonB.setText(tFB.getText());
+				Gui.getwindow().getPanelTierlist().settiernamen(2, tFB.getText());
 			} else {
 				Gui.getwindow().getPanelTierlist().radioButtonB.setEnabled(false);
 				Gui.getwindow().getPanelTierlist().radioButtonB.setText("");
 				Gui.getwindow().getPanelTierlist().settiernamen(2, null);
 				count++;
 			}
-			if (cBC.isSelected()) {
+			if (checkBoxC.isSelected()) {
 				Gui.getwindow().getPanelTierlist().radioButtonC.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonC.setText(tF4.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(3, tF4.getText());
+				Gui.getwindow().getPanelTierlist().radioButtonC.setText(tFC.getText());
+				Gui.getwindow().getPanelTierlist().settiernamen(3, tFC.getText());
 			} else {
 				Gui.getwindow().getPanelTierlist().radioButtonC.setEnabled(false);
 				Gui.getwindow().getPanelTierlist().radioButtonC.setText("");
 				Gui.getwindow().getPanelTierlist().settiernamen(3, null);
 				count++;
 			}
-			if (cBD.isSelected()) {
+			if (checkBoxD.isSelected()) {
 				Gui.getwindow().getPanelTierlist().radioButtonD.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonD.setText(tF5.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(4, tF5.getText());
+				Gui.getwindow().getPanelTierlist().radioButtonD.setText(tFD.getText());
+				Gui.getwindow().getPanelTierlist().settiernamen(4, tFD.getText());
 			} else {
 				Gui.getwindow().getPanelTierlist().radioButtonD.setEnabled(false);
 				Gui.getwindow().getPanelTierlist().radioButtonD.setText("");
 				Gui.getwindow().getPanelTierlist().settiernamen(4, null);
 				count++;
 			}
-			if (cBE.isSelected()) {
+			if (checkBoxE.isSelected()) {
 				Gui.getwindow().getPanelTierlist().radioButtonE.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonE.setText(tF6.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(5, tF6.getText());
+				Gui.getwindow().getPanelTierlist().radioButtonE.setText(tFE.getText());
+				Gui.getwindow().getPanelTierlist().settiernamen(5, tFE.getText());
 			} else {
 				Gui.getwindow().getPanelTierlist().radioButtonE.setEnabled(false);
 				Gui.getwindow().getPanelTierlist().radioButtonE.setText("");
 				Gui.getwindow().getPanelTierlist().settiernamen(5, null);
 				count++;
 			}
-			String gebannt = "wird gebannt";
-			String hochgestuft = "wird hochgestuft";
+
 			for (int i = 0; i < count; i++) {
-				for (int k = 0; k < Data.getTierlist().length(); k++) {
+				for (int k = 0; k < Data.getTierlist().toString().length(); k++) {
 					switch (Data.getTierlist(k)) {
 					case 'S':
-						if (lblTierS.getText().equals(gebannt)) {
+						if (lblTierStatusS.getText().equals(GEBANNT)) {
 							Data.editTierlist(k, 'X');
 						}
 						break;
 					case 'A':
-						if (lblTierA.getText().equals(gebannt)) {
+						if (lblTierStatusA.getText().equals(GEBANNT)) {
 							Data.editTierlist(k, 'X');
 						}
-						if (lblTierA.getText().equals(hochgestuft)) {
+						if (lblTierStatusA.getText().equals(HOCHGESTUFT)) {
 							Data.editTierlist(k, 'S');
 						}
 						break;
 					case 'B':
-						if (lblTierB.getText().equals(gebannt)) {
+						if (lblTierStatusB.getText().equals(GEBANNT)) {
 							Data.editTierlist(k, 'X');
 						}
-						if (lblTierB.getText().equals(hochgestuft)) {
+						if (lblTierStatusB.getText().equals(HOCHGESTUFT)) {
 							Data.editTierlist(k, 'A');
 						}
 						break;
 					case 'C':
-						if (lblTierC.getText().equals(gebannt)) {
+						if (lblTierStatusC.getText().equals(GEBANNT)) {
 							Data.editTierlist(k, 'X');
 						}
-						if (lblTierC.getText().equals(hochgestuft)) {
+						if (lblTierStatusC.getText().equals(HOCHGESTUFT)) {
 							Data.editTierlist(k, 'B');
 						}
 						break;
 					case 'D':
-						if (lblTierD.getText().equals(gebannt)) {
+						if (lblTierStatusD.getText().equals(GEBANNT)) {
 							Data.editTierlist(k, 'X');
 						}
-						if (lblTierD.getText().equals(hochgestuft)) {
+						if (lblTierStatusD.getText().equals(HOCHGESTUFT)) {
 							Data.editTierlist(k, 'C');
 						}
 						break;
 					case 'E':
-						if (lblTierE.getText().equals(hochgestuft)) {
+						if (lblTierStatusE.getText().equals(HOCHGESTUFT)) {
 							Data.editTierlist(k, 'D');
 						}
 						break;
@@ -259,77 +261,77 @@ public class PanelSettings extends JPanel {
 					}
 				}
 			}
-			lblbest.setText("Änderungen wurden übernommen!");
+			lblissettingsbestätigung.setText("Änderungen wurden übernommen!");
 		});
-		btnsafetier.setBounds(69, 337, 89, 23);
+		btnsafetier.setBounds(42, 342, 116, 23);
 		panel.add(btnsafetier);
 
-		tF2 = new JTextField();
-		tF2.addCaretListener(e -> lblbest.setText(""));
-		tF2.setColumns(10);
-		tF2.setBounds(98, 123, 86, 20);
-		panel.add(tF2);
+		tFA = new JTextField();
+		tFA.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFA.setColumns(10);
+		tFA.setBounds(98, 123, 86, 20);
+		panel.add(tFA);
 
-		tF3 = new JTextField();
-		tF3.addCaretListener(e -> lblbest.setText(""));
-		tF3.setColumns(10);
-		tF3.setBounds(98, 164, 86, 20);
-		panel.add(tF3);
+		tFB = new JTextField();
+		tFB.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFB.setColumns(10);
+		tFB.setBounds(98, 164, 86, 20);
+		panel.add(tFB);
 
-		tF4 = new JTextField();
-		tF4.addCaretListener(e -> lblbest.setText(""));
-		tF4.setColumns(10);
-		tF4.setBounds(98, 204, 86, 20);
-		panel.add(tF4);
+		tFC = new JTextField();
+		tFC.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFC.setColumns(10);
+		tFC.setBounds(98, 204, 86, 20);
+		panel.add(tFC);
 
-		tF5 = new JTextField();
-		tF5.addCaretListener(e -> lblbest.setText(""));
-		tF5.setColumns(10);
-		tF5.setBounds(98, 247, 86, 20);
-		panel.add(tF5);
+		tFD = new JTextField();
+		tFD.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFD.setColumns(10);
+		tFD.setBounds(98, 247, 86, 20);
+		panel.add(tFD);
 
-		tF1 = new JTextField();
-		tF1.addCaretListener(e -> lblbest.setText(""));
-		tF1.setColumns(10);
-		tF1.setBounds(98, 83, 86, 20);
-		panel.add(tF1);
+		tFS = new JTextField();
+		tFS.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFS.setColumns(10);
+		tFS.setBounds(98, 83, 86, 20);
+		panel.add(tFS);
 
-		tF6 = new JTextField();
-		tF6.addCaretListener(e -> lblbest.setText(""));
-		tF6.setColumns(10);
-		tF6.setBounds(98, 290, 86, 20);
-		panel.add(tF6);
+		tFE = new JTextField();
+		tFE.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFE.setColumns(10);
+		tFE.setBounds(98, 290, 86, 20);
+		panel.add(tFE);
 
-		tF1.setEditable(false);
-		tF2.setEditable(false);
-		tF3.setEditable(false);
-		tF4.setEditable(false);
-		tF5.setEditable(false);
-		tF6.setEditable(false);
+		tFS.setEditable(false);
+		tFA.setEditable(false);
+		tFB.setEditable(false);
+		tFC.setEditable(false);
+		tFD.setEditable(false);
+		tFE.setEditable(false);
 
-		lblTierS = new JLabel("");
-		lblTierS.setBounds(276, 86, 117, 14);
-		panel.add(lblTierS);
+		lblTierStatusS = new JLabel("");
+		lblTierStatusS.setBounds(276, 86, 117, 14);
+		panel.add(lblTierStatusS);
 
-		lblTierA = new JLabel("");
-		lblTierA.setBounds(276, 126, 117, 14);
-		panel.add(lblTierA);
+		lblTierStatusA = new JLabel("");
+		lblTierStatusA.setBounds(276, 126, 117, 14);
+		panel.add(lblTierStatusA);
 
-		lblTierB = new JLabel("");
-		lblTierB.setBounds(276, 167, 117, 14);
-		panel.add(lblTierB);
+		lblTierStatusB = new JLabel("");
+		lblTierStatusB.setBounds(276, 167, 117, 14);
+		panel.add(lblTierStatusB);
 
-		lblTierC = new JLabel("");
-		lblTierC.setBounds(276, 207, 117, 14);
-		panel.add(lblTierC);
+		lblTierStatusC = new JLabel("");
+		lblTierStatusC.setBounds(276, 207, 117, 14);
+		panel.add(lblTierStatusC);
 
-		lblTierD = new JLabel("");
-		lblTierD.setBounds(276, 250, 117, 14);
-		panel.add(lblTierD);
+		lblTierStatusD = new JLabel("");
+		lblTierStatusD.setBounds(276, 250, 117, 14);
+		panel.add(lblTierStatusD);
 
-		lblTierE = new JLabel("");
-		lblTierE.setBounds(276, 293, 117, 14);
-		panel.add(lblTierE);
+		lblTierStatusE = new JLabel("");
+		lblTierStatusE.setBounds(276, 293, 117, 14);
+		panel.add(lblTierStatusE);
 
 		comboBoxS = new JComboBox(Manage.getaarray(15));
 		comboBoxS.setEnabled(false);
@@ -416,120 +418,120 @@ public class PanelSettings extends JPanel {
 			}
 		});
 
-		cBS = new JCheckBox("");
-		cBS.addActionListener(e -> {
-			if (cBS.isSelected()) {
-				tF1.setEditable(true);
-				tF1.setText("S");
+		checkBoxS = new JCheckBox("");
+		checkBoxS.addActionListener(e -> {
+			if (checkBoxS.isSelected()) {
+				tFS.setEditable(true);
+				tFS.setText("S");
 				comboBoxS.setEnabled(true);
 			} else {
-				tF1.setEditable(false);
-				tF1.setText("");
+				tFS.setEditable(false);
+				tFS.setText("");
 				comboBoxS.setEnabled(false);
 				comboBoxS.setSelectedIndex(-1);
 				changepokeanzahl(0, 0);
 			}
 			changesetting();
 		});
-		cBS.setBounds(67, 83, 21, 23);
-		panel.add(cBS);
+		checkBoxS.setBounds(67, 83, 21, 23);
+		panel.add(checkBoxS);
 
-		cBA = new JCheckBox("");
-		cBA.addActionListener(e -> {
-			if (cBA.isSelected()) {
-				tF2.setEditable(true);
-				tF2.setText("A");
+		checkBoxA = new JCheckBox("");
+		checkBoxA.addActionListener(e -> {
+			if (checkBoxA.isSelected()) {
+				tFA.setEditable(true);
+				tFA.setText("A");
 				comboBoxA.setEnabled(true);
 			} else {
-				tF2.setEditable(false);
-				tF2.setText("");
+				tFA.setEditable(false);
+				tFA.setText("");
 				comboBoxA.setEnabled(false);
 				comboBoxA.setSelectedIndex(-1);
 				changepokeanzahl(1, 0);
 			}
 			changesetting();
 		});
-		cBA.setBounds(67, 122, 21, 23);
-		panel.add(cBA);
+		checkBoxA.setBounds(67, 122, 21, 23);
+		panel.add(checkBoxA);
 
-		cBB = new JCheckBox("");
-		cBB.addActionListener(e -> {
-			if (cBB.isSelected()) {
-				tF3.setEditable(true);
-				tF3.setText("B");
+		checkBoxB = new JCheckBox("");
+		checkBoxB.addActionListener(e -> {
+			if (checkBoxB.isSelected()) {
+				tFB.setEditable(true);
+				tFB.setText("B");
 				comboBoxB.setEnabled(true);
 			} else {
-				tF3.setEditable(false);
-				tF3.setText("");
+				tFB.setEditable(false);
+				tFB.setText("");
 				comboBoxB.setEnabled(false);
 				comboBoxB.setSelectedIndex(-1);
 				changepokeanzahl(2, 0);
 			}
 			changesetting();
 		});
-		cBB.setBounds(67, 163, 21, 23);
-		panel.add(cBB);
+		checkBoxB.setBounds(67, 163, 21, 23);
+		panel.add(checkBoxB);
 
-		cBC = new JCheckBox("");
-		cBC.addActionListener(e -> {
-			if (cBC.isSelected()) {
-				tF4.setEditable(true);
-				tF4.setText("C");
+		checkBoxC = new JCheckBox("");
+		checkBoxC.addActionListener(e -> {
+			if (checkBoxC.isSelected()) {
+				tFC.setEditable(true);
+				tFC.setText("C");
 				comboBoxC.setEnabled(true);
 			} else {
-				tF4.setEditable(false);
-				tF4.setText("");
+				tFC.setEditable(false);
+				tFC.setText("");
 				comboBoxC.setEnabled(false);
 				comboBoxC.setSelectedIndex(-1);
 				changepokeanzahl(3, 0);
 			}
 			changesetting();
 		});
-		cBC.setBounds(67, 203, 21, 23);
-		panel.add(cBC);
+		checkBoxC.setBounds(67, 203, 21, 23);
+		panel.add(checkBoxC);
 
-		cBD = new JCheckBox("");
-		cBD.addActionListener(e -> {
-			if (cBD.isSelected()) {
-				tF5.setEditable(true);
-				tF5.setText("D");
+		checkBoxD = new JCheckBox("");
+		checkBoxD.addActionListener(e -> {
+			if (checkBoxD.isSelected()) {
+				tFD.setEditable(true);
+				tFD.setText("D");
 				comboBoxD.setEnabled(true);
 			} else {
-				tF5.setEditable(false);
-				tF5.setText("");
+				tFD.setEditable(false);
+				tFD.setText("");
 				comboBoxD.setEnabled(false);
 				comboBoxD.setSelectedIndex(-1);
 				changepokeanzahl(4, 0);
 			}
 			changesetting();
 		});
-		cBD.setBounds(67, 246, 21, 23);
-		panel.add(cBD);
+		checkBoxD.setBounds(67, 246, 21, 23);
+		panel.add(checkBoxD);
 
-		cBE = new JCheckBox("");
-		cBE.addActionListener(e -> {
-			if (cBE.isSelected()) {
-				tF6.setEditable(true);
-				tF6.setText("E");
+		checkBoxE = new JCheckBox("");
+		checkBoxE.addActionListener(e -> {
+			if (checkBoxE.isSelected()) {
+				tFE.setEditable(true);
+				tFE.setText("E");
 				comboBoxE.setEnabled(true);
 			} else {
-				tF6.setEditable(false);
-				tF6.setText("");
+				tFE.setEditable(false);
+				tFE.setText("");
 				comboBoxE.setEnabled(false);
 				comboBoxE.setSelectedIndex(-1);
 				changepokeanzahl(5, 0);
 			}
 			changesetting();
 		});
-		cBE.setBounds(67, 289, 21, 23);
-		panel.add(cBE);
+		checkBoxE.setBounds(67, 289, 21, 23);
+		panel.add(checkBoxE);
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 383, 393, 2);
 		panel.add(separator);
 
 		JTextPane txtpnResetetDieOben = new JTextPane();
-		txtpnResetetDieOben.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtpnResetetDieOben.setFont(new Font(Manage.FONT, Font.PLAIN, 14));
 		txtpnResetetDieOben.setText(
 				"Resetet die oben gemachten Einstellungen auf den Urspungswert.\r\nKann gemachte Änderungen an der Tierlist nicht rückgängig machen!");
 		txtpnResetetDieOben.setEditable(false);
@@ -539,7 +541,7 @@ public class PanelSettings extends JPanel {
 		JTextPane txtpnStelltDieEinstellungen = new JTextPane();
 		txtpnStelltDieEinstellungen.setText(
 				"Stellt die Einstellungen oben auf Standart zurück und setzt die Tierlist auf dem Wert, bevor du das erste mal hier was geändert hast!");
-		txtpnStelltDieEinstellungen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtpnStelltDieEinstellungen.setFont(new Font(Manage.FONT, Font.PLAIN, 14));
 		txtpnStelltDieEinstellungen.setEditable(false);
 		txtpnStelltDieEinstellungen.setBounds(218, 396, 148, 144);
 		panel.add(txtpnStelltDieEinstellungen);
@@ -549,7 +551,7 @@ public class PanelSettings extends JPanel {
 			resetsettings();
 			Manage.msgboxerf("Erfolgreich Resetet!", Gui.getwindow().getFrmPokemonDraft());
 		});
-		btnresettier.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnresettier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
 		btnresettier.setBounds(65, 542, 89, 23);
 		panel.add(btnresettier);
 
@@ -564,7 +566,7 @@ public class PanelSettings extends JPanel {
 				Manage.msgbox("Nichts zum wiederherstellen gefunden!", Gui.getwindow().getFrmPokemonDraft());
 			}
 		});
-		btnrestoretier.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnrestoretier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
 		btnrestoretier.setBounds(248, 542, 89, 23);
 		panel.add(btnrestoretier);
 
@@ -572,95 +574,94 @@ public class PanelSettings extends JPanel {
 	}
 
 	private void changesetting() {
-		lblbest.setText("");
-		if (!cBS.isSelected() && !cBA.isSelected() && !cBB.isSelected() && !cBC.isSelected() && !cBD.isSelected()
-				&& !cBE.isSelected()) {
-			lblTierS.setText(" ");
-			lblTierA.setText(" ");
-			lblTierB.setText(" ");
-			lblTierC.setText(" ");
-			lblTierD.setText(" ");
-			lblTierE.setText(" ");
+		lblissettingsbestätigung.setText("");
+		if (!checkBoxS.isSelected() && !checkBoxA.isSelected() && !checkBoxB.isSelected() && !checkBoxC.isSelected()
+				&& !checkBoxD.isSelected() && !checkBoxE.isSelected()) {
+			lblTierStatusS.setText(" ");
+			lblTierStatusA.setText(" ");
+			lblTierStatusB.setText(" ");
+			lblTierStatusC.setText(" ");
+			lblTierStatusD.setText(" ");
+			lblTierStatusE.setText(" ");
 			return;
 		}
-		if (cBS.isSelected()) {
+		if (checkBoxS.isSelected()) {
 			change[0] = true;
 		}
-		if (cBA.isSelected()) {
+		if (checkBoxA.isSelected()) {
 			change[1] = true;
 		}
-		if (cBB.isSelected()) {
+		if (checkBoxB.isSelected()) {
 			change[2] = true;
 		}
-		if (cBC.isSelected()) {
+		if (checkBoxC.isSelected()) {
 			change[3] = true;
 		}
-		if (cBD.isSelected()) {
+		if (checkBoxD.isSelected()) {
 			change[4] = true;
 		}
-		if (cBE.isSelected()) {
+		if (checkBoxE.isSelected()) {
 			change[5] = true;
 		}
-
-		if (cBS.isSelected()) {
-			lblTierS.setText("");
+		if (checkBoxS.isSelected()) {
+			lblTierStatusS.setText("");
 		} else {
 			change[0] = false;
 			if (!up(0)) {
-				lblTierS.setText("wird gebannt");
+				lblTierStatusS.setText(GEBANNT);
 			}
 		}
-		if (cBA.isSelected()) {
-			lblTierA.setText("");
+		if (checkBoxA.isSelected()) {
+			lblTierStatusA.setText("");
 		} else {
 			change[1] = false;
 			if (!up(1)) {
-				lblTierA.setText("wird gebannt");
+				lblTierStatusA.setText(GEBANNT);
 			}
 			if (!down(1) || (up(1) && down(1))) {
-				lblTierA.setText("wird hochgestuft");
+				lblTierStatusA.setText(HOCHGESTUFT);
 			}
 		}
-		if (cBB.isSelected()) {
-			lblTierB.setText("");
+		if (checkBoxB.isSelected()) {
+			lblTierStatusB.setText("");
 		} else {
 			change[2] = false;
 			if (!up(2)) {
-				lblTierB.setText("wird gebannt");
+				lblTierStatusB.setText(GEBANNT);
 			}
 			if (!down(2) || (up(2) && down(2))) {
-				lblTierB.setText("wird hochgestuft");
+				lblTierStatusB.setText(HOCHGESTUFT);
 			}
 		}
-		if (cBC.isSelected()) {
-			lblTierC.setText("");
+		if (checkBoxC.isSelected()) {
+			lblTierStatusC.setText("");
 		} else {
 			change[3] = false;
 			if (!up(3)) {
-				lblTierC.setText("wird gebannt");
+				lblTierStatusC.setText(GEBANNT);
 			}
 			if (!down(3) || (up(3) && down(3))) {
-				lblTierC.setText("wird hochgestuft");
+				lblTierStatusC.setText(HOCHGESTUFT);
 			}
 
 		}
-		if (cBD.isSelected()) {
-			lblTierD.setText("");
+		if (checkBoxD.isSelected()) {
+			lblTierStatusD.setText("");
 		} else {
 			change[4] = false;
 			if (!up(4)) {
-				lblTierD.setText("wird gebannt");
+				lblTierStatusD.setText(GEBANNT);
 			}
 			if (!down(4) || (up(4) && down(4))) {
-				lblTierD.setText("wird hochgestuft");
+				lblTierStatusD.setText(HOCHGESTUFT);
 			}
 		}
-		if (cBE.isSelected()) {
-			lblTierE.setText("");
+		if (checkBoxE.isSelected()) {
+			lblTierStatusE.setText("");
 		} else {
 			change[5] = false;
 			if (!down(5)) {
-				lblTierE.setText("wird hochgestuft");
+				lblTierStatusE.setText(HOCHGESTUFT);
 			}
 		}
 	}
@@ -690,12 +691,12 @@ public class PanelSettings extends JPanel {
 	}
 
 	private void resetsettings() {
-		cBS.setSelected(false);
-		cBA.setSelected(false);
-		cBB.setSelected(false);
-		cBC.setSelected(false);
-		cBD.setSelected(false);
-		cBE.setSelected(false);
+		checkBoxS.setSelected(false);
+		checkBoxA.setSelected(false);
+		checkBoxB.setSelected(false);
+		checkBoxC.setSelected(false);
+		checkBoxD.setSelected(false);
+		checkBoxE.setSelected(false);
 		changesetting();
 		Gui.getwindow().getPanelTierlist().radioButtonS.setEnabled(true);
 		Gui.getwindow().getPanelTierlist().radioButtonA.setEnabled(true);
@@ -709,18 +710,18 @@ public class PanelSettings extends JPanel {
 		Gui.getwindow().getPanelTierlist().radioButtonC.setText("C");
 		Gui.getwindow().getPanelTierlist().radioButtonD.setText("D");
 		Gui.getwindow().getPanelTierlist().radioButtonE.setText("E");
-		tF1.setText("");
-		tF2.setText("");
-		tF3.setText("");
-		tF4.setText("");
-		tF5.setText("");
-		tF6.setText("");
-		tF1.setEditable(false);
-		tF2.setEditable(false);
-		tF3.setEditable(false);
-		tF4.setEditable(false);
-		tF5.setEditable(false);
-		tF6.setEditable(false);
+		tFS.setText("");
+		tFA.setText("");
+		tFB.setText("");
+		tFC.setText("");
+		tFD.setText("");
+		tFE.setText("");
+		tFS.setEditable(false);
+		tFA.setEditable(false);
+		tFB.setEditable(false);
+		tFC.setEditable(false);
+		tFD.setEditable(false);
+		tFE.setEditable(false);
 		comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 		comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
 		comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
@@ -743,7 +744,7 @@ public class PanelSettings extends JPanel {
 	}
 
 	private void changepokeanzahl(int a, int auswahl) {
-		lblbest.setText("");
+		lblissettingsbestätigung.setText("");
 		if (auswahl == -1) {
 			auswahl = 0;
 		}
@@ -788,40 +789,40 @@ public class PanelSettings extends JPanel {
 			for (int k = 0; k < list.length; k++) {
 				switch (k) {
 				case 1:
-					cBS.setSelected(list[k].equals(true));
+					checkBoxS.setSelected(list[k].equals(true));
 					break;
 				case 2:
-					cBS.setSelected(list[k].equals(true));
+					checkBoxS.setSelected(list[k].equals(true));
 					break;
 				case 3:
-					cBS.setSelected(list[k].equals(true));
+					checkBoxS.setSelected(list[k].equals(true));
 					break;
 				case 4:
-					cBS.setSelected(list[k].equals(true));
+					checkBoxS.setSelected(list[k].equals(true));
 					break;
 				case 5:
-					cBS.setSelected(list[k].equals(true));
+					checkBoxS.setSelected(list[k].equals(true));
 					break;
 				case 6:
-					cBS.setSelected(list[k].equals(true));
+					checkBoxS.setSelected(list[k].equals(true));
 					break;
 				case 7:
-					tF1.setText(list[k].toString());
+					tFS.setText(list[k].toString());
 					break;
 				case 8:
-					tF2.setText(list[k].toString());
+					tFA.setText(list[k].toString());
 					break;
 				case 9:
-					tF3.setText(list[k].toString());
+					tFB.setText(list[k].toString());
 					break;
 				case 10:
-					tF4.setText(list[k].toString());
+					tFC.setText(list[k].toString());
 					break;
 				case 11:
-					tF5.setText(list[k].toString());
+					tFD.setText(list[k].toString());
 					break;
 				case 12:
-					tF6.setText(list[k].toString());
+					tFE.setText(list[k].toString());
 					break;
 				default:
 					break;
@@ -835,14 +836,14 @@ public class PanelSettings extends JPanel {
 	}
 
 	public Object[] getsettings() {
-		return new Object[] { Gui.getwindow().getPanelSettings().cBS.isSelected(),
-				Gui.getwindow().getPanelSettings().cBA.isSelected(),
-				Gui.getwindow().getPanelSettings().cBB.isSelected(),
-				Gui.getwindow().getPanelSettings().cBC.isSelected(),
-				Gui.getwindow().getPanelSettings().cBD.isSelected(),
-				Gui.getwindow().getPanelSettings().cBE.isSelected(), Gui.getwindow().getPanelSettings().tF1.getText(),
-				Gui.getwindow().getPanelSettings().tF2.getText(), Gui.getwindow().getPanelSettings().tF3.getText(),
-				Gui.getwindow().getPanelSettings().tF4.getText(), Gui.getwindow().getPanelSettings().tF5.getText(),
-				Gui.getwindow().getPanelSettings().tF6.getText() };
+		return new Object[] { Gui.getwindow().getPanelSettings().checkBoxS.isSelected(),
+				Gui.getwindow().getPanelSettings().checkBoxA.isSelected(),
+				Gui.getwindow().getPanelSettings().checkBoxB.isSelected(),
+				Gui.getwindow().getPanelSettings().checkBoxC.isSelected(),
+				Gui.getwindow().getPanelSettings().checkBoxD.isSelected(),
+				Gui.getwindow().getPanelSettings().checkBoxE.isSelected(),
+				Gui.getwindow().getPanelSettings().tFS.getText(), Gui.getwindow().getPanelSettings().tFA.getText(),
+				Gui.getwindow().getPanelSettings().tFB.getText(), Gui.getwindow().getPanelSettings().tFC.getText(),
+				Gui.getwindow().getPanelSettings().tFD.getText(), Gui.getwindow().getPanelSettings().tFE.getText() };
 	}
 }

@@ -1,5 +1,7 @@
 package panel;
 
+import java.util.Arrays;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -73,7 +75,7 @@ public class PanelStartDraft extends JPanel {
 		btnFertig.addActionListener(e -> {
 			if (!Gui.getwindow().getPanelDraft().finishdraft) {
 				int count = 0;
-				for (char k : Data.getTierlist().toCharArray()) {
+				for (char k : Data.getTierlist()) {
 					if (k == '0') {
 						count++;
 					}
@@ -125,26 +127,26 @@ public class PanelStartDraft extends JPanel {
 						Gui.getwindow().getPanelDraft().opendraft();
 						break;
 					case 1:
-						if (Gui.getwindow().getPanelSettings().lblbest.getText()
+						if (Gui.getwindow().getPanelSettings().lblissettingsbestätigung.getText()
 								.equals("Änderungen wurden übernommen!")) {
-							for (int k = 0; k < Data.getTierlist().length(); k++) {
+							for (int k = 0; k < Arrays.toString(Data.getTierlist()).length(); k++) {
 								if (Data.getTierlist(k) == '0') {
-									if (Gui.getwindow().getPanelSettings().cBE.isSelected()) {
+									if (Gui.getwindow().getPanelSettings().checkBoxE.isSelected()) {
 										Data.editTierlist(k, 'E');
 									} else {
-										if (Gui.getwindow().getPanelSettings().cBD.isSelected()) {
+										if (Gui.getwindow().getPanelSettings().checkBoxD.isSelected()) {
 											Data.editTierlist(k, 'D');
 										} else {
-											if (Gui.getwindow().getPanelSettings().cBC.isSelected()) {
+											if (Gui.getwindow().getPanelSettings().checkBoxC.isSelected()) {
 												Data.editTierlist(k, 'C');
 											} else {
-												if (Gui.getwindow().getPanelSettings().cBB.isSelected()) {
+												if (Gui.getwindow().getPanelSettings().checkBoxB.isSelected()) {
 													Data.editTierlist(k, 'B');
 												} else {
-													if (Gui.getwindow().getPanelSettings().cBA.isSelected()) {
+													if (Gui.getwindow().getPanelSettings().checkBoxA.isSelected()) {
 														Data.editTierlist(k, 'A');
 													} else {
-														if (Gui.getwindow().getPanelSettings().cBS.isSelected()) {
+														if (Gui.getwindow().getPanelSettings().checkBoxS.isSelected()) {
 															Data.editTierlist(k, 'S');
 														} else {
 															Manage.msgbox(

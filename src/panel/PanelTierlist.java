@@ -156,12 +156,11 @@ public class PanelTierlist extends JPanel {
 						}
 					}
 					if (b) {
-						Writer.print("tierlist", tFTiername.getText(), Data.getTierlist().toCharArray());
+						Writer.print("tierlist", tFTiername.getText(), Data.getTierlist());
 						tFTiername.setText("Gespeichert");
 						panel.remove(cBTierlist);
 						tierlist();
 					}
-
 				}
 			}
 		});
@@ -238,15 +237,14 @@ public class PanelTierlist extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			tiernamen = new String[0];
+			tiernamen = new String[] { "Lese Error" };
 		}
 		try {
 			Gui.getwindow().getPanelTierlist().remove(cBTierlist);
-		} catch (Exception e) {
-
+		} finally {
+			cBTierlist = new JComboBox(tiernamen);
+			cBTierlist.setBounds(248, 447, 124, 28);
 		}
-		cBTierlist = new JComboBox(tiernamen);
-		cBTierlist.setBounds(248, 447, 124, 28);
 		try {
 			Gui.getwindow().getPanelTierlist().add(cBTierlist);
 		} catch (Exception e) {

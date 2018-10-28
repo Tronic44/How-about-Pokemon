@@ -45,7 +45,7 @@ public class PanelPlayer extends JPanel {
 		panel.add(spinnerteam);
 
 		JLabel lblSpieleranzahl = new JLabel("Team-Anzahl");
-		lblSpieleranzahl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSpieleranzahl.setFont(new Font(Manage.FONT, Font.BOLD, 14));
 		lblSpieleranzahl.setBounds(78, 13, 106, 17);
 		panel.add(lblSpieleranzahl);
 
@@ -193,7 +193,6 @@ public class PanelPlayer extends JPanel {
 		} catch (Exception e) {
 			teamname = new String[] { "Lese Error" };
 		}
-
 		cBTeams.setModel(new DefaultComboBoxModel<String>(teamname));
 	}
 

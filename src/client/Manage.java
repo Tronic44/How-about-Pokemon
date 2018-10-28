@@ -13,6 +13,11 @@ import javax.swing.JOptionPane;
  */
 public class Manage {
 	/**
+	 * Stellt die Schrfitart einheitlich zur Verfügung
+	 */
+	public static final String FONT = "Tahoma";
+
+	/**
 	 * Main Methode des PokemonDrafts. Startet das Programm bzw die GUI.
 	 * 
 	 * @param args - keine Verwendung bisher
@@ -26,7 +31,7 @@ public class Manage {
 	 * aufgerufen werden.
 	 */
 	public static void initPoketier() {
-		for (int i = 0; i < Data.getTierlist().length(); i++) {
+		for (int i = 0; i < Data.getTierlist().toString().length(); i++) {
 			Data.editTierlist(i, '0');
 		}
 	}
@@ -63,6 +68,12 @@ public class Manage {
 		JOptionPane.showMessageDialog(frame, nachricht, "Aktion erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	/**
+	 * Gibt ein StringArray mit den Zahlen 1 bis der eingegebenen length
+	 * 
+	 * @param length die Länge des zurückgegebenes Arrays
+	 * @return StringArray der Länge length mit den Zahlen 1 bis length
+	 */
 	public static String[] getaarray(int length) {
 		if (length <= 0) {
 			return new String[] {};

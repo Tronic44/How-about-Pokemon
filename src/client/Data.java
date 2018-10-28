@@ -11,6 +11,11 @@ import java.util.List;
  *
  */
 public class Data {
+
+	private Data() {
+
+	}
+
 	/**
 	 * Gibt den pokedex zurück.
 	 * 
@@ -166,7 +171,6 @@ public class Data {
 			for (String k : getPokedex()) {
 				pokedexlist.add(k);
 			}
-			System.out.print("A");
 		}
 		return pokedexlist;
 	}
@@ -174,7 +178,7 @@ public class Data {
 	/**
 	 * Die Tierlist, ist dazu da jedem Pokemon ein Tier zuzuweisen.
 	 */
-	private static char[] tierlist = new char[pokedex.length];
+	private static char[] tierlist;
 
 	/**
 	 * Ein Clone der Tierlist um Änderungen Rückgängig machen zu können. Muss
@@ -192,10 +196,12 @@ public class Data {
 	}
 
 	public static void editTierlist(int place, char ch) {
+		initPoketier();
 		tierlist[place] = ch;
 	}
 
 	public static char getTierlist(int a) {
+		initPoketier();
 		return tierlist[a];
 	}
 
@@ -204,8 +210,18 @@ public class Data {
 	 * 
 	 * @return String
 	 */
-	public static String getTierlist() {
-		return new String(tierlist);
+	public static char[] getTierlist() {
+		return tierlist;
+	}
+
+	private static void initPoketier() {
+		if (tierlist == null) {
+			tierlist = new char[pokedex.length];
+			for (int i = 0; i < Data.getPokedex().length; i++) {
+				Data.editTierlist(i, '0');
+			}
+		}
+
 	}
 
 	/**
@@ -215,12 +231,12 @@ public class Data {
 	 * @return Object - String oder JSONObject.NULL
 	 */
 	protected static Object getTierlistclone() {
-		String list = "";
+		StringBuilder list = new StringBuilder("");
 		try {
 			for (char k : tierlistclone) {
-				list = list + k;
+				list.append(k);
 			}
-			return list;
+			return list.toString();
 		} catch (Exception e) {
 			return org.json.JSONObject.NULL;
 		}
@@ -243,7 +259,7 @@ public class Data {
 		default:
 			break;
 		}
-		return null;
+		return new String[] {};
 	}
 
 	public static void inittierpokemon() {
