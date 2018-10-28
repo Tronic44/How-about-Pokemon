@@ -241,10 +241,11 @@ public class PanelTierlist extends JPanel {
 		}
 		try {
 			Gui.getwindow().getPanelTierlist().remove(cBTierlist);
-		} finally {
-			cBTierlist = new JComboBox(tiernamen);
-			cBTierlist.setBounds(248, 447, 124, 28);
+		} catch (Exception e) {
+
 		}
+		cBTierlist = new JComboBox(tiernamen);
+		cBTierlist.setBounds(248, 447, 124, 28);
 		try {
 			Gui.getwindow().getPanelTierlist().add(cBTierlist);
 		} catch (Exception e) {

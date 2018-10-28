@@ -27,20 +27,20 @@ public class PanelMainMenu extends JPanel {
 		JButton btnNewButton = new JButton("Start Draft");
 		btnNewButton.addActionListener(e -> Gui.getwindow().visStartDraft());
 		btnNewButton.setFont(FONT);
-		btnNewButton.setBounds(117, 109, 175, 68);
+		btnNewButton.setBounds(86, 109, 236, 68);
 		panel.add(btnNewButton);
 
 		JButton btnLoadDraft = new JButton("Load Draft");
 		btnLoadDraft.addActionListener(e -> Gui.getwindow().visLoadDraft());
 		btnLoadDraft.setFont(FONT);
-		btnLoadDraft.setBounds(117, 286, 174, 68);
+		btnLoadDraft.setBounds(86, 286, 236, 68);
 		panel.add(btnLoadDraft);
 
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(e -> System.exit(0));
 
 		btnExit.setFont(FONT);
-		btnExit.setBounds(114, 463, 181, 68);
+		btnExit.setBounds(85, 463, 239, 68);
 		panel.add(btnExit);
 
 		setLayout(null);
