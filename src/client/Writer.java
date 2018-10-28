@@ -33,14 +33,14 @@ public class Writer {
 	 *              geschreiben wird
 	 */
 	public static void print(String datei, String name, char[] text) {
-		PrintWriter pWriter = null;
 		try {
-			pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
+			PrintWriter	pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
 			pWriter.print(name + ":");
 			for (int i = 0; i < text.length; i++) {
 				pWriter.print(text[i]);
 			}
 			pWriter.println();
+			pWriter.close();
 		} catch (IOException ioe) {
 			Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWp-1" + "\n" + ioe.toString());
 		}
@@ -59,14 +59,14 @@ public class Writer {
 	 *              Eintrag des Array schon ein Zeichentrenner eingefügt wurde
 	 */
 	public static void print(String datei, String name, String[] text) {
-		PrintWriter pWriter = null;
 		try {
-			pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
+			PrintWriter pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
 			pWriter.print(name + ":");
 			for (int i = 0; i < text.length; i++) {
 				pWriter.print(text[i]);
 			}
 			pWriter.println();
+			pWriter.close();
 		} catch (IOException ioe) {
 			Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWp-2" + "\n" + ioe.toString());
 		}
@@ -99,11 +99,11 @@ public class Writer {
 						line = br.readLine();
 						if (line != null) {
 							zeile = line.split(":");
-							if(zeile.length>0&&zeile[0].toString().trim().equals("")) {
+							if (zeile.length > 0 && zeile[0].toString().trim().equals("")) {
 								zeile = (String[]) ArrayUtils.remove(zeile, 0);
 							}
-							if(zeile.length>2&&zeile[zeile.length-1].toString().trim().equals("")) {
-								zeile = (String[]) ArrayUtils.remove(zeile, zeile.length-1);
+							if (zeile.length > 2 && zeile[zeile.length - 1].toString().trim().equals("")) {
+								zeile = (String[]) ArrayUtils.remove(zeile, zeile.length - 1);
 							}
 							buffer[i] = zeile;
 							i++;
@@ -129,12 +129,11 @@ public class Writer {
 				} catch (IOException ioe) {
 					if (rewrite != 0) {
 						Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
-//						ioe.printStackTrace();
+						ioe.printStackTrace();
 					}
 				}
 			}
 		}
-
 		return null;
 	}
 
@@ -164,8 +163,8 @@ public class Writer {
 			JSONObject aktuell = new JSONObject();
 			aktuell.put("poketier", Data.getTierlist());
 			aktuell.put("poketierclone", Data.getTierlistclone());
-			aktuell.put("team", Gui.getwindow().getPanel_player().getteam());
-			aktuell.put("settings", Gui.getwindow().getPanel_settings().getsettings());
+			aktuell.put("team", Gui.getwindow().getPanelPlayer().getteam());
+			aktuell.put("settings", Gui.getwindow().getPanelSettings().getsettings());
 
 			drafts.put(name, aktuell);
 
@@ -196,8 +195,11 @@ public class Writer {
 					return 0;
 				}
 				pWriter.close();
+				break;
 			case 1:
 				return 0;
+			default:
+				break;
 			}
 		}
 		return 0;
@@ -271,8 +273,9 @@ public class Writer {
 					}
 				case 1:
 					return null;
+				default:
+					return null;
 				}
-				return null;
 			} catch (Exception f) {
 				Manage.msgbox("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-5" + "\n"
 						+ f.toString(), frame);

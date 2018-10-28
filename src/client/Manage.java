@@ -26,8 +26,8 @@ public class Manage {
 	 * aufgerufen werden.
 	 */
 	public static void initPoketier() {
-		for (int i = 0; i < Data.tierlist.length; i++) {
-			Data.tierlist[i] = '0';
+		for (int i = 0; i < Data.getTierlist().length(); i++) {
+			Data.editTierlist(i, '0');
 		}
 	}
 
@@ -62,8 +62,7 @@ public class Manage {
 	public static void msgboxerf(String nachricht, Frame frame) {
 		JOptionPane.showMessageDialog(frame, nachricht, "Aktion erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 	}
-	    
-	
+
 	public static String[] getaarray(int length) {
 		if (length <= 0) {
 			return new String[] {};
@@ -77,5 +76,4 @@ public class Manage {
 		}
 		return a;
 	}
-
 }

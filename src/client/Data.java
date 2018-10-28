@@ -1,37 +1,38 @@
 package client;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Die Klasse Data, dient einzig und alleine dem Speichern von Programm
- * übergreifenden Daten, wie dem Pokedex oder der Tierlist.
+ * übergreifenden Daten, wie dem pokedex oder der Tierlist.
  * 
  * @author Yannick Dreher, Realchicken
  *
  */
 public class Data {
 	/**
-	 * Gibt den Pokedex zurück.
+	 * Gibt den pokedex zurück.
 	 * 
-	 * @return String[] den Pokedex
+	 * @return String[] den pokedex
 	 */
 	public static String[] getPokedex() {
-		return Pokedex;
+		return pokedex;
 	}
 
 	/**
-	 * Gibt den Eintrag des Pokedex an der Stelle i zurück.
+	 * Gibt den Eintrag des pokedex an der Stelle i zurück.
 	 * 
-	 * @param i - int, der zu betrachtende Eintrag im Pokedex
-	 * @return String - Der Eintrag im Pokedex
+	 * @param i - int, der zu betrachtende Eintrag im pokedex
+	 * @return String - Der Eintrag im pokedex
 	 */
 	public static String getPokedex(int i) {
-		return Pokedex[i];
+		return pokedex[i];
 	}
 
 	public static int getPokedex(String a) {
-		for (int k = 0; k < Pokedex.length; k++) {
-			if (getPokedex(k).trim().toLowerCase().equals(a.trim().toLowerCase())) {
+		for (int k = 0; k < pokedex.length; k++) {
+			if (getPokedex(k).trim().equalsIgnoreCase((a.trim()))) {
 				return k;
 			}
 		}
@@ -39,9 +40,9 @@ public class Data {
 	}
 
 	/**
-	 * Der Pokedex in einem einzige StringArray.
+	 * Der pokedex in einem einzige StringArray.
 	 */
-	private static String[] Pokedex = { "Bisasam", "Bisaknosp", "Bisaflor", "Bisaflor Mega", "Glumanda", "Glutexo",
+	private static String[] pokedex = { "Bisasam", "Bisaknosp", "Bisaflor", "Bisaflor Mega", "Glumanda", "Glutexo",
 			"Glurak", "Glurak Mega X", "Glurak Mega Y", "Schiggy", "Schillok", "Turtok", "Turtok Mega", "Raupy",
 			"Safcon", "Smettbo", "Hornliu", "Kokuna", "Bibor", "Bibor Mega", "Taubsi", "Tauboga", "Tauboss",
 			"Tauboss Mega", "Rattfratz", "Rattikarl", "Rattfratz Alola", "Rattikarl Alola", "Habitak", "Ibitak",
@@ -152,18 +153,18 @@ public class Data {
 			"Kaguron", "Katagami", "Schlingking", "Necrozma", "Necrozma Abendmähne", "Necrozma Morgenschwingen",
 			"Necrozma Ultra", "Magearna", "Marshadow", "Venicro", "Agoyon", "Muramura", "Kopplosio", "Zeraora" };
 
-	private static ArrayList<String> pokemontier1 = new ArrayList<String>();
-	private static ArrayList<String> pokemontier2 = new ArrayList<String>();
-	private static ArrayList<String> pokemontier3 = new ArrayList<String>();
-	private static ArrayList<String> pokemontier4 = new ArrayList<String>();
-	private static ArrayList<String> pokemontier5 = new ArrayList<String>();
-	private static ArrayList<String> pokemontier6 = new ArrayList<String>();
-	private static ArrayList<String> pokedexlist = new ArrayList<String>();
+	private static ArrayList<String> pokemontier1 = new ArrayList<>();
+	private static ArrayList<String> pokemontier2 = new ArrayList<>();
+	private static ArrayList<String> pokemontier3 = new ArrayList<>();
+	private static ArrayList<String> pokemontier4 = new ArrayList<>();
+	private static ArrayList<String> pokemontier5 = new ArrayList<>();
+	private static ArrayList<String> pokemontier6 = new ArrayList<>();
+	private static ArrayList<String> pokedexlist = new ArrayList<>();
 
-	public static ArrayList<String> getPokedexlist() {
-		if(pokedexlist.isEmpty()) {
+	public static List<String> getPokedexlist() {
+		if (pokedexlist.isEmpty()) {
 			for (String k : getPokedex()) {
-				pokedexlist.add(k);		
+				pokedexlist.add(k);
 			}
 			System.out.print("A");
 		}
@@ -173,7 +174,7 @@ public class Data {
 	/**
 	 * Die Tierlist, ist dazu da jedem Pokemon ein Tier zuzuweisen.
 	 */
-	public static char[] tierlist = new char[Pokedex.length];
+	private static char[] tierlist = new char[pokedex.length];
 
 	/**
 	 * Ein Clone der Tierlist um Änderungen Rückgängig machen zu können. Muss
@@ -184,10 +185,18 @@ public class Data {
 	/**
 	 * Setzt die gesamte Tierlist.
 	 * 
-	 * @param a - char[] der Länge des Pokedex
+	 * @param a - char[] der Länge des pokedex
 	 */
-	public static void settierlist(char[] a) {
+	public static void setTierlist(char[] a) {
 		tierlist = a;
+	}
+
+	public static void editTierlist(int place, char ch) {
+		tierlist[place] = ch;
+	}
+
+	public static char getTierlist(int a) {
+		return tierlist[a];
 	}
 
 	/**
@@ -195,12 +204,8 @@ public class Data {
 	 * 
 	 * @return String
 	 */
-	protected static String getTierlist() {
-		String list = "";
-		for (char k : tierlist) {
-			list = list + k;
-		}
-		return list;
+	public static String getTierlist() {
+		return new String(tierlist);
 	}
 
 	/**
@@ -235,36 +240,39 @@ public class Data {
 			return pokemontier5.toArray(new String[0]);
 		case 5:
 			return pokemontier6.toArray(new String[0]);
+		default:
+			break;
 		}
 		return null;
 	}
 
 	public static void inittierpokemon() {
-		for (int k = 0; k < Pokedex.length; k++) {
+		for (int k = 0; k < pokedex.length; k++) {
 			switch (tierlist[k]) {
 			case '0':
 				break;
 			case 'S':
-				pokemontier1.add(Pokedex[k]);
+				pokemontier1.add(pokedex[k]);
 				break;
 			case 'A':
-				pokemontier2.add(Pokedex[k]);
+				pokemontier2.add(pokedex[k]);
 				break;
 			case 'B':
-				pokemontier3.add(Pokedex[k]);
+				pokemontier3.add(pokedex[k]);
 				break;
 			case 'C':
-				pokemontier4.add(Pokedex[k]);
+				pokemontier4.add(pokedex[k]);
 				break;
 			case 'D':
-				pokemontier5.add(Pokedex[k]);
+				pokemontier5.add(pokedex[k]);
 				break;
 			case 'E':
-				pokemontier6.add(Pokedex[k]);
+				pokemontier6.add(pokedex[k]);
+				break;
+			default:
 				break;
 			}
 		}
 
 	}
-
 }

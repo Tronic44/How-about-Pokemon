@@ -11,6 +11,11 @@ public class PopupListener implements PopupMenuListener {
 	public PopupListener(JComboBox<String> box) {
 		this.box = box;
 	}
+	
+	public PopupListener() {
+		this.box = null;
+	}
+	
 
 	@Override
 	public void popupMenuCanceled(PopupMenuEvent e) {

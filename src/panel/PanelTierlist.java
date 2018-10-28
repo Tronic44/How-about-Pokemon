@@ -2,8 +2,6 @@ package panel;
 
 import java.awt.Font;
 import java.awt.List;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -37,7 +35,7 @@ public class PanelTierlist extends JPanel {
 	private JTextField tFsearch;
 	private List list;
 	private JTextField tFPoke;
-	private JTextField tF_tiername;
+	private JTextField tFTiername;
 	private JComboBox<String> cBTierlist;
 
 	public PanelTierlist() {
@@ -68,85 +66,67 @@ public class PanelTierlist extends JPanel {
 		tierlistbuttongruppe = new ButtonGroup();
 
 		radioButtonS = new JRadioButton("S");
-		radioButtonS.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Data.tierlist[list.getSelectedIndex()] = 'S';
-				if (list.getSelectedIndex() < Data.getPokedex().length)
-					list.select(list.getSelectedIndex() + 1);
-				changetier();
-			}
+		radioButtonS.addActionListener(e -> {
+			Data.editTierlist(list.getSelectedIndex(), 'S');
+			if (list.getSelectedIndex() < Data.getPokedex().length)
+				list.select(list.getSelectedIndex() + 1);
+			changetier();
 		});
-
 		radioButtonS.setBounds(256, 101, 109, 23);
 		panel.add(radioButtonS);
 		tierlistbuttongruppe.add(radioButtonS);
 
 		radioButtonA = new JRadioButton("A");
-		radioButtonA.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Data.tierlist[list.getSelectedIndex()] = 'A';
-				if (list.getSelectedIndex() < Data.getPokedex().length)
-					list.select(list.getSelectedIndex() + 1);
-				changetier();
-			}
+		radioButtonA.addActionListener(e -> {
+			Data.editTierlist(list.getSelectedIndex(), 'A');
+			if (list.getSelectedIndex() < Data.getPokedex().length)
+				list.select(list.getSelectedIndex() + 1);
+			changetier();
 		});
-
 		radioButtonA.setBounds(256, 127, 109, 23);
 		panel.add(radioButtonA);
 		tierlistbuttongruppe.add(radioButtonA);
 
 		radioButtonB = new JRadioButton("B");
-		radioButtonB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Data.tierlist[list.getSelectedIndex()] = 'B';
-				if (list.getSelectedIndex() < Data.getPokedex().length)
-					list.select(list.getSelectedIndex() + 1);
-				changetier();
-			}
+		radioButtonB.addActionListener(e -> {
+			Data.editTierlist(list.getSelectedIndex(), 'B');
+			if (list.getSelectedIndex() < Data.getPokedex().length)
+				list.select(list.getSelectedIndex() + 1);
+			changetier();
 		});
-
 		radioButtonB.setBounds(256, 151, 109, 23);
 		panel.add(radioButtonB);
 		tierlistbuttongruppe.add(radioButtonB);
 
 		radioButtonC = new JRadioButton("C");
-		radioButtonC.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Data.tierlist[list.getSelectedIndex()] = 'C';
-				if (list.getSelectedIndex() < Data.getPokedex().length)
-					list.select(list.getSelectedIndex() + 1);
-				changetier();
-			}
+		radioButtonC.addActionListener(e -> {
+			Data.editTierlist(list.getSelectedIndex(), 'C');
+			if (list.getSelectedIndex() < Data.getPokedex().length)
+				list.select(list.getSelectedIndex() + 1);
+			changetier();
 		});
-
 		radioButtonC.setBounds(256, 177, 109, 23);
 		panel.add(radioButtonC);
 		tierlistbuttongruppe.add(radioButtonC);
 
 		radioButtonD = new JRadioButton("D");
-		radioButtonD.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Data.tierlist[list.getSelectedIndex()] = 'D';
-				if (list.getSelectedIndex() < Data.getPokedex().length)
-					list.select(list.getSelectedIndex() + 1);
-				changetier();
-			}
+		radioButtonD.addActionListener(e -> {
+			Data.editTierlist(list.getSelectedIndex(), 'D');
+			if (list.getSelectedIndex() < Data.getPokedex().length)
+				list.select(list.getSelectedIndex() + 1);
+			changetier();
 		});
-
 		radioButtonD.setBounds(256, 203, 109, 23);
 		panel.add(radioButtonD);
 		tierlistbuttongruppe.add(radioButtonD);
 
 		radioButtonX = new JRadioButton("Banned");
-		radioButtonX.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Data.tierlist[list.getSelectedIndex()] = 'X';
-				if (list.getSelectedIndex() < Data.getPokedex().length)
-					list.select(list.getSelectedIndex() + 1);
-				changetier();
-			}
+		radioButtonX.addActionListener(e -> {
+			Data.editTierlist(list.getSelectedIndex(), 'X');
+			if (list.getSelectedIndex() < Data.getPokedex().length)
+				list.select(list.getSelectedIndex() + 1);
+			changetier();
 		});
-
 		radioButtonX.setBounds(256, 255, 109, 23);
 		panel.add(radioButtonX);
 		tierlistbuttongruppe.add(radioButtonX);
@@ -158,33 +138,30 @@ public class PanelTierlist extends JPanel {
 		tierlistbuttongruppe.add(radioButtonnull);
 
 		JButton btnsafetierlist = new JButton("Speichern");
-		btnsafetierlist.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (tF_tiername.getText().equals("") || tF_tiername.getText().equals("Gespeichert")) {
-					Manage.msgbox("Du hast keinen Namen eingegeben", Gui.getwindow().getFrmPokemonDraft());
-					tF_tiername.setText("");
+		btnsafetierlist.addActionListener(e -> {
+			if (tFTiername.getText().equals("") || tFTiername.getText().equals("Gespeichert")) {
+				Manage.msgbox("Du hast keinen Namen eingegeben", Gui.getwindow().getFrmPokemonDraft());
+				tFTiername.setText("");
+			} else {
+				if (tFTiername.getText().contains(":")) {
+					Manage.msgbox("Der Name das keinen Doppelpunkt enthalten", Gui.getwindow().getFrmPokemonDraft());
+
 				} else {
-					if (tF_tiername.getText().contains(":")) {
-						Manage.msgbox("Der Name das keinen Doppelpunkt enthalten",
-								Gui.getwindow().getFrmPokemonDraft());
-
-					} else {
-						Boolean b = true;
-						for (String k : tiernamen) {
-							if (tF_tiername.getText().equals(k)) {
-								Manage.msgbox("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
-								b = false;
-								break;
-							}
+					Boolean b = true;
+					for (String k : tiernamen) {
+						if (tFTiername.getText().equals(k)) {
+							Manage.msgbox("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
+							b = false;
+							break;
 						}
-						if (b) {
-							Writer.print("tierlist", tF_tiername.getText(), Data.tierlist);
-							tF_tiername.setText("Gespeichert");
-							panel.remove(cBTierlist);
-							tierlist();
-						}
-
 					}
+					if (b) {
+						Writer.print("tierlist", tFTiername.getText(), Data.getTierlist().toCharArray());
+						tFTiername.setText("Gespeichert");
+						panel.remove(cBTierlist);
+						tierlist();
+					}
+
 				}
 			}
 		});
@@ -194,29 +171,24 @@ public class PanelTierlist extends JPanel {
 		tierlist();
 
 		JButton btnloadtier = new JButton("Laden");
-		btnloadtier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Data.settierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
-				list.select(0);
-				changetier();
-				;
-			}
+		btnloadtier.addActionListener(e -> {
+			Data.setTierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
+			list.select(0);
+			changetier();
 		});
 		btnloadtier.setBounds(266, 486, 89, 23);
 		panel.add(btnloadtier);
 
-		tF_tiername = new JTextField();
-		tF_tiername.setBounds(267, 345, 86, 20);
-		panel.add(tF_tiername);
+		tFTiername = new JTextField();
+		tFTiername.setBounds(267, 345, 86, 20);
+		panel.add(tFTiername);
 
 		radioButtonE = new JRadioButton("E");
-		radioButtonE.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Data.tierlist[list.getSelectedIndex()] = 'E';
-				if (list.getSelectedIndex() < Data.getPokedex().length)
-					list.select(list.getSelectedIndex() + 1);
-				changetier();
-			}
+		radioButtonE.addActionListener(e -> {
+			Data.editTierlist(list.getSelectedIndex(), 'E');
+			if (list.getSelectedIndex() < Data.getPokedex().length)
+				list.select(list.getSelectedIndex() + 1);
+			changetier();
 		});
 		radioButtonE.setBounds(256, 229, 109, 23);
 		panel.add(radioButtonE);
@@ -229,7 +201,8 @@ public class PanelTierlist extends JPanel {
 			public void keyReleased(KeyEvent arg0) {
 				String search = null;
 				try {
-					search = Data.getPokedexlist().stream().filter(element -> element.toLowerCase().contains(tFsearch.getText().toLowerCase()))
+					search = Data.getPokedexlist().stream()
+							.filter(element -> element.toLowerCase().contains(tFsearch.getText().toLowerCase()))
 							.findFirst().get().toString();
 				} catch (Exception e) {
 				}
@@ -268,23 +241,22 @@ public class PanelTierlist extends JPanel {
 			tiernamen = new String[0];
 		}
 		try {
-			Gui.getwindow().getPanel_tierlist().remove(cBTierlist);
+			Gui.getwindow().getPanelTierlist().remove(cBTierlist);
 		} catch (Exception e) {
 
 		}
 		cBTierlist = new JComboBox(tiernamen);
 		cBTierlist.setBounds(248, 447, 124, 28);
 		try {
-			Gui.getwindow().getPanel_tierlist().add(cBTierlist);
+			Gui.getwindow().getPanelTierlist().add(cBTierlist);
 		} catch (Exception e) {
 			panel.add(cBTierlist);
 		}
-
 	}
 
 	protected void changetier() {
 		tFPoke.setText(list.getSelectedItem());
-		switch (Data.tierlist[list.getSelectedIndex()]) {
+		switch (Data.getTierlist(list.getSelectedIndex())) {
 		case 'S':
 			radioButtonS.setSelected(true);
 			break;

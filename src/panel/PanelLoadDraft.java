@@ -1,8 +1,5 @@
 package panel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -31,10 +28,8 @@ public class PanelLoadDraft extends JPanel {
 		panel.setVisible(false);
 
 		JButton btnloaddraft = new JButton("Laden");
-		btnloaddraft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnloaddraft.addActionListener(e -> {
 
-			}
 		});
 		btnloaddraft.setBounds(217, 437, 89, 23);
 		panel.add(btnloaddraft);
@@ -45,19 +40,16 @@ public class PanelLoadDraft extends JPanel {
 		tFsafename.setColumns(10);
 
 		JButton btnsafedraft = new JButton("Speichern");
-		btnsafedraft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (tFsafename.getText().trim().length() < 1) {
-					Manage.msgbox("Du solltest schon ein Namen zum Speichern eingeben",
-							Gui.getwindow().getFrmPokemonDraft());
+		btnsafedraft.addActionListener(e -> {
+			if (tFsafename.getText().trim().length() < 1) {
+				Manage.msgbox("Du solltest schon ein Namen zum Speichern eingeben",
+						Gui.getwindow().getFrmPokemonDraft());
+			} else {
+				int status = Writer.safeasjson(tFsafename.getText(), Gui.getwindow().getFrmPokemonDraft());
+				if (status == 0) {
+					lblstatus.setText("Error");
 				} else {
-					int status = Writer.safeasjson(tFsafename.getText(), Gui.getwindow().getFrmPokemonDraft());
-					if (status == 0) {
-						lblstatus.setText("Error");
-					} else {
-						lblstatus.setText("Erfolgreich gespeichert");
-					}
-
+					lblstatus.setText("Erfolgreich gespeichert");
 				}
 			}
 		});
@@ -67,9 +59,7 @@ public class PanelLoadDraft extends JPanel {
 		cBloaddraft = new JComboBox();
 		cBloaddraft.setBounds(72, 440, 125, 20);
 		panel.add(cBloaddraft);
-		
-		add(panel);
 
+		add(panel);
 	}
-	
 }

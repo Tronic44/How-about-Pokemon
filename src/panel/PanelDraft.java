@@ -3,7 +3,6 @@ package panel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -52,21 +51,22 @@ public class PanelDraft extends JPanel {
 		add(panel);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void opendraft() {
-		String[] Spieler = Gui.getwindow().getPanel_player().Spieler;
+		String[] spieler = Gui.getwindow().getPanelPlayer().spieler;
 		Gui.getwindow().visLoading();
 		try {
 			if (draftauswahl == null) {
-				draftauswahl = new int[Spieler.length][15];
+				draftauswahl = new int[spieler.length][15];
 				for (int k = 0; k < draftauswahl.length; k++) {
 					for (int j = 0; j < 15; j++) {
 						draftauswahl[k][j] = -1;
 					}
 				}
 			}
-			if (Spieler.length != draftauswahl.length) {
+			if (spieler.length != draftauswahl.length) {
 				int[][] clonedraftauswahl = draftauswahl.clone();
-				draftauswahl = new int[Spieler.length][15];
+				draftauswahl = new int[spieler.length][15];
 				for (int k = 0; k < draftauswahl.length; k++) {
 					for (int j = 0; j < 15; j++) {
 						try {
@@ -78,81 +78,50 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			draftauswahl = new int[Spieler.length][15];
+			draftauswahl = new int[spieler.length][15];
 			for (int k = 0; k < draftauswahl.length; k++) {
 				for (int j = 0; j < 15; j++) {
 					draftauswahl[k][j] = -1;
 				}
 			}
 		}
-		cBchangeteam = new JComboBox<String>();
-		cBchangeteam.addItemListener(new ItemListener() {
-			@SuppressWarnings("unchecked")
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.DESELECTED) {
-					for (int k = 0; k < 15; k++) {
-						try {
-							draftauswahl[changeteam][k] = cbDraft[k].getSelectedIndex();
-						} catch (Exception e) {
+		cBchangeteam = new JComboBox<>();
+		cBchangeteam.addItemListener(event -> {
+			if (event.getStateChange() == ItemEvent.DESELECTED) {
+				for (int k = 0; k < 15; k++) {
+					try {
+						draftauswahl[changeteam][k] = cbDraft[k].getSelectedIndex();
+					} catch (Exception e) {
 
-						}
 					}
 				}
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					changeteam = cBchangeteam.getSelectedIndex();
-					int i = 0;
-					for (JComboBox<String> k : cbDraft) {
+			}
+			if (event.getStateChange() == ItemEvent.SELECTED) {
+				changeteam = cBchangeteam.getSelectedIndex();
+				int i = 0;
+				for (JComboBox<String> k : cbDraft) {
+					try {
+						k.setSelectedIndex(draftauswahl[changeteam][i]);
+						i++;
+					} catch (Exception e) {
 						try {
-							k.setSelectedIndex(draftauswahl[changeteam][i]);
+							k.setSelectedIndex(-1);
 							i++;
-						} catch (Exception e) {
-							try {
-								k.setSelectedIndex(-1);
-								i++;
-							} catch (Exception f) {
-								i++;
-							}
+						} catch (Exception f) {
+							i++;
 						}
 					}
 				}
 			}
 		});
-		cBchangeteam.setModel(new DefaultComboBoxModel<String>(Spieler));
+		cBchangeteam.setModel(new DefaultComboBoxModel<String>(spieler));
 		cBchangeteam.setBounds(178, 11, 114, 20);
-		if (Gui.getwindow().getPanel_order().getOrder()!=1) {
+		if (Gui.getwindow().getPanelOrder().getOrder() != 1) {
 			cBchangeteam.setEnabled(false);
 		}
-		Gui.getwindow().getPanel_draft().add(cBchangeteam);
-
-		int hight = 100;
-		for (int k : Gui.getwindow().getPanel_settings().countauswahl) {
-			if (k == 0) {
-				continue;
-			}
-			if (k <= 3) {
-				hight += 130;
-				continue;
-			}
-			if (k <= 6) {
-				hight += 260;
-				continue;
-			}
-			if (k <= 9) {
-				hight += 390;
-				continue;
-			}
-			if (k <= 12) {
-				hight += 520;
-				continue;
-			}
-			if (k <= 15) {
-				hight += 650;
-				continue;
-			}
-
-		}
+		Gui.getwindow().getPanelDraft().add(cBchangeteam);
 		Gui.getwindow().getFrmPokemonDraft().setBounds(Gui.getwindow().getFrmPokemonDraft().getX(),
-				Gui.getwindow().getFrmPokemonDraft().getY(), 1100, hight);
+				Gui.getwindow().getFrmPokemonDraft().getY(), 1100, getDrafthigth());
 		if (!finishdraft) {
 			Data.inittierpokemon();
 			draftlayout();
@@ -160,17 +129,47 @@ public class PanelDraft extends JPanel {
 		Gui.getwindow().visDraft();
 	}
 
+	protected int getDrafthigth() {
+		int hight = 100;
+		for (int k : Gui.getwindow().getPanelSettings().countauswahl) {
+			if (k == 0) {
+				hight += 0;
+			} else {
+				if (k <= 3) {
+					hight += 130;
+				} else {
+					if (k <= 6) {
+						hight += 260;
+					} else {
+						if (k <= 9) {
+							hight += 390;
+						} else {
+							if (k <= 12) {
+								hight += 520;
+							} else {
+								if (k <= 15) {
+									hight += 650;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return hight;
+	}
+
 	@SuppressWarnings("unchecked")
 	private void draftlayout() {
 		Gui.getwindow().visLoading();
 		for (FilterComboBox k : cbDraft) {
 			try {
-				Gui.getwindow().getPanel_draft().remove(k);
+				Gui.getwindow().getPanelDraft().remove(k);
 			} catch (Exception e) {
-
+				break;
 			}
 		}
-		int[] pokeanzahl = Gui.getwindow().getPanel_settings().countauswahl.clone();
+		int[] pokeanzahl = Gui.getwindow().getPanelSettings().countauswahl.clone();
 		int count = 0;
 		int line = 120;
 		boolean sep = false;
@@ -184,17 +183,18 @@ public class PanelDraft extends JPanel {
 			if (!sep) {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, line - 60, 1100, 2);
-				Gui.getwindow().getPanel_draft().add(separator);
-				JLabel lblNewLabel_2 = new JLabel(Gui.getwindow().getPanel_tierlist().gettiernamen(i));
-				lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
-				lblNewLabel_2.setBounds(54, line - 40, 550, 14);
-				Gui.getwindow().getPanel_draft().add(lblNewLabel_2);
+				Gui.getwindow().getPanelDraft().add(separator);
+				JLabel lblTiername = new JLabel(Gui.getwindow().getPanelTierlist().gettiernamen(i));
+				lblTiername.setFont(new Font("Tahoma", Font.BOLD, 11));
+				lblTiername.setBounds(54, line - 40, 550, 14);
+				Gui.getwindow().getPanelDraft().add(lblTiername);
 			}
 			try {
 				int[] nxco = nextcolumn(pkan);
 				for (int co = 0; co < pkan; co++) {
 					cbDraft[count] = new FilterComboBox(Arrays.asList(Data.gettierpokemon(i)));
 					cbDraft[count].addPopupMenuListener(new PopupListener(cbDraft[count]) {
+						@Override
 						public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 							changedraftpokemon(this.box);
 							if (box.getSelectedItem() != null && (box.getSelectedIndex() >= 0
@@ -207,11 +207,7 @@ public class PanelDraft extends JPanel {
 					cbDraft[count].setSelectedIndex(-1);
 					cbDraft[count].setEnabled(false);
 					cbDraft[count].setBounds(nxco[co], line, 169, 20);
-					if (Gui.getwindow().getPanel_order().getOrder()==2) {
-						cbDraft[count].setEnabled(false);
-					}else {
-						cbDraft[count].setEnabled(true);
-					}
+					cbDraft[count].setEnabled(Gui.getwindow().getPanelOrder().getOrder() <= 2);
 					switch (i) {
 					case 0:
 						cbDraft[count].setBackground(new Color(232, 198, 236));
@@ -231,21 +227,22 @@ public class PanelDraft extends JPanel {
 					case 5:
 						cbDraft[count].setBackground(new Color(102, 103, 204));
 						break;
+					default:
+						break;
 					}
-					Gui.getwindow().getPanel_draft().add(cbDraft[count]);
+					Gui.getwindow().getPanelDraft().add(cbDraft[count]);
 					count++;
 				}
 				sep = false;
 			} catch (Exception e) {
 				e.getStackTrace();
 				pokeanzahl[i] -= 3;
-				i--;
+				i -= 1;
 				sep = true;
 			}
 			line += 130;
 		}
 		finishdraft = true;
-//		cbDraft[0].setEnabled(true);
 	}
 
 	private int[] nextcolumn(int k) {
@@ -264,7 +261,7 @@ public class PanelDraft extends JPanel {
 			spalte = new int[] { 54, 464, 860 };
 			break;
 		default:
-			return null;
+			return new int[] {};
 		}
 		return spalte;
 	}
@@ -295,19 +292,15 @@ public class PanelDraft extends JPanel {
 							box.setEditable(false);
 							return;
 						}
-
 					} catch (Exception e) {
 
 					}
 				}
-
 			}
 		}
-
 	}
 
 	private void selectnext(int teamindex, String name) {
-		System.out.print(name);
+		System.out.print(teamindex + " " + name);
 	}
-
 }
