@@ -26,7 +26,6 @@ public class Gui {
 	boolean finishdraft;
 
 	public static void startMainMenu() {
-		client.Manage.initPoketier();
 		EventQueue.invokeLater(() -> {
 			try {
 				window = new Gui();

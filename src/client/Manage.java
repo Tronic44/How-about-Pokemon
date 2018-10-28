@@ -27,16 +27,6 @@ public class Manage {
 	}
 
 	/**
-	 * initialisiert in Data die Tierlist mit 0 für jeden Eintrag. Muss manuell
-	 * aufgerufen werden.
-	 */
-	public static void initPoketier() {
-		for (int i = 0; i < Data.getTierlist().toString().length(); i++) {
-			Data.editTierlist(i, '0');
-		}
-	}
-
-	/**
 	 * Eine Error AlertBox mit dem Titel: "Da ist was schief gelaufen"
 	 * 
 	 * @param nachricht String - Die anzuzeigende Nachricht
