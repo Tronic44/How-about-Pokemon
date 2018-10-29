@@ -146,9 +146,7 @@ public class PanelSettings extends JPanel {
 				}
 			}
 			Gui.getwindow().getPanelDraft().finishdraft = false;
-			if (Data.tierlistclone == null) {
-				Data.tierlistclone = Data.getTierlist().clone();
-			}
+			Data.cloneTierlist();
 			int count = 0;
 			if (checkBoxS.isSelected()) {
 				Gui.getwindow().getPanelTierlist().radioButtonS.setEnabled(true);
@@ -558,8 +556,7 @@ public class PanelSettings extends JPanel {
 		JButton btnrestoretier = new JButton("RESTORE");
 		btnrestoretier.addActionListener(e -> {
 			try {
-				Data.setTierlist(Data.tierlistclone.clone());
-				Data.tierlistclone = null;
+				Data.restoreTierlist();
 				resetsettings();
 				Manage.msgboxerf("Erfolgreich wiederhergestellt!", Gui.getwindow().getFrmPokemonDraft());
 			} catch (Exception f) {

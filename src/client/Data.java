@@ -181,10 +181,18 @@ public class Data {
 	private static char[] tierlist;
 
 	/**
-	 * Ein Clone der Tierlist um Änderungen Rückgängig machen zu können. Muss
-	 * manuell initialisiert werden.
+	 * Gibt die Tierlist als ein String ohne Zeichentrenner zurück.
+	 * 
+	 * @return String
 	 */
-	public static char[] tierlistclone;
+	public static char[] getTierlist() {
+		return tierlist;
+	}
+
+	public static char getTierlist(int a) {
+		initPoketier();
+		return tierlist[a];
+	}
 
 	/**
 	 * Setzt die gesamte Tierlist.
@@ -200,18 +208,25 @@ public class Data {
 		tierlist[place] = ch;
 	}
 
-	public static char getTierlist(int a) {
-		initPoketier();
-		return tierlist[a];
+	/**
+	 * Ein Clone der Tierlist um Änderungen Rückgängig machen zu können. Muss
+	 * manuell initialisiert werden.
+	 */
+	private static char[] tierlistclone;
+
+	public static void cloneTierlist() {
+		if (tierlistclone == null) {
+			tierlistclone = getTierlist().clone();
+		}
 	}
 
-	/**
-	 * Gibt die Tierlist als ein String ohne Zeichentrenner zurück.
-	 * 
-	 * @return String
-	 */
-	public static char[] getTierlist() {
-		return tierlist;
+	public static void restoreTierlist() throws MyException {
+		if (tierlistclone != null) {
+			setTierlist(tierlistclone.clone());
+			tierlistclone = null;
+		} else {
+			throw new MyException();
+		}
 	}
 
 	private static void initPoketier() {
@@ -221,7 +236,6 @@ public class Data {
 				Data.editTierlist(i, '0');
 			}
 		}
-
 	}
 
 	/**
