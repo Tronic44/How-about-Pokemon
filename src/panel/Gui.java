@@ -23,7 +23,7 @@ public class Gui {
 	private PanelSettings panelSettings;
 	private PanelOrder panelOrder;
 	private JPanel panelloading;
-	boolean finishdraft;
+	private boolean finishdraft = false;
 
 	public static void startMainMenu() {
 		EventQueue.invokeLater(() -> {
@@ -49,7 +49,6 @@ public class Gui {
 		frmPokemonDraft.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPokemonDraft.getContentPane().setLayout(new CardLayout(0, 0));
 
-
 		initmenubar();
 		initpanel();
 	}
@@ -69,15 +68,11 @@ public class Gui {
 		frmPokemonDraft.getContentPane().add(panelLoadDraft, "name_527666975961040");
 		panelLoadDraft.setLayout(null);
 		panelLoadDraft.setVisible(false);
-		
-		System.out.print("test");
 
 		panelTierlist = new PanelTierlist();
 		frmPokemonDraft.getContentPane().add(panelTierlist, "name_2032838076395");
 		panelTierlist.setLayout(null);
 		panelTierlist.setVisible(false);
-		
-		System.out.print("test");
 
 		panelPlayer = new PanelPlayer();
 		frmPokemonDraft.getContentPane().add(panelPlayer, "name_601620298180688");
@@ -205,6 +200,10 @@ public class Gui {
 
 	public boolean isFinishdraft() {
 		return finishdraft;
+	}
+
+	public void setFinishdraft(boolean b) {
+		finishdraft = b;
 	}
 
 	protected void visStartDraft() {

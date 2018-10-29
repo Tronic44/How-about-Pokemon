@@ -145,7 +145,7 @@ public class PanelSettings extends JPanel {
 					}
 				}
 			}
-			Gui.getwindow().getPanelDraft().finishdraft = false;
+			Gui.getwindow().setFinishdraft(false);
 			Data.cloneTierlist();
 			int count = Gui.getwindow().getPanelTierlist().setRadioButton(
 					new boolean[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),

@@ -37,7 +37,6 @@ public class PanelDraft extends JPanel {
 	private FilterComboBox cBD15;
 	private FilterComboBox[] cbDraft = new FilterComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
-	protected boolean finishdraft = false;
 	private int changeteam = 0;
 
 	public PanelDraft() {
@@ -122,7 +121,7 @@ public class PanelDraft extends JPanel {
 		Gui.getwindow().getPanelDraft().add(cBchangeteam);
 		Gui.getwindow().getFrmPokemonDraft().setBounds(Gui.getwindow().getFrmPokemonDraft().getX(),
 				Gui.getwindow().getFrmPokemonDraft().getY(), 1100, getDrafthigth());
-		if (!finishdraft) {
+		if (!Gui.getwindow().isFinishdraft()) {
 			Data.inittierpokemon();
 			draftlayout();
 		}
@@ -242,7 +241,7 @@ public class PanelDraft extends JPanel {
 			}
 			line += 130;
 		}
-		finishdraft = true;
+		Gui.getwindow().setFinishdraft(true);
 	}
 
 	private int[] nextcolumn(int k) {

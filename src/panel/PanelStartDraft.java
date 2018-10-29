@@ -21,7 +21,7 @@ public class PanelStartDraft extends JPanel {
 		JButton btnTierlist = new JButton("Tierlist");
 		btnTierlist.setBounds(74, 38, 255, 71);
 		btnTierlist.addActionListener(e -> {
-			if (Gui.getwindow().finishdraft) {
+			if (Gui.getwindow().isFinishdraft()) {
 				Manage.msgbox(
 						"ACHTUNG: Änderungen hier, führen zum ... sollten funktionieren, tut es nur noch nicht^^ ",
 						Gui.getwindow().getFrmPokemonDraft());
@@ -32,7 +32,7 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
 		btnSpielerTeams.addActionListener(e -> {
-			if (Gui.getwindow().finishdraft) {
+			if (Gui.getwindow().isFinishdraft()) {
 				Manage.msgbox(
 						"ACHTUNG: Teams können vertauscht und der Name verändert werden " + "\n"
 								+ " Aber das hinzufügen und entfernen von Teams restart den Draft",
@@ -47,7 +47,7 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
 		btnAnzahlDerPokemon.addActionListener(e -> {
-			if (Gui.getwindow().finishdraft) {
+			if (Gui.getwindow().isFinishdraft()) {
 				Manage.msgbox("ACHTUNG: Änderungen hier, restarten den Draft!", Gui.getwindow().getFrmPokemonDraft());
 			}
 			Gui.getwindow().visSettings();
@@ -71,7 +71,7 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnFertig = new JButton("Fertig");
 		btnFertig.addActionListener(e -> {
-			if (!Gui.getwindow().getPanelDraft().finishdraft) {
+			if (!Gui.getwindow().isFinishdraft()) {
 				int count = 0;
 				for (char k : Data.getTierlist()) {
 					if (k == '0') {
