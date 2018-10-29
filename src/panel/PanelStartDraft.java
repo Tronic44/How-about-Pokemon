@@ -1,7 +1,5 @@
 package panel;
 
-import java.util.Arrays;
-
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -96,7 +94,7 @@ public class PanelStartDraft extends JPanel {
 					return;
 				}
 				int pokeanzahl = 0;
-				for (int k : Gui.getwindow().getPanelSettings().countauswahl) {
+				for (int k : Gui.getwindow().getPanelSettings().getCountauswahl()) {
 					pokeanzahl += k;
 				}
 				if (pokeanzahl == 0) {
@@ -127,46 +125,15 @@ public class PanelStartDraft extends JPanel {
 						Gui.getwindow().getPanelDraft().opendraft();
 						break;
 					case 1:
-						if (Gui.getwindow().getPanelSettings().lblissettingsbestätigung.getText()
-								.equals("Änderungen wurden übernommen!")) {
-							for (int k = 0; k < Arrays.toString(Data.getTierlist()).length(); k++) {
-								if (Data.getTierlist(k) == '0') {
-									if (Gui.getwindow().getPanelSettings().checkBoxE.isSelected()) {
-										Data.editTierlist(k, 'E');
-									} else {
-										if (Gui.getwindow().getPanelSettings().checkBoxD.isSelected()) {
-											Data.editTierlist(k, 'D');
-										} else {
-											if (Gui.getwindow().getPanelSettings().checkBoxC.isSelected()) {
-												Data.editTierlist(k, 'C');
-											} else {
-												if (Gui.getwindow().getPanelSettings().checkBoxB.isSelected()) {
-													Data.editTierlist(k, 'B');
-												} else {
-													if (Gui.getwindow().getPanelSettings().checkBoxA.isSelected()) {
-														Data.editTierlist(k, 'A');
-													} else {
-														if (Gui.getwindow().getPanelSettings().checkBoxS.isSelected()) {
-															Data.editTierlist(k, 'S');
-														} else {
-															Manage.msgbox(
-																	"Es wurde noch keine Tier Einstellung getroffen",
-																	Gui.getwindow().getFrmPokemonDraft());
-															return;
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-							Gui.getwindow().getPanelDraft().opendraft();
-						} else {
+						if (Gui.getwindow().getPanelSettings().areSettingsChanges()) {
 							Manage.msgbox("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen",
 									Gui.getwindow().getFrmPokemonDraft());
 							Gui.getwindow().visSettings();
+						} else {
+							Gui.getwindow().getPanelSettings().tolastTier();
+							Gui.getwindow().getPanelDraft().opendraft();
 						}
+
 						break;
 					case 2:
 						Gui.getwindow().getPanelTierlist().opentierlist();

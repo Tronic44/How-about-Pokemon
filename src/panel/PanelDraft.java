@@ -37,7 +37,7 @@ public class PanelDraft extends JPanel {
 	private FilterComboBox cBD15;
 	private FilterComboBox[] cbDraft = new FilterComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
-	boolean finishdraft = false;
+	protected boolean finishdraft = false;
 	private int changeteam = 0;
 
 	public PanelDraft() {
@@ -131,7 +131,7 @@ public class PanelDraft extends JPanel {
 
 	protected int getDrafthigth() {
 		int hight = 100;
-		for (int k : Gui.getwindow().getPanelSettings().countauswahl) {
+		for (int k : Gui.getwindow().getPanelSettings().getCountauswahl()) {
 			if (k == 0) {
 				hight += 0;
 			} else {
@@ -169,7 +169,7 @@ public class PanelDraft extends JPanel {
 				break;
 			}
 		}
-		int[] pokeanzahl = Gui.getwindow().getPanelSettings().countauswahl.clone();
+		int[] pokeanzahl = Gui.getwindow().getPanelSettings().getCountauswahl().clone();
 		int count = 0;
 		int line = 120;
 		boolean sep = false;

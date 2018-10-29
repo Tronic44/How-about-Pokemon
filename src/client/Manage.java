@@ -57,24 +57,4 @@ public class Manage {
 	public static void msgboxerf(String nachricht, Frame frame) {
 		JOptionPane.showMessageDialog(frame, nachricht, "Aktion erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 	}
-
-	/**
-	 * Gibt ein StringArray mit den Zahlen 1 bis der eingegebenen length
-	 * 
-	 * @param length die Länge des zurückgegebenes Arrays
-	 * @return StringArray der Länge length mit den Zahlen 1 bis length
-	 */
-	public static String[] getaarray(int length) {
-		if (length <= 0) {
-			return new String[] {};
-		}
-		if (length > 15) {
-			length = 15;
-		}
-		String[] a = new String[length];
-		for (int k = 0; k < a.length; k++) {
-			a[k] = String.valueOf(k + 1);
-		}
-		return a;
-	}
 }

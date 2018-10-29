@@ -186,6 +186,7 @@ public class Data {
 	 * @return String
 	 */
 	public static char[] getTierlist() {
+		initPoketier();
 		return tierlist;
 	}
 
@@ -245,12 +246,8 @@ public class Data {
 	 * @return Object - String oder JSONObject.NULL
 	 */
 	protected static Object getTierlistclone() {
-		StringBuilder list = new StringBuilder("");
 		try {
-			for (char k : tierlistclone) {
-				list.append(k);
-			}
-			return list.toString();
+			return new String(tierlistclone);
 		} catch (Exception e) {
 			return org.json.JSONObject.NULL;
 		}

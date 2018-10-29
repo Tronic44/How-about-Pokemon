@@ -21,14 +21,14 @@ import client.Writer;
 public class PanelTierlist extends JPanel {
 
 	private JPanel panel = new JPanel();
-	protected JRadioButton radioButtonS;
-	protected JRadioButton radioButtonA;
-	protected JRadioButton radioButtonB;
-	protected JRadioButton radioButtonC;
-	protected JRadioButton radioButtonD;
-	protected JRadioButton radioButtonE;
-	protected JRadioButton radioButtonX;
-	protected JRadioButton radioButtonnull;
+	private JRadioButton radioButtonS;
+	private JRadioButton radioButtonA;
+	private JRadioButton radioButtonB;
+	private JRadioButton radioButtonC;
+	private JRadioButton radioButtonD;
+	private JRadioButton radioButtonE;
+	private JRadioButton radioButtonX;
+	private JRadioButton radioButtonnull;
 	private ButtonGroup tierlistbuttongruppe;
 	private String[][] tierlist;
 	private String[] tiernamen;
@@ -253,6 +253,22 @@ public class PanelTierlist extends JPanel {
 		}
 	}
 
+	protected void resetRadioButtons() {
+		radioButtonS.setEnabled(true);
+		radioButtonA.setEnabled(true);
+		radioButtonB.setEnabled(true);
+		radioButtonC.setEnabled(true);
+		radioButtonD.setEnabled(true);
+		radioButtonE.setEnabled(true);
+		radioButtonS.setText("S");
+		radioButtonA.setText("A");
+		radioButtonB.setText("B");
+		radioButtonC.setText("C");
+		radioButtonD.setText("D");
+		radioButtonE.setText("E");
+
+	}
+
 	protected void changetier() {
 		tFPoke.setText(list.getSelectedItem());
 		switch (Data.getTierlist(list.getSelectedIndex())) {
@@ -301,6 +317,24 @@ public class PanelTierlist extends JPanel {
 		if (k < tiernamen.length) {
 			tiernamen[k] = eintrag;
 		}
+	}
+
+	protected int setRadioButton(boolean[] b, String[] st) {
+		JRadioButton[] jRB = new JRadioButton[] { radioButtonS, radioButtonA, radioButtonB, radioButtonC, radioButtonD,
+				radioButtonE };
+		int count = 0;
+		for (int k = 0; k < b.length; k++) {
+			jRB[k].setEnabled(b[k]);
+			if (b[k]) {
+				jRB[k].setText(st[k]);
+				settiernamen(k, st[k]);
+			} else {
+				jRB[k].setText("");
+				settiernamen(k, "");
+				count++;
+			}
+		}
+		return count;
 	}
 
 	protected String gettiernamen(int k) {

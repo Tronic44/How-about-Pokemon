@@ -25,13 +25,13 @@ public class PanelSettings extends JPanel {
 	private JLabel lblTierC;
 	private JLabel lblTierD;
 	private JLabel lblTierE;
-	protected JLabel lblissettingsbestätigung;
-	protected JCheckBox checkBoxS;
-	protected JCheckBox checkBoxA;
-	protected JCheckBox checkBoxB;
-	protected JCheckBox checkBoxC;
-	protected JCheckBox checkBoxD;
-	protected JCheckBox checkBoxE;
+	private JLabel lblissettingsbestaetigung;
+	private JCheckBox checkBoxS;
+	private JCheckBox checkBoxA;
+	private JCheckBox checkBoxB;
+	private JCheckBox checkBoxC;
+	private JCheckBox checkBoxD;
+	private JCheckBox checkBoxE;
 	private JTextField tFS;
 	private JTextField tFA;
 	private JTextField tFB;
@@ -51,7 +51,7 @@ public class PanelSettings extends JPanel {
 	private JLabel lblTierStatusD;
 	private JLabel lblTierStatusE;
 	private boolean[] change = new boolean[6];
-	protected int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
+	private int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 	private static final String GEBANNT = "wird GEBANNT";
 	private static final String HOCHGESTUFT = "wird HOCHGESTUFT";
 	private static final Font TEXTFONT = new Font(Manage.FONT, Font.PLAIN, 15);
@@ -87,9 +87,9 @@ public class PanelSettings extends JPanel {
 		lblTierD.setBounds(32, 247, 35, 17);
 		panel.add(lblTierD);
 
-		lblissettingsbestätigung = new JLabel("");
-		lblissettingsbestätigung.setBounds(168, 346, 206, 14);
-		panel.add(lblissettingsbestätigung);
+		lblissettingsbestaetigung = new JLabel("");
+		lblissettingsbestaetigung.setBounds(168, 346, 206, 14);
+		panel.add(lblissettingsbestaetigung);
 
 		lblTierE = new JLabel("E:");
 		lblTierE.setFont(TEXTFONT);
@@ -147,70 +147,14 @@ public class PanelSettings extends JPanel {
 			}
 			Gui.getwindow().getPanelDraft().finishdraft = false;
 			Data.cloneTierlist();
-			int count = 0;
-			if (checkBoxS.isSelected()) {
-				Gui.getwindow().getPanelTierlist().radioButtonS.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonS.setText(tFS.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(0, tFS.getText());
-			} else {
-				Gui.getwindow().getPanelTierlist().radioButtonS.setEnabled(false);
-				Gui.getwindow().getPanelTierlist().radioButtonS.setText("");
-				Gui.getwindow().getPanelTierlist().settiernamen(0, null);
-				count++;
-			}
-			if (checkBoxA.isSelected()) {
-				Gui.getwindow().getPanelTierlist().radioButtonA.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonA.setText(tFA.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(1, tFA.getText());
-			} else {
-				Gui.getwindow().getPanelTierlist().radioButtonA.setEnabled(false);
-				Gui.getwindow().getPanelTierlist().radioButtonA.setText("");
-				Gui.getwindow().getPanelTierlist().settiernamen(1, null);
-				count++;
-			}
-			if (checkBoxB.isSelected()) {
-				Gui.getwindow().getPanelTierlist().radioButtonB.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonB.setText(tFB.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(2, tFB.getText());
-			} else {
-				Gui.getwindow().getPanelTierlist().radioButtonB.setEnabled(false);
-				Gui.getwindow().getPanelTierlist().radioButtonB.setText("");
-				Gui.getwindow().getPanelTierlist().settiernamen(2, null);
-				count++;
-			}
-			if (checkBoxC.isSelected()) {
-				Gui.getwindow().getPanelTierlist().radioButtonC.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonC.setText(tFC.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(3, tFC.getText());
-			} else {
-				Gui.getwindow().getPanelTierlist().radioButtonC.setEnabled(false);
-				Gui.getwindow().getPanelTierlist().radioButtonC.setText("");
-				Gui.getwindow().getPanelTierlist().settiernamen(3, null);
-				count++;
-			}
-			if (checkBoxD.isSelected()) {
-				Gui.getwindow().getPanelTierlist().radioButtonD.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonD.setText(tFD.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(4, tFD.getText());
-			} else {
-				Gui.getwindow().getPanelTierlist().radioButtonD.setEnabled(false);
-				Gui.getwindow().getPanelTierlist().radioButtonD.setText("");
-				Gui.getwindow().getPanelTierlist().settiernamen(4, null);
-				count++;
-			}
-			if (checkBoxE.isSelected()) {
-				Gui.getwindow().getPanelTierlist().radioButtonE.setEnabled(true);
-				Gui.getwindow().getPanelTierlist().radioButtonE.setText(tFE.getText());
-				Gui.getwindow().getPanelTierlist().settiernamen(5, tFE.getText());
-			} else {
-				Gui.getwindow().getPanelTierlist().radioButtonE.setEnabled(false);
-				Gui.getwindow().getPanelTierlist().radioButtonE.setText("");
-				Gui.getwindow().getPanelTierlist().settiernamen(5, null);
-				count++;
-			}
+			int count = Gui.getwindow().getPanelTierlist().setRadioButton(
+					new boolean[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
+							checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected() },
+					new String[] { tFS.getText(), tFA.getText(), tFB.getText(), tFC.getText(), tFD.getText(),
+							tFE.getText() });
 
 			for (int i = 0; i < count; i++) {
-				for (int k = 0; k < Data.getTierlist().toString().length(); k++) {
+				for (int k = 0; k < Data.getTierlist().length; k++) {
 					switch (Data.getTierlist(k)) {
 					case 'S':
 						if (lblTierStatusS.getText().equals(GEBANNT)) {
@@ -259,43 +203,43 @@ public class PanelSettings extends JPanel {
 					}
 				}
 			}
-			lblissettingsbestätigung.setText("Änderungen wurden übernommen!");
+			lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 		});
 		btnsafetier.setBounds(42, 342, 116, 23);
 		panel.add(btnsafetier);
 
 		tFA = new JTextField();
-		tFA.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFA.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
 		tFA.setColumns(10);
 		tFA.setBounds(98, 123, 86, 20);
 		panel.add(tFA);
 
 		tFB = new JTextField();
-		tFB.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFB.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
 		tFB.setColumns(10);
 		tFB.setBounds(98, 164, 86, 20);
 		panel.add(tFB);
 
 		tFC = new JTextField();
-		tFC.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFC.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
 		tFC.setColumns(10);
 		tFC.setBounds(98, 204, 86, 20);
 		panel.add(tFC);
 
 		tFD = new JTextField();
-		tFD.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFD.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
 		tFD.setColumns(10);
 		tFD.setBounds(98, 247, 86, 20);
 		panel.add(tFD);
 
 		tFS = new JTextField();
-		tFS.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFS.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
 		tFS.setColumns(10);
 		tFS.setBounds(98, 83, 86, 20);
 		panel.add(tFS);
 
 		tFE = new JTextField();
-		tFE.addCaretListener(e -> lblissettingsbestätigung.setText(""));
+		tFE.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
 		tFE.setColumns(10);
 		tFE.setBounds(98, 290, 86, 20);
 		panel.add(tFE);
@@ -331,37 +275,37 @@ public class PanelSettings extends JPanel {
 		lblTierStatusE.setBounds(276, 293, 117, 14);
 		panel.add(lblTierStatusE);
 
-		comboBoxS = new JComboBox(Manage.getaarray(15));
+		comboBoxS = new JComboBox(getaarray(15));
 		comboBoxS.setEnabled(false);
 		comboBoxS.setSelectedIndex(-1);
 		comboBoxS.setBounds(194, 83, 61, 20);
 		panel.add(comboBoxS);
 
-		comboBoxA = new JComboBox(Manage.getaarray(15));
+		comboBoxA = new JComboBox(getaarray(15));
 		comboBoxA.setEnabled(false);
 		comboBoxA.setSelectedIndex(-1);
 		comboBoxA.setBounds(194, 123, 61, 20);
 		panel.add(comboBoxA);
 
-		comboBoxB = new JComboBox(Manage.getaarray(15));
+		comboBoxB = new JComboBox(getaarray(15));
 		comboBoxB.setEnabled(false);
 		comboBoxB.setSelectedIndex(-1);
 		comboBoxB.setBounds(194, 164, 61, 20);
 		panel.add(comboBoxB);
 
-		comboBoxC = new JComboBox(Manage.getaarray(15));
+		comboBoxC = new JComboBox(getaarray(15));
 		comboBoxC.setEnabled(false);
 		comboBoxC.setSelectedIndex(-1);
 		comboBoxC.setBounds(194, 204, 61, 20);
 		panel.add(comboBoxC);
 
-		comboBoxD = new JComboBox(Manage.getaarray(15));
+		comboBoxD = new JComboBox(getaarray(15));
 		comboBoxD.setEnabled(false);
 		comboBoxD.setSelectedIndex(-1);
 		comboBoxD.setBounds(194, 247, 61, 20);
 		panel.add(comboBoxD);
 
-		comboBoxE = new JComboBox(Manage.getaarray(15));
+		comboBoxE = new JComboBox(getaarray(15));
 		comboBoxE.setEnabled(false);
 		comboBoxE.setSelectedIndex(-1);
 		comboBoxE.setBounds(194, 290, 61, 20);
@@ -571,7 +515,7 @@ public class PanelSettings extends JPanel {
 	}
 
 	private void changesetting() {
-		lblissettingsbestätigung.setText("");
+		lblissettingsbestaetigung.setText("");
 		if (!checkBoxS.isSelected() && !checkBoxA.isSelected() && !checkBoxB.isSelected() && !checkBoxC.isSelected()
 				&& !checkBoxD.isSelected() && !checkBoxE.isSelected()) {
 			lblTierStatusS.setText(" ");
@@ -695,18 +639,7 @@ public class PanelSettings extends JPanel {
 		checkBoxD.setSelected(false);
 		checkBoxE.setSelected(false);
 		changesetting();
-		Gui.getwindow().getPanelTierlist().radioButtonS.setEnabled(true);
-		Gui.getwindow().getPanelTierlist().radioButtonA.setEnabled(true);
-		Gui.getwindow().getPanelTierlist().radioButtonB.setEnabled(true);
-		Gui.getwindow().getPanelTierlist().radioButtonC.setEnabled(true);
-		Gui.getwindow().getPanelTierlist().radioButtonD.setEnabled(true);
-		Gui.getwindow().getPanelTierlist().radioButtonE.setEnabled(true);
-		Gui.getwindow().getPanelTierlist().radioButtonS.setText("S");
-		Gui.getwindow().getPanelTierlist().radioButtonA.setText("A");
-		Gui.getwindow().getPanelTierlist().radioButtonB.setText("B");
-		Gui.getwindow().getPanelTierlist().radioButtonC.setText("C");
-		Gui.getwindow().getPanelTierlist().radioButtonD.setText("D");
-		Gui.getwindow().getPanelTierlist().radioButtonE.setText("E");
+		Gui.getwindow().getPanelTierlist().resetRadioButtons();
 		tFS.setText("");
 		tFA.setText("");
 		tFB.setText("");
@@ -719,12 +652,12 @@ public class PanelSettings extends JPanel {
 		tFC.setEditable(false);
 		tFD.setEditable(false);
 		tFE.setEditable(false);
-		comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-		comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-		comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-		comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-		comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-		comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+		comboBoxS.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+		comboBoxA.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+		comboBoxB.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+		comboBoxC.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+		comboBoxD.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+		comboBoxE.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
 		comboBoxS.setSelectedIndex(-1);
 		comboBoxA.setSelectedIndex(-1);
 		comboBoxB.setSelectedIndex(-1);
@@ -741,7 +674,7 @@ public class PanelSettings extends JPanel {
 	}
 
 	private void changepokeanzahl(int a, int auswahl) {
-		lblissettingsbestätigung.setText("");
+		lblissettingsbestaetigung.setText("");
 		if (auswahl == -1) {
 			auswahl = 0;
 		}
@@ -751,12 +684,12 @@ public class PanelSettings extends JPanel {
 		}
 		countauswahl[a] = auswahl;
 		try {
-			comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[0] + count)));
-			comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[1] + count)));
-			comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[2] + count)));
-			comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[3] + count)));
-			comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[4] + count)));
-			comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(countauswahl[5] + count)));
+			comboBoxS.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[0] + count)));
+			comboBoxA.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[1] + count)));
+			comboBoxB.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[2] + count)));
+			comboBoxC.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[3] + count)));
+			comboBoxD.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[4] + count)));
+			comboBoxE.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[5] + count)));
 
 			comboBoxS.setSelectedIndex(countauswahl[0] - 1);
 			comboBoxA.setSelectedIndex(countauswahl[1] - 1);
@@ -769,15 +702,35 @@ public class PanelSettings extends JPanel {
 					+ "Keine Sorge das war nicht deine Schuld aber leider können deine Einstellungen nicht übernommen werden",
 					Gui.getwindow().getFrmPokemonDraft());
 			try {
-				comboBoxS.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-				comboBoxA.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-				comboBoxB.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-				comboBoxC.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-				comboBoxD.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
-				comboBoxE.setModel(new DefaultComboBoxModel<String>(Manage.getaarray(15)));
+				comboBoxS.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+				comboBoxA.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+				comboBoxB.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+				comboBoxC.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+				comboBoxD.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+				comboBoxE.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
 			} catch (Exception e) {
 			}
 		}
+	}
+
+	/**
+	 * Gibt ein StringArray mit den Zahlen 1 bis der eingegebenen length
+	 * 
+	 * @param length die Länge des zurückgegebenes Arrays
+	 * @return StringArray der Länge length mit den Zahlen 1 bis length
+	 */
+	private static String[] getaarray(int length) {
+		if (length <= 0) {
+			return new String[] {};
+		}
+		if (length > 15) {
+			length = 15;
+		}
+		String[] a = new String[length];
+		for (int k = 0; k < a.length; k++) {
+			a[k] = String.valueOf(k + 1);
+		}
+		return a;
 	}
 
 	protected void setsettings(Object[] list) {
@@ -832,15 +785,50 @@ public class PanelSettings extends JPanel {
 		changesetting();
 	}
 
+	protected void tolastTier() {
+		for (int k = 0; k < Data.getTierlist().length; k++) {
+			if (Data.getTierlist(k) == '0') {
+				if (checkBoxE.isSelected()) {
+					Data.editTierlist(k, 'E');
+				} else {
+					if (checkBoxD.isSelected()) {
+						Data.editTierlist(k, 'D');
+					} else {
+						if (checkBoxC.isSelected()) {
+							Data.editTierlist(k, 'C');
+						} else {
+							if (checkBoxB.isSelected()) {
+								Data.editTierlist(k, 'B');
+							} else {
+								if (checkBoxA.isSelected()) {
+									Data.editTierlist(k, 'A');
+								} else {
+									if (checkBoxS.isSelected()) {
+										Data.editTierlist(k, 'S');
+									} else {
+										Manage.msgbox("Es wurde noch keine Tier Einstellung getroffen",
+												Gui.getwindow().getFrmPokemonDraft());
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	protected boolean areSettingsChanges() {
+		return !lblissettingsbestaetigung.getText().equals("Änderungen wurden übernommen!");
+	}
+
+	protected int[] getCountauswahl() {
+		return countauswahl;
+	}
+
 	public Object[] getsettings() {
-		return new Object[] { Gui.getwindow().getPanelSettings().checkBoxS.isSelected(),
-				Gui.getwindow().getPanelSettings().checkBoxA.isSelected(),
-				Gui.getwindow().getPanelSettings().checkBoxB.isSelected(),
-				Gui.getwindow().getPanelSettings().checkBoxC.isSelected(),
-				Gui.getwindow().getPanelSettings().checkBoxD.isSelected(),
-				Gui.getwindow().getPanelSettings().checkBoxE.isSelected(),
-				Gui.getwindow().getPanelSettings().tFS.getText(), Gui.getwindow().getPanelSettings().tFA.getText(),
-				Gui.getwindow().getPanelSettings().tFB.getText(), Gui.getwindow().getPanelSettings().tFC.getText(),
-				Gui.getwindow().getPanelSettings().tFD.getText(), Gui.getwindow().getPanelSettings().tFE.getText() };
+		return new Object[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
+				checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected(), tFS.getText(), tFA.getText(),
+				tFB.getText(), tFC.getText(), tFD.getText(), tFE.getText() };
 	}
 }
