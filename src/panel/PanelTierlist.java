@@ -73,6 +73,7 @@ public class PanelTierlist extends JPanel {
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
 			changeTier();
+			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonS.setBounds(256, 101, 109, 23);
 		panel.add(radioButtonS);
@@ -84,6 +85,7 @@ public class PanelTierlist extends JPanel {
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
 			changeTier();
+			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonA.setBounds(256, 127, 109, 23);
 		panel.add(radioButtonA);
@@ -95,6 +97,7 @@ public class PanelTierlist extends JPanel {
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
 			changeTier();
+			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonB.setBounds(256, 151, 109, 23);
 		panel.add(radioButtonB);
@@ -106,6 +109,7 @@ public class PanelTierlist extends JPanel {
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
 			changeTier();
+			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonC.setBounds(256, 177, 109, 23);
 		panel.add(radioButtonC);
@@ -117,6 +121,7 @@ public class PanelTierlist extends JPanel {
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
 			changeTier();
+			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonD.setBounds(256, 203, 109, 23);
 		panel.add(radioButtonD);
@@ -128,6 +133,7 @@ public class PanelTierlist extends JPanel {
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
 			changeTier();
+			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonE.setBounds(256, 229, 109, 23);
 		panel.add(radioButtonE);
@@ -139,6 +145,7 @@ public class PanelTierlist extends JPanel {
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
 			changeTier();
+			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonX.setBounds(256, 255, 109, 23);
 		panel.add(radioButtonX);

@@ -279,26 +279,68 @@ public class Data {
 			case '0':
 				break;
 			case 'S':
-				pokemontier1.add(pokedex[k]);
+				if (!pokemontier1.contains(pokedex[k])) {
+					pokemontier1.add(pokedex[k]);
+				}
+				removePokemonfromTier('S', k);
 				break;
 			case 'A':
-				pokemontier2.add(pokedex[k]);
+				if (!pokemontier2.contains(pokedex[k])) {
+					pokemontier2.add(pokedex[k]);
+				}
+				removePokemonfromTier('A', k);
 				break;
 			case 'B':
-				pokemontier3.add(pokedex[k]);
+				if (!pokemontier3.contains(pokedex[k])) {
+					pokemontier3.add(pokedex[k]);
+				}
+				removePokemonfromTier('B', k);
 				break;
 			case 'C':
-				pokemontier4.add(pokedex[k]);
+				if (!pokemontier4.contains(pokedex[k])) {
+					pokemontier4.add(pokedex[k]);
+				}
+				removePokemonfromTier('C', k);
 				break;
 			case 'D':
-				pokemontier5.add(pokedex[k]);
+				if (!pokemontier5.contains(pokedex[k])) {
+					pokemontier5.add(pokedex[k]);
+				}
+				removePokemonfromTier('D', k);
 				break;
 			case 'E':
-				pokemontier6.add(pokedex[k]);
+				if (!pokemontier6.contains(pokedex[k])) {
+					pokemontier6.add(pokedex[k]);
+				}
+				removePokemonfromTier('E', k);
+				break;
+			case 'X':
+				removePokemonfromTier('X', k);
 				break;
 			default:
 				break;
 			}
+		}
+	}
+
+	private static void removePokemonfromTier(char ch, int k) {
+		if (ch != 'S' && pokemontier1.contains(pokedex[k])) {
+			pokemontier1.set(pokemontier1.indexOf(pokedex[k]), "");
+		}
+		if (ch != 'A' && pokemontier2.contains(pokedex[k])) {
+			pokemontier2.set(pokemontier2.indexOf(pokedex[k]), "");
+		}
+		if (ch != 'B' && pokemontier3.contains(pokedex[k])) {
+			pokemontier3.set(pokemontier3.indexOf(pokedex[k]), "");
+		}
+		if (ch != 'C' && pokemontier4.contains(pokedex[k])) {
+			pokemontier4.set(pokemontier4.indexOf(pokedex[k]), "");
+		}
+		if (ch != 'D' && pokemontier5.contains(pokedex[k])) {
+			pokemontier5.set(pokemontier5.indexOf(pokedex[k]), "");
+		}
+		if (ch != 'E' && pokemontier6.contains(pokedex[k])) {
+			pokemontier6.set(pokemontier6.indexOf(pokedex[k]), "");
 		}
 	}
 }

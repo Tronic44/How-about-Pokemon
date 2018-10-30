@@ -19,7 +19,7 @@ public class PanelDraft extends JPanel {
 
 	private JPanel panel = new JPanel();
 	protected int[][] draftauswahl;
-	protected JComboBox<String> cBchangeteam;
+	protected JComboBox<String> cBchangeteam = new JComboBox<>();
 	private FilterComboBox cBD01;
 	private FilterComboBox cBD02;
 	private FilterComboBox cBD03;
@@ -39,6 +39,7 @@ public class PanelDraft extends JPanel {
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
 	private int changeteam = 0;
 	private JLabel[] labellist = new JLabel[6];
+	private int[] tierlistcB = new int[cbDraft.length];
 
 	public PanelDraft() {
 
@@ -71,7 +72,7 @@ public class PanelDraft extends JPanel {
 					for (int j = 0; j < 15; j++) {
 						try {
 							draftauswahl[k][j] = clonedraftauswahl[k][j];
-						} catch (Exception e) {
+						} catch (Exception f) {
 							draftauswahl[k][j] = -1;
 						}
 					}
@@ -85,17 +86,8 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		}
-		cBchangeteam = new JComboBox<>();
+		cBchangeteam.setModel(new DefaultComboBoxModel<String>(spieler));
 		cBchangeteam.addItemListener(event -> {
-			if (event.getStateChange() == ItemEvent.DESELECTED) {
-				for (int k = 0; k < 15; k++) {
-					try {
-						draftauswahl[changeteam][k] = cbDraft[k].getSelectedIndex();
-					} catch (Exception e) {
-						break;
-					}
-				}
-			}
 			if (event.getStateChange() == ItemEvent.SELECTED) {
 				changeteam = cBchangeteam.getSelectedIndex();
 				int i = 0;
@@ -114,7 +106,6 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		});
-		cBchangeteam.setModel(new DefaultComboBoxModel<String>(spieler));
 		cBchangeteam.setBounds(178, 11, 114, 20);
 		if (Gui.getwindow().getPanelOrder().getOrder() != 1) {
 			cBchangeteam.setEnabled(false);
@@ -193,6 +184,7 @@ public class PanelDraft extends JPanel {
 				int[] nxco = nextDraftColumn(pkan);
 				for (int co = 0; co < pkan; co++) {
 					cbDraft[count] = new FilterComboBox(Arrays.asList(Data.getTierPokemon(i)));
+					tierlistcB[count] = i;
 					cbDraft[count].addPopupMenuListener(new PopupListener(cbDraft[count]) {
 						@Override
 						public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
@@ -200,6 +192,7 @@ public class PanelDraft extends JPanel {
 							if (box.getSelectedItem() != null && (box.getSelectedIndex() >= 0
 									|| !box.getSelectedItem().equals("keine Doppelten"))) {
 								box.updateUI();
+								safeDraftAuswahl();
 								selectnext(cBchangeteam.getSelectedIndex(), box.getSelectedItem().toString());
 							}
 						}
@@ -259,6 +252,16 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
+	private void safeDraftAuswahl() {
+		for (int k = 0; k < 15; k++) {
+			try {
+				draftauswahl[changeteam][k] = cbDraft[k].getSelectedIndex();
+			} catch (Exception e) {
+				break;
+			}
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	protected void resetDraft() {
 		draftauswahl = null;
@@ -297,8 +300,19 @@ public class PanelDraft extends JPanel {
 		labellist[k].setText(text.trim());
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void updateTierPokemon() {
-
+		if (Gui.getwindow().isFinishdraft()) {
+			Data.initTierPokemon();
+			for (int count = 0; count < tierlistcB.length; count++) {
+				try {
+					cbDraft[count].setModel(new DefaultComboBoxModel<String>(Data.getTierPokemon(tierlistcB[count])));
+					cbDraft[count].setSelectedIndex(draftauswahl[changeteam][count]);
+				} catch (Exception e) {
+					break;
+				}
+			}
+		}
 	}
 
 	private void selectnext(int teamindex, String name) {

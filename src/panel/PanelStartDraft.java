@@ -21,11 +21,6 @@ public class PanelStartDraft extends JPanel {
 		JButton btnTierlist = new JButton("Tierlist");
 		btnTierlist.setBounds(74, 38, 255, 71);
 		btnTierlist.addActionListener(e -> {
-			if (Gui.getwindow().isFinishdraft()) {
-				Manage.msgboxError(
-						"ACHTUNG: Änderungen hier, führen zum ... sollten funktionieren, tut es nur noch nicht^^ ",
-						Gui.getwindow().getFrmPokemonDraft());
-			}
 			Gui.getwindow().getPanelTierlist().openTierlist();
 		});
 		panel.add(btnTierlist);
