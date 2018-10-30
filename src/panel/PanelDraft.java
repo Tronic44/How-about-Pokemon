@@ -204,7 +204,6 @@ public class PanelDraft extends JPanel {
 						}
 					});
 					cbDraft[count].setSelectedIndex(-1);
-					cbDraft[count].setEnabled(false);
 					cbDraft[count].setBounds(nxco[co], line, 169, 20);
 					cbDraft[count].setEnabled(Gui.getwindow().getPanelOrder().getOrder() <= 2);
 					switch (i) {
@@ -300,6 +299,6 @@ public class PanelDraft extends JPanel {
 	}
 
 	private void selectnext(int teamindex, String name) {
-		System.out.print(teamindex + " " + name);
+		System.out.println(teamindex + " " + name);
 	}
 }

@@ -13,18 +13,21 @@ import javax.swing.SwingUtilities;
 public class FilterComboBox extends JComboBox {
 	private List<String> array;
 
+	@SuppressWarnings("unchecked")
 	public FilterComboBox(List<String> array) {
 		super(array.toArray());
 		this.array = array;
 		this.setEditable(true);
 		final JTextField textfield = (JTextField) this.getEditor().getEditorComponent();
 		textfield.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyReleased(KeyEvent ke) {
 				SwingUtilities.invokeLater(() -> comboFilter(textfield.getText()));
 			}
 		});
 	}
 
+	@SuppressWarnings("unchecked")
 	public FilterComboBox(String[] array) {
 		super(array);
 		List<String> arr = null;
@@ -35,12 +38,14 @@ public class FilterComboBox extends JComboBox {
 		this.setEditable(true);
 		final JTextField textfield = (JTextField) this.getEditor().getEditorComponent();
 		textfield.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyReleased(KeyEvent ke) {
 				SwingUtilities.invokeLater(() -> comboFilter(textfield.getText()));
 			}
 		});
 	}
 
+	@SuppressWarnings("unchecked")
 	public void comboFilter(String enteredText) {
 		if (!this.isPopupVisible()) {
 			this.showPopup();
