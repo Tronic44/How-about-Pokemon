@@ -109,7 +109,7 @@ public class PanelSettings extends JPanel {
 		btnsafetier.addActionListener(e -> {
 			if (!checkBoxS.isSelected() && !checkBoxA.isSelected() && !checkBoxB.isSelected() && !checkBoxC.isSelected()
 					&& !checkBoxD.isSelected() && !checkBoxE.isSelected()) {
-				Manage.msgbox("Kein Tier? So geht das aber nicht!", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Kein Tier? So geht das aber nicht!", Gui.getwindow().getFrmPokemonDraft());
 				return;
 			}
 			if ((checkBoxS.isSelected() && tFS.getText().trim().length() < 1)
@@ -118,7 +118,7 @@ public class PanelSettings extends JPanel {
 					|| (checkBoxC.isSelected() && tFC.getText().trim().length() < 1)
 					|| (checkBoxD.isSelected() && tFD.getText().trim().length() < 1)
 					|| (checkBoxE.isSelected() && tFE.getText().trim().length() < 1)) {
-				Manage.msgbox("Der Tiername ist etwas zu kruz, findest du nicht?",
+				Manage.msgboxError("Der Tiername ist etwas zu kruz, findest du nicht?",
 						Gui.getwindow().getFrmPokemonDraft());
 				return;
 			}
@@ -128,7 +128,7 @@ public class PanelSettings extends JPanel {
 					|| (checkBoxC.isSelected() && comboBoxC.getSelectedIndex() < 0)
 					|| (checkBoxD.isSelected() && comboBoxD.getSelectedIndex() < 0)
 					|| (checkBoxE.isSelected() && comboBoxE.getSelectedIndex() < 0)) {
-				Manage.msgbox("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
+				Manage.msgboxError("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
 						+ "Wo gibt es denn sowas?", Gui.getwindow().getFrmPokemonDraft());
 				return;
 			}
@@ -140,7 +140,7 @@ public class PanelSettings extends JPanel {
 						continue;
 					}
 					if (tiernamenlist[k].equals(tiernamenlist[j])) {
-						Manage.msgbox("Den selben Namen für zwei Tier's? Das ist doch nur verwirrend!",
+						Manage.msgboxError("Den selben Namen für zwei Tier's? Das ist doch nur verwirrend!",
 								Gui.getwindow().getFrmPokemonDraft());
 						return;
 					}
@@ -228,7 +228,7 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updatetiernamen(0, text);
+					Gui.getwindow().getPanelDraft().updateTiernamen(0, text);
 					if (Gui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
@@ -248,7 +248,7 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updatetiernamen(1, text);
+					Gui.getwindow().getPanelDraft().updateTiernamen(1, text);
 					if (Gui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
@@ -268,7 +268,7 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updatetiernamen(2, text);
+					Gui.getwindow().getPanelDraft().updateTiernamen(2, text);
 					if (Gui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
@@ -288,7 +288,7 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updatetiernamen(3, text);
+					Gui.getwindow().getPanelDraft().updateTiernamen(3, text);
 					if (Gui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
@@ -308,7 +308,7 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updatetiernamen(4, text);
+					Gui.getwindow().getPanelDraft().updateTiernamen(4, text);
 					if (Gui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
@@ -328,7 +328,7 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updatetiernamen(5, text);
+					Gui.getwindow().getPanelDraft().updateTiernamen(5, text);
 					if (Gui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
@@ -372,37 +372,37 @@ public class PanelSettings extends JPanel {
 		lblTierStatusE.setBounds(276, 293, 117, 14);
 		panel.add(lblTierStatusE);
 
-		comboBoxS = new JComboBox(getaarray(15));
+		comboBoxS = new JComboBox(getanArray(15));
 		comboBoxS.setEnabled(false);
 		comboBoxS.setSelectedIndex(-1);
 		comboBoxS.setBounds(194, 83, 61, 20);
 		panel.add(comboBoxS);
 
-		comboBoxA = new JComboBox(getaarray(15));
+		comboBoxA = new JComboBox(getanArray(15));
 		comboBoxA.setEnabled(false);
 		comboBoxA.setSelectedIndex(-1);
 		comboBoxA.setBounds(194, 123, 61, 20);
 		panel.add(comboBoxA);
 
-		comboBoxB = new JComboBox(getaarray(15));
+		comboBoxB = new JComboBox(getanArray(15));
 		comboBoxB.setEnabled(false);
 		comboBoxB.setSelectedIndex(-1);
 		comboBoxB.setBounds(194, 164, 61, 20);
 		panel.add(comboBoxB);
 
-		comboBoxC = new JComboBox(getaarray(15));
+		comboBoxC = new JComboBox(getanArray(15));
 		comboBoxC.setEnabled(false);
 		comboBoxC.setSelectedIndex(-1);
 		comboBoxC.setBounds(194, 204, 61, 20);
 		panel.add(comboBoxC);
 
-		comboBoxD = new JComboBox(getaarray(15));
+		comboBoxD = new JComboBox(getanArray(15));
 		comboBoxD.setEnabled(false);
 		comboBoxD.setSelectedIndex(-1);
 		comboBoxD.setBounds(194, 247, 61, 20);
 		panel.add(comboBoxD);
 
-		comboBoxE = new JComboBox(getaarray(15));
+		comboBoxE = new JComboBox(getanArray(15));
 		comboBoxE.setEnabled(false);
 		comboBoxE.setSelectedIndex(-1);
 		comboBoxE.setBounds(194, 290, 61, 20);
@@ -413,7 +413,7 @@ public class PanelSettings extends JPanel {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 				int auswahl;
 				auswahl = comboBoxS.getSelectedIndex() + 1;
-				changepokeanzahl(0, auswahl);
+				changePokemonAnzahl(0, auswahl);
 			}
 		});
 		comboBoxA.addPopupMenuListener(new PopupListener() {
@@ -421,7 +421,7 @@ public class PanelSettings extends JPanel {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 				int auswahl;
 				auswahl = comboBoxA.getSelectedIndex() + 1;
-				changepokeanzahl(1, auswahl);
+				changePokemonAnzahl(1, auswahl);
 			}
 		});
 		comboBoxB.addPopupMenuListener(new PopupListener() {
@@ -429,7 +429,7 @@ public class PanelSettings extends JPanel {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 				int auswahl;
 				auswahl = comboBoxB.getSelectedIndex() + 1;
-				changepokeanzahl(2, auswahl);
+				changePokemonAnzahl(2, auswahl);
 			}
 		});
 		comboBoxC.addPopupMenuListener(new PopupListener() {
@@ -437,7 +437,7 @@ public class PanelSettings extends JPanel {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 				int auswahl;
 				auswahl = comboBoxC.getSelectedIndex() + 1;
-				changepokeanzahl(3, auswahl);
+				changePokemonAnzahl(3, auswahl);
 			}
 		});
 		comboBoxD.addPopupMenuListener(new PopupListener() {
@@ -445,7 +445,7 @@ public class PanelSettings extends JPanel {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 				int auswahl;
 				auswahl = comboBoxD.getSelectedIndex() + 1;
-				changepokeanzahl(4, auswahl);
+				changePokemonAnzahl(4, auswahl);
 			}
 		});
 		comboBoxE.addPopupMenuListener(new PopupListener() {
@@ -453,7 +453,7 @@ public class PanelSettings extends JPanel {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
 				int auswahl;
 				auswahl = comboBoxE.getSelectedIndex() + 1;
-				changepokeanzahl(5, auswahl);
+				changePokemonAnzahl(5, auswahl);
 			}
 		});
 
@@ -468,9 +468,9 @@ public class PanelSettings extends JPanel {
 				tFS.setText("");
 				comboBoxS.setEnabled(false);
 				comboBoxS.setSelectedIndex(-1);
-				changepokeanzahl(0, 0);
+				changePokemonAnzahl(0, 0);
 			}
-			changesetting();
+			changeSettings();
 		});
 		checkBoxS.setBounds(67, 83, 21, 23);
 		panel.add(checkBoxS);
@@ -486,9 +486,9 @@ public class PanelSettings extends JPanel {
 				tFA.setText("");
 				comboBoxA.setEnabled(false);
 				comboBoxA.setSelectedIndex(-1);
-				changepokeanzahl(1, 0);
+				changePokemonAnzahl(1, 0);
 			}
-			changesetting();
+			changeSettings();
 		});
 		checkBoxA.setBounds(67, 122, 21, 23);
 		panel.add(checkBoxA);
@@ -504,9 +504,9 @@ public class PanelSettings extends JPanel {
 				tFB.setText("");
 				comboBoxB.setEnabled(false);
 				comboBoxB.setSelectedIndex(-1);
-				changepokeanzahl(2, 0);
+				changePokemonAnzahl(2, 0);
 			}
-			changesetting();
+			changeSettings();
 		});
 		checkBoxB.setBounds(67, 163, 21, 23);
 		panel.add(checkBoxB);
@@ -522,9 +522,9 @@ public class PanelSettings extends JPanel {
 				tFC.setText("");
 				comboBoxC.setEnabled(false);
 				comboBoxC.setSelectedIndex(-1);
-				changepokeanzahl(3, 0);
+				changePokemonAnzahl(3, 0);
 			}
-			changesetting();
+			changeSettings();
 		});
 		checkBoxC.setBounds(67, 203, 21, 23);
 		panel.add(checkBoxC);
@@ -540,9 +540,9 @@ public class PanelSettings extends JPanel {
 				tFD.setText("");
 				comboBoxD.setEnabled(false);
 				comboBoxD.setSelectedIndex(-1);
-				changepokeanzahl(4, 0);
+				changePokemonAnzahl(4, 0);
 			}
-			changesetting();
+			changeSettings();
 		});
 		checkBoxD.setBounds(67, 246, 21, 23);
 		panel.add(checkBoxD);
@@ -558,9 +558,9 @@ public class PanelSettings extends JPanel {
 				tFE.setText("");
 				comboBoxE.setEnabled(false);
 				comboBoxE.setSelectedIndex(-1);
-				changepokeanzahl(5, 0);
+				changePokemonAnzahl(5, 0);
 			}
-			changesetting();
+			changeSettings();
 		});
 		checkBoxE.setBounds(67, 289, 21, 23);
 		panel.add(checkBoxE);
@@ -587,8 +587,8 @@ public class PanelSettings extends JPanel {
 
 		JButton btnresettier = new JButton("RESET");
 		btnresettier.addActionListener(e -> {
-			resetsettings();
-			Manage.msgboxerf("Erfolgreich Resetet!", Gui.getwindow().getFrmPokemonDraft());
+			resetSettings();
+			Manage.msgboxErfolg("Erfolgreich Resetet!", Gui.getwindow().getFrmPokemonDraft());
 		});
 		btnresettier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
 		btnresettier.setBounds(65, 542, 89, 23);
@@ -598,10 +598,10 @@ public class PanelSettings extends JPanel {
 		btnrestoretier.addActionListener(e -> {
 			try {
 				Data.restoreTierlist();
-				resetsettings();
-				Manage.msgboxerf("Erfolgreich wiederhergestellt!", Gui.getwindow().getFrmPokemonDraft());
+				resetSettings();
+				Manage.msgboxErfolg("Erfolgreich wiederhergestellt!", Gui.getwindow().getFrmPokemonDraft());
 			} catch (Exception f) {
-				Manage.msgbox("Nichts zum wiederherstellen gefunden!", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Nichts zum wiederherstellen gefunden!", Gui.getwindow().getFrmPokemonDraft());
 			}
 		});
 		btnrestoretier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
@@ -611,7 +611,7 @@ public class PanelSettings extends JPanel {
 		add(panel);
 	}
 
-	private void changesetting() {
+	private void changeSettings() {
 		lblissettingsbestaetigung.setText("");
 		if (!checkBoxS.isSelected() && !checkBoxA.isSelected() && !checkBoxB.isSelected() && !checkBoxC.isSelected()
 				&& !checkBoxD.isSelected() && !checkBoxE.isSelected()) {
@@ -728,14 +728,14 @@ public class PanelSettings extends JPanel {
 		}
 	}
 
-	private void resetsettings() {
+	private void resetSettings() {
 		checkBoxS.setSelected(false);
 		checkBoxA.setSelected(false);
 		checkBoxB.setSelected(false);
 		checkBoxC.setSelected(false);
 		checkBoxD.setSelected(false);
 		checkBoxE.setSelected(false);
-		changesetting();
+		changeSettings();
 		Gui.getwindow().getPanelTierlist().resetRadioButtons();
 		tFS.setText("");
 		tFA.setText("");
@@ -749,12 +749,12 @@ public class PanelSettings extends JPanel {
 		tFC.setEditable(false);
 		tFD.setEditable(false);
 		tFE.setEditable(false);
-		comboBoxS.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-		comboBoxA.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-		comboBoxB.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-		comboBoxC.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-		comboBoxD.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-		comboBoxE.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+		comboBoxS.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+		comboBoxA.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+		comboBoxB.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+		comboBoxC.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+		comboBoxD.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+		comboBoxE.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
 		comboBoxS.setSelectedIndex(-1);
 		comboBoxA.setSelectedIndex(-1);
 		comboBoxB.setSelectedIndex(-1);
@@ -770,7 +770,7 @@ public class PanelSettings extends JPanel {
 		countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 	}
 
-	private void changepokeanzahl(int a, int auswahl) {
+	private void changePokemonAnzahl(int a, int auswahl) {
 		lblissettingsbestaetigung.setText("");
 		if (auswahl == -1) {
 			auswahl = 0;
@@ -781,12 +781,12 @@ public class PanelSettings extends JPanel {
 		}
 		countauswahl[a] = auswahl;
 		try {
-			comboBoxS.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[0] + count)));
-			comboBoxA.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[1] + count)));
-			comboBoxB.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[2] + count)));
-			comboBoxC.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[3] + count)));
-			comboBoxD.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[4] + count)));
-			comboBoxE.setModel(new DefaultComboBoxModel<String>(getaarray(countauswahl[5] + count)));
+			comboBoxS.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[0] + count)));
+			comboBoxA.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[1] + count)));
+			comboBoxB.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[2] + count)));
+			comboBoxC.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[3] + count)));
+			comboBoxD.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[4] + count)));
+			comboBoxE.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[5] + count)));
 
 			comboBoxS.setSelectedIndex(countauswahl[0] - 1);
 			comboBoxA.setSelectedIndex(countauswahl[1] - 1);
@@ -795,16 +795,16 @@ public class PanelSettings extends JPanel {
 			comboBoxD.setSelectedIndex(countauswahl[4] - 1);
 			comboBoxE.setSelectedIndex(countauswahl[5] - 1);
 		} catch (Exception g) {
-			Manage.msgbox("Huch da ist was bei der Anzahl der Pokemon schief gelaufen" + "\n"
+			Manage.msgboxError("Huch da ist was bei der Anzahl der Pokemon schief gelaufen" + "\n"
 					+ "Keine Sorge das war nicht deine Schuld aber leider können deine Einstellungen nicht übernommen werden",
 					Gui.getwindow().getFrmPokemonDraft());
 			try {
-				comboBoxS.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-				comboBoxA.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-				comboBoxB.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-				comboBoxC.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-				comboBoxD.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
-				comboBoxE.setModel(new DefaultComboBoxModel<String>(getaarray(15)));
+				comboBoxS.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+				comboBoxA.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+				comboBoxB.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+				comboBoxC.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+				comboBoxD.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+				comboBoxE.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
 			} catch (Exception e) {
 			}
 		}
@@ -816,7 +816,7 @@ public class PanelSettings extends JPanel {
 	 * @param length die Länge des zurückgegebenes Arrays
 	 * @return StringArray der Länge length mit den Zahlen 1 bis length
 	 */
-	private static String[] getaarray(int length) {
+	private static String[] getanArray(int length) {
 		if (length <= 0) {
 			return new String[] {};
 		}
@@ -830,8 +830,8 @@ public class PanelSettings extends JPanel {
 		return a;
 	}
 
-	protected void setsettings(Object[] list) {
-		resetsettings();
+	protected void setSettings(Object[] list) {
+		resetSettings();
 		try {
 			for (int k = 0; k < list.length; k++) {
 				switch (k) {
@@ -876,13 +876,13 @@ public class PanelSettings extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			Manage.msgbox("Settings konnten nicht geladen werden", Gui.getwindow().getFrmPokemonDraft());
-			resetsettings();
+			Manage.msgboxError("Settings konnten nicht geladen werden", Gui.getwindow().getFrmPokemonDraft());
+			resetSettings();
 		}
-		changesetting();
+		changeSettings();
 	}
 
-	protected void tolastTier() {
+	protected void toTheLastTier() {
 		for (int k = 0; k < Data.getTierlist().length; k++) {
 			if (Data.getTierlist(k) == '0') {
 				if (checkBoxE.isSelected()) {
@@ -903,7 +903,7 @@ public class PanelSettings extends JPanel {
 									if (checkBoxS.isSelected()) {
 										Data.editTierlist(k, 'S');
 									} else {
-										Manage.msgbox("Es wurde noch keine Tier Einstellung getroffen",
+										Manage.msgboxError("Es wurde noch keine Tier Einstellung getroffen",
 												Gui.getwindow().getFrmPokemonDraft());
 									}
 								}
@@ -923,7 +923,7 @@ public class PanelSettings extends JPanel {
 		return countauswahl;
 	}
 
-	public Object[] getsettings() {
+	public Object[] getSettings() {
 		return new Object[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
 				checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected(), tFS.getText(), tFA.getText(),
 				tFB.getText(), tFC.getText(), tFD.getText(), tFE.getText() };

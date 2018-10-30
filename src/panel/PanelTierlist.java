@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -32,12 +33,12 @@ public class PanelTierlist extends JPanel {
 	private ButtonGroup tierlistbuttongruppe;
 	private String[][] tierlist;
 	private String[] safedNamen;
-	private String[] tiernamen = new String[] {"S","A","B","C","D","E"};
+	private String[] tiernamen = new String[] { "S", "A", "B", "C", "D", "E" };
 	private JTextField tFsearch;
 	private List list;
 	private JTextField tFPoke;
 	private JTextField tFTiername;
-	private JComboBox<String> cBTierlist;
+	private JComboBox<String> cBTierlist = new JComboBox<>();
 
 	public PanelTierlist() {
 
@@ -53,7 +54,7 @@ public class PanelTierlist extends JPanel {
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				changetier();
+				changeTier();
 			}
 		});
 		list.setBounds(20, 33, 197, 516);
@@ -71,7 +72,7 @@ public class PanelTierlist extends JPanel {
 			Data.editTierlist(list.getSelectedIndex(), 'S');
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
-			changetier();
+			changeTier();
 		});
 		radioButtonS.setBounds(256, 101, 109, 23);
 		panel.add(radioButtonS);
@@ -82,7 +83,7 @@ public class PanelTierlist extends JPanel {
 			Data.editTierlist(list.getSelectedIndex(), 'A');
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
-			changetier();
+			changeTier();
 		});
 		radioButtonA.setBounds(256, 127, 109, 23);
 		panel.add(radioButtonA);
@@ -93,7 +94,7 @@ public class PanelTierlist extends JPanel {
 			Data.editTierlist(list.getSelectedIndex(), 'B');
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
-			changetier();
+			changeTier();
 		});
 		radioButtonB.setBounds(256, 151, 109, 23);
 		panel.add(radioButtonB);
@@ -104,7 +105,7 @@ public class PanelTierlist extends JPanel {
 			Data.editTierlist(list.getSelectedIndex(), 'C');
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
-			changetier();
+			changeTier();
 		});
 		radioButtonC.setBounds(256, 177, 109, 23);
 		panel.add(radioButtonC);
@@ -115,18 +116,18 @@ public class PanelTierlist extends JPanel {
 			Data.editTierlist(list.getSelectedIndex(), 'D');
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
-			changetier();
+			changeTier();
 		});
 		radioButtonD.setBounds(256, 203, 109, 23);
 		panel.add(radioButtonD);
 		tierlistbuttongruppe.add(radioButtonD);
-		
+
 		radioButtonE = new JRadioButton(tiernamen[5]);
 		radioButtonE.addActionListener(e -> {
 			Data.editTierlist(list.getSelectedIndex(), 'E');
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
-			changetier();
+			changeTier();
 		});
 		radioButtonE.setBounds(256, 229, 109, 23);
 		panel.add(radioButtonE);
@@ -137,7 +138,7 @@ public class PanelTierlist extends JPanel {
 			Data.editTierlist(list.getSelectedIndex(), 'X');
 			if (list.getSelectedIndex() < Data.getPokedex().length)
 				list.select(list.getSelectedIndex() + 1);
-			changetier();
+			changeTier();
 		});
 		radioButtonX.setBounds(256, 255, 109, 23);
 		panel.add(radioButtonX);
@@ -153,17 +154,17 @@ public class PanelTierlist extends JPanel {
 		JButton btnsafetierlist = new JButton("Speichern");
 		btnsafetierlist.addActionListener(e -> {
 			if (tFTiername.getText().equals("") || tFTiername.getText().equals("Gespeichert")) {
-				Manage.msgbox("Du hast keinen Namen eingegeben", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Du hast keinen Namen eingegeben", Gui.getwindow().getFrmPokemonDraft());
 				tFTiername.setText("");
 			} else {
 				if (tFTiername.getText().contains(":")) {
-					Manage.msgbox("Der Name das keinen Doppelpunkt enthalten", Gui.getwindow().getFrmPokemonDraft());
+					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten", Gui.getwindow().getFrmPokemonDraft());
 
 				} else {
 					Boolean b = true;
 					for (String k : safedNamen) {
 						if (tFTiername.getText().equals(k)) {
-							Manage.msgbox("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
+							Manage.msgboxError("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
 							b = false;
 							break;
 						}
@@ -186,7 +187,7 @@ public class PanelTierlist extends JPanel {
 		btnloadtier.addActionListener(e -> {
 			Data.setTierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
 			list.select(0);
-			changetier();
+			changeTier();
 		});
 		btnloadtier.setBounds(266, 486, 89, 23);
 		panel.add(btnloadtier);
@@ -203,8 +204,9 @@ public class PanelTierlist extends JPanel {
 				try {
 					search = Data.getPokedexlist().stream()
 							.filter(element -> element.toLowerCase().contains(tFsearch.getText().toLowerCase()))
-							.findFirst().get().toString();
+							.findFirst().get();
 				} catch (Exception e) {
+					search = null;
 				}
 				if (search != null) {
 					list.select(Data.getPokedex(search));
@@ -222,31 +224,17 @@ public class PanelTierlist extends JPanel {
 		add(panel);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void tierlist() {
 		try {
 			tierlist = client.Writer.read("tierlist");
-		} catch (Exception e) {
-		}
-		try {
 			safedNamen = new String[tierlist.length];
 			for (int i = 0; i < safedNamen.length; i++) {
-				try {
-					safedNamen[i] = tierlist[i][0];
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				safedNamen[i] = tierlist[i][0];
 			}
 		} catch (Exception e) {
 			safedNamen = new String[] { "Lese Error" };
 		}
-		try {
-			Gui.getwindow().getPanelTierlist().remove(cBTierlist);
-		} catch (Exception e) {
-			
-		}
-		cBTierlist = new JComboBox(safedNamen);
-		cBTierlist.setBounds(248, 447, 124, 28);
+		cBTierlist.setModel(new DefaultComboBoxModel<String>(safedNamen));
 		try {
 			Gui.getwindow().getPanelTierlist().add(cBTierlist);
 		} catch (Exception e) {
@@ -261,16 +249,16 @@ public class PanelTierlist extends JPanel {
 		radioButtonC.setEnabled(true);
 		radioButtonD.setEnabled(true);
 		radioButtonE.setEnabled(true);
-		radioButtonS.setText("S");
-		radioButtonA.setText("A");
-		radioButtonB.setText("B");
-		radioButtonC.setText("C");
-		radioButtonD.setText("D");
-		radioButtonE.setText("E");
-
+		tiernamen = new String[] { "S", "A", "B", "C", "D", "E" };
+		radioButtonS.setText(tiernamen[0]);
+		radioButtonA.setText(tiernamen[1]);
+		radioButtonB.setText(tiernamen[2]);
+		radioButtonC.setText(tiernamen[3]);
+		radioButtonD.setText(tiernamen[4]);
+		radioButtonE.setText(tiernamen[5]);
 	}
 
-	protected void changetier() {
+	protected void changeTier() {
 		tFPoke.setText(list.getSelectedItem());
 		switch (Data.getTierlist(list.getSelectedIndex())) {
 		case 'S':
@@ -303,13 +291,13 @@ public class PanelTierlist extends JPanel {
 		}
 	}
 
-	protected void opentierlist() {
+	protected void openTierlist() {
 		list.removeAll();
 		for (int i = 0; i < Data.getPokedex().length; i++) {
 			list.add(Data.getPokedex(i));
 		}
 		list.select(0);
-		changetier();
+		changeTier();
 		tierlist();
 		Gui.getwindow().visTierlist();
 	}
@@ -337,7 +325,7 @@ public class PanelTierlist extends JPanel {
 		tiernamen[k] = text;
 	}
 
-	protected String gettiernamen(int k) {
+	protected String getTiernamen(int k) {
 		if (k < tiernamen.length) {
 			return tiernamen[k];
 		}

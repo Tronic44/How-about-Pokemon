@@ -33,7 +33,7 @@ public class Manage {
 	 * @param frame     - den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
 	 *                  den Alert zentriert anzuzeigen
 	 */
-	public static void msgbox(String nachricht, Frame frame) {
+	public static void msgboxError(String nachricht, Frame frame) {
 		JOptionPane.showMessageDialog(frame, nachricht, "Da ist was schief gelaufen", JOptionPane.ERROR_MESSAGE);
 	}
 
@@ -43,7 +43,7 @@ public class Manage {
 	 * 
 	 * @param nachricht String - Die anzuzeigende Nachricht
 	 */
-	protected static void msgboxerr(String nachricht) {
+	protected static void msgboxFatalError(String nachricht) {
 		JOptionPane.showMessageDialog(null, nachricht, "Da ist was schief gelaufen", JOptionPane.ERROR_MESSAGE);
 	}
 
@@ -54,7 +54,7 @@ public class Manage {
 	 * @param frame     - den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
 	 *                  den Alert zentriert anzuzeigen
 	 */
-	public static void msgboxerf(String nachricht, Frame frame) {
+	public static void msgboxErfolg(String nachricht, Frame frame) {
 		JOptionPane.showMessageDialog(frame, nachricht, "Aktion erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

@@ -253,7 +253,7 @@ public class Data {
 		}
 	}
 
-	public static String[] gettierpokemon(int a) {
+	public static String[] getTierPokemon(int a) {
 		switch (a) {
 		case 0:
 			return pokemontier1.toArray(new String[0]);
@@ -273,7 +273,7 @@ public class Data {
 		return new String[] {};
 	}
 
-	public static void inittierpokemon() {
+	public static void initTierPokemon() {
 		for (int k = 0; k < pokedex.length; k++) {
 			switch (tierlist[k]) {
 			case '0':
@@ -300,6 +300,5 @@ public class Data {
 				break;
 			}
 		}
-
 	}
 }

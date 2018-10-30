@@ -22,18 +22,18 @@ public class PanelStartDraft extends JPanel {
 		btnTierlist.setBounds(74, 38, 255, 71);
 		btnTierlist.addActionListener(e -> {
 			if (Gui.getwindow().isFinishdraft()) {
-				Manage.msgbox(
+				Manage.msgboxError(
 						"ACHTUNG: Änderungen hier, führen zum ... sollten funktionieren, tut es nur noch nicht^^ ",
 						Gui.getwindow().getFrmPokemonDraft());
 			}
-			Gui.getwindow().getPanelTierlist().opentierlist();
+			Gui.getwindow().getPanelTierlist().openTierlist();
 		});
 		panel.add(btnTierlist);
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
 		btnSpielerTeams.addActionListener(e -> {
 			if (Gui.getwindow().isFinishdraft()) {
-				Manage.msgbox(
+				Manage.msgboxError(
 						"ACHTUNG: Teams können vertauscht und der Name verändert werden " + "\n"
 								+ " Aber das hinzufügen und entfernen von Teams restart den Draft",
 						Gui.getwindow().getFrmPokemonDraft());
@@ -48,7 +48,7 @@ public class PanelStartDraft extends JPanel {
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
 		btnAnzahlDerPokemon.addActionListener(e -> {
 			if (Gui.getwindow().isFinishdraft()) {
-				Manage.msgbox("ACHTUNG: Änderungen hier, restarten den Draft!", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("ACHTUNG: Änderungen hier, restarten den Draft!", Gui.getwindow().getFrmPokemonDraft());
 			}
 			Gui.getwindow().visSettings();
 		});
@@ -59,7 +59,7 @@ public class PanelStartDraft extends JPanel {
 		btnReihenfolge.addActionListener(e -> {
 			if (Gui.getwindow().getPanelPlayer().teamname == null
 					|| Gui.getwindow().getPanelPlayer().ePfinalteam.getText().length() < 1) {
-				Manage.msgbox("Du kannst nicht ohne Teams keine Reihenfolge bilden",
+				Manage.msgboxError("Du kannst nicht ohne Teams keine Reihenfolge bilden",
 						Gui.getwindow().getFrmPokemonDraft());
 			} else {
 				Gui.getwindow().visOrder();
@@ -79,15 +79,15 @@ public class PanelStartDraft extends JPanel {
 					}
 				}
 				if (count > 880) {
-					Manage.msgbox("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
+					Manage.msgboxError("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
 							Gui.getwindow().getFrmPokemonDraft());
-					Gui.getwindow().getPanelTierlist().opentierlist();
+					Gui.getwindow().getPanelTierlist().openTierlist();
 					Gui.getwindow().visTierlist();
 					return;
 				}
 				if (Gui.getwindow().getPanelPlayer().teamname == null
 						|| Gui.getwindow().getPanelPlayer().ePfinalteam.getText().length() < 1) {
-					Manage.msgbox("Du hast keine Teams eingetragen", Gui.getwindow().getFrmPokemonDraft());
+					Manage.msgboxError("Du hast keine Teams eingetragen", Gui.getwindow().getFrmPokemonDraft());
 					Gui.getwindow().getPanelPlayer().remove(Gui.getwindow().getPanelPlayer().cBTeams);
 					Gui.getwindow().getPanelPlayer().teamlist();
 					Gui.getwindow().visPlayer();
@@ -98,13 +98,13 @@ public class PanelStartDraft extends JPanel {
 					pokeanzahl += k;
 				}
 				if (pokeanzahl == 0) {
-					Manage.msgbox("Du hast noch nicht die Anzhal der Pokemon ausgewählt",
+					Manage.msgboxError("Du hast noch nicht die Anzhal der Pokemon ausgewählt",
 							Gui.getwindow().getFrmPokemonDraft());
 					Gui.getwindow().visSettings();
 					return;
 				}
 				if (Gui.getwindow().getPanelOrder().getOrder() == 0) {
-					Manage.msgbox("Du hast noch keine Reihenfolge ausgewählt", Gui.getwindow().getFrmPokemonDraft());
+					Manage.msgboxError("Du hast noch keine Reihenfolge ausgewählt", Gui.getwindow().getFrmPokemonDraft());
 					Gui.getwindow().visOrder();
 					return;
 				}
@@ -126,17 +126,17 @@ public class PanelStartDraft extends JPanel {
 						break;
 					case 1:
 						if (Gui.getwindow().getPanelSettings().areSettingsChanges()) {
-							Manage.msgbox("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen",
+							Manage.msgboxError("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen",
 									Gui.getwindow().getFrmPokemonDraft());
 							Gui.getwindow().visSettings();
 						} else {
-							Gui.getwindow().getPanelSettings().tolastTier();
+							Gui.getwindow().getPanelSettings().toTheLastTier();
 							Gui.getwindow().getPanelDraft().opendraft();
 						}
 
 						break;
 					case 2:
-						Gui.getwindow().getPanelTierlist().opentierlist();
+						Gui.getwindow().getPanelTierlist().openTierlist();
 						break;
 					default:
 						break;
@@ -147,13 +147,13 @@ public class PanelStartDraft extends JPanel {
 			} else {
 				if (Gui.getwindow().getPanelPlayer().spieler.length != Gui.getwindow()
 						.getPanelDraft().draftauswahl.length) {
-					Gui.getwindow().getPanelDraft().resetdraft();
+					Gui.getwindow().getPanelDraft().resetDraft();
 					Gui.getwindow().getPanelDraft().remove(Gui.getwindow().getPanelDraft().cBchangeteam);
 					Gui.getwindow().getPanelDraft().opendraft();
 					return;
 				}
 				Gui.getwindow().getFrmPokemonDraft().setBounds(100, 100, 1100,
-						Gui.getwindow().getPanelDraft().getDrafthigth());
+						Gui.getwindow().getPanelDraft().getDraftHight());
 				Gui.getwindow().visDraft();
 			}
 		});

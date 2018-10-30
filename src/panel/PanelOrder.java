@@ -43,7 +43,7 @@ public class PanelOrder extends JPanel {
 		chckbxRandom.addActionListener(e -> {
 			if (chckbxRandom.isSelected()) {
 				order = 2;
-				randomiseteam();
+				randomiseTeams();
 			}
 			chckbxManuell.setSelected(false);
 		});
@@ -58,7 +58,7 @@ public class PanelOrder extends JPanel {
 		add(panel);
 	}
 
-	private void randomiseteam() {
+	private void randomiseTeams() {
 		String[] teamfolge;
 		String[] spieler = Gui.getwindow().getPanelPlayer().spieler;
 		teamfolge = new String[spieler.length * 2];

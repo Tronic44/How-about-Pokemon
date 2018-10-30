@@ -118,7 +118,7 @@ public class Gui {
 		JButton btnMainmenu = new JButton("MainMen\u00FC");
 		btnMainmenu.addActionListener(e -> {
 			if (panelDraft.isVisible()) {
-				Manage.msgbox("ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
+				Manage.msgboxError("ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
 						frmPokemonDraft);
 			}
 			frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
@@ -134,7 +134,7 @@ public class Gui {
 			}
 			if (panelDraft.isVisible()) {
 				visLoading();
-				client.Manage.msgbox(
+				client.Manage.msgboxError(
 						"ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
 						frmPokemonDraft);
 				visStartDraft();

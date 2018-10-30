@@ -42,7 +42,7 @@ public class Writer {
 			pWriter.println();
 			pWriter.close();
 		} catch (IOException ioe) {
-			Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWp-1" + "\n" + ioe.toString());
+			Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWp-1" + "\n" + ioe.toString());
 		}
 	}
 
@@ -68,7 +68,7 @@ public class Writer {
 			pWriter.println();
 			pWriter.close();
 		} catch (IOException ioe) {
-			Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWp-2" + "\n" + ioe.toString());
+			Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWp-2" + "\n" + ioe.toString());
 		}
 	}
 
@@ -117,7 +117,7 @@ public class Writer {
 					br.close();
 					return list;
 				} catch (Exception e) {
-					Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
+					Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
 					e.printStackTrace();
 				}
 				rewrite++;
@@ -128,7 +128,7 @@ public class Writer {
 					pWriter.close();
 				} catch (IOException ioe) {
 					if (rewrite != 0) {
-						Manage.msgboxerr("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
+						Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
 						ioe.printStackTrace();
 					}
 				}
@@ -154,7 +154,7 @@ public class Writer {
 			listname = drafts.getJSONArray("name");
 			drafts.remove("name");
 			if (listname.toList().contains(name)) {
-				Manage.msgbox("Der Name existiert schon", frame);
+				Manage.msgboxError("Der Name existiert schon", frame);
 				return 0;
 			}
 			listname.put(name);
@@ -163,7 +163,7 @@ public class Writer {
 			JSONObject aktuell = new JSONObject();
 			aktuell.put("poketier", Data.getTierlist());
 			aktuell.put("poketierclone", Data.getTierlistclone());
-			aktuell.put("team", Gui.getwindow().getPanelPlayer().getteam());
+			aktuell.put("team", Gui.getwindow().getPanelPlayer().getTeam());
 			aktuell.put("settings", Gui.getwindow().getPanelSettings().getsettings());
 
 			drafts.put(name, aktuell);
@@ -173,7 +173,7 @@ public class Writer {
 				file.write(drafts.toString(4));
 				return 1;
 			} catch (IOException e) {
-				Manage.msgbox("Beim schreiben der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-1" + "\n"
+				Manage.msgboxError("Beim schreiben der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-1" + "\n"
 						+ e.toString(), frame);
 			}
 		} catch (Exception e) {
@@ -190,7 +190,7 @@ public class Writer {
 					pWriter.print("{" + "\n" + "\"" + "name" + "\"" + ": [" + "\n" + "]" + "}");
 					safeasjson(name, frame);
 				} catch (IOException g) {
-					Manage.msgbox("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-2" + "\n"
+					Manage.msgboxError("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-2" + "\n"
 							+ g.toString(), frame);
 					return 0;
 				}
@@ -234,7 +234,7 @@ public class Writer {
 				pWriter = new PrintWriter(new BufferedWriter(new FileWriter("Draft.json")), true);
 				pWriter.print("{" + "\n" + "\"" + "name" + "\"" + ": [" + "\n" + "]" + "}");
 			} catch (IOException g) {
-				Manage.msgbox("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-1" + "\n"
+				Manage.msgboxError("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-1" + "\n"
 						+ g.toString(), frame);
 				return null;
 			}
@@ -242,7 +242,7 @@ public class Writer {
 			try {
 				return readjson(frame);
 			} catch (Exception f) {
-				Manage.msgbox("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-2" + "\n"
+				Manage.msgboxError("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-2" + "\n"
 						+ f.toString(), frame);
 				return null;
 			}
@@ -259,7 +259,7 @@ public class Writer {
 						pWriter = new PrintWriter(new BufferedWriter(new FileWriter("Draft.json")), true);
 						pWriter.print("{" + "\n" + "\"" + "name" + "\"" + ": [" + "\n" + "]" + "}");
 					} catch (IOException g) {
-						Manage.msgbox("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-3"
+						Manage.msgboxError("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-3"
 								+ "\n" + g.toString(), frame);
 						return null;
 					}
@@ -267,7 +267,7 @@ public class Writer {
 					try {
 						return readjson(frame);
 					} catch (Exception f) {
-						Manage.msgbox("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-4"
+						Manage.msgboxError("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-4"
 								+ "\n" + f.toString(), frame);
 						return null;
 					}
@@ -277,12 +277,12 @@ public class Writer {
 					return null;
 				}
 			} catch (Exception f) {
-				Manage.msgbox("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-5" + "\n"
+				Manage.msgboxError("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-5" + "\n"
 						+ f.toString(), frame);
 				return null;
 			}
 		} catch (IOException e) {
-			Manage.msgbox(
+			Manage.msgboxError(
 					"Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-readjson-6" + "\n" + e.toString(),
 					frame);
 			return null;

@@ -121,15 +121,15 @@ public class PanelDraft extends JPanel {
 		}
 		Gui.getwindow().getPanelDraft().add(cBchangeteam);
 		Gui.getwindow().getFrmPokemonDraft().setBounds(Gui.getwindow().getFrmPokemonDraft().getX(),
-				Gui.getwindow().getFrmPokemonDraft().getY(), 1100, getDrafthigth());
+				Gui.getwindow().getFrmPokemonDraft().getY(), 1100, getDraftHight());
 		if (!Gui.getwindow().isFinishdraft()) {
-			Data.inittierpokemon();
-			draftlayout();
+			Data.initTierPokemon();
+			draftLayout();
 		}
 		Gui.getwindow().visDraft();
 	}
 
-	protected int getDrafthigth() {
+	protected int getDraftHight() {
 		int hight = 100;
 		for (int k : Gui.getwindow().getPanelSettings().getCountauswahl()) {
 			if (k == 0) {
@@ -160,7 +160,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void draftlayout() {
+	private void draftLayout() {
 		Gui.getwindow().visLoading();
 		for (FilterComboBox k : cbDraft) {
 			try {
@@ -184,19 +184,19 @@ public class PanelDraft extends JPanel {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, line - 60, 1100, 2);
 				Gui.getwindow().getPanelDraft().add(separator);
-				labellist[i] = new JLabel(Gui.getwindow().getPanelTierlist().gettiernamen(i));
+				labellist[i] = new JLabel(Gui.getwindow().getPanelTierlist().getTiernamen(i));
 				labellist[i].setFont(new Font("Tahoma", Font.BOLD, 11));
 				labellist[i].setBounds(54, line - 40, 550, 14);
 				Gui.getwindow().getPanelDraft().add(labellist[i]);
 			}
 			try {
-				int[] nxco = nextcolumn(pkan);
+				int[] nxco = nextDraftColumn(pkan);
 				for (int co = 0; co < pkan; co++) {
-					cbDraft[count] = new FilterComboBox(Arrays.asList(Data.gettierpokemon(i)));
+					cbDraft[count] = new FilterComboBox(Arrays.asList(Data.getTierPokemon(i)));
 					cbDraft[count].addPopupMenuListener(new PopupListener(cbDraft[count]) {
 						@Override
 						public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-							changedraftpokemon(this.box);
+							changeDraftPokemon(this.box);
 							if (box.getSelectedItem() != null && (box.getSelectedIndex() >= 0
 									|| !box.getSelectedItem().equals("keine Doppelten"))) {
 								box.updateUI();
@@ -243,7 +243,7 @@ public class PanelDraft extends JPanel {
 		Gui.getwindow().setFinishdraft(true);
 	}
 
-	private int[] nextcolumn(int k) {
+	private int[] nextDraftColumn(int k) {
 		if (k > 3) {
 			k = 3;
 		}
@@ -260,7 +260,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void resetdraft() {
+	protected void resetDraft() {
 		draftauswahl = null;
 		for (JComboBox<String> k : cbDraft) {
 			try {
@@ -271,7 +271,7 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
-	private void changedraftpokemon(JComboBox<String> box) {
+	private void changeDraftPokemon(JComboBox<String> box) {
 		for (int k = 0; k < cbDraft.length; k++) {
 			for (int j = 0; j < cbDraft.length; j++) {
 				if (k != j) {
@@ -292,9 +292,13 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
-	protected void updatetiernamen(int k, String text) throws NullPointerException {
+	protected void updateTiernamen(int k, String text) throws NullPointerException {
 		Gui.getwindow().getPanelTierlist().setTiernamen(k, text);
 		labellist[k].setText(text.trim());
+	}
+
+	protected void updateTierPokemon() {
+
 	}
 
 	private void selectnext(int teamindex, String name) {

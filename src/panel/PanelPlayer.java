@@ -63,11 +63,11 @@ public class PanelPlayer extends JPanel {
 				}
 			}
 			if ((int) spinnerteam.getValue() == 0) {
-				Manage.msgbox("Du willst doch nicht ohne auch nur ein Team spielen, oder?",
+				Manage.msgboxError("Du willst doch nicht ohne auch nur ein Team spielen, oder?",
 						Gui.getwindow().getFrmPokemonDraft());
 			} else {
 				if (count != (int) spinnerteam.getValue()) {
-					Manage.msgbox(
+					Manage.msgboxError(
 							"Deine Liste Stimmt nicht mit der Team Anzahl überein" + "\n"
 									+ "Denk dran: Teams haben niemals nur einen Buchstaben!",
 							Gui.getwindow().getFrmPokemonDraft());
@@ -123,21 +123,21 @@ public class PanelPlayer extends JPanel {
 		JButton btnsafeteams = new JButton("Speichern");
 		btnsafeteams.addActionListener(e -> {
 			if (ePfinalteam.getText().length() < 1) {
-				Manage.msgbox("Du hast keine Teams bestätigt", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Du hast keine Teams bestätigt", Gui.getwindow().getFrmPokemonDraft());
 				return;
 			}
 			if (tFTeams.getText().equals("") || tFTeams.getText().equals("Gespeichert")) {
-				Manage.msgbox("Du hast keinen Namen eingegeben", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Du hast keinen Namen eingegeben", Gui.getwindow().getFrmPokemonDraft());
 				tFTeams.setText("");
 			} else {
 				if (tFTeams.getText().contains(":")) {
-					Manage.msgbox("Der Name das keinen Doppelpunkt enthalten", Gui.getwindow().getFrmPokemonDraft());
+					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten", Gui.getwindow().getFrmPokemonDraft());
 				} else {
 					if (ePfinalteam.getText().length() > 2) {
 						Boolean b = true;
 						for (String k : teamname) {
 							if (tFTeams.getText().equals(k)) {
-								Manage.msgbox("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
+								Manage.msgboxError("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
 								b = false;
 								break;
 							}
@@ -196,7 +196,7 @@ public class PanelPlayer extends JPanel {
 		cBTeams.setModel(new DefaultComboBoxModel<String>(teamname));
 	}
 
-	public Object[] getteam() {
+	public Object[] getTeam() {
 		StringBuilder finalteam = new StringBuilder("");
 		try {
 			for (String k : spieler) {
