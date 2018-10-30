@@ -31,7 +31,7 @@ public class Gui {
 				window = new Gui();
 				window.frmPokemonDraft.setVisible(true);
 			} catch (Exception e) {
-//				e.printStackTrace();
+				e.printStackTrace();
 			}
 		});
 	}

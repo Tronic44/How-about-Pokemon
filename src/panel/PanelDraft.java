@@ -38,6 +38,7 @@ public class PanelDraft extends JPanel {
 	private FilterComboBox[] cbDraft = new FilterComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
 			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
 	private int changeteam = 0;
+	private JLabel[] labellist = new JLabel[6];
 
 	public PanelDraft() {
 
@@ -91,7 +92,7 @@ public class PanelDraft extends JPanel {
 					try {
 						draftauswahl[changeteam][k] = cbDraft[k].getSelectedIndex();
 					} catch (Exception e) {
-						e.printStackTrace();
+						break;
 					}
 				}
 			}
@@ -183,10 +184,10 @@ public class PanelDraft extends JPanel {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, line - 60, 1100, 2);
 				Gui.getwindow().getPanelDraft().add(separator);
-				JLabel lblTiername = new JLabel(Gui.getwindow().getPanelTierlist().gettiernamen(i));
-				lblTiername.setFont(new Font("Tahoma", Font.BOLD, 11));
-				lblTiername.setBounds(54, line - 40, 550, 14);
-				Gui.getwindow().getPanelDraft().add(lblTiername);
+				labellist[i] = new JLabel(Gui.getwindow().getPanelTierlist().gettiernamen(i));
+				labellist[i].setFont(new Font("Tahoma", Font.BOLD, 11));
+				labellist[i].setBounds(54, line - 40, 550, 14);
+				Gui.getwindow().getPanelDraft().add(labellist[i]);
 			}
 			try {
 				int[] nxco = nextcolumn(pkan);
@@ -289,6 +290,11 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		}
+	}
+
+	protected void updatetiernamen(int k, String text) throws NullPointerException {
+		Gui.getwindow().getPanelTierlist().setTiernamen(k, text);
+		labellist[k].setText(text.trim());
 	}
 
 	private void selectnext(int teamindex, String name) {

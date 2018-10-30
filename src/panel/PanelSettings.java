@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -145,7 +146,19 @@ public class PanelSettings extends JPanel {
 					}
 				}
 			}
-			Gui.getwindow().setFinishdraft(false);
+			if (lblissettingsbestaetigung.getText().equals("Änderungen wurden übernommen!")) {
+				return;
+			} else if (Gui.getwindow().isFinishdraft()) {
+				Object[] options = { "Fortfahren", "Abbrechen" };
+				if (JOptionPane.showOptionDialog(Gui.getwindow().getFrmPokemonDraft(),
+						"Achtung: Die Änderungen die Du gemacht hast restarten den Draft",
+						"Willst du wiklich Fortfahren", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+						null, options, options[1])==1) {
+					return;
+				}else {
+					Gui.getwindow().setFinishdraft(false);
+				}
+			}
 			Data.cloneTierlist();
 			int count = Gui.getwindow().getPanelTierlist()
 					.setRadioButton(
@@ -208,38 +221,122 @@ public class PanelSettings extends JPanel {
 		btnsafetier.setBounds(42, 342, 116, 23);
 		panel.add(btnsafetier);
 
+		tFS = new JTextField();
+		tFS.addCaretListener(e -> {
+			String text = tFS.getText().trim();
+			try {
+				if (text.equals("")) {
+					lblissettingsbestaetigung.setText("");
+				} else {
+					Gui.getwindow().getPanelDraft().updatetiernamen(0, text);
+					if (Gui.getwindow().isFinishdraft()) {
+						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
+					}
+				}
+			} catch (Exception f) {
+				lblissettingsbestaetigung.setText("");
+			}
+		});
+		tFS.setColumns(10);
+		tFS.setBounds(98, 83, 86, 20);
+		panel.add(tFS);
+
 		tFA = new JTextField();
-		tFA.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
+		tFA.addCaretListener(e -> {
+			String text = tFA.getText().trim();
+			try {
+				if (text.equals("")) {
+					lblissettingsbestaetigung.setText("");
+				} else {
+					Gui.getwindow().getPanelDraft().updatetiernamen(1, text);
+					if (Gui.getwindow().isFinishdraft()) {
+						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
+					}
+				}
+			} catch (Exception f) {
+				lblissettingsbestaetigung.setText("");
+			}
+		});
 		tFA.setColumns(10);
 		tFA.setBounds(98, 123, 86, 20);
 		panel.add(tFA);
 
 		tFB = new JTextField();
-		tFB.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
+		tFB.addCaretListener(e -> {
+			String text = tFB.getText().trim();
+			try {
+				if (text.equals("")) {
+					lblissettingsbestaetigung.setText("");
+				} else {
+					Gui.getwindow().getPanelDraft().updatetiernamen(2, text);
+					if (Gui.getwindow().isFinishdraft()) {
+						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
+					}
+				}
+			} catch (Exception f) {
+				lblissettingsbestaetigung.setText("");
+			}
+		});
 		tFB.setColumns(10);
 		tFB.setBounds(98, 164, 86, 20);
 		panel.add(tFB);
 
 		tFC = new JTextField();
-		tFC.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
+		tFC.addCaretListener(e -> {
+			String text = tFC.getText().trim();
+			try {
+				if (text.equals("")) {
+					lblissettingsbestaetigung.setText("");
+				} else {
+					Gui.getwindow().getPanelDraft().updatetiernamen(3, text);
+					if (Gui.getwindow().isFinishdraft()) {
+						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
+					}
+				}
+			} catch (Exception f) {
+				lblissettingsbestaetigung.setText("");
+			}
+		});
 		tFC.setColumns(10);
 		tFC.setBounds(98, 204, 86, 20);
 		panel.add(tFC);
 
 		tFD = new JTextField();
-		tFD.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
+		tFD.addCaretListener(e -> {
+			String text = tFD.getText().trim();
+			try {
+				if (text.equals("")) {
+					lblissettingsbestaetigung.setText("");
+				} else {
+					Gui.getwindow().getPanelDraft().updatetiernamen(4, text);
+					if (Gui.getwindow().isFinishdraft()) {
+						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
+					}
+				}
+			} catch (Exception f) {
+				lblissettingsbestaetigung.setText("");
+			}
+		});
 		tFD.setColumns(10);
 		tFD.setBounds(98, 247, 86, 20);
 		panel.add(tFD);
 
-		tFS = new JTextField();
-		tFS.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
-		tFS.setColumns(10);
-		tFS.setBounds(98, 83, 86, 20);
-		panel.add(tFS);
-
 		tFE = new JTextField();
-		tFE.addCaretListener(e -> lblissettingsbestaetigung.setText(""));
+		tFE.addCaretListener(e -> {
+			String text = tFE.getText().trim();
+			try {
+				if (text.equals("")) {
+					lblissettingsbestaetigung.setText("");
+				} else {
+					Gui.getwindow().getPanelDraft().updatetiernamen(5, text);
+					if (Gui.getwindow().isFinishdraft()) {
+						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
+					}
+				}
+			} catch (Exception f) {
+				lblissettingsbestaetigung.setText("");
+			}
+		});
 		tFE.setColumns(10);
 		tFE.setBounds(98, 290, 86, 20);
 		panel.add(tFE);
