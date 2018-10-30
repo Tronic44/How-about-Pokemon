@@ -164,7 +164,7 @@ public class Writer {
 			aktuell.put("poketier", Data.getTierlist());
 			aktuell.put("poketierclone", Data.getTierlistclone());
 			aktuell.put("team", Gui.getwindow().getPanelPlayer().getTeam());
-			aktuell.put("settings", Gui.getwindow().getPanelSettings().getsettings());
+			aktuell.put("settings", Gui.getwindow().getPanelSettings().getSettings());
 
 			drafts.put(name, aktuell);
 

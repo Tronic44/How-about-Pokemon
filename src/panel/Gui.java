@@ -232,6 +232,7 @@ public class Gui {
 
 	protected void visTierlist() {
 		visLoading();
+		getPanelTierlist().tierlist();
 		panelTierlist.setVisible(true);
 		panelloading.setVisible(false);
 	}

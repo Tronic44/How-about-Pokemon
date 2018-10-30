@@ -242,7 +242,9 @@ public class PanelTierlist extends JPanel {
 		} catch (Exception e) {
 			safedNamen = new String[] { "Lese Error" };
 		}
+		cBTierlist = new JComboBox<>();
 		cBTierlist.setModel(new DefaultComboBoxModel<String>(safedNamen));
+		cBTierlist.setBounds(248, 447, 124, 28);
 		try {
 			Gui.getwindow().getPanelTierlist().add(cBTierlist);
 		} catch (Exception e) {
