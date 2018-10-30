@@ -3,6 +3,8 @@ package client;
 import java.util.ArrayList;
 import java.util.List;
 
+import panel.Gui;
+
 /**
  * Die Klasse Data, dient einzig und alleine dem Speichern von Programm
  * übergreifenden Daten, wie dem pokedex oder der Tierlist.
@@ -325,22 +327,35 @@ public class Data {
 
 	private static void removePokemonfromTier(char ch, int k) {
 		if (ch != 'S' && pokemontier1.contains(pokedex[k])) {
-			pokemontier1.set(pokemontier1.indexOf(pokedex[k]), "");
+			int ort = pokemontier1.indexOf(pokedex[k]);
+			pokemontier1.remove(ort);
+			Gui.getwindow().getPanelDraft().renewDraftauswahl(ort);
 		}
 		if (ch != 'A' && pokemontier2.contains(pokedex[k])) {
-			pokemontier2.set(pokemontier2.indexOf(pokedex[k]), "");
+			int ort = pokemontier2.indexOf(pokedex[k]);
+			pokemontier2.remove(ort);
+			Gui.getwindow().getPanelDraft().renewDraftauswahl(ort);
 		}
 		if (ch != 'B' && pokemontier3.contains(pokedex[k])) {
-			pokemontier3.set(pokemontier3.indexOf(pokedex[k]), "");
+			int ort = pokemontier3.indexOf(pokedex[k]);
+			pokemontier3.remove(ort);
+			Gui.getwindow().getPanelDraft().renewDraftauswahl(ort);
 		}
 		if (ch != 'C' && pokemontier4.contains(pokedex[k])) {
-			pokemontier4.set(pokemontier4.indexOf(pokedex[k]), "");
+			int ort = pokemontier4.indexOf(pokedex[k]);
+			pokemontier4.remove(ort);
+			Gui.getwindow().getPanelDraft().renewDraftauswahl(ort);
 		}
 		if (ch != 'D' && pokemontier5.contains(pokedex[k])) {
-			pokemontier5.set(pokemontier5.indexOf(pokedex[k]), "");
+			int ort = pokemontier5.indexOf(pokedex[k]);
+			pokemontier5.remove(ort);
+			Gui.getwindow().getPanelDraft().renewDraftauswahl(ort);
 		}
 		if (ch != 'E' && pokemontier6.contains(pokedex[k])) {
-			pokemontier6.set(pokemontier6.indexOf(pokedex[k]), "");
+			int ort = pokemontier6.indexOf(pokedex[k]);
+			pokemontier6.remove(ort);
+			Gui.getwindow().getPanelDraft().renewDraftauswahl(ort);
 		}
 	}
+
 }

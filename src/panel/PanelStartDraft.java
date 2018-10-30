@@ -141,7 +141,7 @@ public class PanelStartDraft extends JPanel {
 				}
 			} else {
 				if (Gui.getwindow().getPanelPlayer().spieler.length != Gui.getwindow()
-						.getPanelDraft().draftauswahl.length) {
+						.getPanelDraft().getDraftauswahllength()) {
 					Gui.getwindow().getPanelDraft().resetDraft();
 					Gui.getwindow().getPanelDraft().remove(Gui.getwindow().getPanelDraft().cBchangeteam);
 					Gui.getwindow().getPanelDraft().opendraft();

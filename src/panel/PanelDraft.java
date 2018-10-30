@@ -18,7 +18,7 @@ import client.PopupListener;
 public class PanelDraft extends JPanel {
 
 	private JPanel panel = new JPanel();
-	protected int[][] draftauswahl;
+	private int[][] draftauswahl;
 	protected JComboBox<String> cBchangeteam = new JComboBox<>();
 	private FilterComboBox cBD01;
 	private FilterComboBox cBD02;
@@ -313,6 +313,25 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		}
+	}
+
+	public void renewDraftauswahl(int ort) {
+		int[][] safedauswahl = draftauswahl.clone();
+		for (int f = 0; f < safedauswahl.length; f++) {
+			for (int i = 0; i < safedauswahl[0].length; i++) {
+				if (safedauswahl[f][i] == ort) {
+					safedauswahl[f][i] = -1;
+				}
+				if (safedauswahl[f][i] > ort) {
+					safedauswahl[f][i] -=  1;
+				}
+			}
+		}
+		draftauswahl = safedauswahl;
+	}
+
+	public int getDraftauswahllength() {
+		return draftauswahl.length;
 	}
 
 	private void selectnext(int teamindex, String name) {

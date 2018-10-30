@@ -35,7 +35,7 @@ public class PanelTierlist extends JPanel {
 	private String[] safedNamen;
 	private String[] tiernamen = new String[] { "S", "A", "B", "C", "D", "E" };
 	private JTextField tFsearch;
-	private List list;
+	private List pokemonListe;
 	private JTextField tFPoke;
 	private JTextField tFTiername;
 	private JComboBox<String> cBTierlist = new JComboBox<>();
@@ -50,15 +50,15 @@ public class PanelTierlist extends JPanel {
 		lblPokemon.setBounds(20, 0, 73, 28);
 		panel.add(lblPokemon);
 
-		list = new List();
-		list.addMouseListener(new MouseAdapter() {
+		pokemonListe = new List();
+		pokemonListe.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				changeTier();
 			}
 		});
-		list.setBounds(20, 33, 197, 516);
-		panel.add(list);
+		pokemonListe.setBounds(20, 33, 197, 516);
+		panel.add(pokemonListe);
 
 		tFPoke = new JTextField();
 		tFPoke.setEditable(false);
@@ -69,9 +69,9 @@ public class PanelTierlist extends JPanel {
 
 		radioButtonS = new JRadioButton(tiernamen[0]);
 		radioButtonS.addActionListener(e -> {
-			Data.editTierlist(list.getSelectedIndex(), 'S');
-			if (list.getSelectedIndex() < Data.getPokedex().length)
-				list.select(list.getSelectedIndex() + 1);
+			Data.editTierlist(pokemonListe.getSelectedIndex(), 'S');
+			if (!Gui.getwindow().isFinishdraft() && pokemonListe.getSelectedIndex() < Data.getPokedex().length)
+				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
@@ -81,9 +81,9 @@ public class PanelTierlist extends JPanel {
 
 		radioButtonA = new JRadioButton(tiernamen[1]);
 		radioButtonA.addActionListener(e -> {
-			Data.editTierlist(list.getSelectedIndex(), 'A');
-			if (list.getSelectedIndex() < Data.getPokedex().length)
-				list.select(list.getSelectedIndex() + 1);
+			Data.editTierlist(pokemonListe.getSelectedIndex(), 'A');
+			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < Data.getPokedex().length)
+				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
@@ -93,9 +93,9 @@ public class PanelTierlist extends JPanel {
 
 		radioButtonB = new JRadioButton(tiernamen[2]);
 		radioButtonB.addActionListener(e -> {
-			Data.editTierlist(list.getSelectedIndex(), 'B');
-			if (list.getSelectedIndex() < Data.getPokedex().length)
-				list.select(list.getSelectedIndex() + 1);
+			Data.editTierlist(pokemonListe.getSelectedIndex(), 'B');
+			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < Data.getPokedex().length)
+				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
@@ -105,9 +105,9 @@ public class PanelTierlist extends JPanel {
 
 		radioButtonC = new JRadioButton(tiernamen[3]);
 		radioButtonC.addActionListener(e -> {
-			Data.editTierlist(list.getSelectedIndex(), 'C');
-			if (list.getSelectedIndex() < Data.getPokedex().length)
-				list.select(list.getSelectedIndex() + 1);
+			Data.editTierlist(pokemonListe.getSelectedIndex(), 'C');
+			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < Data.getPokedex().length)
+				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
@@ -117,9 +117,9 @@ public class PanelTierlist extends JPanel {
 
 		radioButtonD = new JRadioButton(tiernamen[4]);
 		radioButtonD.addActionListener(e -> {
-			Data.editTierlist(list.getSelectedIndex(), 'D');
-			if (list.getSelectedIndex() < Data.getPokedex().length)
-				list.select(list.getSelectedIndex() + 1);
+			Data.editTierlist(pokemonListe.getSelectedIndex(), 'D');
+			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < Data.getPokedex().length)
+				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
@@ -129,9 +129,9 @@ public class PanelTierlist extends JPanel {
 
 		radioButtonE = new JRadioButton(tiernamen[5]);
 		radioButtonE.addActionListener(e -> {
-			Data.editTierlist(list.getSelectedIndex(), 'E');
-			if (list.getSelectedIndex() < Data.getPokedex().length)
-				list.select(list.getSelectedIndex() + 1);
+			Data.editTierlist(pokemonListe.getSelectedIndex(), 'E');
+			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < Data.getPokedex().length)
+				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
@@ -141,9 +141,9 @@ public class PanelTierlist extends JPanel {
 
 		radioButtonX = new JRadioButton("Banned");
 		radioButtonX.addActionListener(e -> {
-			Data.editTierlist(list.getSelectedIndex(), 'X');
-			if (list.getSelectedIndex() < Data.getPokedex().length)
-				list.select(list.getSelectedIndex() + 1);
+			Data.editTierlist(pokemonListe.getSelectedIndex(), 'X');
+			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < Data.getPokedex().length)
+				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
 		});
@@ -165,7 +165,8 @@ public class PanelTierlist extends JPanel {
 				tFTiername.setText("");
 			} else {
 				if (tFTiername.getText().contains(":")) {
-					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten", Gui.getwindow().getFrmPokemonDraft());
+					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten",
+							Gui.getwindow().getFrmPokemonDraft());
 
 				} else {
 					Boolean b = true;
@@ -193,7 +194,7 @@ public class PanelTierlist extends JPanel {
 		JButton btnloadtier = new JButton("Laden");
 		btnloadtier.addActionListener(e -> {
 			Data.setTierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
-			list.select(0);
+			pokemonListe.select(0);
 			changeTier();
 		});
 		btnloadtier.setBounds(266, 486, 89, 23);
@@ -216,7 +217,7 @@ public class PanelTierlist extends JPanel {
 					search = null;
 				}
 				if (search != null) {
-					list.select(Data.getPokedex(search));
+					pokemonListe.select(Data.getPokedex(search));
 				}
 			}
 		});
@@ -266,8 +267,8 @@ public class PanelTierlist extends JPanel {
 	}
 
 	protected void changeTier() {
-		tFPoke.setText(list.getSelectedItem());
-		switch (Data.getTierlist(list.getSelectedIndex())) {
+		tFPoke.setText(pokemonListe.getSelectedItem());
+		switch (Data.getTierlist(pokemonListe.getSelectedIndex())) {
 		case 'S':
 			radioButtonS.setSelected(true);
 			break;
@@ -299,11 +300,11 @@ public class PanelTierlist extends JPanel {
 	}
 
 	protected void openTierlist() {
-		list.removeAll();
+		pokemonListe.removeAll();
 		for (int i = 0; i < Data.getPokedex().length; i++) {
-			list.add(Data.getPokedex(i));
+			pokemonListe.add(Data.getPokedex(i));
 		}
-		list.select(0);
+		pokemonListe.select(0);
 		changeTier();
 		tierlist();
 		Gui.getwindow().visTierlist();
