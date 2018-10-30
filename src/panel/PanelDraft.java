@@ -91,7 +91,7 @@ public class PanelDraft extends JPanel {
 					try {
 						draftauswahl[changeteam][k] = cbDraft[k].getSelectedIndex();
 					} catch (Exception e) {
-
+						e.printStackTrace();
 					}
 				}
 			}
@@ -233,7 +233,6 @@ public class PanelDraft extends JPanel {
 				}
 				sep = false;
 			} catch (Exception e) {
-				e.getStackTrace();
 				pokeanzahl[i] -= 3;
 				i -= 1;
 				sep = true;
@@ -247,21 +246,16 @@ public class PanelDraft extends JPanel {
 		if (k > 3) {
 			k = 3;
 		}
-		int[] spalte;
 		switch (k) {
 		case 1:
-			spalte = new int[] { 464 };
-			break;
+			return new int[] { 464 };
 		case 2:
-			spalte = new int[] { 260, 675 };
-			break;
+			return new int[] { 260, 675 };
 		case 3:
-			spalte = new int[] { 54, 464, 860 };
-			break;
+			return new int[] { 54, 464, 860 };
 		default:
 			return new int[] {};
 		}
-		return spalte;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -271,6 +265,7 @@ public class PanelDraft extends JPanel {
 			try {
 				k.setSelectedIndex(-1);
 			} catch (Exception f) {
+				break;
 			}
 		}
 	}
@@ -285,13 +280,11 @@ public class PanelDraft extends JPanel {
 							return;
 						}
 						if (cbDraft[k].getSelectedItem().equals(cbDraft[j].getSelectedItem())) {
-							box.setEditable(true);
 							box.setSelectedItem("keine Doppelten");
-							box.setEditable(false);
 							return;
 						}
 					} catch (Exception e) {
-
+						break;
 					}
 				}
 			}

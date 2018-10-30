@@ -31,6 +31,7 @@ public class PanelTierlist extends JPanel {
 	private JRadioButton radioButtonnull;
 	private ButtonGroup tierlistbuttongruppe;
 	private String[][] tierlist;
+	private String[] safedNamen;
 	private String[] tiernamen;
 	private JTextField tFsearch;
 	private List list;
@@ -148,7 +149,7 @@ public class PanelTierlist extends JPanel {
 
 				} else {
 					Boolean b = true;
-					for (String k : tiernamen) {
+					for (String k : safedNamen) {
 						if (tFTiername.getText().equals(k)) {
 							Manage.msgbox("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
 							b = false;
@@ -228,23 +229,23 @@ public class PanelTierlist extends JPanel {
 		} catch (Exception e) {
 		}
 		try {
-			tiernamen = new String[tierlist.length];
-			for (int i = 0; i < tiernamen.length; i++) {
+			safedNamen = new String[tierlist.length];
+			for (int i = 0; i < safedNamen.length; i++) {
 				try {
-					tiernamen[i] = tierlist[i][0];
+					safedNamen[i] = tierlist[i][0];
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		} catch (Exception e) {
-			tiernamen = new String[] { "Lese Error" };
+			safedNamen = new String[] { "Lese Error" };
 		}
 		try {
 			Gui.getwindow().getPanelTierlist().remove(cBTierlist);
 		} catch (Exception e) {
 
 		}
-		cBTierlist = new JComboBox(tiernamen);
+		cBTierlist = new JComboBox(safedNamen);
 		cBTierlist.setBounds(248, 447, 124, 28);
 		try {
 			Gui.getwindow().getPanelTierlist().add(cBTierlist);
@@ -313,13 +314,8 @@ public class PanelTierlist extends JPanel {
 		Gui.getwindow().visTierlist();
 	}
 
-	protected void settiernamen(int k, String eintrag) {
-		if (k < tiernamen.length) {
-			tiernamen[k] = eintrag;
-		}
-	}
-
 	protected int setRadioButton(boolean[] b, String[] st) {
+		tiernamen = new String[b.length];
 		JRadioButton[] jRB = new JRadioButton[] { radioButtonS, radioButtonA, radioButtonB, radioButtonC, radioButtonD,
 				radioButtonE };
 		int count = 0;
@@ -327,10 +323,10 @@ public class PanelTierlist extends JPanel {
 			jRB[k].setEnabled(b[k]);
 			if (b[k]) {
 				jRB[k].setText(st[k]);
-				settiernamen(k, st[k]);
+				tiernamen[k] = st[k];
 			} else {
 				jRB[k].setText("");
-				settiernamen(k, "");
+				tiernamen[k] = "";
 				count++;
 			}
 		}

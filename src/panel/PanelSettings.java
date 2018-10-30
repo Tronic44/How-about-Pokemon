@@ -147,11 +147,11 @@ public class PanelSettings extends JPanel {
 			}
 			Gui.getwindow().setFinishdraft(false);
 			Data.cloneTierlist();
-			int count = Gui.getwindow().getPanelTierlist().setRadioButton(
-					new boolean[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
-							checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected() },
-					new String[] { tFS.getText(), tFA.getText(), tFB.getText(), tFC.getText(), tFD.getText(),
-							tFE.getText() });
+			int count = Gui.getwindow().getPanelTierlist()
+					.setRadioButton(
+							new boolean[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
+									checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected() },
+							tiernamenlist);
 
 			for (int i = 0; i < count; i++) {
 				for (int k = 0; k < Data.getTierlist().length; k++) {

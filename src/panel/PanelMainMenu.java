@@ -11,7 +11,7 @@ import client.Manage;
 public class PanelMainMenu extends JPanel {
 
 	private JPanel panel;
-	private static final Font FONT = new Font(Manage.FONT, Font.BOLD, 31);
+	private static final Font FONT = new Font(Manage.FONT, Font.BOLD, 23);
 
 	public PanelMainMenu() {
 
@@ -22,7 +22,7 @@ public class PanelMainMenu extends JPanel {
 		JLabel lblPokemonRandomDraft = new JLabel("Pokemon Random Draft");
 		lblPokemonRandomDraft.setBounds(17, 11, 374, 38);
 		panel.add(lblPokemonRandomDraft);
-		lblPokemonRandomDraft.setFont(FONT);
+		lblPokemonRandomDraft.setFont(new Font(Manage.FONT, Font.BOLD, 31));
 
 		JButton btnNewButton = new JButton("Start Draft");
 		btnNewButton.addActionListener(e -> Gui.getwindow().visStartDraft());
