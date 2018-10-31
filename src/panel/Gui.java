@@ -32,11 +32,15 @@ public class Gui {
 	public static void startMainMenu() {
 		EventQueue.invokeLater(() -> {
 			try {
+				Manage.msgboxErfolg("Pre-release" + "\n" + "You can test all valid functions in the program" + "\n"
+						+ "Please contact me and send me all files of the program if an error occurs.", null);
+
 				window = new Gui();
 				window.frmPokemonDraft.setVisible(true);
 			} catch (Exception e) {
 				try {
-					e.printStackTrace(new PrintWriter(new BufferedWriter(new FileWriter("Error" + ".txt", true)), true));
+					e.printStackTrace(
+							new PrintWriter(new BufferedWriter(new FileWriter("Error" + ".txt", true)), true));
 					Manage.msgboxError("Ein Error ist aufgetreten und gespeichert", null);
 				} catch (IOException e1) {
 				}
@@ -167,7 +171,7 @@ public class Gui {
 				Manage.msgboxError("konnte nicht gespeichert werden", frmPokemonDraft);
 			}
 		});
-		
+
 		menuBar.add(btnDebug);
 	}
 
