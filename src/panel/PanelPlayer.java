@@ -131,7 +131,8 @@ public class PanelPlayer extends JPanel {
 				tFTeams.setText("");
 			} else {
 				if (tFTeams.getText().contains(":")) {
-					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten", Gui.getwindow().getFrmPokemonDraft());
+					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten",
+							Gui.getwindow().getFrmPokemonDraft());
 				} else {
 					if (ePfinalteam.getText().length() > 2) {
 						Boolean b = true;
@@ -187,7 +188,6 @@ public class PanelPlayer extends JPanel {
 				try {
 					teamname[i] = teamlist[i][0];
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 		} catch (Exception e) {

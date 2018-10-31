@@ -335,6 +335,6 @@ public class PanelDraft extends JPanel {
 	}
 
 	private void selectnext(int teamindex, String name) {
-		System.out.println(teamindex + " " + name);
+//		System.out.println(teamindex + " " + name);
 	}
 }

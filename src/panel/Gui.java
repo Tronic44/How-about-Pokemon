@@ -9,6 +9,10 @@ import javax.swing.JPanel;
 import client.Manage;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Gui {
 
@@ -31,7 +35,11 @@ public class Gui {
 				window = new Gui();
 				window.frmPokemonDraft.setVisible(true);
 			} catch (Exception e) {
-				e.printStackTrace();
+				try {
+					e.printStackTrace(new PrintWriter(new BufferedWriter(new FileWriter("Error" + ".txt", true)), true));
+					Manage.msgboxError("Ein Error ist aufgetreten und gespeichert", null);
+				} catch (IOException e1) {
+				}
 			}
 		});
 	}
@@ -152,13 +160,14 @@ public class Gui {
 
 		JButton btnDebug = new JButton("Debug");
 		btnDebug.addActionListener(e -> {
-			for (Object k : Gui.getwindow().getFrmPokemonDraft().getContentPane().getComponents()) {
-				System.out.println(k);
+			try {
+				frmPokemonDraft.list(new PrintWriter(new BufferedWriter(new FileWriter("debug" + ".txt", true)), true));
+				Manage.msgboxErfolg("Aktion Erfoglreich Gespeichert", frmPokemonDraft);
+			} catch (IOException e1) {
+				Manage.msgboxError("konnte nicht gespeichert werden", frmPokemonDraft);
 			}
-			System.out.println();
-			frmPokemonDraft.list();
-			System.out.println("\n");
 		});
+		
 		menuBar.add(btnDebug);
 	}
 

@@ -20,9 +20,7 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnTierlist = new JButton("Tierlist");
 		btnTierlist.setBounds(74, 38, 255, 71);
-		btnTierlist.addActionListener(e -> {
-			Gui.getwindow().getPanelTierlist().openTierlist();
-		});
+		btnTierlist.addActionListener(e -> Gui.getwindow().getPanelTierlist().openTierlist());
 		panel.add(btnTierlist);
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
@@ -43,7 +41,8 @@ public class PanelStartDraft extends JPanel {
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
 		btnAnzahlDerPokemon.addActionListener(e -> {
 			if (Gui.getwindow().isFinishdraft()) {
-				Manage.msgboxError("ACHTUNG: Änderungen hier, restarten den Draft!", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("ACHTUNG: Änderungen hier, restarten den Draft!",
+						Gui.getwindow().getFrmPokemonDraft());
 			}
 			Gui.getwindow().visSettings();
 		});
@@ -99,7 +98,8 @@ public class PanelStartDraft extends JPanel {
 					return;
 				}
 				if (Gui.getwindow().getPanelOrder().getOrder() == 0) {
-					Manage.msgboxError("Du hast noch keine Reihenfolge ausgewählt", Gui.getwindow().getFrmPokemonDraft());
+					Manage.msgboxError("Du hast noch keine Reihenfolge ausgewählt",
+							Gui.getwindow().getFrmPokemonDraft());
 					Gui.getwindow().visOrder();
 					return;
 				}
@@ -140,8 +140,8 @@ public class PanelStartDraft extends JPanel {
 					Gui.getwindow().getPanelDraft().opendraft();
 				}
 			} else {
-				if (Gui.getwindow().getPanelPlayer().spieler.length != Gui.getwindow()
-						.getPanelDraft().getDraftauswahllength()) {
+				if (Gui.getwindow().getPanelPlayer().spieler.length != Gui.getwindow().getPanelDraft()
+						.getDraftauswahllength()) {
 					Gui.getwindow().getPanelDraft().resetDraft();
 					Gui.getwindow().getPanelDraft().remove(Gui.getwindow().getPanelDraft().cBchangeteam);
 					Gui.getwindow().getPanelDraft().opendraft();

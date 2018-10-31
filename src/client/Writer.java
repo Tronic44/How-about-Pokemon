@@ -21,6 +21,9 @@ import panel.Gui;
  *
  */
 public class Writer {
+	private Writer() {
+		
+	}
 	/**
 	 * Die Methode print ist dazu ausgelegt ein Array in eine .txt zu schreiben.
 	 * Kann die Datei neu anlegen.
@@ -118,7 +121,7 @@ public class Writer {
 					return list;
 				} catch (Exception e) {
 					Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 				rewrite++;
 			} catch (FileNotFoundException e) {
@@ -129,7 +132,7 @@ public class Writer {
 				} catch (IOException ioe) {
 					if (rewrite != 0) {
 						Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
-						ioe.printStackTrace();
+//						ioe.printStackTrace();
 					}
 				}
 			}
@@ -169,7 +172,7 @@ public class Writer {
 			drafts.put(name, aktuell);
 
 			try (FileWriter file = new FileWriter("Draft.json")) {
-				System.out.println("Datei:" + drafts.toString(4));
+//				System.out.println("Datei:" + drafts.toString(4));
 				file.write(drafts.toString(4));
 				return 1;
 			} catch (IOException e) {
@@ -177,7 +180,7 @@ public class Writer {
 						+ e.toString(), frame);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			Object[] options = { "Datei Überschreiben, Daten gehen verloren!",
 					"Nichts tun, die Daten werden nicht verändert" };
 			switch (JOptionPane.showOptionDialog(null, "Es wurden Fehler in der 'Draft.json' Datei enteckt",

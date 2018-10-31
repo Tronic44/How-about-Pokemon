@@ -25,6 +25,7 @@ public class PanelOrder extends JPanel {
 		panel.add(lblorder);
 
 		JCheckBox chckbxRandom = new JCheckBox("Random");
+		chckbxRandom.setEnabled(false);
 		JCheckBox chckbxManuell = new JCheckBox("Manuell");
 		chckbxManuell.addActionListener(e -> {
 			if (chckbxManuell.isSelected()) {
