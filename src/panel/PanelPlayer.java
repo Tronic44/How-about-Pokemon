@@ -26,7 +26,6 @@ public class PanelPlayer extends JPanel {
 	private JTextField tFSafeTeams;
 	protected JComboBox<String> cBTeams;
 	private ArrayList<JTextField> teams = new ArrayList<>();
-//	private ArrayList<JCheckBox> checkteams = new ArrayList<>();
 	private int hight = 39;
 	private CaretListener clisten;
 	private KeyAdapter enterpressed;
@@ -65,11 +64,7 @@ public class PanelPlayer extends JPanel {
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1).addCaretListener(clisten);
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1).addKeyListener(enterpressed);
 						panel.add(teams.get(teams.indexOf(((JTextField) e.getSource())) + 1));
-//						checkteams.add(new JCheckBox());
-//						checkteams.get(teams.indexOf(((JTextField) e.getSource())) + 1).setBounds(88, hight, 21, 23);
 						hight += 26;
-//						checkteams.get(teams.indexOf(((JTextField) e.getSource())) + 1).setEnabled(false);
-//						panel.add(checkteams.get(teams.indexOf(((JTextField) e.getSource())) + 1));
 						panel.revalidate();
 						panel.updateUI();
 						setSafe(false);
@@ -95,11 +90,6 @@ public class PanelPlayer extends JPanel {
 		checkBoxSafe.setBounds(251, 461, 97, 23);
 		panel.add(checkBoxSafe);
 
-//		checkteams.add(new JCheckBox(""));
-//		checkteams.get(0).setEnabled(false);
-//		checkteams.get(0).setBounds(88, 38, 21, 23);
-//		panel.add(checkteams.get(0));
-
 		add(panel);
 	}
 
@@ -109,11 +99,7 @@ public class PanelPlayer extends JPanel {
 				Gui.getwindow().getPanelPlayer().teams.get(k).setEnabled(false);
 				Gui.getwindow().getPanelPlayer().teams.get(k).setBounds(0, 0, 0, 0);
 				Gui.getwindow().getPanelPlayer().remove(teams.get(k));
-//				Gui.getwindow().getPanelPlayer().checkteams.get(k).setEnabled(false);
-//				Gui.getwindow().getPanelPlayer().checkteams.get(k).setBounds(0, 0, 0, 0);
-//				Gui.getwindow().getPanelPlayer().remove(checkteams.get(k));
 				teams.remove(k);
-//				checkteams.remove(k);
 				redrawteams();
 				removeEmptyFields();
 				return;
@@ -125,7 +111,6 @@ public class PanelPlayer extends JPanel {
 		hight = 39;
 		for (int k = 0; k < teams.size(); k++) {
 			teams.get(k).setBounds(129, hight, 151, 20);
-//			checkteams.get(k).setBounds(88, hight, 21, 23);
 			hight += 26;
 		}
 		Gui.getwindow().getPanelPlayer().updateUI();
