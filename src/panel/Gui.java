@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import client.Manage;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class Gui {
 
@@ -28,10 +31,18 @@ public class Gui {
 	public static void startMainMenu() {
 		EventQueue.invokeLater(() -> {
 			try {
+				Manage.msgboxErfolg("Pre-release" + "\n" + "You can test all valid functions in the program" + "\n"
+						+ "Please contact me and send me all files of the program if an error occurs.", null);
+
 				window = new Gui();
 				window.frmPokemonDraft.setVisible(true);
 			} catch (Exception e) {
-				e.printStackTrace();
+				try {
+					e.printStackTrace(
+							new PrintWriter(new BufferedWriter(new FileWriter("Error" + ".txt", true)), true));
+					Manage.msgboxError("Ein Error ist aufgetreten und gespeichert", null);
+				} catch (Exception e1) {
+				}
 			}
 		});
 	}
