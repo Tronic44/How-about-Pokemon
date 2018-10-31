@@ -31,6 +31,7 @@ public class PanelPlayer extends JPanel {
 	private CaretListener clisten;
 	private KeyAdapter enterpressed;
 	private boolean safed = false;
+	JCheckBox checkBoxSafe;
 
 	public PanelPlayer() {
 
@@ -48,6 +49,7 @@ public class PanelPlayer extends JPanel {
 					} catch (Exception e) {
 					}
 				}
+				setSafe(false);
 			}
 		};
 
@@ -70,9 +72,9 @@ public class PanelPlayer extends JPanel {
 //						panel.add(checkteams.get(teams.indexOf(((JTextField) e.getSource())) + 1));
 						panel.revalidate();
 						panel.updateUI();
+						setSafe(false);
 					}
 				}
-				safed = false;
 				Gui.getwindow().getPanelPlayer().revalidate();
 			}
 		};
@@ -87,6 +89,11 @@ public class PanelPlayer extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 495, 409, 3);
 		panel.add(separator);
+
+		checkBoxSafe = new JCheckBox("");
+		checkBoxSafe.setEnabled(false);
+		checkBoxSafe.setBounds(251, 461, 97, 23);
+		panel.add(checkBoxSafe);
 
 //		checkteams.add(new JCheckBox(""));
 //		checkteams.get(0).setEnabled(false);
@@ -143,7 +150,7 @@ public class PanelPlayer extends JPanel {
 					player.add(teams.get(k).getText().trim());
 				}
 			}
-			safed = true;
+			setSafe(true);
 		});
 		btnPlayer.setBounds(160, 461, 89, 23);
 		panel.add(btnPlayer);
@@ -228,19 +235,8 @@ public class PanelPlayer extends JPanel {
 		return safed;
 	}
 
-//	public Object[] getTeam() {
-//		StringBuilder finalteam = new StringBuilder("");
-//		try {
-//			for (String k : spieler) {
-//				finalteam.append(k + ":");
-//			}
-//			finalteam.substring(0, finalteam.length() - 1);
-//		} catch (Exception e) {
-//			return new Object[] { Gui.getwindow().getPanelPlayer().spinnerteam.getValue().toString(),
-//					Gui.getwindow().getPanelPlayer().ePTeam.getText(), org.json.JSONObject.NULL };
-//
-//		}
-//		return new String[] { Gui.getwindow().getPanelPlayer().spinnerteam.getValue().toString(),
-//				Gui.getwindow().getPanelPlayer().ePTeam.getText(), finalteam.toString() };
-//	}
+	private void setSafe(boolean b) {
+		safed = b;
+		checkBoxSafe.setSelected(b);
+	}
 }
