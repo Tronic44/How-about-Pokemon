@@ -80,9 +80,7 @@ public class PanelStartDraft extends JPanel {
 					Gui.getwindow().visTierlist();
 					return;
 				}
-				if (Gui.getwindow().getPanelPlayer().teamname == null
-//						|| Gui.getwindow().getPanelPlayer().ePfinalteam.getText().length() < 1
-						) {
+				if (!Gui.getwindow().getPanelPlayer().isTeams()) {
 					Manage.msgboxError("Du hast keine Teams eingetragen", Gui.getwindow().getFrmPokemonDraft());
 					Gui.getwindow().getPanelPlayer().remove(Gui.getwindow().getPanelPlayer().cBTeams);
 					Gui.getwindow().getPanelPlayer().teamlist();

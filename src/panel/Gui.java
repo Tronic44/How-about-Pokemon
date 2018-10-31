@@ -150,8 +150,12 @@ public class Gui {
 						frmPokemonDraft);
 				visStartDraft();
 			}
-			if (panelTierlist.isVisible() || panelPlayer.isVisible() || panelSettings.isVisible()
-					|| panelOrder.isVisible()) {
+			if (panelTierlist.isVisible() || panelSettings.isVisible() || panelOrder.isVisible()) {
+				visStartDraft();
+			}
+			if (panelPlayer.isVisible()) {
+				if (!getPanelPlayer().isTeams())
+					Manage.msgboxErfolg("Beachte: Du hast ungespeicherte Änderung", Gui.getwindow().frmPokemonDraft);
 				visStartDraft();
 			}
 			if (panelLoadDraft.isVisible()) {

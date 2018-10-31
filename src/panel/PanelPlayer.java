@@ -11,24 +11,26 @@ import javax.swing.JCheckBox;
 import javax.swing.JSeparator;
 import java.util.ArrayList;
 import javax.swing.event.CaretListener;
-
 import client.Manage;
 import client.Writer;
-
 import javax.swing.event.CaretEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class PanelPlayer extends JPanel {
 	private JPanel panel = new JPanel();
-	protected String[] player;
-	protected String[] teamname;
+	protected ArrayList<String> player = new ArrayList<>();
+	protected String[] loadedteamnames;
+	private String[][] loadedteamlist;
 	private JTextField tFSafeTeams;
 	protected JComboBox<String> cBTeams;
-	private String[][] teamlist;
 	private ArrayList<JTextField> teams = new ArrayList<>();
 	private ArrayList<JCheckBox> checkteams = new ArrayList<>();
 	private int hight = 39;
 	private CaretListener clisten;
+	private KeyAdapter enterpressed;
+	private boolean safed = false;
 
 	public PanelPlayer() {
 
@@ -36,6 +38,18 @@ public class PanelPlayer extends JPanel {
 		panel.setLayout(null);
 
 		btn();
+
+		enterpressed = new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				if (evt.getKeyChar() == '\n') {
+					try {
+						teams.get(teams.indexOf(evt.getSource()) + 1).requestFocusInWindow();
+					} catch (Exception e) {
+					}
+				}
+			}
+		};
 
 		clisten = new CaretListener() {
 			public void caretUpdate(CaretEvent e) {
@@ -45,26 +59,29 @@ public class PanelPlayer extends JPanel {
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1);
 					} catch (Exception f) {
 						teams.add(new JTextField());
-						hight += 26;
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1).setBounds(129, hight, 151, 20);
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1).addCaretListener(clisten);
+						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1).addKeyListener(enterpressed);
 						panel.add(teams.get(teams.indexOf(((JTextField) e.getSource())) + 1));
 						checkteams.add(new JCheckBox());
 						checkteams.get(teams.indexOf(((JTextField) e.getSource())) + 1).setBounds(88, hight, 21, 23);
+						hight += 26;
 						checkteams.get(teams.indexOf(((JTextField) e.getSource())) + 1).setEnabled(false);
 						panel.add(checkteams.get(teams.indexOf(((JTextField) e.getSource())) + 1));
-
 						panel.revalidate();
 						panel.updateUI();
 					}
 				}
+				safed = false;
 				Gui.getwindow().getPanelPlayer().revalidate();
 			}
 		};
 
 		teams.add(new JTextField());
 		teams.get(0).addCaretListener(clisten);
+		teams.get(0).addKeyListener(enterpressed);
 		teams.get(0).setBounds(129, hight, 151, 20);
+		hight += 26;
 		panel.add(teams.get(0));
 
 		JSeparator separator = new JSeparator();
@@ -79,40 +96,54 @@ public class PanelPlayer extends JPanel {
 		add(panel);
 	}
 
+	private void removeEmptyFields() {
+		for (int k = 0; k < teams.size() - 1; k++) {
+			if (teams.get(k).getText().trim().length() < 1) {
+				Gui.getwindow().getPanelPlayer().teams.get(k).setEnabled(false);
+				Gui.getwindow().getPanelPlayer().teams.get(k).setBounds(0, 0, 0, 0);
+				Gui.getwindow().getPanelPlayer().remove(teams.get(k));
+				Gui.getwindow().getPanelPlayer().checkteams.get(k).setEnabled(false);
+				Gui.getwindow().getPanelPlayer().checkteams.get(k).setBounds(0, 0, 0, 0);
+				Gui.getwindow().getPanelPlayer().remove(checkteams.get(k));
+				teams.remove(k);
+				checkteams.remove(k);
+				redrawteams();
+				removeEmptyFields();
+				return;
+			}
+		}
+	}
+
+	private void redrawteams() {
+		hight = 39;
+		for (int k = 0; k < teams.size(); k++) {
+			teams.get(k).setBounds(129, hight, 151, 20);
+			checkteams.get(k).setBounds(88, hight, 21, 23);
+			hight += 26;
+		}
+		Gui.getwindow().getPanelPlayer().updateUI();
+		Gui.getwindow().getPanelPlayer().revalidate();
+		Gui.getwindow().getPanelPlayer().repaint();
+	}
+
 	private void btn() {
 		JButton btnPlayer = new JButton("Bestätige");
 		btnPlayer.addActionListener(e -> {
-//			String[] eingabe = ePTeam.getText().split("\n");
-//			int count = 0;
-//			for (int i = 0; i < eingabe.length; i++) {
-//				if (eingabe[i].trim().length() > 1) {
-//					count++;
-//				}
-//			}
-//					spieler = new String[count];
-//					for (int k = 0; k < spieler.length; k++) {
-//						for (int i = k; i < eingabe.length; i++) {
-//							if (eingabe[i].trim().length() > 1) {
-//								if (k > 0 && eingabe[i].trim().equals(spieler[k - 1])) {
-//									continue;
-//								}
-//								spieler[k] = eingabe[i].trim();
-//								break;
-//							}
-//						}
-//					}
-//					teamname = new String[count];
-//					StringBuilder list = new StringBuilder("");
-//					for (int k = 0; k < spieler.length; k++) {
-//						player = new String[spieler.length];
-//						player[k] = spieler[k];
-//						teamname[k] = player[k] + ":";
-//						list.append((k + 1) + "   " + player[k] + "\n");
-//					}
-//					teamname[teamname.length - 1] = teamname[teamname.length - 1].substring(0,
-//							teamname[teamname.length - 1].length() - 1);
-//					ePfinalteam.setText(list.toString());
-//					Gui.getwindow().getPanelStartDraft().enablebtnReihenfolge();
+			removeEmptyFields();
+			player = new ArrayList<>();
+			for (int k = 0; k < teams.size(); k++) {
+				for (int i = 0; i < teams.size(); i++) {
+					if (i != k && teams.get(k).getText().equals(teams.get(i).getText())) {
+						Manage.msgboxError("Zwei Teams können nicht den Selben Namen haben!",
+								Gui.getwindow().getFrmPokemonDraft());
+						return;
+					}
+				}
+				if (teams.get(k).getText().trim().length() > 0) {
+					player.add(teams.get(k).getText().trim());
+				}
+			}
+			safed = true;
 		});
 		btnPlayer.setBounds(160, 461, 89, 23);
 		panel.add(btnPlayer);
@@ -140,7 +171,7 @@ public class PanelPlayer extends JPanel {
 							Gui.getwindow().getFrmPokemonDraft());
 				} else {
 					Boolean b = true;
-					for (String k : teamname) {
+					for (String k : loadedteamnames) {
 						if (tFSafeTeams.getText().equals(k)) {
 							Manage.msgboxError("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
 							b = false;
@@ -151,7 +182,7 @@ public class PanelPlayer extends JPanel {
 						}
 					}
 					if (b) {
-						Writer.print("teamlist", tFSafeTeams.getText(), teamname);
+						Writer.print("teamlist", tFSafeTeams.getText(), loadedteamnames);
 						tFSafeTeams.setText("Gespeichert");
 						panel.remove(cBTeams);
 						teamlist();
@@ -182,19 +213,19 @@ public class PanelPlayer extends JPanel {
 
 	protected void teamlist() {
 		try {
-			teamlist = client.Writer.read("teamlist");
-			teamname = new String[teamlist.length];
-			for (int i = 0; i < teamname.length; i++) {
-				try {
-					teamname[i] = teamlist[i][0];
-				} catch (Exception e) {
-//					e.printStackTrace();
-				}
+			loadedteamlist = client.Writer.read("teamlist");
+			loadedteamnames = new String[loadedteamlist.length];
+			for (int i = 0; i < loadedteamnames.length; i++) {
+				loadedteamnames[i] = loadedteamlist[i][0];
 			}
 		} catch (Exception e) {
-			teamname = new String[] { "Lese Error" };
+			loadedteamnames = new String[] { "Lese Error" };
 		}
-		cBTeams.setModel(new DefaultComboBoxModel<String>(teamname));
+		cBTeams.setModel(new DefaultComboBoxModel<String>(loadedteamnames));
+	}
+
+	public boolean isTeams() {
+		return safed;
 	}
 
 //	public Object[] getTeam() {
