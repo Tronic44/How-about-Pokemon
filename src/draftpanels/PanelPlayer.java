@@ -118,6 +118,7 @@ public class PanelPlayer extends JPanel {
 		Gui.getwindow().getPanelPlayer().repaint();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void btn() {
 		JButton btnPlayer = new JButton("Bestätige");
 		btnPlayer.addActionListener(e -> {
