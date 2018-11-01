@@ -6,12 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JFrame;
-
 import draftpanels.DraftGui;
-
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 
 public class MainMenu {
 
@@ -20,7 +17,7 @@ public class MainMenu {
 	private static DraftGui windowPokemonDraft = new DraftGui();
 	private JFrame frmPokeDraft = windowPokemonDraft.getFrmPokemonDraft();
 
-	@SuppressWarnings("static-access")
+	
 	public static void startHowAboutPokemon() {
 		EventQueue.invokeLater(() -> {
 			try {
@@ -60,12 +57,10 @@ public class MainMenu {
 		frame.getContentPane().setLayout(null);
 
 		JButton btnNewButton = new JButton("Start PokemonDraft");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnNewButton.addActionListener(e -> {
 				frame.setVisible(false);
 				frmPokeDraft.setVisible(true);
 				frmPokeDraft.setBounds(frame.getX(), frame.getY(), frmPokeDraft.getWidth(), frmPokeDraft.getHeight());
-			}
 		});
 		btnNewButton.setBounds(158, 216, 178, 38);
 		frame.getContentPane().add(btnNewButton);

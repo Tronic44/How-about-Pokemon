@@ -50,8 +50,8 @@ public class PanelStartDraft extends JPanel {
 
 		btnReihenfolge = new JButton("Reihenfolge");
 		btnReihenfolge.addActionListener(e -> {
-			if (DraftGui.getwindow().getPanelPlayer().isSafed() &&
-					 DraftGui.getwindow().getPanelPlayer().player.size()>1) {
+			if (DraftGui.getwindow().getPanelPlayer().isSafed()
+					&& DraftGui.getwindow().getPanelPlayer().player.size() > 1) {
 				Manage.msgboxError("Du kannst nicht ohne Teams keine Reihenfolge bilden",
 						DraftGui.getwindow().getFrmPokemonDraft());
 			} else {
@@ -67,7 +67,7 @@ public class PanelStartDraft extends JPanel {
 			if (!DraftGui.getwindow().isFinishdraft()) {
 				int count = 0;
 				for (char k : data.PokemonDraft.getTierlist()) {
-					if (k == '0') {
+					if (k == '0' || k == 'X') {
 						count++;
 					}
 				}
@@ -101,7 +101,7 @@ public class PanelStartDraft extends JPanel {
 					DraftGui.getwindow().visOrder();
 					return;
 				}
-				if (count > 0) {
+				if (count < data.PokemonDraft.getPokedex().length-15) {
 					Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
 					switch (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
 							"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"
