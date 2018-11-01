@@ -70,6 +70,27 @@ public enum Pokemon {
 		this.ability3 = null;
 	}
 
+	private Pokemon(int index, String name, PokemonType type1, int hp, int atk, int def, int spA, int spD, int spe,
+			URL pic1) {
+		this.index = index;
+		this.name = name;
+		this.type1 = type1;
+		this.hp = hp;
+		this.atk = atk;
+		this.def = def;
+		this.spA = spA;
+		this.spD = spD;
+		this.spe = spe;
+		this.total = hp + atk + def + spA + spD + spe;
+		this.average = (double) total / 6;
+		this.type2 = null;
+		this.pic1 = pic1;
+		this.pic2 = null;
+		this.ability1 = null;
+		this.ability2 = null;
+		this.ability3 = null;
+	}
+
 	private Pokemon(int index, String name, PokemonType type1, PokemonType type2, int hp, int atk, int def, int spA,
 			int spD, int spe, URL pic1, URL pic2) {
 		this.index = index;
@@ -84,6 +105,27 @@ public enum Pokemon {
 		this.total = hp + atk + def + spA + spD + spe;
 		this.average = (double) total / 6;
 		this.type2 = type2;
+		this.pic1 = pic1;
+		this.pic2 = pic2;
+		this.ability1 = null;
+		this.ability2 = null;
+		this.ability3 = null;
+	}
+
+	private Pokemon(int index, String name, PokemonType type1, int hp, int atk, int def, int spA, int spD, int spe,
+			URL pic1, URL pic2) {
+		this.index = index;
+		this.name = name;
+		this.type1 = type1;
+		this.hp = hp;
+		this.atk = atk;
+		this.def = def;
+		this.spA = spA;
+		this.spD = spD;
+		this.spe = spe;
+		this.total = hp + atk + def + spA + spD + spe;
+		this.average = (double) total / 6;
+		this.type2 = null;
 		this.pic1 = pic1;
 		this.pic2 = pic2;
 		this.ability1 = null;

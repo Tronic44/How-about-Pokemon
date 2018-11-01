@@ -108,7 +108,7 @@ public class PanelSettings extends JPanel {
 		btnsafetier.addActionListener(e -> {
 			if (!checkBoxS.isSelected() && !checkBoxA.isSelected() && !checkBoxB.isSelected() && !checkBoxC.isSelected()
 					&& !checkBoxD.isSelected() && !checkBoxE.isSelected()) {
-				Manage.msgboxError("Kein Tier? So geht das aber nicht!", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Kein Tier? So geht das aber nicht!", DraftGui.getwindow().getFrmPokemonDraft());
 				return;
 			}
 			if ((checkBoxS.isSelected() && tFS.getText().trim().length() < 1)
@@ -118,7 +118,7 @@ public class PanelSettings extends JPanel {
 					|| (checkBoxD.isSelected() && tFD.getText().trim().length() < 1)
 					|| (checkBoxE.isSelected() && tFE.getText().trim().length() < 1)) {
 				Manage.msgboxError("Der Tiername ist etwas zu kruz, findest du nicht?",
-						Gui.getwindow().getFrmPokemonDraft());
+						DraftGui.getwindow().getFrmPokemonDraft());
 				return;
 			}
 			if ((checkBoxS.isSelected() && comboBoxS.getSelectedIndex() < 0)
@@ -128,7 +128,7 @@ public class PanelSettings extends JPanel {
 					|| (checkBoxD.isSelected() && comboBoxD.getSelectedIndex() < 0)
 					|| (checkBoxE.isSelected() && comboBoxE.getSelectedIndex() < 0)) {
 				Manage.msgboxError("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
-						+ "Wo gibt es denn sowas?", Gui.getwindow().getFrmPokemonDraft());
+						+ "Wo gibt es denn sowas?", DraftGui.getwindow().getFrmPokemonDraft());
 				return;
 			}
 			String[] tiernamenlist = new String[] { tFS.getText().trim(), tFA.getText().trim(), tFB.getText().trim(),
@@ -140,26 +140,26 @@ public class PanelSettings extends JPanel {
 					}
 					if (tiernamenlist[k].equals(tiernamenlist[j])) {
 						Manage.msgboxError("Den selben Namen für zwei Tier's? Das ist doch nur verwirrend!",
-								Gui.getwindow().getFrmPokemonDraft());
+								DraftGui.getwindow().getFrmPokemonDraft());
 						return;
 					}
 				}
 			}
 			if (lblissettingsbestaetigung.getText().equals("Änderungen wurden übernommen!")) {
 				return;
-			} else if (Gui.getwindow().isFinishdraft()) {
+			} else if (DraftGui.getwindow().isFinishdraft()) {
 				Object[] options = { "Fortfahren", "Abbrechen" };
-				if (JOptionPane.showOptionDialog(Gui.getwindow().getFrmPokemonDraft(),
+				if (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
 						"Achtung: Die Änderungen die Du gemacht hast restarten den Draft",
 						"Willst du wiklich Fortfahren", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
 						null, options, options[1]) == 1) {
 					return;
 				} else {
-					Gui.getwindow().setFinishdraft(false);
+					DraftGui.getwindow().setFinishdraft(false);
 				}
 			}
 			data.PokemonDraft.cloneTierlist();
-			int count = Gui.getwindow().getPanelTierlist()
+			int count = DraftGui.getwindow().getPanelTierlist()
 					.setRadioButton(
 							new boolean[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
 									checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected() },
@@ -227,8 +227,8 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updateTiernamen(0, text);
-					if (Gui.getwindow().isFinishdraft()) {
+					DraftGui.getwindow().getPanelDraft().updateTiernamen(0, text);
+					if (DraftGui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
 				}
@@ -247,8 +247,8 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updateTiernamen(1, text);
-					if (Gui.getwindow().isFinishdraft()) {
+					DraftGui.getwindow().getPanelDraft().updateTiernamen(1, text);
+					if (DraftGui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
 				}
@@ -267,8 +267,8 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updateTiernamen(2, text);
-					if (Gui.getwindow().isFinishdraft()) {
+					DraftGui.getwindow().getPanelDraft().updateTiernamen(2, text);
+					if (DraftGui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
 				}
@@ -287,8 +287,8 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updateTiernamen(3, text);
-					if (Gui.getwindow().isFinishdraft()) {
+					DraftGui.getwindow().getPanelDraft().updateTiernamen(3, text);
+					if (DraftGui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
 				}
@@ -307,8 +307,8 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updateTiernamen(4, text);
-					if (Gui.getwindow().isFinishdraft()) {
+					DraftGui.getwindow().getPanelDraft().updateTiernamen(4, text);
+					if (DraftGui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
 				}
@@ -327,8 +327,8 @@ public class PanelSettings extends JPanel {
 				if (text.equals("")) {
 					lblissettingsbestaetigung.setText("");
 				} else {
-					Gui.getwindow().getPanelDraft().updateTiernamen(5, text);
-					if (Gui.getwindow().isFinishdraft()) {
+					DraftGui.getwindow().getPanelDraft().updateTiernamen(5, text);
+					if (DraftGui.getwindow().isFinishdraft()) {
 						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 					}
 				}
@@ -587,7 +587,7 @@ public class PanelSettings extends JPanel {
 		JButton btnresettier = new JButton("RESET");
 		btnresettier.addActionListener(e -> {
 			resetSettings();
-			Manage.msgboxErfolg("Erfolgreich Resetet!", Gui.getwindow().getFrmPokemonDraft());
+			Manage.msgboxErfolg("Erfolgreich Resetet!", DraftGui.getwindow().getFrmPokemonDraft());
 		});
 		btnresettier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
 		btnresettier.setBounds(65, 542, 89, 23);
@@ -598,9 +598,9 @@ public class PanelSettings extends JPanel {
 			try {
 				data.PokemonDraft.restoreTierlist();
 				resetSettings();
-				Manage.msgboxErfolg("Erfolgreich wiederhergestellt!", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxErfolg("Erfolgreich wiederhergestellt!", DraftGui.getwindow().getFrmPokemonDraft());
 			} catch (Exception f) {
-				Manage.msgboxError("Nichts zum wiederherstellen gefunden!", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Nichts zum wiederherstellen gefunden!", DraftGui.getwindow().getFrmPokemonDraft());
 			}
 		});
 		btnrestoretier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
@@ -735,7 +735,7 @@ public class PanelSettings extends JPanel {
 		checkBoxD.setSelected(false);
 		checkBoxE.setSelected(false);
 		changeSettings();
-		Gui.getwindow().getPanelTierlist().resetRadioButtons();
+		DraftGui.getwindow().getPanelTierlist().resetRadioButtons();
 		tFS.setText("");
 		tFA.setText("");
 		tFB.setText("");
@@ -796,7 +796,7 @@ public class PanelSettings extends JPanel {
 		} catch (Exception g) {
 			Manage.msgboxError("Huch da ist was bei der Anzahl der Pokemon schief gelaufen" + "\n"
 					+ "Keine Sorge das war nicht deine Schuld aber leider können deine Einstellungen nicht übernommen werden",
-					Gui.getwindow().getFrmPokemonDraft());
+					DraftGui.getwindow().getFrmPokemonDraft());
 			try {
 				comboBoxS.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
 				comboBoxA.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
@@ -875,7 +875,7 @@ public class PanelSettings extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			Manage.msgboxError("Settings konnten nicht geladen werden", Gui.getwindow().getFrmPokemonDraft());
+			Manage.msgboxError("Settings konnten nicht geladen werden", DraftGui.getwindow().getFrmPokemonDraft());
 			resetSettings();
 		}
 		changeSettings();
@@ -903,7 +903,7 @@ public class PanelSettings extends JPanel {
 										data.PokemonDraft.editTierlist(k, 'S');
 									} else {
 										Manage.msgboxError("Es wurde noch keine Tier Einstellung getroffen",
-												Gui.getwindow().getFrmPokemonDraft());
+												DraftGui.getwindow().getFrmPokemonDraft());
 									}
 								}
 							}

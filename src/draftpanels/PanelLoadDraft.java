@@ -43,9 +43,9 @@ public class PanelLoadDraft extends JPanel {
 		btnsafedraft.addActionListener(e -> {
 			if (tFsafename.getText().trim().length() < 1) {
 				Manage.msgboxError("Du solltest schon ein Namen zum Speichern eingeben",
-						Gui.getwindow().getFrmPokemonDraft());
+						DraftGui.getwindow().getFrmPokemonDraft());
 			} else {
-				int status = Writer.safeasjson(tFsafename.getText(), Gui.getwindow().getFrmPokemonDraft());
+				int status = Writer.safeasjson(tFsafename.getText(), DraftGui.getwindow().getFrmPokemonDraft());
 				if (status == 0) {
 					lblstatus.setText("Error");
 				} else {

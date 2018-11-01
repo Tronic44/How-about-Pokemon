@@ -4,16 +4,15 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import client.Manage;
 
 @SuppressWarnings("serial")
-public class PanelMainMenu extends JPanel {
+public class PanelMenu extends JPanel {
 
 	private JPanel panel;
 	private static final Font FONT = new Font(Manage.FONT, Font.BOLD, 23);
 
-	public PanelMainMenu() {
+	public PanelMenu() {
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 409, 640);
@@ -25,13 +24,13 @@ public class PanelMainMenu extends JPanel {
 		lblPokemonRandomDraft.setFont(new Font(Manage.FONT, Font.BOLD, 31));
 
 		JButton btnNewButton = new JButton("Start Draft");
-		btnNewButton.addActionListener(e -> Gui.getwindow().visStartDraft());
+		btnNewButton.addActionListener(e -> DraftGui.getwindow().visStartDraft());
 		btnNewButton.setFont(FONT);
 		btnNewButton.setBounds(86, 109, 236, 68);
 		panel.add(btnNewButton);
 
 		JButton btnLoadDraft = new JButton("Load Draft");
-		btnLoadDraft.addActionListener(e -> Gui.getwindow().visLoadDraft());
+		btnLoadDraft.addActionListener(e -> DraftGui.getwindow().visLoadDraft());
 		btnLoadDraft.setFont(FONT);
 		btnLoadDraft.setBounds(86, 286, 236, 68);
 		panel.add(btnLoadDraft);

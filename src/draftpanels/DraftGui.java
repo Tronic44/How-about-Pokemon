@@ -6,6 +6,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+
+import client.MainMenu;
 import client.Manage;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -14,11 +16,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Gui {
+public class DraftGui {
 
-	private static Gui window;
+	private static DraftGui window;
 	private JFrame frmPokemonDraft;
-	private PanelMainMenu panelMainMenu;
+	private PanelMenu panelMenu;
 	private PanelStartDraft panelStartDraft;
 	private PanelLoadDraft panelLoadDraft;
 	private PanelTierlist panelTierlist;
@@ -29,13 +31,13 @@ public class Gui {
 	private JPanel panelloading;
 	private boolean finishdraft = false;
 
-	public static void startMainMenu() {
+	public static void startPokemonDrafting() {
 		EventQueue.invokeLater(() -> {
 			try {
 				Manage.msgboxErfolg("Pre-release" + "\n" + "You can test all valid functions in the program" + "\n"
 						+ "Please contact me and send me all files of the program if an error occurs.", null);
 
-				window = new Gui();
+				window = new DraftGui();
 				window.frmPokemonDraft.setVisible(true);
 			} catch (Exception e) {
 				try {
@@ -49,11 +51,11 @@ public class Gui {
 		});
 	}
 
-	public static Gui getwindow() {
-		return window;
+	public static DraftGui getwindow() {
+		return MainMenu.getPokemonDraft();
 	}
 
-	private Gui() {
+	public DraftGui() {
 		frmPokemonDraft = new JFrame();
 		frmPokemonDraft.setTitle("Pokemon Draft        Alpha by Tronic44");
 		frmPokemonDraft.setResizable(false);
@@ -67,10 +69,10 @@ public class Gui {
 	}
 
 	private void initpanel() {
-		panelMainMenu = new PanelMainMenu();
-		frmPokemonDraft.getContentPane().add(panelMainMenu, "name_526992955635103");
-		panelMainMenu.setLayout(null);
-		panelMainMenu.setVisible(true);
+		panelMenu = new PanelMenu();
+		frmPokemonDraft.getContentPane().add(panelMenu, "name_526992955635103");
+		panelMenu.setLayout(null);
+		panelMenu.setVisible(true);
 
 		panelStartDraft = new PanelStartDraft();
 		frmPokemonDraft.getContentPane().add(panelStartDraft, "name_527021172921335");
@@ -130,20 +132,27 @@ public class Gui {
 
 		JButton btnMainmenu = new JButton("MainMen\u00FC");
 		btnMainmenu.addActionListener(e -> {
-			if (panelDraft.isVisible()) {
-				Manage.msgboxError("ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
-						frmPokemonDraft);
+			if (panelMenu.isVisible()) {
+				client.MainMenu.getwindow().visMainMenu();
+			} else {
+				if (panelDraft.isVisible()) {
+					Manage.msgboxError(
+							"ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
+							frmPokemonDraft);
+				}
+				frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
+				visMenu();
 			}
-			frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
-			visMainMenu();
 		});
 		menuBar.add(btnMainmenu);
 
 		JButton btnmenuback = new JButton("zur\u00FCck");
 		btnmenuback.addActionListener(e -> {
-
+			if(panelMenu.isVisible()) {
+				MainMenu.getwindow().visMainMenu();
+			}
 			if (panelStartDraft.isVisible()) {
-				visMainMenu();
+				visMenu();
 			}
 			if (panelDraft.isVisible()) {
 				visLoading();
@@ -157,11 +166,11 @@ public class Gui {
 			}
 			if (panelPlayer.isVisible()) {
 				if (!getPanelPlayer().isSafed() && getPanelPlayer().player.size() > 1)
-					Manage.msgboxErfolg("Beachte: Du hast ungespeicherte Änderung", Gui.getwindow().frmPokemonDraft);
+					Manage.msgboxErfolg("Beachte: Du hast ungespeicherte Änderung", DraftGui.getwindow().frmPokemonDraft);
 				visStartDraft();
 			}
 			if (panelLoadDraft.isVisible()) {
-				visMainMenu();
+				visMenu();
 			}
 			frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
 		});
@@ -184,8 +193,8 @@ public class Gui {
 		return frmPokemonDraft;
 	}
 
-	public PanelMainMenu getPanelMainMenu() {
-		return panelMainMenu;
+	public PanelMenu getPanelMainMenu() {
+		return panelMenu;
 	}
 
 	public PanelStartDraft getPanelStartDraft() {
@@ -236,9 +245,9 @@ public class Gui {
 		panelloading.setVisible(false);
 	}
 
-	protected void visMainMenu() {
+	protected void visMenu() {
 		visLoading();
-		panelMainMenu.setVisible(true);
+		panelMenu.setVisible(true);
 		panelloading.setVisible(false);
 	}
 
@@ -281,7 +290,7 @@ public class Gui {
 		panelSettings.setVisible(false);
 		panelOrder.setVisible(false);
 		panelDraft.setVisible(false);
-		panelMainMenu.setVisible(false);
+		panelMenu.setVisible(false);
 		panelloading.setVisible(true);
 	}
 }

@@ -53,9 +53,9 @@ public class PanelDraft extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	protected void opendraft() {
-		String[] spieler = Gui.getwindow().getPanelPlayer().player
-				.toArray(new String[Gui.getwindow().getPanelPlayer().player.size()]);
-		Gui.getwindow().visLoading();
+		String[] spieler = DraftGui.getwindow().getPanelPlayer().player
+				.toArray(new String[DraftGui.getwindow().getPanelPlayer().player.size()]);
+		DraftGui.getwindow().visLoading();
 		try {
 			if (draftauswahl == null) {
 				draftauswahl = new int[spieler.length][15];
@@ -107,22 +107,22 @@ public class PanelDraft extends JPanel {
 			}
 		});
 		cBchangeteam.setBounds(178, 11, 114, 20);
-		if (Gui.getwindow().getPanelOrder().getOrder() != 1) {
+		if (DraftGui.getwindow().getPanelOrder().getOrder() != 1) {
 			cBchangeteam.setEnabled(false);
 		}
-		Gui.getwindow().getPanelDraft().add(cBchangeteam);
-		Gui.getwindow().getFrmPokemonDraft().setBounds(Gui.getwindow().getFrmPokemonDraft().getX(),
-				Gui.getwindow().getFrmPokemonDraft().getY(), 1100, getDraftHight());
-		if (!Gui.getwindow().isFinishdraft()) {
+		DraftGui.getwindow().getPanelDraft().add(cBchangeteam);
+		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
+				DraftGui.getwindow().getFrmPokemonDraft().getY(), 1100, getDraftHight());
+		if (!DraftGui.getwindow().isFinishdraft()) {
 			data.PokemonDraft.initTierPokemon();
 			draftLayout();
 		}
-		Gui.getwindow().visDraft();
+		DraftGui.getwindow().visDraft();
 	}
 
 	protected int getDraftHight() {
 		int hight = 100;
-		for (int k : Gui.getwindow().getPanelSettings().getCountauswahl()) {
+		for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
 			if (k == 0) {
 				hight += 0;
 			} else {
@@ -152,15 +152,15 @@ public class PanelDraft extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	private void draftLayout() {
-		Gui.getwindow().visLoading();
+		DraftGui.getwindow().visLoading();
 		for (FilterComboBox k : cbDraft) {
 			try {
-				Gui.getwindow().getPanelDraft().remove(k);
+				DraftGui.getwindow().getPanelDraft().remove(k);
 			} catch (Exception e) {
 				break;
 			}
 		}
-		int[] pokeanzahl = Gui.getwindow().getPanelSettings().getCountauswahl().clone();
+		int[] pokeanzahl = DraftGui.getwindow().getPanelSettings().getCountauswahl().clone();
 		int count = 0;
 		int line = 120;
 		boolean sep = false;
@@ -174,11 +174,11 @@ public class PanelDraft extends JPanel {
 			if (!sep) {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, line - 60, 1100, 2);
-				Gui.getwindow().getPanelDraft().add(separator);
-				labellist[i] = new JLabel(Gui.getwindow().getPanelTierlist().getTiernamen(i));
+				DraftGui.getwindow().getPanelDraft().add(separator);
+				labellist[i] = new JLabel(DraftGui.getwindow().getPanelTierlist().getTiernamen(i));
 				labellist[i].setFont(new Font("Tahoma", Font.BOLD, 11));
 				labellist[i].setBounds(54, line - 40, 550, 14);
-				Gui.getwindow().getPanelDraft().add(labellist[i]);
+				DraftGui.getwindow().getPanelDraft().add(labellist[i]);
 			}
 			try {
 				int[] nxco = nextDraftColumn(pkan);
@@ -199,7 +199,7 @@ public class PanelDraft extends JPanel {
 					});
 					cbDraft[count].setSelectedIndex(-1);
 					cbDraft[count].setBounds(nxco[co], line, 169, 20);
-					cbDraft[count].setEnabled(Gui.getwindow().getPanelOrder().getOrder() <= 2);
+					cbDraft[count].setEnabled(DraftGui.getwindow().getPanelOrder().getOrder() <= 2);
 					switch (i) {
 					case 0:
 						cbDraft[count].setBackground(new Color(232, 198, 236));
@@ -222,7 +222,7 @@ public class PanelDraft extends JPanel {
 					default:
 						break;
 					}
-					Gui.getwindow().getPanelDraft().add(cbDraft[count]);
+					DraftGui.getwindow().getPanelDraft().add(cbDraft[count]);
 					count++;
 				}
 				sep = false;
@@ -233,7 +233,7 @@ public class PanelDraft extends JPanel {
 			}
 			line += 130;
 		}
-		Gui.getwindow().setFinishdraft(true);
+		DraftGui.getwindow().setFinishdraft(true);
 	}
 
 	private int[] nextDraftColumn(int k) {
@@ -296,13 +296,13 @@ public class PanelDraft extends JPanel {
 	}
 
 	protected void updateTiernamen(int k, String text) throws NullPointerException {
-		Gui.getwindow().getPanelTierlist().setTiernamen(k, text);
+		DraftGui.getwindow().getPanelTierlist().setTiernamen(k, text);
 		labellist[k].setText(text.trim());
 	}
 
 	@SuppressWarnings("unchecked")
 	protected void updateTierPokemon() {
-		if (Gui.getwindow().isFinishdraft()) {
+		if (DraftGui.getwindow().isFinishdraft()) {
 			data.PokemonDraft.initTierPokemon();
 			for (int count = 0; count < tierlistcB.length; count++) {
 				try {

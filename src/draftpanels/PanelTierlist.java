@@ -69,11 +69,11 @@ public class PanelTierlist extends JPanel {
 		radioButtonS = new JRadioButton(tiernamen[0]);
 		radioButtonS.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'S');
-			if (!Gui.getwindow().isFinishdraft()
+			if (!DraftGui.getwindow().isFinishdraft()
 					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
-			Gui.getwindow().getPanelDraft().updateTierPokemon();
+			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonS.setBounds(256, 101, 109, 23);
 		panel.add(radioButtonS);
@@ -82,11 +82,11 @@ public class PanelTierlist extends JPanel {
 		radioButtonA = new JRadioButton(tiernamen[1]);
 		radioButtonA.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'A');
-			if (!Gui.getwindow().isFinishdraft()
+			if (!DraftGui.getwindow().isFinishdraft()
 					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
-			Gui.getwindow().getPanelDraft().updateTierPokemon();
+			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonA.setBounds(256, 127, 109, 23);
 		panel.add(radioButtonA);
@@ -95,11 +95,11 @@ public class PanelTierlist extends JPanel {
 		radioButtonB = new JRadioButton(tiernamen[2]);
 		radioButtonB.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'B');
-			if (!Gui.getwindow().isFinishdraft()
+			if (!DraftGui.getwindow().isFinishdraft()
 					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
-			Gui.getwindow().getPanelDraft().updateTierPokemon();
+			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonB.setBounds(256, 151, 109, 23);
 		panel.add(radioButtonB);
@@ -108,11 +108,11 @@ public class PanelTierlist extends JPanel {
 		radioButtonC = new JRadioButton(tiernamen[3]);
 		radioButtonC.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'C');
-			if (!Gui.getwindow().isFinishdraft()
+			if (!DraftGui.getwindow().isFinishdraft()
 					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
-			Gui.getwindow().getPanelDraft().updateTierPokemon();
+			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonC.setBounds(256, 177, 109, 23);
 		panel.add(radioButtonC);
@@ -121,11 +121,11 @@ public class PanelTierlist extends JPanel {
 		radioButtonD = new JRadioButton(tiernamen[4]);
 		radioButtonD.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'D');
-			if (!Gui.getwindow().isFinishdraft()
+			if (!DraftGui.getwindow().isFinishdraft()
 					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
-			Gui.getwindow().getPanelDraft().updateTierPokemon();
+			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonD.setBounds(256, 203, 109, 23);
 		panel.add(radioButtonD);
@@ -134,11 +134,11 @@ public class PanelTierlist extends JPanel {
 		radioButtonE = new JRadioButton(tiernamen[5]);
 		radioButtonE.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'E');
-			if (!Gui.getwindow().isFinishdraft()
+			if (!DraftGui.getwindow().isFinishdraft()
 					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
-			Gui.getwindow().getPanelDraft().updateTierPokemon();
+			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonE.setBounds(256, 229, 109, 23);
 		panel.add(radioButtonE);
@@ -147,11 +147,11 @@ public class PanelTierlist extends JPanel {
 		radioButtonX = new JRadioButton("Banned");
 		radioButtonX.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'X');
-			if (!Gui.getwindow().isFinishdraft()
+			if (!DraftGui.getwindow().isFinishdraft()
 					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
-			Gui.getwindow().getPanelDraft().updateTierPokemon();
+			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonX.setBounds(256, 255, 109, 23);
 		panel.add(radioButtonX);
@@ -167,18 +167,18 @@ public class PanelTierlist extends JPanel {
 		JButton btnsafetierlist = new JButton("Speichern");
 		btnsafetierlist.addActionListener(e -> {
 			if (tFTiername.getText().equals("") || tFTiername.getText().equals("Gespeichert")) {
-				Manage.msgboxError("Du hast keinen Namen eingegeben", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Du hast keinen Namen eingegeben", DraftGui.getwindow().getFrmPokemonDraft());
 				tFTiername.setText("");
 			} else {
 				if (tFTiername.getText().contains(":")) {
 					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten",
-							Gui.getwindow().getFrmPokemonDraft());
+							DraftGui.getwindow().getFrmPokemonDraft());
 
 				} else {
 					Boolean b = true;
 					for (String k : safedNamen) {
 						if (tFTiername.getText().equals(k)) {
-							Manage.msgboxError("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
+							Manage.msgboxError("Der Name existiert schon", DraftGui.getwindow().getFrmPokemonDraft());
 							b = false;
 							break;
 						}
@@ -252,7 +252,7 @@ public class PanelTierlist extends JPanel {
 		cBTierlist.setModel(new DefaultComboBoxModel<String>(safedNamen));
 		cBTierlist.setBounds(248, 447, 124, 28);
 		try {
-			Gui.getwindow().getPanelTierlist().add(cBTierlist);
+			DraftGui.getwindow().getPanelTierlist().add(cBTierlist);
 		} catch (Exception e) {
 			panel.add(cBTierlist);
 		}
@@ -315,7 +315,7 @@ public class PanelTierlist extends JPanel {
 		pokemonListe.select(0);
 		changeTier();
 		tierlist();
-		Gui.getwindow().visTierlist();
+		DraftGui.getwindow().visTierlist();
 	}
 
 	protected int setRadioButton(boolean[] b, String[] st) {

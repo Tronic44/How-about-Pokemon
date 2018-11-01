@@ -19,43 +19,43 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnTierlist = new JButton("Tierlist");
 		btnTierlist.setBounds(74, 38, 255, 71);
-		btnTierlist.addActionListener(e -> Gui.getwindow().getPanelTierlist().openTierlist());
+		btnTierlist.addActionListener(e -> DraftGui.getwindow().getPanelTierlist().openTierlist());
 		panel.add(btnTierlist);
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
 		btnSpielerTeams.addActionListener(e -> {
-			if (Gui.getwindow().isFinishdraft()) {
+			if (DraftGui.getwindow().isFinishdraft()) {
 				Manage.msgboxError(
 						"ACHTUNG: Teams können vertauscht und der Name verändert werden " + "\n"
 								+ " Aber das hinzufügen und entfernen von Teams restart den Draft",
-						Gui.getwindow().getFrmPokemonDraft());
+						DraftGui.getwindow().getFrmPokemonDraft());
 			}
-//			Gui.getwindow().getPanelPlayer().remove(Gui.getwindow().getPanelPlayer().cBTeams);
-//			Gui.getwindow().getPanelPlayer().teamlist();
-			Gui.getwindow().visPlayer();
+//			DraftGui.getwindow().getPanelPlayer().remove(DraftGui.getwindow().getPanelPlayer().cBTeams);
+//			DraftGui.getwindow().getPanelPlayer().teamlist();
+			DraftGui.getwindow().visPlayer();
 		});
 		btnSpielerTeams.setBounds(74, 147, 255, 71);
 		panel.add(btnSpielerTeams);
 
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
 		btnAnzahlDerPokemon.addActionListener(e -> {
-			if (Gui.getwindow().isFinishdraft()) {
+			if (DraftGui.getwindow().isFinishdraft()) {
 				Manage.msgboxError("ACHTUNG: Änderungen hier, restarten den Draft!",
-						Gui.getwindow().getFrmPokemonDraft());
+						DraftGui.getwindow().getFrmPokemonDraft());
 			}
-			Gui.getwindow().visSettings();
+			DraftGui.getwindow().visSettings();
 		});
 		btnAnzahlDerPokemon.setBounds(74, 256, 255, 71);
 		panel.add(btnAnzahlDerPokemon);
 
 		btnReihenfolge = new JButton("Reihenfolge");
 		btnReihenfolge.addActionListener(e -> {
-			if (Gui.getwindow().getPanelPlayer().isSafed() &&
-					 Gui.getwindow().getPanelPlayer().player.size()>1) {
+			if (DraftGui.getwindow().getPanelPlayer().isSafed() &&
+					 DraftGui.getwindow().getPanelPlayer().player.size()>1) {
 				Manage.msgboxError("Du kannst nicht ohne Teams keine Reihenfolge bilden",
-						Gui.getwindow().getFrmPokemonDraft());
+						DraftGui.getwindow().getFrmPokemonDraft());
 			} else {
-				Gui.getwindow().visOrder();
+				DraftGui.getwindow().visOrder();
 			}
 		});
 		btnReihenfolge.setBounds(74, 365, 255, 71);
@@ -64,7 +64,7 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnFertig = new JButton("Fertig");
 		btnFertig.addActionListener(e -> {
-			if (!Gui.getwindow().isFinishdraft()) {
+			if (!DraftGui.getwindow().isFinishdraft()) {
 				int count = 0;
 				for (char k : data.PokemonDraft.getTierlist()) {
 					if (k == '0') {
@@ -73,37 +73,37 @@ public class PanelStartDraft extends JPanel {
 				}
 				if (count > 880) {
 					Manage.msgboxError("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
-							Gui.getwindow().getFrmPokemonDraft());
-					Gui.getwindow().getPanelTierlist().openTierlist();
-					Gui.getwindow().visTierlist();
+							DraftGui.getwindow().getFrmPokemonDraft());
+					DraftGui.getwindow().getPanelTierlist().openTierlist();
+					DraftGui.getwindow().visTierlist();
 					return;
 				}
-				if (!Gui.getwindow().getPanelPlayer().isSafed()) {
-					Manage.msgboxError("Du hast keine Teams eingetragen", Gui.getwindow().getFrmPokemonDraft());
-					Gui.getwindow().getPanelPlayer().remove(Gui.getwindow().getPanelPlayer().cBTeams);
-					Gui.getwindow().getPanelPlayer().teamlist();
-					Gui.getwindow().visPlayer();
+				if (!DraftGui.getwindow().getPanelPlayer().isSafed()) {
+					Manage.msgboxError("Du hast keine Teams eingetragen", DraftGui.getwindow().getFrmPokemonDraft());
+					DraftGui.getwindow().getPanelPlayer().remove(DraftGui.getwindow().getPanelPlayer().cBTeams);
+					DraftGui.getwindow().getPanelPlayer().teamlist();
+					DraftGui.getwindow().visPlayer();
 					return;
 				}
 				int pokeanzahl = 0;
-				for (int k : Gui.getwindow().getPanelSettings().getCountauswahl()) {
+				for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
 					pokeanzahl += k;
 				}
 				if (pokeanzahl == 0) {
 					Manage.msgboxError("Du hast noch nicht die Anzhal der Pokemon ausgewählt",
-							Gui.getwindow().getFrmPokemonDraft());
-					Gui.getwindow().visSettings();
+							DraftGui.getwindow().getFrmPokemonDraft());
+					DraftGui.getwindow().visSettings();
 					return;
 				}
-				if (Gui.getwindow().getPanelOrder().getOrder() == 0) {
+				if (DraftGui.getwindow().getPanelOrder().getOrder() == 0) {
 					Manage.msgboxError("Du hast noch keine Reihenfolge ausgewählt",
-							Gui.getwindow().getFrmPokemonDraft());
-					Gui.getwindow().visOrder();
+							DraftGui.getwindow().getFrmPokemonDraft());
+					DraftGui.getwindow().visOrder();
 					return;
 				}
 				if (count > 0) {
 					Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
-					switch (JOptionPane.showOptionDialog(Gui.getwindow().getFrmPokemonDraft(),
+					switch (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
 							"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"
 									+ "Alle nicht zugewisenen:",
 							"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -115,39 +115,39 @@ public class PanelStartDraft extends JPanel {
 								data.PokemonDraft.editTierlist(k, 'X');
 							}
 						}
-						Gui.getwindow().getPanelDraft().opendraft();
+						DraftGui.getwindow().getPanelDraft().opendraft();
 						break;
 					case 1:
-						if (Gui.getwindow().getPanelSettings().areSettingsChanges()) {
+						if (DraftGui.getwindow().getPanelSettings().areSettingsChanges()) {
 							Manage.msgboxError("Du hast ungespeicherte Änderungen in deiner Tiereinstellungen",
-									Gui.getwindow().getFrmPokemonDraft());
-							Gui.getwindow().visSettings();
+									DraftGui.getwindow().getFrmPokemonDraft());
+							DraftGui.getwindow().visSettings();
 						} else {
-							Gui.getwindow().getPanelSettings().toTheLastTier();
-							Gui.getwindow().getPanelDraft().opendraft();
+							DraftGui.getwindow().getPanelSettings().toTheLastTier();
+							DraftGui.getwindow().getPanelDraft().opendraft();
 						}
 
 						break;
 					case 2:
-						Gui.getwindow().getPanelTierlist().openTierlist();
+						DraftGui.getwindow().getPanelTierlist().openTierlist();
 						break;
 					default:
 						break;
 					}
 				} else {
-					Gui.getwindow().getPanelDraft().opendraft();
+					DraftGui.getwindow().getPanelDraft().opendraft();
 				}
 			} else {
-//				if (Gui.getwindow().getPanelPlayer().spieler.length != Gui.getwindow()
+//				if (DraftGui.getwindow().getPanelPlayer().spieler.length != DraftGui.getwindow()
 //						.getPanelDraft().getDraftauswahllength()) {
-//					Gui.getwindow().getPanelDraft().resetDraft();
-//					Gui.getwindow().getPanelDraft().remove(Gui.getwindow().getPanelDraft().cBchangeteam);
-//					Gui.getwindow().getPanelDraft().opendraft();
+//					DraftGui.getwindow().getPanelDraft().resetDraft();
+//					DraftGui.getwindow().getPanelDraft().remove(DraftGui.getwindow().getPanelDraft().cBchangeteam);
+//					DraftGui.getwindow().getPanelDraft().opendraft();
 //					return;
 //				}
-				Gui.getwindow().getFrmPokemonDraft().setBounds(100, 100, 1100,
-						Gui.getwindow().getPanelDraft().getDraftHight());
-				Gui.getwindow().visDraft();
+				DraftGui.getwindow().getFrmPokemonDraft().setBounds(100, 100, 1100,
+						DraftGui.getwindow().getPanelDraft().getDraftHight());
+				DraftGui.getwindow().visDraft();
 			}
 		});
 		btnFertig.setBounds(74, 474, 255, 71);

@@ -70,7 +70,7 @@ public class PanelPlayer extends JPanel {
 						setSafe(false);
 					}
 				}
-				Gui.getwindow().getPanelPlayer().revalidate();
+				DraftGui.getwindow().getPanelPlayer().revalidate();
 			}
 		};
 
@@ -96,9 +96,9 @@ public class PanelPlayer extends JPanel {
 	private void removeEmptyFields() {
 		for (int k = 0; k < teams.size() - 1; k++) {
 			if (teams.get(k).getText().trim().length() < 1) {
-				Gui.getwindow().getPanelPlayer().teams.get(k).setEnabled(false);
-				Gui.getwindow().getPanelPlayer().teams.get(k).setBounds(0, 0, 0, 0);
-				Gui.getwindow().getPanelPlayer().remove(teams.get(k));
+				DraftGui.getwindow().getPanelPlayer().teams.get(k).setEnabled(false);
+				DraftGui.getwindow().getPanelPlayer().teams.get(k).setBounds(0, 0, 0, 0);
+				DraftGui.getwindow().getPanelPlayer().remove(teams.get(k));
 				teams.remove(k);
 				redrawteams();
 				removeEmptyFields();
@@ -113,9 +113,9 @@ public class PanelPlayer extends JPanel {
 			teams.get(k).setBounds(129, hight, 151, 20);
 			hight += 26;
 		}
-		Gui.getwindow().getPanelPlayer().updateUI();
-		Gui.getwindow().getPanelPlayer().revalidate();
-		Gui.getwindow().getPanelPlayer().repaint();
+		DraftGui.getwindow().getPanelPlayer().updateUI();
+		DraftGui.getwindow().getPanelPlayer().revalidate();
+		DraftGui.getwindow().getPanelPlayer().repaint();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -128,7 +128,7 @@ public class PanelPlayer extends JPanel {
 				for (int i = 0; i < teams.size(); i++) {
 					if (i != k && teams.get(k).getText().equals(teams.get(i).getText())) {
 						Manage.msgboxError("Zwei Teams können nicht den Selben Namen haben!",
-								Gui.getwindow().getFrmPokemonDraft());
+								DraftGui.getwindow().getFrmPokemonDraft());
 						return;
 					}
 				}
@@ -154,19 +154,19 @@ public class PanelPlayer extends JPanel {
 		JButton btnsafeteams = new JButton("Speichern");
 		btnsafeteams.addActionListener(e -> {
 
-			Manage.msgboxError("Du hast keine Teams bestätigt", Gui.getwindow().getFrmPokemonDraft());
+			Manage.msgboxError("Du hast keine Teams bestätigt", DraftGui.getwindow().getFrmPokemonDraft());
 			if (tFSafeTeams.getText().equals("") || tFSafeTeams.getText().equals("Gespeichert")) {
-				Manage.msgboxError("Du hast keinen Namen eingegeben", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("Du hast keinen Namen eingegeben", DraftGui.getwindow().getFrmPokemonDraft());
 				tFSafeTeams.setText("");
 			} else {
 				if (tFSafeTeams.getText().contains(":")) {
 					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten",
-							Gui.getwindow().getFrmPokemonDraft());
+							DraftGui.getwindow().getFrmPokemonDraft());
 				} else {
 					Boolean b = true;
 					for (String k : loadedteamnames) {
 						if (tFSafeTeams.getText().equals(k)) {
-							Manage.msgboxError("Der Name existiert schon", Gui.getwindow().getFrmPokemonDraft());
+							Manage.msgboxError("Der Name existiert schon", DraftGui.getwindow().getFrmPokemonDraft());
 							b = false;
 							break;
 						}
