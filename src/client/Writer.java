@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.json.*;
-import draftpanels.Gui;
+import draftpanels.DraftGui;
 import data.PokemonDraft;
 
 /**
@@ -169,7 +169,7 @@ public class Writer {
 			aktuell.put("poketier", PokemonDraft.getTierlist());
 			aktuell.put("poketierclone", PokemonDraft.getTierlistclone());
 //			aktuell.put("team", Gui.getwindow().getPanelPlayer().getTeam());
-			aktuell.put("settings", Gui.getwindow().getPanelSettings().getSettings());
+			aktuell.put("settings", DraftGui.getwindow().getPanelSettings().getSettings());
 
 			drafts.put(name, aktuell);
 
