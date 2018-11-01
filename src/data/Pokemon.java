@@ -4,9 +4,9 @@ import java.net.URL;
 
 public enum Pokemon {
 
-	BULBASAUR(1, "Bulbasaur", PokemonType.GRASS, PokemonType.POISON, 45, 49, 49, 65, 65, 15);
-	
-	
+	BISASAM(1, "Bisasam", PokemonType.GRASS, PokemonType.POISON, 45, 49, 49, 65, 65, 15),
+	BISAKNOSP(2, "Bisaknosp", PokemonType.GRASS, PokemonType.POISON, 60, 62, 63, 80, 80, 60),
+	BISAFLOR(3, "Bisaflor", PokemonType.GRASS, PokemonType.POISON, 80, 82, 83, 10, 100, 80);
 
 	private Pokemon(int index, String name, PokemonType type1, int hp, int atk, int def, int spA, int spD, int spe) {
 		this.index = index;
