@@ -24,12 +24,12 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
 		btnSpielerTeams.addActionListener(e -> {
-			if (DraftGui.getwindow().isFinishdraft()) {
-				Manage.msgboxError(
-						"ACHTUNG: Teams können vertauscht und der Name verändert werden " + "\n"
-								+ " Aber das hinzufügen und entfernen von Teams restart den Draft",
-						DraftGui.getwindow().getFrmPokemonDraft());
-			}
+//			if (DraftGui.getwindow().isFinishdraft()) {
+//				Manage.msgboxError(
+//						"ACHTUNG: Teams können vertauscht und der Name verändert werden " + "\n"
+//								+ " Aber das hinzufügen und entfernen von Teams restart den Draft",
+//						DraftGui.getwindow().getFrmPokemonDraft());
+//			}
 //			DraftGui.getwindow().getPanelPlayer().remove(DraftGui.getwindow().getPanelPlayer().cBTeams);
 //			DraftGui.getwindow().getPanelPlayer().teamlist();
 			DraftGui.getwindow().visPlayer();
@@ -52,10 +52,10 @@ public class PanelStartDraft extends JPanel {
 		btnReihenfolge.addActionListener(e -> {
 			if (DraftGui.getwindow().getPanelPlayer().isSafed()
 					&& DraftGui.getwindow().getPanelPlayer().player.size() > 1) {
+				DraftGui.getwindow().visOrder();
+			} else {
 				Manage.msgboxError("Du kannst nicht ohne Teams keine Reihenfolge bilden",
 						DraftGui.getwindow().getFrmPokemonDraft());
-			} else {
-				DraftGui.getwindow().visOrder();
 			}
 		});
 		btnReihenfolge.setBounds(74, 365, 255, 71);
@@ -101,7 +101,7 @@ public class PanelStartDraft extends JPanel {
 					DraftGui.getwindow().visOrder();
 					return;
 				}
-				if (count < data.PokemonDraft.getPokedex().length-15) {
+				if (count < data.PokemonDraft.getPokedex().length - 15) {
 					Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
 					switch (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
 							"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"

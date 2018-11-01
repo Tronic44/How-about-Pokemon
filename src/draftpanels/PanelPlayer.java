@@ -5,6 +5,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -96,12 +97,24 @@ public class PanelPlayer extends JPanel {
 	private void removeEmptyFields() {
 		for (int k = 0; k < teams.size() - 1; k++) {
 			if (teams.get(k).getText().trim().length() < 1) {
+				if (DraftGui.getwindow().isFinishdraft()) {
+					Object[] options = { "Ja", "Nein" };
+					if (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
+							"Du bist im Begriff das Team:  " + player.get(k) + "  zu löschen" + "\n"
+									+ "Möchtest du Fortfahren?",
+							"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE, null, options, options[1]) == 1) {
+						return;
+					}
+					DraftGui.getwindow().getPanelDraft().removeFromDraft(k);
+				}
 				DraftGui.getwindow().getPanelPlayer().teams.get(k).setEnabled(false);
 				DraftGui.getwindow().getPanelPlayer().teams.get(k).setBounds(0, 0, 0, 0);
 				DraftGui.getwindow().getPanelPlayer().remove(teams.get(k));
 				teams.remove(k);
 				redrawteams();
 				removeEmptyFields();
+
 				return;
 			}
 		}
@@ -136,6 +149,7 @@ public class PanelPlayer extends JPanel {
 					player.add(teams.get(k).getText().trim());
 				}
 			}
+			DraftGui.getwindow().getPanelDraft().cBchangeteam.setModel(new DefaultComboBoxModel<String>(player.toArray(new String[0])));
 			setSafe(true);
 		});
 		btnPlayer.setBounds(160, 461, 89, 23);

@@ -410,58 +410,52 @@ public class PanelSettings extends JPanel {
 		comboBoxS.addPopupMenuListener(new PopupListener() {
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				int auswahl;
-				auswahl = comboBoxS.getSelectedIndex() + 1;
-				changePokemonAnzahl(0, auswahl);
+				changePokemonAnzahl(0, comboBoxS.getSelectedIndex() + 1);
 			}
 		});
 		comboBoxA.addPopupMenuListener(new PopupListener() {
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				int auswahl;
-				auswahl = comboBoxA.getSelectedIndex() + 1;
-				changePokemonAnzahl(1, auswahl);
+				changePokemonAnzahl(1, comboBoxA.getSelectedIndex() + 1);
 			}
 		});
 		comboBoxB.addPopupMenuListener(new PopupListener() {
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				int auswahl;
-				auswahl = comboBoxB.getSelectedIndex() + 1;
-				changePokemonAnzahl(2, auswahl);
+				changePokemonAnzahl(2, comboBoxB.getSelectedIndex() + 1);
 			}
 		});
 		comboBoxC.addPopupMenuListener(new PopupListener() {
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				int auswahl;
-				auswahl = comboBoxC.getSelectedIndex() + 1;
-				changePokemonAnzahl(3, auswahl);
+				changePokemonAnzahl(3, comboBoxC.getSelectedIndex() + 1);
 			}
 		});
 		comboBoxD.addPopupMenuListener(new PopupListener() {
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				int auswahl;
-				auswahl = comboBoxD.getSelectedIndex() + 1;
-				changePokemonAnzahl(4, auswahl);
+				changePokemonAnzahl(4, comboBoxD.getSelectedIndex() + 1);
 			}
 		});
 		comboBoxE.addPopupMenuListener(new PopupListener() {
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				int auswahl;
-				auswahl = comboBoxE.getSelectedIndex() + 1;
-				changePokemonAnzahl(5, auswahl);
+				changePokemonAnzahl(5, comboBoxE.getSelectedIndex() + 1);
 			}
 		});
 
 		checkBoxS = new JCheckBox("");
 		checkBoxS.addActionListener(e -> {
 			if (checkBoxS.isSelected()) {
-				tFS.setEditable(true);
-				tFS.setText("S");
-				comboBoxS.setEnabled(true);
+				try {
+					comboBoxS.setSelectedIndex(0);
+					changePokemonAnzahl(0, comboBoxS.getSelectedIndex() + 1);
+					tFS.setEditable(true);
+					tFS.setText("S");
+					comboBoxS.setEnabled(true);
+				} catch (Exception f) {
+					checkBoxS.setSelected(false);
+				}
 			} else {
 				tFS.setEditable(false);
 				tFS.setText("");
@@ -477,9 +471,15 @@ public class PanelSettings extends JPanel {
 		checkBoxA = new JCheckBox("");
 		checkBoxA.addActionListener(e -> {
 			if (checkBoxA.isSelected()) {
-				tFA.setEditable(true);
-				tFA.setText("A");
-				comboBoxA.setEnabled(true);
+				try {
+					comboBoxA.setSelectedIndex(0);
+					changePokemonAnzahl(1, comboBoxA.getSelectedIndex() + 1);
+					tFA.setEditable(true);
+					tFA.setText("A");
+					comboBoxA.setEnabled(true);
+				} catch (Exception f) {
+					checkBoxA.setSelected(false);
+				}
 			} else {
 				tFA.setEditable(false);
 				tFA.setText("");
@@ -495,9 +495,15 @@ public class PanelSettings extends JPanel {
 		checkBoxB = new JCheckBox("");
 		checkBoxB.addActionListener(e -> {
 			if (checkBoxB.isSelected()) {
-				tFB.setEditable(true);
-				tFB.setText("B");
-				comboBoxB.setEnabled(true);
+				try {
+					comboBoxB.setSelectedIndex(0);
+					changePokemonAnzahl(2, comboBoxB.getSelectedIndex() + 1);
+					tFB.setEditable(true);
+					tFB.setText("B");
+					comboBoxB.setEnabled(true);
+				} catch (Exception f) {
+					checkBoxB.setSelected(false);
+				}
 			} else {
 				tFB.setEditable(false);
 				tFB.setText("");
@@ -513,9 +519,15 @@ public class PanelSettings extends JPanel {
 		checkBoxC = new JCheckBox("");
 		checkBoxC.addActionListener(e -> {
 			if (checkBoxC.isSelected()) {
-				tFC.setEditable(true);
-				tFC.setText("C");
-				comboBoxC.setEnabled(true);
+				try {
+					comboBoxC.setSelectedIndex(0);
+					changePokemonAnzahl(3, comboBoxC.getSelectedIndex() + 1);
+					tFC.setEditable(true);
+					tFC.setText("C");
+					comboBoxC.setEnabled(true);
+				} catch (Exception f) {
+					checkBoxC.setSelected(false);
+				}
 			} else {
 				tFC.setEditable(false);
 				tFC.setText("");
@@ -531,9 +543,15 @@ public class PanelSettings extends JPanel {
 		checkBoxD = new JCheckBox("");
 		checkBoxD.addActionListener(e -> {
 			if (checkBoxD.isSelected()) {
-				tFD.setEditable(true);
-				tFD.setText("D");
-				comboBoxD.setEnabled(true);
+				try {
+					comboBoxD.setSelectedIndex(0);
+					changePokemonAnzahl(4, comboBoxD.getSelectedIndex() + 1);
+					tFD.setEditable(true);
+					tFD.setText("D");
+					comboBoxD.setEnabled(true);
+				} catch (Exception f) {
+					checkBoxD.setSelected(false);
+				}
 			} else {
 				tFD.setEditable(false);
 				tFD.setText("");
@@ -549,9 +567,15 @@ public class PanelSettings extends JPanel {
 		checkBoxE = new JCheckBox("");
 		checkBoxE.addActionListener(e -> {
 			if (checkBoxE.isSelected()) {
-				tFE.setEditable(true);
-				tFE.setText("E");
-				comboBoxE.setEnabled(true);
+				try {
+					comboBoxE.setSelectedIndex(0);
+					changePokemonAnzahl(5, comboBoxE.getSelectedIndex() + 1);
+					tFE.setEditable(true);
+					tFE.setText("E");
+					comboBoxE.setEnabled(true);
+				} catch (Exception f) {
+					checkBoxE.setSelected(false);
+				}
 			} else {
 				tFE.setEditable(false);
 				tFE.setText("");

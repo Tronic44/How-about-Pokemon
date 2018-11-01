@@ -123,7 +123,7 @@ public class DraftGui {
 		panelloading.setLayout(null);
 		panelloading.add(lblLabel);
 		panelloading.add(lblNewLabel);
-		panelDraft.setVisible(false);
+		panelloading.setVisible(false);
 	}
 
 	private void initmenubar() {
