@@ -136,9 +136,9 @@ public class DraftGui {
 				client.MainMenu.getwindow().visMainMenu();
 			} else {
 				if (panelDraft.isVisible()) {
-					Manage.msgboxError(
-							"ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
-							frmPokemonDraft);
+//					Manage.msgboxError(
+//							"ACHTUNG: Änderungen nach dem Draft beginn, kann zum eustart des Draftens führen!",
+//							frmPokemonDraft);
 				}
 				frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
 				visMenu();
@@ -156,9 +156,9 @@ public class DraftGui {
 			}
 			if (panelDraft.isVisible()) {
 				visLoading();
-				client.Manage.msgboxError(
-						"ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
-						frmPokemonDraft);
+//				client.Manage.msgboxError(
+//						"ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
+//						frmPokemonDraft);
 				visStartDraft();
 			}
 			if (panelTierlist.isVisible() || panelSettings.isVisible() || panelOrder.isVisible()) {
@@ -266,6 +266,9 @@ public class DraftGui {
 
 	protected void visSettings() {
 		visLoading();
+		if(finishdraft) {
+			panelSettings.disablecrtiticalchanges();
+		}
 		panelSettings.setVisible(true);
 		panelloading.setVisible(false);
 	}

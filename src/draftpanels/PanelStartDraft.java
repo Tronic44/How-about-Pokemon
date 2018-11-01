@@ -24,12 +24,7 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
 		btnSpielerTeams.addActionListener(e -> {
-//			if (DraftGui.getwindow().isFinishdraft()) {
-//				Manage.msgboxError(
-//						"ACHTUNG: Teams können vertauscht und der Name verändert werden " + "\n"
-//								+ " Aber das hinzufügen und entfernen von Teams restart den Draft",
-//						DraftGui.getwindow().getFrmPokemonDraft());
-//			}
+
 //			DraftGui.getwindow().getPanelPlayer().remove(DraftGui.getwindow().getPanelPlayer().cBTeams);
 //			DraftGui.getwindow().getPanelPlayer().teamlist();
 			DraftGui.getwindow().visPlayer();
@@ -39,10 +34,6 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
 		btnAnzahlDerPokemon.addActionListener(e -> {
-			if (DraftGui.getwindow().isFinishdraft()) {
-				Manage.msgboxError("ACHTUNG: Änderungen hier, restarten den Draft!",
-						DraftGui.getwindow().getFrmPokemonDraft());
-			}
 			DraftGui.getwindow().visSettings();
 		});
 		btnAnzahlDerPokemon.setBounds(74, 256, 255, 71);

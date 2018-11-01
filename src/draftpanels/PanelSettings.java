@@ -1,6 +1,7 @@
 package draftpanels;
 
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,82 +20,37 @@ import client.PopupListener;
 public class PanelSettings extends JPanel {
 
 	private JPanel panel = new JPanel();
-	private JLabel lblTierS;
-	private JLabel lblTierA;
-	private JLabel lblTierB;
-	private JLabel lblTierC;
-	private JLabel lblTierD;
-	private JLabel lblTierE;
+	private ArrayList<JLabel> lblTier = new ArrayList<>();
 	private JLabel lblissettingsbestaetigung;
-	private JCheckBox checkBoxS;
-	private JCheckBox checkBoxA;
-	private JCheckBox checkBoxB;
-	private JCheckBox checkBoxC;
-	private JCheckBox checkBoxD;
-	private JCheckBox checkBoxE;
-	private JTextField tFS;
-	private JTextField tFA;
-	private JTextField tFB;
-	private JTextField tFC;
-	private JTextField tFD;
-	private JTextField tFE;
-	private JComboBox<String> comboBoxS;
-	private JComboBox<String> comboBoxA;
-	private JComboBox<String> comboBoxB;
-	private JComboBox<String> comboBoxC;
-	private JComboBox<String> comboBoxD;
-	private JComboBox<String> comboBoxE;
-	private JLabel lblTierStatusS;
-	private JLabel lblTierStatusA;
-	private JLabel lblTierStatusB;
-	private JLabel lblTierStatusC;
-	private JLabel lblTierStatusD;
-	private JLabel lblTierStatusE;
+	private ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
+	private ArrayList<JTextField> tfTiername = new ArrayList<>();
+	@SuppressWarnings("rawtypes")
+	private ArrayList<JComboBox> comboBoxes = new ArrayList<>();
+	private ArrayList<JLabel> lblStatus = new ArrayList<>();
 	private boolean[] change = new boolean[6];
 	private int[] countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 	private static final String GEBANNT = "wird GEBANNT";
 	private static final String HOCHGESTUFT = "wird HOCHGESTUFT";
 	private static final Font TEXTFONT = new Font(Manage.FONT, Font.PLAIN, 15);
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PanelSettings() {
 
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 
-		lblTierS = new JLabel("S:");
-		lblTierS.setFont(TEXTFONT);
-		lblTierS.setBounds(32, 83, 35, 17);
-		panel.add(lblTierS);
+		int[] arrangey = new int[] { 83, 123, 164, 204, 247, 290 };
+		char[] standartTier = new char[] { 'S', 'A', 'B', 'C', 'D', 'E' };
 
-		lblTierA = new JLabel("A:");
-		lblTierA.setFont(TEXTFONT);
-		lblTierA.setBounds(32, 123, 35, 17);
-		panel.add(lblTierA);
-
-		lblTierB = new JLabel("B:");
-		lblTierB.setFont(TEXTFONT);
-		lblTierB.setBounds(32, 164, 35, 17);
-		panel.add(lblTierB);
-
-		lblTierC = new JLabel("C:");
-		lblTierC.setFont(TEXTFONT);
-		lblTierC.setBounds(32, 204, 35, 17);
-		panel.add(lblTierC);
-
-		lblTierD = new JLabel("D:");
-		lblTierD.setFont(TEXTFONT);
-		lblTierD.setBounds(32, 247, 35, 17);
-		panel.add(lblTierD);
+		for (int k = 0; k < arrangey.length; k++) {
+			lblTier.add(new JLabel(standartTier[k] + ":"));
+			lblTier.get(k).setFont(TEXTFONT);
+			lblTier.get(k).setBounds(32, arrangey[k], 35, 17);
+			panel.add(lblTier.get(k));
+		}
 
 		lblissettingsbestaetigung = new JLabel("");
 		lblissettingsbestaetigung.setBounds(168, 346, 206, 14);
 		panel.add(lblissettingsbestaetigung);
-
-		lblTierE = new JLabel("E:");
-		lblTierE.setFont(TEXTFONT);
-		lblTierE.setBounds(32, 290, 35, 17);
-		panel.add(lblTierE);
 
 		JTextPane txtpnAchtungnderungenHier = new JTextPane();
 		txtpnAchtungnderungenHier.setEditable(false);
@@ -106,33 +62,23 @@ public class PanelSettings extends JPanel {
 
 		JButton btnsafetier = new JButton("Bestätige");
 		btnsafetier.addActionListener(e -> {
-			if (!checkBoxS.isSelected() && !checkBoxA.isSelected() && !checkBoxB.isSelected() && !checkBoxC.isSelected()
-					&& !checkBoxD.isSelected() && !checkBoxE.isSelected()) {
+			if (!checkBoxes.get(0).isSelected() && !checkBoxes.get(1).isSelected() && !checkBoxes.get(2).isSelected()
+					&& !checkBoxes.get(3).isSelected() && !checkBoxes.get(4).isSelected()
+					&& !checkBoxes.get(5).isSelected()) {
 				Manage.msgboxError("Kein Tier? So geht das aber nicht!", DraftGui.getwindow().getFrmPokemonDraft());
 				return;
 			}
-			if ((checkBoxS.isSelected() && tFS.getText().trim().length() < 1)
-					|| (checkBoxA.isSelected() && tFA.getText().trim().length() < 1)
-					|| (checkBoxB.isSelected() && tFB.getText().trim().length() < 1)
-					|| (checkBoxC.isSelected() && tFC.getText().trim().length() < 1)
-					|| (checkBoxD.isSelected() && tFD.getText().trim().length() < 1)
-					|| (checkBoxE.isSelected() && tFE.getText().trim().length() < 1)) {
-				Manage.msgboxError("Der Tiername ist etwas zu kruz, findest du nicht?",
-						DraftGui.getwindow().getFrmPokemonDraft());
-				return;
+			for (JCheckBox k : checkBoxes) {
+				if (k.isSelected() && tfTiername.get(checkBoxes.indexOf(k)).getText().trim().length() < 1) {
+					Manage.msgboxError("Der Tiername ist etwas zu kruz, findest du nicht?",
+							DraftGui.getwindow().getFrmPokemonDraft());
+					return;
+				}
 			}
-			if ((checkBoxS.isSelected() && comboBoxS.getSelectedIndex() < 0)
-					|| (checkBoxA.isSelected() && comboBoxA.getSelectedIndex() < 0)
-					|| (checkBoxB.isSelected() && comboBoxB.getSelectedIndex() < 0)
-					|| (checkBoxC.isSelected() && comboBoxC.getSelectedIndex() < 0)
-					|| (checkBoxD.isSelected() && comboBoxD.getSelectedIndex() < 0)
-					|| (checkBoxE.isSelected() && comboBoxE.getSelectedIndex() < 0)) {
-				Manage.msgboxError("Du Möchtest mit einem Tier spielen, wovon du keine Pokemon draften darfst?" + "\n"
-						+ "Wo gibt es denn sowas?", DraftGui.getwindow().getFrmPokemonDraft());
-				return;
-			}
-			String[] tiernamenlist = new String[] { tFS.getText().trim(), tFA.getText().trim(), tFB.getText().trim(),
-					tFC.getText().trim(), tFD.getText().trim(), tFE.getText().trim() };
+			String[] tiernamenlist = new String[] { tfTiername.get(0).getText().trim(),
+					tfTiername.get(1).getText().trim(), tfTiername.get(2).getText().trim(),
+					tfTiername.get(3).getText().trim(), tfTiername.get(4).getText().trim(),
+					tfTiername.get(5).getText().trim() };
 			for (int k = 0; k < tiernamenlist.length; k++) {
 				for (int j = 0; j < tiernamenlist.length; j++) {
 					if (tiernamenlist[k].equals("") || tiernamenlist[j].equals("") || j == k) {
@@ -160,53 +106,52 @@ public class PanelSettings extends JPanel {
 			}
 			data.PokemonDraft.cloneTierlist();
 			int count = DraftGui.getwindow().getPanelTierlist()
-					.setRadioButton(
-							new boolean[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
-									checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected() },
-							tiernamenlist);
+					.setRadioButton(new boolean[] { checkBoxes.get(0).isSelected(), checkBoxes.get(1).isSelected(),
+							checkBoxes.get(2).isSelected(), checkBoxes.get(3).isSelected(),
+							checkBoxes.get(4).isSelected(), checkBoxes.get(5).isSelected() }, tiernamenlist);
 
 			for (int i = 0; i < count; i++) {
 				for (int k = 0; k < data.PokemonDraft.getTierlist().length; k++) {
 					switch (data.PokemonDraft.getTierlist(k)) {
 					case 'S':
-						if (lblTierStatusS.getText().equals(GEBANNT)) {
+						if (lblStatus.get(0).getText().equals(GEBANNT)) {
 							data.PokemonDraft.editTierlist(k, 'X');
 						}
 						break;
 					case 'A':
-						if (lblTierStatusA.getText().equals(GEBANNT)) {
+						if (lblStatus.get(1).getText().equals(GEBANNT)) {
 							data.PokemonDraft.editTierlist(k, 'X');
 						}
-						if (lblTierStatusA.getText().equals(HOCHGESTUFT)) {
+						if (lblStatus.get(1).getText().equals(HOCHGESTUFT)) {
 							data.PokemonDraft.editTierlist(k, 'S');
 						}
 						break;
 					case 'B':
-						if (lblTierStatusB.getText().equals(GEBANNT)) {
+						if (lblStatus.get(2).getText().equals(GEBANNT)) {
 							data.PokemonDraft.editTierlist(k, 'X');
 						}
-						if (lblTierStatusB.getText().equals(HOCHGESTUFT)) {
+						if (lblStatus.get(2).getText().equals(HOCHGESTUFT)) {
 							data.PokemonDraft.editTierlist(k, 'A');
 						}
 						break;
 					case 'C':
-						if (lblTierStatusC.getText().equals(GEBANNT)) {
+						if (lblStatus.get(3).getText().equals(GEBANNT)) {
 							data.PokemonDraft.editTierlist(k, 'X');
 						}
-						if (lblTierStatusC.getText().equals(HOCHGESTUFT)) {
+						if (lblStatus.get(3).getText().equals(HOCHGESTUFT)) {
 							data.PokemonDraft.editTierlist(k, 'B');
 						}
 						break;
 					case 'D':
-						if (lblTierStatusD.getText().equals(GEBANNT)) {
+						if (lblStatus.get(4).getText().equals(GEBANNT)) {
 							data.PokemonDraft.editTierlist(k, 'X');
 						}
-						if (lblTierStatusD.getText().equals(HOCHGESTUFT)) {
+						if (lblStatus.get(4).getText().equals(HOCHGESTUFT)) {
 							data.PokemonDraft.editTierlist(k, 'C');
 						}
 						break;
 					case 'E':
-						if (lblTierStatusE.getText().equals(HOCHGESTUFT)) {
+						if (lblStatus.get(5).getText().equals(HOCHGESTUFT)) {
 							data.PokemonDraft.editTierlist(k, 'D');
 						}
 						break;
@@ -220,373 +165,76 @@ public class PanelSettings extends JPanel {
 		btnsafetier.setBounds(42, 342, 116, 23);
 		panel.add(btnsafetier);
 
-		tFS = new JTextField();
-		tFS.addCaretListener(e -> {
-			String text = tFS.getText().trim();
-			try {
-				if (text.equals("")) {
-					lblissettingsbestaetigung.setText("");
-				} else {
-					DraftGui.getwindow().getPanelDraft().updateTiernamen(0, text);
-					if (DraftGui.getwindow().isFinishdraft()) {
-						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
-					}
-				}
-			} catch (Exception f) {
-				lblissettingsbestaetigung.setText("");
-			}
-		});
-		tFS.setColumns(10);
-		tFS.setBounds(98, 83, 86, 20);
-		panel.add(tFS);
-
-		tFA = new JTextField();
-		tFA.addCaretListener(e -> {
-			String text = tFA.getText().trim();
-			try {
-				if (text.equals("")) {
-					lblissettingsbestaetigung.setText("");
-				} else {
-					DraftGui.getwindow().getPanelDraft().updateTiernamen(1, text);
-					if (DraftGui.getwindow().isFinishdraft()) {
-						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
-					}
-				}
-			} catch (Exception f) {
-				lblissettingsbestaetigung.setText("");
-			}
-		});
-		tFA.setColumns(10);
-		tFA.setBounds(98, 123, 86, 20);
-		panel.add(tFA);
-
-		tFB = new JTextField();
-		tFB.addCaretListener(e -> {
-			String text = tFB.getText().trim();
-			try {
-				if (text.equals("")) {
-					lblissettingsbestaetigung.setText("");
-				} else {
-					DraftGui.getwindow().getPanelDraft().updateTiernamen(2, text);
-					if (DraftGui.getwindow().isFinishdraft()) {
-						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
-					}
-				}
-			} catch (Exception f) {
-				lblissettingsbestaetigung.setText("");
-			}
-		});
-		tFB.setColumns(10);
-		tFB.setBounds(98, 164, 86, 20);
-		panel.add(tFB);
-
-		tFC = new JTextField();
-		tFC.addCaretListener(e -> {
-			String text = tFC.getText().trim();
-			try {
-				if (text.equals("")) {
-					lblissettingsbestaetigung.setText("");
-				} else {
-					DraftGui.getwindow().getPanelDraft().updateTiernamen(3, text);
-					if (DraftGui.getwindow().isFinishdraft()) {
-						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
-					}
-				}
-			} catch (Exception f) {
-				lblissettingsbestaetigung.setText("");
-			}
-		});
-		tFC.setColumns(10);
-		tFC.setBounds(98, 204, 86, 20);
-		panel.add(tFC);
-
-		tFD = new JTextField();
-		tFD.addCaretListener(e -> {
-			String text = tFD.getText().trim();
-			try {
-				if (text.equals("")) {
-					lblissettingsbestaetigung.setText("");
-				} else {
-					DraftGui.getwindow().getPanelDraft().updateTiernamen(4, text);
-					if (DraftGui.getwindow().isFinishdraft()) {
-						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
-					}
-				}
-			} catch (Exception f) {
-				lblissettingsbestaetigung.setText("");
-			}
-		});
-		tFD.setColumns(10);
-		tFD.setBounds(98, 247, 86, 20);
-		panel.add(tFD);
-
-		tFE = new JTextField();
-		tFE.addCaretListener(e -> {
-			String text = tFE.getText().trim();
-			try {
-				if (text.equals("")) {
-					lblissettingsbestaetigung.setText("");
-				} else {
-					DraftGui.getwindow().getPanelDraft().updateTiernamen(5, text);
-					if (DraftGui.getwindow().isFinishdraft()) {
-						lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
-					}
-				}
-			} catch (Exception f) {
-				lblissettingsbestaetigung.setText("");
-			}
-		});
-		tFE.setColumns(10);
-		tFE.setBounds(98, 290, 86, 20);
-		panel.add(tFE);
-
-		tFS.setEditable(false);
-		tFA.setEditable(false);
-		tFB.setEditable(false);
-		tFC.setEditable(false);
-		tFD.setEditable(false);
-		tFE.setEditable(false);
-
-		lblTierStatusS = new JLabel("");
-		lblTierStatusS.setBounds(276, 86, 117, 14);
-		panel.add(lblTierStatusS);
-
-		lblTierStatusA = new JLabel("");
-		lblTierStatusA.setBounds(276, 126, 117, 14);
-		panel.add(lblTierStatusA);
-
-		lblTierStatusB = new JLabel("");
-		lblTierStatusB.setBounds(276, 167, 117, 14);
-		panel.add(lblTierStatusB);
-
-		lblTierStatusC = new JLabel("");
-		lblTierStatusC.setBounds(276, 207, 117, 14);
-		panel.add(lblTierStatusC);
-
-		lblTierStatusD = new JLabel("");
-		lblTierStatusD.setBounds(276, 250, 117, 14);
-		panel.add(lblTierStatusD);
-
-		lblTierStatusE = new JLabel("");
-		lblTierStatusE.setBounds(276, 293, 117, 14);
-		panel.add(lblTierStatusE);
-
-		comboBoxS = new JComboBox(getanArray(15));
-		comboBoxS.setEnabled(false);
-		comboBoxS.setSelectedIndex(-1);
-		comboBoxS.setBounds(194, 83, 61, 20);
-		panel.add(comboBoxS);
-
-		comboBoxA = new JComboBox(getanArray(15));
-		comboBoxA.setEnabled(false);
-		comboBoxA.setSelectedIndex(-1);
-		comboBoxA.setBounds(194, 123, 61, 20);
-		panel.add(comboBoxA);
-
-		comboBoxB = new JComboBox(getanArray(15));
-		comboBoxB.setEnabled(false);
-		comboBoxB.setSelectedIndex(-1);
-		comboBoxB.setBounds(194, 164, 61, 20);
-		panel.add(comboBoxB);
-
-		comboBoxC = new JComboBox(getanArray(15));
-		comboBoxC.setEnabled(false);
-		comboBoxC.setSelectedIndex(-1);
-		comboBoxC.setBounds(194, 204, 61, 20);
-		panel.add(comboBoxC);
-
-		comboBoxD = new JComboBox(getanArray(15));
-		comboBoxD.setEnabled(false);
-		comboBoxD.setSelectedIndex(-1);
-		comboBoxD.setBounds(194, 247, 61, 20);
-		panel.add(comboBoxD);
-
-		comboBoxE = new JComboBox(getanArray(15));
-		comboBoxE.setEnabled(false);
-		comboBoxE.setSelectedIndex(-1);
-		comboBoxE.setBounds(194, 290, 61, 20);
-		panel.add(comboBoxE);
-
-		comboBoxS.addPopupMenuListener(new PopupListener() {
-			@Override
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				changePokemonAnzahl(0, comboBoxS.getSelectedIndex() + 1);
-			}
-		});
-		comboBoxA.addPopupMenuListener(new PopupListener() {
-			@Override
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				changePokemonAnzahl(1, comboBoxA.getSelectedIndex() + 1);
-			}
-		});
-		comboBoxB.addPopupMenuListener(new PopupListener() {
-			@Override
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				changePokemonAnzahl(2, comboBoxB.getSelectedIndex() + 1);
-			}
-		});
-		comboBoxC.addPopupMenuListener(new PopupListener() {
-			@Override
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				changePokemonAnzahl(3, comboBoxC.getSelectedIndex() + 1);
-			}
-		});
-		comboBoxD.addPopupMenuListener(new PopupListener() {
-			@Override
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				changePokemonAnzahl(4, comboBoxD.getSelectedIndex() + 1);
-			}
-		});
-		comboBoxE.addPopupMenuListener(new PopupListener() {
-			@Override
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-				changePokemonAnzahl(5, comboBoxE.getSelectedIndex() + 1);
-			}
-		});
-
-		checkBoxS = new JCheckBox("");
-		checkBoxS.addActionListener(e -> {
-			if (checkBoxS.isSelected()) {
+		for (int k = 0; k < lblTier.size(); k++) {
+			tfTiername.add(new JTextField());
+			tfTiername.get(k).setBounds(98, arrangey[k], 86, 20);
+			tfTiername.get(k).addCaretListener(e -> {
+				String text = tfTiername.get(tfTiername.indexOf(e.getSource())).getText().trim();
 				try {
-					comboBoxS.setSelectedIndex(0);
-					changePokemonAnzahl(0, comboBoxS.getSelectedIndex() + 1);
-					tFS.setEditable(true);
-					tFS.setText("S");
-					comboBoxS.setEnabled(true);
+					if (text.equals("")) {
+						lblissettingsbestaetigung.setText("");
+					} else {
+						DraftGui.getwindow().getPanelDraft().updateTiernamen(tfTiername.indexOf(e.getSource()), text);
+						if (DraftGui.getwindow().isFinishdraft()) {
+							lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
+						}
+					}
 				} catch (Exception f) {
-					checkBoxS.setSelected(false);
+					lblissettingsbestaetigung.setText("");
 				}
-			} else {
-				tFS.setEditable(false);
-				tFS.setText("");
-				comboBoxS.setEnabled(false);
-				comboBoxS.setSelectedIndex(-1);
-				changePokemonAnzahl(0, 0);
-			}
-			changeSettings();
-		});
-		checkBoxS.setBounds(67, 83, 21, 23);
-		panel.add(checkBoxS);
+			});
+			tfTiername.get(k).setEditable(false);
+			panel.add(tfTiername.get(k));
+		}
+		for (int k = 0; k < lblTier.size(); k++) {
+			lblStatus.add(new JLabel(""));
+			lblStatus.get(k).setBounds(276, arrangey[k], 117, 14);
+			panel.add(lblStatus.get(k));
 
-		checkBoxA = new JCheckBox("");
-		checkBoxA.addActionListener(e -> {
-			if (checkBoxA.isSelected()) {
-				try {
-					comboBoxA.setSelectedIndex(0);
-					changePokemonAnzahl(1, comboBoxA.getSelectedIndex() + 1);
-					tFA.setEditable(true);
-					tFA.setText("A");
-					comboBoxA.setEnabled(true);
-				} catch (Exception f) {
-					checkBoxA.setSelected(false);
+		}
+		for (int k = 0; k < lblTier.size(); k++) {
+			comboBoxes.add(new JComboBox<>(getanArray(15)));
+			comboBoxes.get(k).setEnabled(false);
+			comboBoxes.get(k).setSelectedIndex(-1);
+			comboBoxes.get(k).setBounds(194, arrangey[k], 61, 20);
+			panel.add(comboBoxes.get(k));
+			comboBoxes.get(k).addPopupMenuListener(new PopupListener() {
+				@Override
+				public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+					changePokemonAnzahl(comboBoxes.indexOf(e.getSource()),
+							comboBoxes.get(comboBoxes.indexOf(e.getSource())).getSelectedIndex() + 1);
 				}
-			} else {
-				tFA.setEditable(false);
-				tFA.setText("");
-				comboBoxA.setEnabled(false);
-				comboBoxA.setSelectedIndex(-1);
-				changePokemonAnzahl(1, 0);
-			}
-			changeSettings();
-		});
-		checkBoxA.setBounds(67, 122, 21, 23);
-		panel.add(checkBoxA);
+			});
 
-		checkBoxB = new JCheckBox("");
-		checkBoxB.addActionListener(e -> {
-			if (checkBoxB.isSelected()) {
-				try {
-					comboBoxB.setSelectedIndex(0);
-					changePokemonAnzahl(2, comboBoxB.getSelectedIndex() + 1);
-					tFB.setEditable(true);
-					tFB.setText("B");
-					comboBoxB.setEnabled(true);
-				} catch (Exception f) {
-					checkBoxB.setSelected(false);
-				}
-			} else {
-				tFB.setEditable(false);
-				tFB.setText("");
-				comboBoxB.setEnabled(false);
-				comboBoxB.setSelectedIndex(-1);
-				changePokemonAnzahl(2, 0);
-			}
-			changeSettings();
-		});
-		checkBoxB.setBounds(67, 163, 21, 23);
-		panel.add(checkBoxB);
+		}
+		for (int k = 0; k < lblTier.size(); k++) {
+			checkBoxes.add(new JCheckBox(""));
+			checkBoxes.get(k).setBounds(67, arrangey[k], 21, 23);
+			panel.add(checkBoxes.get(k));
+			checkBoxes.get(k).addActionListener(e -> {
 
-		checkBoxC = new JCheckBox("");
-		checkBoxC.addActionListener(e -> {
-			if (checkBoxC.isSelected()) {
-				try {
-					comboBoxC.setSelectedIndex(0);
-					changePokemonAnzahl(3, comboBoxC.getSelectedIndex() + 1);
-					tFC.setEditable(true);
-					tFC.setText("C");
-					comboBoxC.setEnabled(true);
-				} catch (Exception f) {
-					checkBoxC.setSelected(false);
-				}
-			} else {
-				tFC.setEditable(false);
-				tFC.setText("");
-				comboBoxC.setEnabled(false);
-				comboBoxC.setSelectedIndex(-1);
-				changePokemonAnzahl(3, 0);
-			}
-			changeSettings();
-		});
-		checkBoxC.setBounds(67, 203, 21, 23);
-		panel.add(checkBoxC);
+				int ort = checkBoxes.indexOf(e.getSource());
 
-		checkBoxD = new JCheckBox("");
-		checkBoxD.addActionListener(e -> {
-			if (checkBoxD.isSelected()) {
-				try {
-					comboBoxD.setSelectedIndex(0);
-					changePokemonAnzahl(4, comboBoxD.getSelectedIndex() + 1);
-					tFD.setEditable(true);
-					tFD.setText("D");
-					comboBoxD.setEnabled(true);
-				} catch (Exception f) {
-					checkBoxD.setSelected(false);
+				if (checkBoxes.get(ort).isSelected()) {
+					try {
+						comboBoxes.get(ort).setSelectedIndex(0);
+						changePokemonAnzahl(ort, comboBoxes.get(ort).getSelectedIndex() + 1);
+						tfTiername.get(ort).setEditable(true);
+						tfTiername.get(ort).setText(standartTier[ort] + "");
+						comboBoxes.get(ort).setEnabled(true);
+					} catch (Exception f) {
+						checkBoxes.get(ort).setSelected(false);
+					}
+				} else {
+					tfTiername.get(ort).setEditable(false);
+					tfTiername.get(ort).setText("");
+					comboBoxes.get(ort).setEnabled(false);
+					comboBoxes.get(ort).setSelectedIndex(-1);
+					changePokemonAnzahl(ort, 0);
 				}
-			} else {
-				tFD.setEditable(false);
-				tFD.setText("");
-				comboBoxD.setEnabled(false);
-				comboBoxD.setSelectedIndex(-1);
-				changePokemonAnzahl(4, 0);
-			}
-			changeSettings();
-		});
-		checkBoxD.setBounds(67, 246, 21, 23);
-		panel.add(checkBoxD);
-
-		checkBoxE = new JCheckBox("");
-		checkBoxE.addActionListener(e -> {
-			if (checkBoxE.isSelected()) {
-				try {
-					comboBoxE.setSelectedIndex(0);
-					changePokemonAnzahl(5, comboBoxE.getSelectedIndex() + 1);
-					tFE.setEditable(true);
-					tFE.setText("E");
-					comboBoxE.setEnabled(true);
-				} catch (Exception f) {
-					checkBoxE.setSelected(false);
-				}
-			} else {
-				tFE.setEditable(false);
-				tFE.setText("");
-				comboBoxE.setEnabled(false);
-				comboBoxE.setSelectedIndex(-1);
-				changePokemonAnzahl(5, 0);
-			}
-			changeSettings();
-		});
-		checkBoxE.setBounds(67, 289, 21, 23);
-		panel.add(checkBoxE);
+				changeSettings();
+			});
+		}
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 383, 393, 2);
@@ -610,8 +258,10 @@ public class PanelSettings extends JPanel {
 
 		JButton btnresettier = new JButton("RESET");
 		btnresettier.addActionListener(e -> {
-			resetSettings();
-			Manage.msgboxErfolg("Erfolgreich Resetet!", DraftGui.getwindow().getFrmPokemonDraft());
+			if (!DraftGui.getwindow().isFinishdraft()) {
+				resetSettings();
+				Manage.msgboxErfolg("Erfolgreich Resetet!", DraftGui.getwindow().getFrmPokemonDraft());
+			}
 		});
 		btnresettier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
 		btnresettier.setBounds(65, 542, 89, 23);
@@ -619,12 +269,15 @@ public class PanelSettings extends JPanel {
 
 		JButton btnrestoretier = new JButton("RESTORE");
 		btnrestoretier.addActionListener(e -> {
-			try {
-				data.PokemonDraft.restoreTierlist();
-				resetSettings();
-				Manage.msgboxErfolg("Erfolgreich wiederhergestellt!", DraftGui.getwindow().getFrmPokemonDraft());
-			} catch (Exception f) {
-				Manage.msgboxError("Nichts zum wiederherstellen gefunden!", DraftGui.getwindow().getFrmPokemonDraft());
+			if (!DraftGui.getwindow().isFinishdraft()) {
+				try {
+					data.PokemonDraft.restoreTierlist();
+					resetSettings();
+					Manage.msgboxErfolg("Erfolgreich wiederhergestellt!", DraftGui.getwindow().getFrmPokemonDraft());
+				} catch (Exception f) {
+					Manage.msgboxError("Nichts zum wiederherstellen gefunden!",
+							DraftGui.getwindow().getFrmPokemonDraft());
+				}
 			}
 		});
 		btnrestoretier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
@@ -636,93 +289,29 @@ public class PanelSettings extends JPanel {
 
 	private void changeSettings() {
 		lblissettingsbestaetigung.setText("");
-		if (!checkBoxS.isSelected() && !checkBoxA.isSelected() && !checkBoxB.isSelected() && !checkBoxC.isSelected()
-				&& !checkBoxD.isSelected() && !checkBoxE.isSelected()) {
-			lblTierStatusS.setText(" ");
-			lblTierStatusA.setText(" ");
-			lblTierStatusB.setText(" ");
-			lblTierStatusC.setText(" ");
-			lblTierStatusD.setText(" ");
-			lblTierStatusE.setText(" ");
+		if (!checkBoxes.get(0).isSelected() && !checkBoxes.get(1).isSelected() && !checkBoxes.get(2).isSelected()
+				&& !checkBoxes.get(3).isSelected() && !checkBoxes.get(4).isSelected()
+				&& !checkBoxes.get(5).isSelected()) {
+			for (JLabel k : lblStatus) {
+				k.setText("");
+			}
 			return;
 		}
-		if (checkBoxS.isSelected()) {
-			change[0] = true;
+		for (JCheckBox k : checkBoxes) {
+			change[checkBoxes.indexOf(k)] = k.isSelected();
 		}
-		if (checkBoxA.isSelected()) {
-			change[1] = true;
-		}
-		if (checkBoxB.isSelected()) {
-			change[2] = true;
-		}
-		if (checkBoxC.isSelected()) {
-			change[3] = true;
-		}
-		if (checkBoxD.isSelected()) {
-			change[4] = true;
-		}
-		if (checkBoxE.isSelected()) {
-			change[5] = true;
-		}
-		if (checkBoxS.isSelected()) {
-			lblTierStatusS.setText("");
-		} else {
-			change[0] = false;
-			if (!up(0)) {
-				lblTierStatusS.setText(GEBANNT);
-			}
-		}
-		if (checkBoxA.isSelected()) {
-			lblTierStatusA.setText("");
-		} else {
-			change[1] = false;
-			if (!up(1)) {
-				lblTierStatusA.setText(GEBANNT);
-			}
-			if (!down(1) || (up(1) && down(1))) {
-				lblTierStatusA.setText(HOCHGESTUFT);
-			}
-		}
-		if (checkBoxB.isSelected()) {
-			lblTierStatusB.setText("");
-		} else {
-			change[2] = false;
-			if (!up(2)) {
-				lblTierStatusB.setText(GEBANNT);
-			}
-			if (!down(2) || (up(2) && down(2))) {
-				lblTierStatusB.setText(HOCHGESTUFT);
-			}
-		}
-		if (checkBoxC.isSelected()) {
-			lblTierStatusC.setText("");
-		} else {
-			change[3] = false;
-			if (!up(3)) {
-				lblTierStatusC.setText(GEBANNT);
-			}
-			if (!down(3) || (up(3) && down(3))) {
-				lblTierStatusC.setText(HOCHGESTUFT);
-			}
-
-		}
-		if (checkBoxD.isSelected()) {
-			lblTierStatusD.setText("");
-		} else {
-			change[4] = false;
-			if (!up(4)) {
-				lblTierStatusD.setText(GEBANNT);
-			}
-			if (!down(4) || (up(4) && down(4))) {
-				lblTierStatusD.setText(HOCHGESTUFT);
-			}
-		}
-		if (checkBoxE.isSelected()) {
-			lblTierStatusE.setText("");
-		} else {
-			change[5] = false;
-			if (!down(5)) {
-				lblTierStatusE.setText(HOCHGESTUFT);
+		for (JCheckBox k : checkBoxes) {
+			int ort = checkBoxes.indexOf(k);
+			if (k.isSelected()) {
+				lblStatus.get(ort).setText("");
+			} else {
+				change[ort] = k.isSelected();
+				if (ort != 5 && !up(ort)) {
+					lblStatus.get(ort).setText(GEBANNT);
+				}
+				if (ort != 0 && !down(ort) || (up(ort) && down(ort))) {
+					lblStatus.get(ort).setText(HOCHGESTUFT);
+				}
 			}
 		}
 	}
@@ -751,48 +340,26 @@ public class PanelSettings extends JPanel {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void resetSettings() {
-		checkBoxS.setSelected(false);
-		checkBoxA.setSelected(false);
-		checkBoxB.setSelected(false);
-		checkBoxC.setSelected(false);
-		checkBoxD.setSelected(false);
-		checkBoxE.setSelected(false);
+		for (JCheckBox k : checkBoxes) {
+			k.setSelected(false);
+		}
+		for (JTextField k : tfTiername) {
+			k.setText("");
+			k.setEditable(false);
+		}
+		for (JComboBox<String> k : comboBoxes) {
+			k.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+			k.setSelectedIndex(-1);
+			k.setEnabled(false);
+		}
 		changeSettings();
 		DraftGui.getwindow().getPanelTierlist().resetRadioButtons();
-		tFS.setText("");
-		tFA.setText("");
-		tFB.setText("");
-		tFC.setText("");
-		tFD.setText("");
-		tFE.setText("");
-		tFS.setEditable(false);
-		tFA.setEditable(false);
-		tFB.setEditable(false);
-		tFC.setEditable(false);
-		tFD.setEditable(false);
-		tFE.setEditable(false);
-		comboBoxS.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-		comboBoxA.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-		comboBoxB.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-		comboBoxC.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-		comboBoxD.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-		comboBoxE.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-		comboBoxS.setSelectedIndex(-1);
-		comboBoxA.setSelectedIndex(-1);
-		comboBoxB.setSelectedIndex(-1);
-		comboBoxC.setSelectedIndex(-1);
-		comboBoxD.setSelectedIndex(-1);
-		comboBoxE.setSelectedIndex(-1);
-		comboBoxS.setEnabled(false);
-		comboBoxA.setEnabled(false);
-		comboBoxB.setEnabled(false);
-		comboBoxC.setEnabled(false);
-		comboBoxD.setEnabled(false);
-		comboBoxE.setEnabled(false);
 		countauswahl = new int[] { 0, 0, 0, 0, 0, 0 };
 	}
 
+	@SuppressWarnings("unchecked")
 	private void changePokemonAnzahl(int a, int auswahl) {
 		lblissettingsbestaetigung.setText("");
 		if (auswahl == -1) {
@@ -804,30 +371,18 @@ public class PanelSettings extends JPanel {
 		}
 		countauswahl[a] = auswahl;
 		try {
-			comboBoxS.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[0] + count)));
-			comboBoxA.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[1] + count)));
-			comboBoxB.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[2] + count)));
-			comboBoxC.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[3] + count)));
-			comboBoxD.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[4] + count)));
-			comboBoxE.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[5] + count)));
-
-			comboBoxS.setSelectedIndex(countauswahl[0] - 1);
-			comboBoxA.setSelectedIndex(countauswahl[1] - 1);
-			comboBoxB.setSelectedIndex(countauswahl[2] - 1);
-			comboBoxC.setSelectedIndex(countauswahl[3] - 1);
-			comboBoxD.setSelectedIndex(countauswahl[4] - 1);
-			comboBoxE.setSelectedIndex(countauswahl[5] - 1);
+			for (JComboBox<String> k : comboBoxes) {
+				k.setModel(new DefaultComboBoxModel<String>(getanArray(countauswahl[comboBoxes.indexOf(k)] + count)));
+				k.setSelectedIndex(countauswahl[comboBoxes.indexOf(k)] - 1);
+			}
 		} catch (Exception g) {
 			Manage.msgboxError("Huch da ist was bei der Anzahl der Pokemon schief gelaufen" + "\n"
 					+ "Keine Sorge das war nicht deine Schuld aber leider können deine Einstellungen nicht übernommen werden",
 					DraftGui.getwindow().getFrmPokemonDraft());
 			try {
-				comboBoxS.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-				comboBoxA.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-				comboBoxB.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-				comboBoxC.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-				comboBoxD.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-				comboBoxE.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+				for (JComboBox<String> k : comboBoxes) {
+					k.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
+				}
 			} catch (Exception e) {
 			}
 		}
@@ -855,75 +410,75 @@ public class PanelSettings extends JPanel {
 
 	protected void setSettings(Object[] list) {
 		resetSettings();
-		try {
-			for (int k = 0; k < list.length; k++) {
-				switch (k) {
-				case 1:
-					checkBoxS.setSelected(list[k].equals(true));
-					break;
-				case 2:
-					checkBoxS.setSelected(list[k].equals(true));
-					break;
-				case 3:
-					checkBoxS.setSelected(list[k].equals(true));
-					break;
-				case 4:
-					checkBoxS.setSelected(list[k].equals(true));
-					break;
-				case 5:
-					checkBoxS.setSelected(list[k].equals(true));
-					break;
-				case 6:
-					checkBoxS.setSelected(list[k].equals(true));
-					break;
-				case 7:
-					tFS.setText(list[k].toString());
-					break;
-				case 8:
-					tFA.setText(list[k].toString());
-					break;
-				case 9:
-					tFB.setText(list[k].toString());
-					break;
-				case 10:
-					tFC.setText(list[k].toString());
-					break;
-				case 11:
-					tFD.setText(list[k].toString());
-					break;
-				case 12:
-					tFE.setText(list[k].toString());
-					break;
-				default:
-					break;
-				}
-			}
-		} catch (Exception e) {
-			Manage.msgboxError("Settings konnten nicht geladen werden", DraftGui.getwindow().getFrmPokemonDraft());
-			resetSettings();
-		}
+//		try {
+//			for (int k = 0; k < list.length; k++) {
+//				switch (k) {
+//				case 1:
+//					checkBoxS.setSelected(list[k].equals(true));
+//					break;
+//				case 2:
+//					checkBoxS.setSelected(list[k].equals(true));
+//					break;
+//				case 3:
+//					checkBoxS.setSelected(list[k].equals(true));
+//					break;
+//				case 4:
+//					checkBoxS.setSelected(list[k].equals(true));
+//					break;
+//				case 5:
+//					checkBoxS.setSelected(list[k].equals(true));
+//					break;
+//				case 6:
+//					checkBoxS.setSelected(list[k].equals(true));
+//					break;
+//				case 7:
+//					tFS.setText(list[k].toString());
+//					break;
+//				case 8:
+//					tFA.setText(list[k].toString());
+//					break;
+//				case 9:
+//					tFB.setText(list[k].toString());
+//					break;
+//				case 10:
+//					tFC.setText(list[k].toString());
+//					break;
+//				case 11:
+//					tFD.setText(list[k].toString());
+//					break;
+//				case 12:
+//					tFE.setText(list[k].toString());
+//					break;
+//				default:
+//					break;
+//				}
+//			}
+//		} catch (Exception e) {
+//			Manage.msgboxError("Settings konnten nicht geladen werden", DraftGui.getwindow().getFrmPokemonDraft());
+//			resetSettings();
+//		}
 		changeSettings();
 	}
 
 	protected void toTheLastTier() {
 		for (int k = 0; k < data.PokemonDraft.getTierlist().length; k++) {
 			if (data.PokemonDraft.getTierlist(k) == '0') {
-				if (checkBoxE.isSelected()) {
+				if (checkBoxes.get(5).isSelected()) {
 					data.PokemonDraft.editTierlist(k, 'E');
 				} else {
-					if (checkBoxD.isSelected()) {
+					if (checkBoxes.get(4).isSelected()) {
 						data.PokemonDraft.editTierlist(k, 'D');
 					} else {
-						if (checkBoxC.isSelected()) {
+						if (checkBoxes.get(3).isSelected()) {
 							data.PokemonDraft.editTierlist(k, 'C');
 						} else {
-							if (checkBoxB.isSelected()) {
+							if (checkBoxes.get(2).isSelected()) {
 								data.PokemonDraft.editTierlist(k, 'B');
 							} else {
-								if (checkBoxA.isSelected()) {
+								if (checkBoxes.get(1).isSelected()) {
 									data.PokemonDraft.editTierlist(k, 'A');
 								} else {
-									if (checkBoxS.isSelected()) {
+									if (checkBoxes.get(0).isSelected()) {
 										data.PokemonDraft.editTierlist(k, 'S');
 									} else {
 										Manage.msgboxError("Es wurde noch keine Tier Einstellung getroffen",
@@ -946,9 +501,24 @@ public class PanelSettings extends JPanel {
 		return countauswahl;
 	}
 
+	@SuppressWarnings("unchecked")
+	protected void disablecrtiticalchanges() {
+		for (JCheckBox k : checkBoxes) {
+			k.setEnabled(false);
+		}
+		for (JComboBox<String> k : comboBoxes) {
+			k.setEnabled(false);
+		}
+		for (JLabel k : lblStatus) {
+			k.setText("");
+		}
+
+	}
+
 	public Object[] getSettings() {
-		return new Object[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
-				checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected(), tFS.getText(), tFA.getText(),
-				tFB.getText(), tFC.getText(), tFD.getText(), tFE.getText() };
+//		Object[] k = new Object[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
+//				checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected(), tFS.getText(), tFA.getText(),
+//				tFB.getText(), tFC.getText(), tFD.getText(), tFE.getText() };
+		return null;
 	}
 }
