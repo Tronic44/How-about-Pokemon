@@ -1,4 +1,4 @@
-package panel;
+package draftpanels;
 
 import java.awt.CardLayout;
 import java.awt.EventQueue;
@@ -43,6 +43,7 @@ public class Gui {
 							new PrintWriter(new BufferedWriter(new FileWriter("Error" + ".txt", true)), true));
 					Manage.msgboxError("Ein Error ist aufgetreten und gespeichert", null);
 				} catch (IOException e1) {
+
 				}
 			}
 		});
@@ -151,8 +152,12 @@ public class Gui {
 						frmPokemonDraft);
 				visStartDraft();
 			}
-			if (panelTierlist.isVisible() || panelPlayer.isVisible() || panelSettings.isVisible()
-					|| panelOrder.isVisible()) {
+			if (panelTierlist.isVisible() || panelSettings.isVisible() || panelOrder.isVisible()) {
+				visStartDraft();
+			}
+			if (panelPlayer.isVisible()) {
+				if (!getPanelPlayer().isSafed())
+					Manage.msgboxErfolg("Beachte: Du hast ungespeicherte Änderung", Gui.getwindow().frmPokemonDraft);
 				visStartDraft();
 			}
 			if (panelLoadDraft.isVisible()) {

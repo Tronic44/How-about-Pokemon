@@ -1,4 +1,4 @@
-package panel;
+package draftpanels;
 
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
@@ -12,7 +12,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.event.PopupMenuEvent;
-import client.Data;
 import client.Manage;
 import client.PopupListener;
 
@@ -153,13 +152,13 @@ public class PanelSettings extends JPanel {
 				if (JOptionPane.showOptionDialog(Gui.getwindow().getFrmPokemonDraft(),
 						"Achtung: Die Änderungen die Du gemacht hast restarten den Draft",
 						"Willst du wiklich Fortfahren", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-						null, options, options[1])==1) {
+						null, options, options[1]) == 1) {
 					return;
-				}else {
+				} else {
 					Gui.getwindow().setFinishdraft(false);
 				}
 			}
-			Data.cloneTierlist();
+			data.PokemonDraft.cloneTierlist();
 			int count = Gui.getwindow().getPanelTierlist()
 					.setRadioButton(
 							new boolean[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
@@ -167,48 +166,48 @@ public class PanelSettings extends JPanel {
 							tiernamenlist);
 
 			for (int i = 0; i < count; i++) {
-				for (int k = 0; k < Data.getTierlist().length; k++) {
-					switch (Data.getTierlist(k)) {
+				for (int k = 0; k < data.PokemonDraft.getTierlist().length; k++) {
+					switch (data.PokemonDraft.getTierlist(k)) {
 					case 'S':
 						if (lblTierStatusS.getText().equals(GEBANNT)) {
-							Data.editTierlist(k, 'X');
+							data.PokemonDraft.editTierlist(k, 'X');
 						}
 						break;
 					case 'A':
 						if (lblTierStatusA.getText().equals(GEBANNT)) {
-							Data.editTierlist(k, 'X');
+							data.PokemonDraft.editTierlist(k, 'X');
 						}
 						if (lblTierStatusA.getText().equals(HOCHGESTUFT)) {
-							Data.editTierlist(k, 'S');
+							data.PokemonDraft.editTierlist(k, 'S');
 						}
 						break;
 					case 'B':
 						if (lblTierStatusB.getText().equals(GEBANNT)) {
-							Data.editTierlist(k, 'X');
+							data.PokemonDraft.editTierlist(k, 'X');
 						}
 						if (lblTierStatusB.getText().equals(HOCHGESTUFT)) {
-							Data.editTierlist(k, 'A');
+							data.PokemonDraft.editTierlist(k, 'A');
 						}
 						break;
 					case 'C':
 						if (lblTierStatusC.getText().equals(GEBANNT)) {
-							Data.editTierlist(k, 'X');
+							data.PokemonDraft.editTierlist(k, 'X');
 						}
 						if (lblTierStatusC.getText().equals(HOCHGESTUFT)) {
-							Data.editTierlist(k, 'B');
+							data.PokemonDraft.editTierlist(k, 'B');
 						}
 						break;
 					case 'D':
 						if (lblTierStatusD.getText().equals(GEBANNT)) {
-							Data.editTierlist(k, 'X');
+							data.PokemonDraft.editTierlist(k, 'X');
 						}
 						if (lblTierStatusD.getText().equals(HOCHGESTUFT)) {
-							Data.editTierlist(k, 'C');
+							data.PokemonDraft.editTierlist(k, 'C');
 						}
 						break;
 					case 'E':
 						if (lblTierStatusE.getText().equals(HOCHGESTUFT)) {
-							Data.editTierlist(k, 'D');
+							data.PokemonDraft.editTierlist(k, 'D');
 						}
 						break;
 					default:
@@ -597,7 +596,7 @@ public class PanelSettings extends JPanel {
 		JButton btnrestoretier = new JButton("RESTORE");
 		btnrestoretier.addActionListener(e -> {
 			try {
-				Data.restoreTierlist();
+				data.PokemonDraft.restoreTierlist();
 				resetSettings();
 				Manage.msgboxErfolg("Erfolgreich wiederhergestellt!", Gui.getwindow().getFrmPokemonDraft());
 			} catch (Exception f) {
@@ -883,25 +882,25 @@ public class PanelSettings extends JPanel {
 	}
 
 	protected void toTheLastTier() {
-		for (int k = 0; k < Data.getTierlist().length; k++) {
-			if (Data.getTierlist(k) == '0') {
+		for (int k = 0; k < data.PokemonDraft.getTierlist().length; k++) {
+			if (data.PokemonDraft.getTierlist(k) == '0') {
 				if (checkBoxE.isSelected()) {
-					Data.editTierlist(k, 'E');
+					data.PokemonDraft.editTierlist(k, 'E');
 				} else {
 					if (checkBoxD.isSelected()) {
-						Data.editTierlist(k, 'D');
+						data.PokemonDraft.editTierlist(k, 'D');
 					} else {
 						if (checkBoxC.isSelected()) {
-							Data.editTierlist(k, 'C');
+							data.PokemonDraft.editTierlist(k, 'C');
 						} else {
 							if (checkBoxB.isSelected()) {
-								Data.editTierlist(k, 'B');
+								data.PokemonDraft.editTierlist(k, 'B');
 							} else {
 								if (checkBoxA.isSelected()) {
-									Data.editTierlist(k, 'A');
+									data.PokemonDraft.editTierlist(k, 'A');
 								} else {
 									if (checkBoxS.isSelected()) {
-										Data.editTierlist(k, 'S');
+										data.PokemonDraft.editTierlist(k, 'S');
 									} else {
 										Manage.msgboxError("Es wurde noch keine Tier Einstellung getroffen",
 												Gui.getwindow().getFrmPokemonDraft());

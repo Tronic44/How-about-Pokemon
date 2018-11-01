@@ -23,7 +23,7 @@ public class Manage {
 	 * @param args - keine Verwendung bisher
 	 */
 	public static void main(String[] args) {
-		panel.Gui.startMainMenu();
+		draftpanels.Gui.startMainMenu();
 	}
 
 	/**

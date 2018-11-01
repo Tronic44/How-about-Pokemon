@@ -1,9 +1,8 @@
-package panel;
+package draftpanels;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import client.Data;
 import client.Manage;
 
 @SuppressWarnings("serial")
@@ -31,8 +30,8 @@ public class PanelStartDraft extends JPanel {
 								+ " Aber das hinzufügen und entfernen von Teams restart den Draft",
 						Gui.getwindow().getFrmPokemonDraft());
 			}
-			Gui.getwindow().getPanelPlayer().remove(Gui.getwindow().getPanelPlayer().cBTeams);
-			Gui.getwindow().getPanelPlayer().teamlist();
+//			Gui.getwindow().getPanelPlayer().remove(Gui.getwindow().getPanelPlayer().cBTeams);
+//			Gui.getwindow().getPanelPlayer().teamlist();
 			Gui.getwindow().visPlayer();
 		});
 		btnSpielerTeams.setBounds(74, 147, 255, 71);
@@ -51,8 +50,8 @@ public class PanelStartDraft extends JPanel {
 
 		btnReihenfolge = new JButton("Reihenfolge");
 		btnReihenfolge.addActionListener(e -> {
-			if (Gui.getwindow().getPanelPlayer().teamname == null
-					|| Gui.getwindow().getPanelPlayer().ePfinalteam.getText().length() < 1) {
+			if (Gui.getwindow().getPanelPlayer().isSafed() &&
+					 Gui.getwindow().getPanelPlayer().player.size()>1) {
 				Manage.msgboxError("Du kannst nicht ohne Teams keine Reihenfolge bilden",
 						Gui.getwindow().getFrmPokemonDraft());
 			} else {
@@ -67,7 +66,7 @@ public class PanelStartDraft extends JPanel {
 		btnFertig.addActionListener(e -> {
 			if (!Gui.getwindow().isFinishdraft()) {
 				int count = 0;
-				for (char k : Data.getTierlist()) {
+				for (char k : data.PokemonDraft.getTierlist()) {
 					if (k == '0') {
 						count++;
 					}
@@ -79,8 +78,7 @@ public class PanelStartDraft extends JPanel {
 					Gui.getwindow().visTierlist();
 					return;
 				}
-				if (Gui.getwindow().getPanelPlayer().teamname == null
-						|| Gui.getwindow().getPanelPlayer().ePfinalteam.getText().length() < 1) {
+				if (!Gui.getwindow().getPanelPlayer().isSafed()) {
 					Manage.msgboxError("Du hast keine Teams eingetragen", Gui.getwindow().getFrmPokemonDraft());
 					Gui.getwindow().getPanelPlayer().remove(Gui.getwindow().getPanelPlayer().cBTeams);
 					Gui.getwindow().getPanelPlayer().teamlist();
@@ -111,10 +109,10 @@ public class PanelStartDraft extends JPanel {
 							"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, options, options[2])) {
 					case 0:
-						for (int k = 0; k < Data.getPokedex().length; k++) {
+						for (int k = 0; k < data.PokemonDraft.getPokedex().length; k++) {
 
-							if (Data.getTierlist(k) == '0') {
-								Data.editTierlist(k, 'X');
+							if (data.PokemonDraft.getTierlist(k) == '0') {
+								data.PokemonDraft.editTierlist(k, 'X');
 							}
 						}
 						Gui.getwindow().getPanelDraft().opendraft();
@@ -140,13 +138,13 @@ public class PanelStartDraft extends JPanel {
 					Gui.getwindow().getPanelDraft().opendraft();
 				}
 			} else {
-				if (Gui.getwindow().getPanelPlayer().spieler.length != Gui.getwindow().getPanelDraft()
-						.getDraftauswahllength()) {
-					Gui.getwindow().getPanelDraft().resetDraft();
-					Gui.getwindow().getPanelDraft().remove(Gui.getwindow().getPanelDraft().cBchangeteam);
-					Gui.getwindow().getPanelDraft().opendraft();
-					return;
-				}
+//				if (Gui.getwindow().getPanelPlayer().spieler.length != Gui.getwindow()
+//						.getPanelDraft().getDraftauswahllength()) {
+//					Gui.getwindow().getPanelDraft().resetDraft();
+//					Gui.getwindow().getPanelDraft().remove(Gui.getwindow().getPanelDraft().cBchangeteam);
+//					Gui.getwindow().getPanelDraft().opendraft();
+//					return;
+//				}
 				Gui.getwindow().getFrmPokemonDraft().setBounds(100, 100, 1100,
 						Gui.getwindow().getPanelDraft().getDraftHight());
 				Gui.getwindow().visDraft();

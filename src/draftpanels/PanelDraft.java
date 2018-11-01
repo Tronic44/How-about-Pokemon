@@ -1,4 +1,4 @@
-package panel;
+package draftpanels;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuEvent;
-import client.Data;
 import client.FilterComboBox;
 import client.PopupListener;
 
@@ -54,7 +53,8 @@ public class PanelDraft extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	protected void opendraft() {
-		String[] spieler = Gui.getwindow().getPanelPlayer().spieler;
+		String[] spieler = Gui.getwindow().getPanelPlayer().player
+				.toArray(new String[Gui.getwindow().getPanelPlayer().player.size()]);
 		Gui.getwindow().visLoading();
 		try {
 			if (draftauswahl == null) {
@@ -114,7 +114,7 @@ public class PanelDraft extends JPanel {
 		Gui.getwindow().getFrmPokemonDraft().setBounds(Gui.getwindow().getFrmPokemonDraft().getX(),
 				Gui.getwindow().getFrmPokemonDraft().getY(), 1100, getDraftHight());
 		if (!Gui.getwindow().isFinishdraft()) {
-			Data.initTierPokemon();
+			data.PokemonDraft.initTierPokemon();
 			draftLayout();
 		}
 		Gui.getwindow().visDraft();
@@ -183,7 +183,7 @@ public class PanelDraft extends JPanel {
 			try {
 				int[] nxco = nextDraftColumn(pkan);
 				for (int co = 0; co < pkan; co++) {
-					cbDraft[count] = new FilterComboBox(Arrays.asList(Data.getTierPokemon(i)));
+					cbDraft[count] = new FilterComboBox(Arrays.asList(data.PokemonDraft.getTierPokemon(i)));
 					tierlistcB[count] = i;
 					cbDraft[count].addPopupMenuListener(new PopupListener(cbDraft[count]) {
 						@Override
@@ -303,10 +303,11 @@ public class PanelDraft extends JPanel {
 	@SuppressWarnings("unchecked")
 	protected void updateTierPokemon() {
 		if (Gui.getwindow().isFinishdraft()) {
-			Data.initTierPokemon();
+			data.PokemonDraft.initTierPokemon();
 			for (int count = 0; count < tierlistcB.length; count++) {
 				try {
-					cbDraft[count].setModel(new DefaultComboBoxModel<String>(Data.getTierPokemon(tierlistcB[count])));
+					cbDraft[count].setModel(
+							new DefaultComboBoxModel<String>(data.PokemonDraft.getTierPokemon(tierlistcB[count])));
 					cbDraft[count].setSelectedIndex(draftauswahl[changeteam][count]);
 				} catch (Exception e) {
 					break;
@@ -323,7 +324,7 @@ public class PanelDraft extends JPanel {
 					safedauswahl[f][i] = -1;
 				}
 				if (safedauswahl[f][i] > ort) {
-					safedauswahl[f][i] -=  1;
+					safedauswahl[f][i] -= 1;
 				}
 			}
 		}

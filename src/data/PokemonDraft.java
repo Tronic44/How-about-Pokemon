@@ -1,9 +1,10 @@
-package client;
+package data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import panel.Gui;
+import client.MyException;
+import draftpanels.Gui;
 
 /**
  * Die Klasse Data, dient einzig und alleine dem Speichern von Programm
@@ -12,9 +13,9 @@ import panel.Gui;
  * @author Yannick Dreher, Realchicken
  *
  */
-public class Data {
+public class PokemonDraft {
 
-	private Data() {
+	private PokemonDraft() {
 
 	}
 
@@ -235,8 +236,8 @@ public class Data {
 	private static void initPoketier() {
 		if (tierlist == null) {
 			tierlist = new char[pokedex.length];
-			for (int i = 0; i < Data.getPokedex().length; i++) {
-				Data.editTierlist(i, '0');
+			for (int i = 0; i < PokemonDraft.getPokedex().length; i++) {
+				PokemonDraft.editTierlist(i, '0');
 			}
 		}
 	}
@@ -247,7 +248,7 @@ public class Data {
 	 * 
 	 * @return Object - String oder JSONObject.NULL
 	 */
-	protected static Object getTierlistclone() {
+	public static Object getTierlistclone() {
 		try {
 			return new String(tierlistclone);
 		} catch (Exception e) {
