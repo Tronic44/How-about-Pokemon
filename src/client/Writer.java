@@ -22,7 +22,7 @@ import data.PokemonDraft;
  *
  */
 public class Writer {
-	
+
 	private Writer() {
 	}
 
@@ -39,7 +39,7 @@ public class Writer {
 	 */
 	public static void print(String datei, String name, char[] text) {
 		try {
-			PrintWriter	pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
+			PrintWriter pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
 			pWriter.print(name + ":");
 			for (int i = 0; i < text.length; i++) {
 				pWriter.print(text[i]);
@@ -178,8 +178,8 @@ public class Writer {
 				file.write(drafts.toString(4));
 				return 1;
 			} catch (IOException e) {
-				Manage.msgboxError("Beim schreiben der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-1" + "\n"
-						+ e.toString(), frame);
+				Manage.msgboxError("Beim schreiben der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-1"
+						+ "\n" + e.toString(), frame);
 			}
 		} catch (Exception e) {
 //			e.printStackTrace();
@@ -195,8 +195,8 @@ public class Writer {
 					pWriter.print("{" + "\n" + "\"" + "name" + "\"" + ": [" + "\n" + "]" + "}");
 					safeasjson(name, frame);
 				} catch (IOException g) {
-					Manage.msgboxError("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-2" + "\n"
-							+ g.toString(), frame);
+					Manage.msgboxError("Beim Lesen der json-Datei ist ein Fehler aufgetreten    Code:PKD-safeasjson-2"
+							+ "\n" + g.toString(), frame);
 					return 0;
 				}
 				pWriter.close();

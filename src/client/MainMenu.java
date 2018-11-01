@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import draftpanels.DraftGui;
 import javax.swing.JButton;
 
-
 public class MainMenu {
 
 	private static MainMenu window;
@@ -17,7 +16,6 @@ public class MainMenu {
 	private static DraftGui windowPokemonDraft = new DraftGui();
 	private JFrame frmPokeDraft = windowPokemonDraft.getFrmPokemonDraft();
 
-	
 	public static void startHowAboutPokemon() {
 		EventQueue.invokeLater(() -> {
 			try {
@@ -50,7 +48,7 @@ public class MainMenu {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("How to Pokemon       Alpha by Tronic44");
+		frame.setTitle("How about Pokemon       Alpha by Tronic44");
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,9 +56,9 @@ public class MainMenu {
 
 		JButton btnNewButton = new JButton("Start PokemonDraft");
 		btnNewButton.addActionListener(e -> {
-				frame.setVisible(false);
-				frmPokeDraft.setVisible(true);
-				frmPokeDraft.setBounds(frame.getX(), frame.getY(), frmPokeDraft.getWidth(), frmPokeDraft.getHeight());
+			frame.setVisible(false);
+			frmPokeDraft.setVisible(true);
+			frmPokeDraft.setBounds(frame.getX(), frame.getY(), frmPokeDraft.getWidth(), frmPokeDraft.getHeight());
 		});
 		btnNewButton.setBounds(158, 216, 178, 38);
 		frame.getContentPane().add(btnNewButton);
@@ -76,6 +74,7 @@ public class MainMenu {
 	public static MainMenu getwindow() {
 		return window;
 	}
+
 	public static DraftGui getPokemonDraft() {
 		return windowPokemonDraft;
 	}
