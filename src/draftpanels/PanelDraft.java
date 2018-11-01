@@ -1,4 +1,4 @@
-package panel;
+package draftpanels;
 
 import java.awt.Color;
 import java.awt.Font;

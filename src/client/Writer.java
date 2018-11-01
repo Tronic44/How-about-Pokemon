@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.json.*;
-import panel.Gui;
+import draftpanels.Gui;
 
 /**
  * Die Klasse Writer ist die Schnittstelle zwischen Programm und Datein. Sie

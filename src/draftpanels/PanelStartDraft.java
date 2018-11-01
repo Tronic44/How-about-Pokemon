@@ -1,4 +1,4 @@
-package panel;
+package draftpanels;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
