@@ -60,7 +60,8 @@ public class PanelOrder extends JPanel {
 
 	private void randomiseTeams() {
 		String[] teamfolge;
-		String[] spieler = Gui.getwindow().getPanelPlayer().spieler;
+		String[] spieler = Gui.getwindow().getPanelPlayer().player
+				.toArray(new String[Gui.getwindow().getPanelPlayer().player.size()]);
 		teamfolge = new String[spieler.length * 2];
 		int[] random = new int[spieler.length];
 		for (int i = 0; i < random.length; i++) {

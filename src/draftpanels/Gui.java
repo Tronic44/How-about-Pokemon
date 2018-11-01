@@ -154,7 +154,7 @@ public class Gui {
 				visStartDraft();
 			}
 			if (panelPlayer.isVisible()) {
-				if (!getPanelPlayer().isTeams())
+				if (!getPanelPlayer().isSafed())
 					Manage.msgboxErfolg("Beachte: Du hast ungespeicherte Änderung", Gui.getwindow().frmPokemonDraft);
 				visStartDraft();
 			}

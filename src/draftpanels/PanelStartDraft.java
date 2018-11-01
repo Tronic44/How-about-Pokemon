@@ -42,7 +42,8 @@ public class PanelStartDraft extends JPanel {
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
 		btnAnzahlDerPokemon.addActionListener(e -> {
 			if (Gui.getwindow().isFinishdraft()) {
-				Manage.msgboxError("ACHTUNG: Änderungen hier, restarten den Draft!", Gui.getwindow().getFrmPokemonDraft());
+				Manage.msgboxError("ACHTUNG: Änderungen hier, restarten den Draft!",
+						Gui.getwindow().getFrmPokemonDraft());
 			}
 			Gui.getwindow().visSettings();
 		});
@@ -51,13 +52,13 @@ public class PanelStartDraft extends JPanel {
 
 		btnReihenfolge = new JButton("Reihenfolge");
 		btnReihenfolge.addActionListener(e -> {
-//			if (Gui.getwindow().getPanelPlayer().teamname == null
-//					|| Gui.getwindow().getPanelPlayer().ePfinalteam.getText().length() < 1) {
-//				Manage.msgboxError("Du kannst nicht ohne Teams keine Reihenfolge bilden",
-//						Gui.getwindow().getFrmPokemonDraft());
-//			} else {
-//				Gui.getwindow().visOrder();
-//			}
+			if (Gui.getwindow().getPanelPlayer().isSafed() &&
+					 Gui.getwindow().getPanelPlayer().player.size()>1) {
+				Manage.msgboxError("Du kannst nicht ohne Teams keine Reihenfolge bilden",
+						Gui.getwindow().getFrmPokemonDraft());
+			} else {
+				Gui.getwindow().visOrder();
+			}
 		});
 		btnReihenfolge.setBounds(74, 365, 255, 71);
 		panel.add(btnReihenfolge);
@@ -79,7 +80,7 @@ public class PanelStartDraft extends JPanel {
 					Gui.getwindow().visTierlist();
 					return;
 				}
-				if (!Gui.getwindow().getPanelPlayer().isTeams()) {
+				if (!Gui.getwindow().getPanelPlayer().isSafed()) {
 					Manage.msgboxError("Du hast keine Teams eingetragen", Gui.getwindow().getFrmPokemonDraft());
 					Gui.getwindow().getPanelPlayer().remove(Gui.getwindow().getPanelPlayer().cBTeams);
 					Gui.getwindow().getPanelPlayer().teamlist();
@@ -97,7 +98,8 @@ public class PanelStartDraft extends JPanel {
 					return;
 				}
 				if (Gui.getwindow().getPanelOrder().getOrder() == 0) {
-					Manage.msgboxError("Du hast noch keine Reihenfolge ausgewählt", Gui.getwindow().getFrmPokemonDraft());
+					Manage.msgboxError("Du hast noch keine Reihenfolge ausgewählt",
+							Gui.getwindow().getFrmPokemonDraft());
 					Gui.getwindow().visOrder();
 					return;
 				}

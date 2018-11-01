@@ -152,9 +152,9 @@ public class PanelSettings extends JPanel {
 				if (JOptionPane.showOptionDialog(Gui.getwindow().getFrmPokemonDraft(),
 						"Achtung: Die Änderungen die Du gemacht hast restarten den Draft",
 						"Willst du wiklich Fortfahren", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-						null, options, options[1])==1) {
+						null, options, options[1]) == 1) {
 					return;
-				}else {
+				} else {
 					Gui.getwindow().setFinishdraft(false);
 				}
 			}

@@ -69,7 +69,8 @@ public class PanelTierlist extends JPanel {
 		radioButtonS = new JRadioButton(tiernamen[0]);
 		radioButtonS.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'S');
-			if (!Gui.getwindow().isFinishdraft() && pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
+			if (!Gui.getwindow().isFinishdraft()
+					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
@@ -81,7 +82,8 @@ public class PanelTierlist extends JPanel {
 		radioButtonA = new JRadioButton(tiernamen[1]);
 		radioButtonA.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'A');
-			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
+			if (!Gui.getwindow().isFinishdraft()
+					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
@@ -93,7 +95,8 @@ public class PanelTierlist extends JPanel {
 		radioButtonB = new JRadioButton(tiernamen[2]);
 		radioButtonB.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'B');
-			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
+			if (!Gui.getwindow().isFinishdraft()
+					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
@@ -105,7 +108,8 @@ public class PanelTierlist extends JPanel {
 		radioButtonC = new JRadioButton(tiernamen[3]);
 		radioButtonC.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'C');
-			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
+			if (!Gui.getwindow().isFinishdraft()
+					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
@@ -117,7 +121,8 @@ public class PanelTierlist extends JPanel {
 		radioButtonD = new JRadioButton(tiernamen[4]);
 		radioButtonD.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'D');
-			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
+			if (!Gui.getwindow().isFinishdraft()
+					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
@@ -129,7 +134,8 @@ public class PanelTierlist extends JPanel {
 		radioButtonE = new JRadioButton(tiernamen[5]);
 		radioButtonE.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'E');
-			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
+			if (!Gui.getwindow().isFinishdraft()
+					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();
@@ -141,7 +147,8 @@ public class PanelTierlist extends JPanel {
 		radioButtonX = new JRadioButton("Banned");
 		radioButtonX.addActionListener(e -> {
 			data.PokemonDraft.editTierlist(pokemonListe.getSelectedIndex(), 'X');
-			if (!Gui.getwindow().isFinishdraft() &&pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
+			if (!Gui.getwindow().isFinishdraft()
+					&& pokemonListe.getSelectedIndex() < data.PokemonDraft.getPokedex().length)
 				pokemonListe.select(pokemonListe.getSelectedIndex() + 1);
 			changeTier();
 			Gui.getwindow().getPanelDraft().updateTierPokemon();

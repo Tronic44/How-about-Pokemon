@@ -53,7 +53,8 @@ public class PanelDraft extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	protected void opendraft() {
-		String[] spieler = Gui.getwindow().getPanelPlayer().spieler;
+		String[] spieler = Gui.getwindow().getPanelPlayer().player
+				.toArray(new String[Gui.getwindow().getPanelPlayer().player.size()]);
 		Gui.getwindow().visLoading();
 		try {
 			if (draftauswahl == null) {
@@ -305,7 +306,8 @@ public class PanelDraft extends JPanel {
 			data.PokemonDraft.initTierPokemon();
 			for (int count = 0; count < tierlistcB.length; count++) {
 				try {
-					cbDraft[count].setModel(new DefaultComboBoxModel<String>(data.PokemonDraft.getTierPokemon(tierlistcB[count])));
+					cbDraft[count].setModel(
+							new DefaultComboBoxModel<String>(data.PokemonDraft.getTierPokemon(tierlistcB[count])));
 					cbDraft[count].setSelectedIndex(draftauswahl[changeteam][count]);
 				} catch (Exception e) {
 					break;
@@ -322,7 +324,7 @@ public class PanelDraft extends JPanel {
 					safedauswahl[f][i] = -1;
 				}
 				if (safedauswahl[f][i] > ort) {
-					safedauswahl[f][i] -=  1;
+					safedauswahl[f][i] -= 1;
 				}
 			}
 		}

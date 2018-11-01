@@ -216,7 +216,7 @@ public class PanelPlayer extends JPanel {
 		cBTeams.setModel(new DefaultComboBoxModel<String>(loadedteamnames));
 	}
 
-	public boolean isTeams() {
+	public boolean isSafed() {
 		return safed;
 	}
 
