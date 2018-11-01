@@ -4,6 +4,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import client.MainMenu;
 import client.Manage;
 
 @SuppressWarnings("serial")
@@ -36,7 +38,7 @@ public class PanelMenu extends JPanel {
 		panel.add(btnLoadDraft);
 
 		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(e -> System.exit(0));
+		btnExit.addActionListener(e -> MainMenu.getwindow().visMainMenu());
 
 		btnExit.setFont(FONT);
 		btnExit.setBounds(85, 463, 239, 68);
