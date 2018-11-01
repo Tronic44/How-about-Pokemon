@@ -3,7 +3,6 @@ package draftpanels;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import client.Data;
 import client.Manage;
 
 @SuppressWarnings("serial")
@@ -68,7 +67,7 @@ public class PanelStartDraft extends JPanel {
 		btnFertig.addActionListener(e -> {
 			if (!Gui.getwindow().isFinishdraft()) {
 				int count = 0;
-				for (char k : Data.getTierlist()) {
+				for (char k : data.PokemonDraft.getTierlist()) {
 					if (k == '0') {
 						count++;
 					}
@@ -110,10 +109,10 @@ public class PanelStartDraft extends JPanel {
 							"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, options, options[2])) {
 					case 0:
-						for (int k = 0; k < Data.getPokedex().length; k++) {
+						for (int k = 0; k < data.PokemonDraft.getPokedex().length; k++) {
 
-							if (Data.getTierlist(k) == '0') {
-								Data.editTierlist(k, 'X');
+							if (data.PokemonDraft.getTierlist(k) == '0') {
+								data.PokemonDraft.editTierlist(k, 'X');
 							}
 						}
 						Gui.getwindow().getPanelDraft().opendraft();

@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.json.*;
 import draftpanels.Gui;
+import data.PokemonDraft;
 
 /**
  * Die Klasse Writer ist die Schnittstelle zwischen Programm und Datein. Sie
@@ -21,6 +22,11 @@ import draftpanels.Gui;
  *
  */
 public class Writer {
+	
+	private Writer() {
+		
+	}
+	
 	/**
 	 * Die Methode print ist dazu ausgelegt ein Array in eine .txt zu schreiben.
 	 * Kann die Datei neu anlegen.
@@ -161,8 +167,8 @@ public class Writer {
 			drafts.put("name", listname);
 
 			JSONObject aktuell = new JSONObject();
-			aktuell.put("poketier", Data.getTierlist());
-			aktuell.put("poketierclone", Data.getTierlistclone());
+			aktuell.put("poketier", PokemonDraft.getTierlist());
+			aktuell.put("poketierclone", PokemonDraft.getTierlistclone());
 //			aktuell.put("team", Gui.getwindow().getPanelPlayer().getTeam());
 			aktuell.put("settings", Gui.getwindow().getPanelSettings().getSettings());
 
