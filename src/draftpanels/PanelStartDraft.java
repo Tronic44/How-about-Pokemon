@@ -145,8 +145,4 @@ public class PanelStartDraft extends JPanel {
 
 		add(panel);
 	}
-
-	protected void enablebtnReihenfolge() {
-		btnReihenfolge.setEnabled(true);
-	}
 }

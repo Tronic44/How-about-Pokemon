@@ -250,17 +250,16 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	protected void resetDraft() {
-		draftauswahl = null;
-		for (JComboBox<String> k : cbDraft) {
-			try {
-				k.setSelectedIndex(-1);
-			} catch (Exception f) {
-				break;
-			}
-		}
-	}
+//	protected void resetDraft() {
+//		draftauswahl = null;
+//		for (JComboBox<String> k : cbDraft) {
+//			try {
+//				k.setSelectedIndex(-1);
+//			} catch (Exception f) {
+//				break;
+//			}
+//		}
+//	}
 
 	private void changeDraftPokemon(JComboBox<String> box) {
 		for (int k = 0; k < cbDraft.length; k++) {

@@ -24,7 +24,6 @@ public class PanelPlayer extends JPanel {
 	protected ArrayList<String> player = new ArrayList<>();
 	protected String[] loadedteamnames;
 	private String[][] loadedteamlist;
-	private JTextField tFSafeTeams;
 	protected JComboBox<String> cBTeams;
 	private ArrayList<JTextField> teams = new ArrayList<>();
 	private int hight = 39;
@@ -165,7 +164,7 @@ public class PanelPlayer extends JPanel {
 		lblTeamNamen.setBounds(151, 11, 106, 20);
 		panel.add(lblTeamNamen);
 
-		tFSafeTeams = new JTextField();
+		JTextField tFSafeTeams = new JTextField();
 		tFSafeTeams.setColumns(10);
 		tFSafeTeams.setBounds(59, 506, 106, 20);
 		panel.add(tFSafeTeams);

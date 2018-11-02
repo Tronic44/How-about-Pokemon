@@ -375,11 +375,8 @@ public class PanelSettings extends JPanel {
 			Manage.msgboxError("Huch da ist was bei der Anzahl der Pokemon schief gelaufen" + "\n"
 					+ "Keine Sorge das war nicht deine Schuld aber leider können deine Einstellungen nicht übernommen werden",
 					DraftGui.getwindow().getFrmPokemonDraft());
-			try {
-				for (JComboBox<String> k : comboBoxes) {
-					k.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
-				}
-			} catch (Exception e) {
+			for (JComboBox<String> k : comboBoxes) {
+				k.setModel(new DefaultComboBoxModel<String>(getanArray(15)));
 			}
 		}
 	}

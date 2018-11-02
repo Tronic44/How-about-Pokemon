@@ -45,7 +45,7 @@ public class DraftGui {
 							new PrintWriter(new BufferedWriter(new FileWriter("Error" + ".txt", true)), true));
 					Manage.msgboxError("Ein Error ist aufgetreten und gespeichert", null);
 				} catch (IOException e1) {
-
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -60,7 +60,6 @@ public class DraftGui {
 		frmPokemonDraft.setTitle("Pokemon Draft        Alpha by Tronic44");
 		frmPokemonDraft.setResizable(false);
 		frmPokemonDraft.setBounds(100, 100, 409, 640);
-//		frmPokemonDraft.setBounds(100, 100, 1100, 800);
 		frmPokemonDraft.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPokemonDraft.getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -135,11 +134,6 @@ public class DraftGui {
 			if (panelMenu.isVisible()) {
 				client.MainMenu.getwindow().visMainMenu();
 			} else {
-				if (panelDraft.isVisible()) {
-//					Manage.msgboxError(
-//							"ACHTUNG: Änderungen nach dem Draft beginn, kann zum eustart des Draftens führen!",
-//							frmPokemonDraft);
-				}
 				frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
 				visMenu();
 			}
@@ -151,27 +145,17 @@ public class DraftGui {
 			if (panelMenu.isVisible()) {
 				MainMenu.getwindow().visMainMenu();
 			}
-			if (panelStartDraft.isVisible()) {
+			if (panelStartDraft.isVisible() || panelLoadDraft.isVisible()) {
 				visMenu();
 			}
-			if (panelDraft.isVisible()) {
-				visLoading();
-//				client.Manage.msgboxError(
-//						"ACHTUNG: Änderungen nach dem Draft beginn, kann zum neustart des Draftens führen!",
-//						frmPokemonDraft);
-				visStartDraft();
-			}
-			if (panelTierlist.isVisible() || panelSettings.isVisible() || panelOrder.isVisible()) {
+			if (panelTierlist.isVisible() || panelSettings.isVisible() || panelOrder.isVisible() || panelDraft.isVisible()) {
 				visStartDraft();
 			}
 			if (panelPlayer.isVisible()) {
-				if (!getPanelPlayer().isSafed() && getPanelPlayer().player.size() > 1)
+				if (!getPanelPlayer().isSafed())
 					Manage.msgboxErfolg("Beachte: Du hast ungespeicherte Änderung",
 							DraftGui.getwindow().frmPokemonDraft);
 				visStartDraft();
-			}
-			if (panelLoadDraft.isVisible()) {
-				visMenu();
 			}
 			frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
 		});
