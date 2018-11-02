@@ -19,23 +19,7 @@ public class PanelDraft extends JPanel {
 	private JPanel panel = new JPanel();
 	private int[][] draftauswahl;
 	protected JComboBox<String> cBchangeteam = new JComboBox<>();
-	private FilterComboBox cBD01;
-	private FilterComboBox cBD02;
-	private FilterComboBox cBD03;
-	private FilterComboBox cBD04;
-	private FilterComboBox cBD05;
-	private FilterComboBox cBD06;
-	private FilterComboBox cBD07;
-	private FilterComboBox cBD08;
-	private FilterComboBox cBD09;
-	private FilterComboBox cBD10;
-	private FilterComboBox cBD11;
-	private FilterComboBox cBD12;
-	private FilterComboBox cBD13;
-	private FilterComboBox cBD14;
-	private FilterComboBox cBD15;
-	private FilterComboBox[] cbDraft = new FilterComboBox[] { cBD01, cBD02, cBD03, cBD04, cBD05, cBD06, cBD07, cBD08,
-			cBD09, cBD10, cBD11, cBD12, cBD13, cBD14, cBD15 };
+	private FilterComboBox[] cbDraft = new FilterComboBox[15];
 	private int changeteam = 0;
 	private JLabel[] labellist = new JLabel[6];
 	private int[] tierlistcB = new int[cbDraft.length];
@@ -45,6 +29,8 @@ public class PanelDraft extends JPanel {
 
 		panel.setBounds(0, 0, 400, 50);
 		panel.setLayout(null);
+		
+		Arrays.fill(cbDraft, 0, cbDraft.length-1, new FilterComboBox());
 
 		JLabel lbteams = new JLabel("Teams:");
 		lbteams.setBounds(123, 14, 45, 14);

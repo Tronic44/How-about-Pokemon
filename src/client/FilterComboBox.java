@@ -26,6 +26,11 @@ public class FilterComboBox extends JComboBox {
 			}
 		});
 	}
+	
+	public FilterComboBox() {
+		super();
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	public FilterComboBox(String[] array) {
