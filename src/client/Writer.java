@@ -86,8 +86,9 @@ public class Writer {
 	 * @param datei - Der Dateiname, der einzulesen ist
 	 * @return String[][]
 	 * @throws IOException
+	 * @throws MyException 
 	 */
-	public static String[][] read(String datei) throws IOException {
+	public static String[][] read(String datei) throws IOException, MyException {
 		FileReader fr;
 		String line;
 		String[] zeile;
@@ -121,13 +122,6 @@ public class Writer {
 
 					}
 					br.close();
-					for (String[] k : list) {
-						for (String g : k) {
-							System.out.print(g + "  ");
-						}
-						System.out.println();
-					}
-
 					return list;
 				} catch (Exception e) {
 					Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
@@ -149,7 +143,7 @@ public class Writer {
 				}
 			}
 		}
-		return null;
+		throw new MyException();
 	}
 
 	/**

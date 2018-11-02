@@ -272,7 +272,7 @@ public class PanelTierlist extends JPanel {
 		radioButtonE.setText(tiernamen[5]);
 	}
 
-	protected void changeTier() {
+	private void changeTier() {
 		tFPoke.setText(pokemonListe.getSelectedItem());
 		switch (data.PokemonDraft.getTierlist(pokemonListe.getSelectedIndex())) {
 		case 'S':
