@@ -19,14 +19,12 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnTierlist = new JButton("Tierlist");
 		btnTierlist.setBounds(74, 38, 255, 71);
-		btnTierlist.addActionListener(e -> DraftGui.getwindow().getPanelTierlist().openTierlist());
+		btnTierlist.addActionListener(e -> DraftGui.getwindow().visTierlist());
 		panel.add(btnTierlist);
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
 		btnSpielerTeams.addActionListener(e -> {
-
-//			DraftGui.getwindow().getPanelPlayer().remove(DraftGui.getwindow().getPanelPlayer().cBTeams);
-//			DraftGui.getwindow().getPanelPlayer().teamlist();
+			DraftGui.getwindow().getPanelPlayer().reloadTeamlist();
 			DraftGui.getwindow().visPlayer();
 		});
 		btnSpielerTeams.setBounds(74, 147, 255, 71);
@@ -65,14 +63,14 @@ public class PanelStartDraft extends JPanel {
 				if (count > 880) {
 					Manage.msgboxError("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
 							DraftGui.getwindow().getFrmPokemonDraft());
-					DraftGui.getwindow().getPanelTierlist().openTierlist();
+					DraftGui.getwindow().visTierlist();
 					DraftGui.getwindow().visTierlist();
 					return;
 				}
 				if (!DraftGui.getwindow().getPanelPlayer().isSafed()) {
 					Manage.msgboxError("Du hast keine Teams eingetragen", DraftGui.getwindow().getFrmPokemonDraft());
 					DraftGui.getwindow().getPanelPlayer().remove(DraftGui.getwindow().getPanelPlayer().cBTeams);
-					DraftGui.getwindow().getPanelPlayer().teamlist();
+					DraftGui.getwindow().getPanelPlayer().reloadTeamlist();
 					DraftGui.getwindow().visPlayer();
 					return;
 				}
@@ -120,7 +118,7 @@ public class PanelStartDraft extends JPanel {
 
 						break;
 					case 2:
-						DraftGui.getwindow().getPanelTierlist().openTierlist();
+						DraftGui.getwindow().visTierlist();
 						break;
 					default:
 						break;

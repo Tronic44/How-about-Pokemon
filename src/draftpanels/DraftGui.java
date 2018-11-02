@@ -148,7 +148,7 @@ public class DraftGui {
 
 		JButton btnmenuback = new JButton("zur\u00FCck");
 		btnmenuback.addActionListener(e -> {
-			if(panelMenu.isVisible()) {
+			if (panelMenu.isVisible()) {
 				MainMenu.getwindow().visMainMenu();
 			}
 			if (panelStartDraft.isVisible()) {
@@ -166,7 +166,8 @@ public class DraftGui {
 			}
 			if (panelPlayer.isVisible()) {
 				if (!getPanelPlayer().isSafed() && getPanelPlayer().player.size() > 1)
-					Manage.msgboxErfolg("Beachte: Du hast ungespeicherte Änderung", DraftGui.getwindow().frmPokemonDraft);
+					Manage.msgboxErfolg("Beachte: Du hast ungespeicherte Änderung",
+							DraftGui.getwindow().frmPokemonDraft);
 				visStartDraft();
 			}
 			if (panelLoadDraft.isVisible()) {
@@ -259,14 +260,14 @@ public class DraftGui {
 
 	protected void visTierlist() {
 		visLoading();
-		getPanelTierlist().tierlist();
+		getPanelTierlist().openTierlist();
 		panelTierlist.setVisible(true);
 		panelloading.setVisible(false);
 	}
 
 	protected void visSettings() {
 		visLoading();
-		if(finishdraft) {
+		if (finishdraft) {
 			panelSettings.disablecrtiticalchanges();
 		}
 		panelSettings.setVisible(true);

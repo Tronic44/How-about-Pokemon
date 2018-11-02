@@ -38,7 +38,7 @@ public class PanelSettings extends JPanel {
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 
-		int[] arrangey = new int[] { 83, 123, 164, 204, 247, 290 };
+		int[] arrangey = new int[] { 84, 124, 164, 204, 244, 284 };
 		char[] standartTier = new char[] { 'S', 'A', 'B', 'C', 'D', 'E' };
 
 		for (int k = 0; k < arrangey.length; k++) {
@@ -190,7 +190,6 @@ public class PanelSettings extends JPanel {
 			lblStatus.add(new JLabel(""));
 			lblStatus.get(k).setBounds(276, arrangey[k], 117, 14);
 			panel.add(lblStatus.get(k));
-
 		}
 		for (int k = 0; k < lblTier.size(); k++) {
 			comboBoxes.add(new JComboBox<>(getanArray(15)));
@@ -205,16 +204,13 @@ public class PanelSettings extends JPanel {
 							comboBoxes.get(comboBoxes.indexOf(e.getSource())).getSelectedIndex() + 1);
 				}
 			});
-
 		}
 		for (int k = 0; k < lblTier.size(); k++) {
 			checkBoxes.add(new JCheckBox(""));
 			checkBoxes.get(k).setBounds(67, arrangey[k], 21, 23);
 			panel.add(checkBoxes.get(k));
 			checkBoxes.get(k).addActionListener(e -> {
-
 				int ort = checkBoxes.indexOf(e.getSource());
-
 				if (checkBoxes.get(ort).isSelected()) {
 					try {
 						comboBoxes.get(ort).setSelectedIndex(0);

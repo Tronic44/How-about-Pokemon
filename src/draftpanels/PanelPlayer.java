@@ -136,6 +136,10 @@ public class PanelPlayer extends JPanel {
 		JButton btnPlayer = new JButton("Bestätige");
 		btnPlayer.addActionListener(e -> {
 			removeEmptyFields();
+			if (teams.size() < 2) {
+				Manage.msgboxError("Du möchtest ohen Teams spielen?", DraftGui.getwindow().getFrmPokemonDraft());
+				return;
+			}
 			player = new ArrayList<>();
 			for (int k = 0; k < teams.size(); k++) {
 				for (int i = 0; i < teams.size(); i++) {
@@ -149,7 +153,8 @@ public class PanelPlayer extends JPanel {
 					player.add(teams.get(k).getText().trim());
 				}
 			}
-			DraftGui.getwindow().getPanelDraft().cBchangeteam.setModel(new DefaultComboBoxModel<String>(player.toArray(new String[0])));
+			DraftGui.getwindow().getPanelDraft().cBchangeteam
+					.setModel(new DefaultComboBoxModel<String>(player.toArray(new String[0])));
 			setSafe(true);
 		});
 		btnPlayer.setBounds(160, 461, 89, 23);
@@ -167,58 +172,60 @@ public class PanelPlayer extends JPanel {
 
 		JButton btnsafeteams = new JButton("Speichern");
 		btnsafeteams.addActionListener(e -> {
-
-			Manage.msgboxError("Du hast keine Teams bestätigt", DraftGui.getwindow().getFrmPokemonDraft());
+			if (!safed) {
+				Manage.msgboxError("Du hast keine Teams bestätigt", DraftGui.getwindow().getFrmPokemonDraft());
+				return;
+			}
 			if (tFSafeTeams.getText().equals("") || tFSafeTeams.getText().equals("Gespeichert")) {
 				Manage.msgboxError("Du hast keinen Namen eingegeben", DraftGui.getwindow().getFrmPokemonDraft());
 				tFSafeTeams.setText("");
-			} else {
-				if (tFSafeTeams.getText().contains(":")) {
-					Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten",
-							DraftGui.getwindow().getFrmPokemonDraft());
-				} else {
-					Boolean b = true;
-					for (String k : loadedteamnames) {
-						if (tFSafeTeams.getText().equals(k)) {
-							Manage.msgboxError("Der Name existiert schon", DraftGui.getwindow().getFrmPokemonDraft());
-							b = false;
-							break;
-						}
-						if (k.equals("Lese Error")) {
-							return;
-						}
-					}
-					if (b) {
-						Writer.print("teamlist", tFSafeTeams.getText(), loadedteamnames);
-						tFSafeTeams.setText("Gespeichert");
-						panel.remove(cBTeams);
-						teamlist();
-					}
-
+				return;
+			}
+			if (tFSafeTeams.getText().contains(":")) {
+				Manage.msgboxError("Der Name das keinen Doppelpunkt enthalten",
+						DraftGui.getwindow().getFrmPokemonDraft());
+				return;
+			}
+			for (String k : loadedteamnames) {
+				if (tFSafeTeams.getText().equals(k)) {
+					Manage.msgboxError("Der Name existiert schon", DraftGui.getwindow().getFrmPokemonDraft());
+					return;
+				}
+				if (k.equals("Lese Error")) {
+					return;
 				}
 			}
+			String[] safenames = new String[teams.size()];
+			for (int k = 0; k < teams.size(); k++) {
+				safenames[k] = teams.get(k).getText().trim();
+			}
+			Writer.print("teamlist", tFSafeTeams.getText(), safenames);
+			tFSafeTeams.setText("Gespeichert");
+			reloadTeamlist();
 		});
 		btnsafeteams.setBounds(59, 541, 109, 23);
 		panel.add(btnsafeteams);
 
-		cBTeams = new JComboBox(new Object[] {});
+		cBTeams = new JComboBox(new String[] {});
 		cBTeams.setBounds(224, 502, 124, 28);
 		panel.add(cBTeams);
 
 		JButton btnloadteams = new JButton("Laden");
 		btnloadteams.addActionListener(e -> {
-//			StringBuilder read = new StringBuilder("");
-//			for (int k = 1; k < teamlist[cBTeams.getSelectedIndex()].length; k++) {
-//				read.append(teamlist[cBTeams.getSelectedIndex()][k] + "\n");
-//			}
-//			ePTeam.setText(read.toString());
-//			spinnerteam.setValue(teamlist[cBTeams.getSelectedIndex()].length - 1);
+			for (JTextField k : teams) {
+				k.setText("");
+			}
+			removeEmptyFields();
+			for (int k = 1; k < loadedteamlist[cBTeams.getSelectedIndex()].length; k++) {
+				teams.get(k - 1).setText(loadedteamlist[cBTeams.getSelectedIndex()][k]);
+				teams.get(k - 1).setCaretPosition(1);
+			}
 		});
 		btnloadteams.setBounds(242, 541, 89, 23);
 		panel.add(btnloadteams);
 	}
 
-	protected void teamlist() {
+	protected void reloadTeamlist() {
 		try {
 			loadedteamlist = client.Writer.read("teamlist");
 			loadedteamnames = new String[loadedteamlist.length];

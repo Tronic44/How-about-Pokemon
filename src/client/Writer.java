@@ -68,7 +68,7 @@ public class Writer {
 			PrintWriter pWriter = new PrintWriter(new BufferedWriter(new FileWriter(datei + ".txt", true)), true);
 			pWriter.print(name + ":");
 			for (int i = 0; i < text.length; i++) {
-				pWriter.print(text[i]);
+				pWriter.print(text[i] + ":");
 			}
 			pWriter.println();
 			pWriter.close();
@@ -85,8 +85,9 @@ public class Writer {
 	 * 
 	 * @param datei - Der Dateiname, der einzulesen ist
 	 * @return String[][]
+	 * @throws IOException
 	 */
-	public static String[][] read(String datei) {
+	public static String[][] read(String datei) throws IOException {
 		FileReader fr;
 		String line;
 		String[] zeile;
@@ -104,10 +105,10 @@ public class Writer {
 						line = br.readLine();
 						if (line != null) {
 							zeile = line.split(":");
-							if (zeile.length > 0 && zeile[0].toString().trim().equals("")) {
+							if (zeile.length > 0 && zeile[0].trim().equals("")) {
 								zeile = (String[]) ArrayUtils.remove(zeile, 0);
 							}
-							if (zeile.length > 2 && zeile[zeile.length - 1].toString().trim().equals("")) {
+							if (zeile.length > 2 && zeile[zeile.length - 1].trim().equals("")) {
 								zeile = (String[]) ArrayUtils.remove(zeile, zeile.length - 1);
 							}
 							buffer[i] = zeile;
@@ -120,10 +121,18 @@ public class Writer {
 
 					}
 					br.close();
+					for (String[] k : list) {
+						for (String g : k) {
+							System.out.print(g + "  ");
+						}
+						System.out.println();
+					}
+
 					return list;
 				} catch (Exception e) {
 					Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWr-1" + "\n" + e.toString());
-//					e.printStackTrace();
+					e.printStackTrace(
+							new PrintWriter(new BufferedWriter(new FileWriter("Error" + ".txt", true)), true));
 				}
 				rewrite++;
 			} catch (FileNotFoundException e) {
@@ -134,7 +143,8 @@ public class Writer {
 				} catch (IOException ioe) {
 					if (rewrite != 0) {
 						Manage.msgboxFatalError("Da ist was schief gelaufen   Code:PKD-CWr-3" + "\n" + ioe.toString());
-//						ioe.printStackTrace();
+						ioe.printStackTrace(
+								new PrintWriter(new BufferedWriter(new FileWriter("Error" + ".txt", true)), true));
 					}
 				}
 			}

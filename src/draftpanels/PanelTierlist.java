@@ -57,6 +57,9 @@ public class PanelTierlist extends JPanel {
 			}
 		});
 		pokemonListe.setBounds(20, 33, 197, 516);
+		for (int i = 0; i < data.PokemonDraft.getPokedex().length; i++) {
+			pokemonListe.add(data.PokemonDraft.getPokedex(i));
+		}
 		panel.add(pokemonListe);
 
 		tFPoke = new JTextField();
@@ -187,15 +190,13 @@ public class PanelTierlist extends JPanel {
 						Writer.print("tierlist", tFTiername.getText(), data.PokemonDraft.getTierlist());
 						tFTiername.setText("Gespeichert");
 						panel.remove(cBTierlist);
-						tierlist();
+						relaodtierlist();
 					}
 				}
 			}
 		});
 		btnsafetierlist.setBounds(266, 376, 89, 23);
 		panel.add(btnsafetierlist);
-
-		tierlist();
 
 		JButton btnloadtier = new JButton("Laden");
 		btnloadtier.addActionListener(e -> {
@@ -235,10 +236,14 @@ public class PanelTierlist extends JPanel {
 		lblSuche.setBounds(30, 558, 46, 14);
 		panel.add(lblSuche);
 
+		cBTierlist = new JComboBox<>(new String[] {});
+		cBTierlist.setBounds(248, 447, 124, 28);
+		panel.add(cBTierlist);
+
 		add(panel);
 	}
 
-	protected void tierlist() {
+	private void relaodtierlist() {
 		try {
 			tierlist = client.Writer.read("tierlist");
 			safedNamen = new String[tierlist.length];
@@ -248,14 +253,7 @@ public class PanelTierlist extends JPanel {
 		} catch (Exception e) {
 			safedNamen = new String[] { "Lese Error" };
 		}
-		cBTierlist = new JComboBox<>();
 		cBTierlist.setModel(new DefaultComboBoxModel<String>(safedNamen));
-		cBTierlist.setBounds(248, 447, 124, 28);
-		try {
-			DraftGui.getwindow().getPanelTierlist().add(cBTierlist);
-		} catch (Exception e) {
-			panel.add(cBTierlist);
-		}
 	}
 
 	protected void resetRadioButtons() {
@@ -308,14 +306,9 @@ public class PanelTierlist extends JPanel {
 	}
 
 	protected void openTierlist() {
-		pokemonListe.removeAll();
-		for (int i = 0; i < data.PokemonDraft.getPokedex().length; i++) {
-			pokemonListe.add(data.PokemonDraft.getPokedex(i));
-		}
 		pokemonListe.select(0);
 		changeTier();
-		tierlist();
-		DraftGui.getwindow().visTierlist();
+		relaodtierlist();
 	}
 
 	protected int setRadioButton(boolean[] b, String[] st) {

@@ -24,7 +24,6 @@ public class Manage {
 	 */
 	public static void main(String[] args) {
 		client.MainMenu.startHowAboutPokemon();
-//		draftpanels.Gui.startPokemonDrafting();
 	}
 
 	/**
