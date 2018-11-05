@@ -30,7 +30,7 @@ public class DraftGui {
 	private PanelOrder panelOrder;
 	private JPanel panelloading;
 	private PanelAfterDraft panelAfterDraft;
-	private boolean finishdraft = false;
+	private boolean finishlayout = false;
 
 	public static void startPokemonDrafting() {
 		EventQueue.invokeLater(() -> {
@@ -216,12 +216,12 @@ public class DraftGui {
 		return panelOrder;
 	}
 
-	public boolean isFinishdraft() {
-		return finishdraft;
+	public boolean isFinishlayout() {
+		return finishlayout;
 	}
 
-	public void setFinishdraft(boolean b) {
-		finishdraft = b;
+	public void setFinishlayout(boolean b) {
+		finishlayout = b;
 	}
 
 	protected void visStartDraft() {
@@ -259,7 +259,7 @@ public class DraftGui {
 
 	protected void visSettings() {
 		visLoading();
-		if (finishdraft) {
+		if (finishlayout) {
 			panelSettings.disablecrtiticalchanges();
 		}
 		panelSettings.setVisible(true);

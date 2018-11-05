@@ -25,8 +25,8 @@ public class PanelDraft extends JPanel {
 	private int[] tierlistcB = new int[cbDraft.length];
 	static Thread one = new Thread();
 	private int[] teamfolge;
-	private boolean status = false;
-	protected boolean drafting = true;
+	private boolean waitforstatusupdate = false;
+	protected boolean finishdrafting = false;
 
 	@SuppressWarnings("unchecked")
 	public PanelDraft() {
@@ -70,7 +70,7 @@ public class PanelDraft extends JPanel {
 			public void run() {
 				try {
 					synchronized (one) {
-						while (drafting) {
+						while (!finishdrafting) {
 							int anyteamleft = DraftGui.getwindow().getPanelPlayer().player.size();
 							teamfolge = DraftGui.getwindow().getPanelOrder().getTeamfolge();
 							for (int k = 0; k < teamfolge.length; k++) {
@@ -91,11 +91,11 @@ public class PanelDraft extends JPanel {
 								}
 								if (count == 0) {
 									anyteamleft--;
-									status = true;
+									waitforstatusupdate = true;
 								}
 								if (anyteamleft == 0) {
-									drafting = false;
-									status = false;
+									finishdrafting = false;
+									waitforstatusupdate = false;
 									Thread.currentThread().interrupt();
 									endDrafting();
 								}
@@ -113,7 +113,7 @@ public class PanelDraft extends JPanel {
 	private synchronized void nextteam(int k) {
 		try {
 			synchronized (one) {
-				while (!status) {
+				while (!waitforstatusupdate) {
 					wait(100);
 				}
 			}
@@ -125,7 +125,7 @@ public class PanelDraft extends JPanel {
 		} catch (Exception e) {
 			cBchangeteam.setSelectedIndex(0);
 		}
-		status = false;
+		waitforstatusupdate = false;
 	}
 
 	protected void opendraft() {
@@ -166,7 +166,7 @@ public class PanelDraft extends JPanel {
 		}
 		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
 				DraftGui.getwindow().getFrmPokemonDraft().getY(), 1100, getDraftHight());
-		if (!DraftGui.getwindow().isFinishdraft()) {
+		if (!DraftGui.getwindow().isFinishlayout()) {
 			data.PokemonDraft.initTierPokemon();
 			draftLayout();
 		}
@@ -286,7 +286,7 @@ public class PanelDraft extends JPanel {
 			}
 			line += 130;
 		}
-		DraftGui.getwindow().setFinishdraft(true);
+		DraftGui.getwindow().setFinishlayout(true);
 	}
 
 	private int[] nextDraftColumn(int k) {
@@ -354,7 +354,7 @@ public class PanelDraft extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	protected void updateTierPokemon() {
-		if (DraftGui.getwindow().isFinishdraft()) {
+		if (DraftGui.getwindow().isFinishlayout()) {
 			data.PokemonDraft.initTierPokemon();
 			for (int count = 0; count < tierlistcB.length; count++) {
 				try {
@@ -408,7 +408,7 @@ public class PanelDraft extends JPanel {
 					break;
 				}
 			}
-			status = true;
+			waitforstatusupdate = true;
 		} else {
 			int pokecount = 0;
 			int auswahlcount = 0;
@@ -429,7 +429,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	private void endDrafting() {
-		drafting = false;
+		finishdrafting = true;
 		String[][] draftergebnis = new String[DraftGui.getwindow().getPanelPlayer().player.size()][15];
 		for (int h = 0; h < DraftGui.getwindow().getPanelPlayer().player.size(); h++) {
 			int m = 0;

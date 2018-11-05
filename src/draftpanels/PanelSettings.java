@@ -93,7 +93,7 @@ public class PanelSettings extends JPanel {
 			}
 			if (lblissettingsbestaetigung.getText().equals("Änderungen wurden übernommen!")) {
 				return;
-			} else if (DraftGui.getwindow().isFinishdraft()) {
+			} else if (DraftGui.getwindow().isFinishlayout()) {
 				Object[] options = { "Fortfahren", "Abbrechen" };
 				if (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
 						"Achtung: Die Änderungen die Du gemacht hast restarten den Draft",
@@ -101,7 +101,7 @@ public class PanelSettings extends JPanel {
 						null, options, options[1]) == 1) {
 					return;
 				} else {
-					DraftGui.getwindow().setFinishdraft(false);
+					DraftGui.getwindow().setFinishlayout(false);
 				}
 			}
 			data.PokemonDraft.cloneTierlist();
@@ -175,7 +175,7 @@ public class PanelSettings extends JPanel {
 						lblissettingsbestaetigung.setText("");
 					} else {
 						DraftGui.getwindow().getPanelDraft().updateTiernamen(tfTiername.indexOf(e.getSource()), text);
-						if (DraftGui.getwindow().isFinishdraft()) {
+						if (DraftGui.getwindow().isFinishlayout()) {
 							lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 						}
 					}
@@ -254,7 +254,7 @@ public class PanelSettings extends JPanel {
 
 		JButton btnresettier = new JButton("RESET");
 		btnresettier.addActionListener(e -> {
-			if (!DraftGui.getwindow().isFinishdraft()) {
+			if (!DraftGui.getwindow().isFinishlayout()) {
 				resetSettings();
 				Manage.msgboxErfolg("Erfolgreich Resetet!", DraftGui.getwindow().getFrmPokemonDraft());
 			}
@@ -265,7 +265,7 @@ public class PanelSettings extends JPanel {
 
 		JButton btnrestoretier = new JButton("RESTORE");
 		btnrestoretier.addActionListener(e -> {
-			if (!DraftGui.getwindow().isFinishdraft()) {
+			if (!DraftGui.getwindow().isFinishlayout()) {
 				try {
 					data.PokemonDraft.restoreTierlist();
 					resetSettings();

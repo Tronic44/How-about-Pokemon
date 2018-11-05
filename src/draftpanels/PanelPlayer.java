@@ -96,7 +96,7 @@ public class PanelPlayer extends JPanel {
 	private void removeEmptyFields() {
 		for (int k = 0; k < teams.size() - 1; k++) {
 			if (teams.get(k).getText().trim().length() < 1) {
-				if (DraftGui.getwindow().isFinishdraft()) {
+				if (DraftGui.getwindow().isFinishlayout()) {
 					Object[] options = { "Ja", "Nein" };
 					if (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
 							"Du bist im Begriff das Team:  " + player.get(k) + "  zu löschen" + "\n"

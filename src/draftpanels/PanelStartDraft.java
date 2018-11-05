@@ -53,11 +53,11 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnFertig = new JButton("Fertig");
 		btnFertig.addActionListener(e -> {
-			if(DraftGui.getwindow().getPanelDraft().drafting) {
+			if(DraftGui.getwindow().getPanelDraft().finishdrafting) {
 				DraftGui.getwindow().visAfterDraft();
 				return;
 			}
-			if (!DraftGui.getwindow().isFinishdraft()) {
+			if (!DraftGui.getwindow().isFinishlayout()) {
 				int count = 0;
 				for (char k : data.PokemonDraft.getTierlist()) {
 					if (k == '0' || k == 'X') {
