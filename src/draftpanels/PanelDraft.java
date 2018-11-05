@@ -26,7 +26,7 @@ public class PanelDraft extends JPanel {
 	static Thread one = new Thread();
 	private int[] teamfolge;
 	private boolean status = false;
-	boolean drafting = true;
+	protected boolean drafting = true;
 
 	@SuppressWarnings("unchecked")
 	public PanelDraft() {
@@ -429,6 +429,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	private void endDrafting() {
+		drafting = false;
 		String[][] draftergebnis = new String[DraftGui.getwindow().getPanelPlayer().player.size()][15];
 		for (int h = 0; h < DraftGui.getwindow().getPanelPlayer().player.size(); h++) {
 			int m = 0;

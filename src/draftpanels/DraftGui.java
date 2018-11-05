@@ -112,15 +112,11 @@ public class DraftGui {
 		panelloading = new JPanel();
 		frmPokemonDraft.getContentPane().add(panelloading, "name_910613970759788");
 		initloading();
-		
+
 		panelAfterDraft = new PanelAfterDraft();
 		frmPokemonDraft.getContentPane().add(panelAfterDraft, "name_1868052027276522");
 		panelAfterDraft.setLayout(null);
 		panelAfterDraft.setVisible(false);
-		
-	
-		
-		
 	}
 
 	private void initloading() {
@@ -144,7 +140,6 @@ public class DraftGui {
 			if (panelMenu.isVisible()) {
 				client.MainMenu.getwindow().visMainMenu();
 			} else {
-				frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
 				visMenu();
 			}
 		});
@@ -159,7 +154,7 @@ public class DraftGui {
 				visMenu();
 			}
 			if (panelTierlist.isVisible() || panelSettings.isVisible() || panelOrder.isVisible()
-					|| panelDraft.isVisible()) {
+					|| panelDraft.isVisible() || panelAfterDraft.isVisible()) {
 				visStartDraft();
 			}
 			if (panelPlayer.isVisible()) {
@@ -231,6 +226,7 @@ public class DraftGui {
 
 	protected void visStartDraft() {
 		visLoading();
+		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
 		panelStartDraft.setVisible(true);
 		panelloading.setVisible(false);
 	}
@@ -243,6 +239,7 @@ public class DraftGui {
 
 	protected void visMenu() {
 		visLoading();
+		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
 		panelMenu.setVisible(true);
 		panelloading.setVisible(false);
 	}
@@ -288,7 +285,13 @@ public class DraftGui {
 		frmPokemonDraft.getContentPane().add(panelAfterDraft, "name_601634568594680");
 		panelAfterDraft.setVisible(true);
 		panelloading.setVisible(false);
+	}
 
+	protected void visAfterDraft() {
+		visLoading();
+		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
+		panelAfterDraft.setVisible(true);
+		panelloading.setVisible(false);
 	}
 
 	protected void visLoading() {
