@@ -109,7 +109,7 @@ public class PanelStartDraft extends JPanel {
 								data.PokemonDraft.editTierlist(k, 'X');
 							}
 						}
-						DraftGui.getwindow().getPanelDraft().opendraft();
+						DraftGui.getwindow().visDraft();
 						break;
 					case 1:
 						if (DraftGui.getwindow().getPanelSettings().areSettingsChanges()) {
@@ -118,7 +118,7 @@ public class PanelStartDraft extends JPanel {
 							DraftGui.getwindow().visSettings();
 						} else {
 							DraftGui.getwindow().getPanelSettings().toTheLastTier();
-							DraftGui.getwindow().getPanelDraft().opendraft();
+							DraftGui.getwindow().visDraft();
 						}
 
 						break;
@@ -129,7 +129,7 @@ public class PanelStartDraft extends JPanel {
 						break;
 					}
 				} else {
-					DraftGui.getwindow().getPanelDraft().opendraft();
+					DraftGui.getwindow().visDraft();
 				}
 			} else {
 //				if (DraftGui.getwindow().getPanelPlayer().spieler.length != DraftGui.getwindow()

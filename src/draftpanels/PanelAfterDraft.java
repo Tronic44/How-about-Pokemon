@@ -14,6 +14,7 @@ public class PanelAfterDraft extends JPanel {
 
 		TextArea textArea = new TextArea();
 		textArea.setBounds(10, 10, 430, 280);
+		textArea.setEditable(false);
 		add(textArea);
 
 		for (String k : DraftGui.getwindow().getPanelPlayer().player) {
@@ -36,5 +37,4 @@ public class PanelAfterDraft extends JPanel {
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 	}
-
 }

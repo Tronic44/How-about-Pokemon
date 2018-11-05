@@ -13,6 +13,7 @@ import javax.swing.JSeparator;
 import java.util.ArrayList;
 import javax.swing.event.CaretListener;
 import client.Manage;
+import client.MyException;
 import client.Writer;
 import javax.swing.event.CaretEvent;
 import java.awt.event.KeyAdapter;
@@ -93,7 +94,16 @@ public class PanelPlayer extends JPanel {
 		add(panel);
 	}
 
-	private void removeEmptyFields() {
+	private void removeEmptyFields() throws Exception {
+		int count = 0;
+		for (int k = 0; k < teams.size(); k++) {
+			if (teams.get(k).getText().trim().length() > 1) {
+				count++;
+			}
+		}
+		if (count < 2) {
+			throw new MyException();
+		}
 		for (int k = 0; k < teams.size() - 1; k++) {
 			if (teams.get(k).getText().trim().length() < 1) {
 				if (DraftGui.getwindow().isFinishlayout()) {
@@ -105,7 +115,7 @@ public class PanelPlayer extends JPanel {
 							JOptionPane.QUESTION_MESSAGE, null, options, options[1]) == 1) {
 						return;
 					}
-					DraftGui.getwindow().getPanelDraft().removeFromDraft(k);
+					DraftGui.getwindow().getPanelDraft().removeTeamFromDraft(k);
 				}
 				DraftGui.getwindow().getPanelPlayer().teams.get(k).setEnabled(false);
 				DraftGui.getwindow().getPanelPlayer().teams.get(k).setBounds(0, 0, 0, 0);
@@ -113,7 +123,6 @@ public class PanelPlayer extends JPanel {
 				teams.remove(k);
 				redrawteams();
 				removeEmptyFields();
-
 				return;
 			}
 		}
@@ -134,8 +143,25 @@ public class PanelPlayer extends JPanel {
 	private void btn() {
 		JButton btnPlayer = new JButton("Bestätige");
 		btnPlayer.addActionListener(e -> {
-			removeEmptyFields();
-			if (teams.size() < 2) {
+			try {
+				removeEmptyFields();
+			} catch (MyException e1) {
+				Manage.msgboxError("Etwas wenige Teams, findest du nicht?", DraftGui.getwindow().getFrmPokemonDraft());
+				return;
+			} catch (Exception e2) {
+				Manage.msgboxError("Was machst du den für ein chaos mit den Teams?" + "\n"
+						+ "damit kann ich nichts anfangen!" + "\n", DraftGui.getwindow().getFrmPokemonDraft());
+				for (int k = 0; k < player.size(); k++) {
+					teams.get(k).setText(player.get(k));
+					try {
+						removeEmptyFields();
+					} catch (Exception e3) {
+						return;
+					}
+				}
+				return;
+			}
+			if (teams.size() < 3) {
 				Manage.msgboxError("Du möchtest ohen Teams spielen?", DraftGui.getwindow().getFrmPokemonDraft());
 				return;
 			}
@@ -152,8 +178,6 @@ public class PanelPlayer extends JPanel {
 					player.add(teams.get(k).getText().trim());
 				}
 			}
-			DraftGui.getwindow().getPanelDraft().cBchangeteam
-					.setModel(new DefaultComboBoxModel<String>(player.toArray(new String[0])));
 			setSafe(true);
 		});
 		btnPlayer.setBounds(160, 461, 89, 23);
@@ -214,11 +238,19 @@ public class PanelPlayer extends JPanel {
 			for (JTextField k : teams) {
 				k.setText("");
 			}
-			removeEmptyFields();
-			for (int k = 1; k < loadedteamlist[cBTeams.getSelectedIndex()].length; k++) {
-				teams.get(k - 1).setText(loadedteamlist[cBTeams.getSelectedIndex()][k]);
-				teams.get(k - 1).setCaretPosition(1);
+			try {
+				removeEmptyFields();
+			} catch (MyException e1) {
+				for (int k = 1; k < loadedteamlist[cBTeams.getSelectedIndex()].length; k++) {
+					teams.get(k - 1).setText(loadedteamlist[cBTeams.getSelectedIndex()][k]);
+					teams.get(k - 1).setCaretPosition(1);
+				}
+			} catch (Exception e1) {
+				Manage.msgboxError("Da stimmt was mit deiner Datei die du Laden möchtest nicht!",
+						DraftGui.getwindow().getFrmPokemonDraft());
+				return;
 			}
+
 			btnPlayer.doClick();
 		});
 		btnloadteams.setBounds(242, 541, 89, 23);

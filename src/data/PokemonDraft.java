@@ -330,32 +330,32 @@ public class PokemonDraft {
 		if (ch != 'S' && pokemontier1.contains(pokedex[k])) {
 			int ort = pokemontier1.indexOf(pokedex[k]);
 			pokemontier1.remove(ort);
-			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(ort);
+			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier1.get(ort));
 		}
 		if (ch != 'A' && pokemontier2.contains(pokedex[k])) {
 			int ort = pokemontier2.indexOf(pokedex[k]);
 			pokemontier2.remove(ort);
-			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(ort);
+			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier2.get(ort));
 		}
 		if (ch != 'B' && pokemontier3.contains(pokedex[k])) {
 			int ort = pokemontier3.indexOf(pokedex[k]);
 			pokemontier3.remove(ort);
-			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(ort);
+			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier3.get(ort));
 		}
 		if (ch != 'C' && pokemontier4.contains(pokedex[k])) {
 			int ort = pokemontier4.indexOf(pokedex[k]);
 			pokemontier4.remove(ort);
-			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(ort);
+			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier4.get(ort));
 		}
 		if (ch != 'D' && pokemontier5.contains(pokedex[k])) {
 			int ort = pokemontier5.indexOf(pokedex[k]);
 			pokemontier5.remove(ort);
-			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(ort);
+			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier4.get(ort));
 		}
 		if (ch != 'E' && pokemontier6.contains(pokedex[k])) {
 			int ort = pokemontier6.indexOf(pokedex[k]);
 			pokemontier6.remove(ort);
-			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(ort);
+			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier4.get(ort));
 		}
 	}
 
