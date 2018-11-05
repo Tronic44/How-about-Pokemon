@@ -29,6 +29,7 @@ public class DraftGui {
 	private PanelSettings panelSettings;
 	private PanelOrder panelOrder;
 	private JPanel panelloading;
+	private PanelAfterDraft panelAfterDraft;
 	private boolean finishdraft = false;
 
 	public static void startPokemonDrafting() {
@@ -111,6 +112,15 @@ public class DraftGui {
 		panelloading = new JPanel();
 		frmPokemonDraft.getContentPane().add(panelloading, "name_910613970759788");
 		initloading();
+		
+		panelAfterDraft = new PanelAfterDraft();
+		frmPokemonDraft.getContentPane().add(panelAfterDraft, "name_1868052027276522");
+		panelAfterDraft.setLayout(null);
+		panelAfterDraft.setVisible(false);
+		
+	
+		
+		
 	}
 
 	private void initloading() {
@@ -148,7 +158,8 @@ public class DraftGui {
 			if (panelStartDraft.isVisible() || panelLoadDraft.isVisible()) {
 				visMenu();
 			}
-			if (panelTierlist.isVisible() || panelSettings.isVisible() || panelOrder.isVisible() || panelDraft.isVisible()) {
+			if (panelTierlist.isVisible() || panelSettings.isVisible() || panelOrder.isVisible()
+					|| panelDraft.isVisible()) {
 				visStartDraft();
 			}
 			if (panelPlayer.isVisible()) {
@@ -268,6 +279,16 @@ public class DraftGui {
 		visLoading();
 		panelDraft.setVisible(true);
 		panelloading.setVisible(false);
+	}
+
+	protected void visAfterDraft(String[][] draftergebniss) {
+		visLoading();
+		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
+		panelAfterDraft = new PanelAfterDraft(draftergebniss);
+		frmPokemonDraft.getContentPane().add(panelAfterDraft, "name_601634568594680");
+		panelAfterDraft.setVisible(true);
+		panelloading.setVisible(false);
+
 	}
 
 	protected void visLoading() {

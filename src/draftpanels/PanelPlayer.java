@@ -142,7 +142,7 @@ public class PanelPlayer extends JPanel {
 			player = new ArrayList<>();
 			for (int k = 0; k < teams.size(); k++) {
 				for (int i = 0; i < teams.size(); i++) {
-					if (i != k && teams.get(k).getText().equals(teams.get(i).getText())) {
+					if (i != k && teams.get(k).getText().trim().equals(teams.get(i).getText().trim())) {
 						Manage.msgboxError("Zwei Teams können nicht den Selben Namen haben!",
 								DraftGui.getwindow().getFrmPokemonDraft());
 						return;
@@ -219,6 +219,7 @@ public class PanelPlayer extends JPanel {
 				teams.get(k - 1).setText(loadedteamlist[cBTeams.getSelectedIndex()][k]);
 				teams.get(k - 1).setCaretPosition(1);
 			}
+			btnPlayer.doClick();
 		});
 		btnloadteams.setBounds(242, 541, 89, 23);
 		panel.add(btnloadteams);

@@ -13,6 +13,7 @@ public class PanelOrder extends JPanel {
 
 	private JPanel panel = new JPanel();
 	private int order = 0;
+	private int[] teamfolge;
 
 	public PanelOrder() {
 
@@ -24,8 +25,9 @@ public class PanelOrder extends JPanel {
 		lblorder.setBounds(110, 26, 183, 27);
 		panel.add(lblorder);
 
-		JCheckBox chckbxRandom = new JCheckBox("Random");
-		chckbxRandom.setEnabled(false);
+		JCheckBox chckbxRandom = new JCheckBox("Random");		
+		chckbxRandom.setEnabled(true);
+		
 		JCheckBox chckbxManuell = new JCheckBox("Manuell");
 		chckbxManuell.addActionListener(e -> {
 			if (chckbxManuell.isSelected()) {
@@ -35,12 +37,7 @@ public class PanelOrder extends JPanel {
 		});
 		chckbxManuell.setBounds(153, 69, 97, 23);
 		panel.add(chckbxManuell);
-
-		JTextPane txtpnJederzeitZwischenTeanms = new JTextPane();
-		txtpnJederzeitZwischenTeanms.setText("Jederzeit zwischen Teams wechseln, beliebig viele Pokemon auswählen");
-		txtpnJederzeitZwischenTeanms.setBounds(74, 108, 254, 39);
-		panel.add(txtpnJederzeitZwischenTeanms);
-
+		
 		chckbxRandom.addActionListener(e -> {
 			if (chckbxRandom.isSelected()) {
 				order = 2;
@@ -51,21 +48,25 @@ public class PanelOrder extends JPanel {
 		chckbxRandom.setBounds(153, 163, 97, 23);
 		panel.add(chckbxRandom);
 
+		JTextPane txtpnJederzeitZwischenTeanms = new JTextPane();
+		txtpnJederzeitZwischenTeanms.setText("Jederzeit zwischen Teams wechseln, beliebig viele Pokemon auswählen");
+		txtpnJederzeitZwischenTeanms.setBounds(74, 108, 254, 39);
+		txtpnJederzeitZwischenTeanms.setEditable(false);
+		panel.add(txtpnJederzeitZwischenTeanms);
+
 		JTextPane txtpnZuflligeReihenfolgeImmer = new JTextPane();
 		txtpnZuflligeReihenfolgeImmer.setText("Zufällige Reihenfolge, immer ein Pokemon\r\n");
 		txtpnZuflligeReihenfolgeImmer.setBounds(74, 202, 254, 39);
+		txtpnZuflligeReihenfolgeImmer.setEditable(false);
 		panel.add(txtpnZuflligeReihenfolgeImmer);
 
 		add(panel);
 	}
 
-	private void randomiseTeams() {
-		String[] teamfolge;
-		String[] spieler = DraftGui.getwindow().getPanelPlayer().player
-				.toArray(new String[DraftGui.getwindow().getPanelPlayer().player.size()]);
-		teamfolge = new String[spieler.length * 2];
-		int[] random = new int[spieler.length];
-		for (int i = 0; i < random.length; i++) {
+	protected void randomiseTeams() {
+		String[] spieler = DraftGui.getwindow().getPanelPlayer().player.toArray(new String[0]);
+		int[] random = new int[spieler.length * 2];
+		for (int i = 0; i < spieler.length; i++) {
 			int rd = (int) (Math.random() * spieler.length);
 			for (int j = 0; j < i; j++) {
 				if (rd == random[j]) {
@@ -79,16 +80,18 @@ public class PanelOrder extends JPanel {
 				i -= 1;
 			}
 		}
-		for (int k = 0; k < teamfolge.length; k++) {
-			if (k < spieler.length) {
-				teamfolge[k] = spieler[random[k]];
-			} else {
-				teamfolge[k] = teamfolge[teamfolge.length - k - 1];
-			}
+		for (int k = spieler.length; k < random.length; k++) {
+			random[k] = random[random.length - k - 1];
 		}
+		teamfolge = random;
 	}
 
 	protected int getOrder() {
+		randomiseTeams();
 		return order;
+	}
+	
+	protected int[] getTeamfolge() {
+		return teamfolge;
 	}
 }

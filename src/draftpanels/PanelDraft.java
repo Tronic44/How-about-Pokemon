@@ -23,14 +23,18 @@ public class PanelDraft extends JPanel {
 	private int changeteam = 0;
 	private JLabel[] labellist = new JLabel[6];
 	private int[] tierlistcB = new int[cbDraft.length];
+	static Thread one = new Thread();
+	private int[] teamfolge;
+	private boolean status = false;
+	boolean drafting = true;
 
 	@SuppressWarnings("unchecked")
 	public PanelDraft() {
 
 		panel.setBounds(0, 0, 400, 50);
 		panel.setLayout(null);
-		
-		Arrays.fill(cbDraft, 0, cbDraft.length-1, new FilterComboBox());
+
+		Arrays.fill(cbDraft, 0, cbDraft.length - 1, new FilterComboBox());
 
 		JLabel lbteams = new JLabel("Teams:");
 		lbteams.setBounds(123, 14, 45, 14);
@@ -60,6 +64,68 @@ public class PanelDraft extends JPanel {
 		panel.add(cBchangeteam);
 
 		add(panel);
+
+		one = new Thread() {
+			@Override
+			public void run() {
+				try {
+					synchronized (one) {
+						while (drafting) {
+							int anyteamleft = DraftGui.getwindow().getPanelPlayer().player.size();
+							teamfolge = DraftGui.getwindow().getPanelOrder().getTeamfolge();
+							for (int k = 0; k < teamfolge.length; k++) {
+								if (k == 0) {
+									cBchangeteam.setSelectedIndex(teamfolge[k]);
+								}
+								Thread.sleep(100);
+								int count = 0;
+								for (int m = 0; m < cbDraft.length; m++) {
+									try {
+										cbDraft[m].setEnabled(true);
+										if (cbDraft[m].getX() > 5 && draftauswahl[teamfolge[k]][m] == -1) {
+											count++;
+										}
+									} catch (Exception e) {
+										break;
+									}
+								}
+								if (count == 0) {
+									anyteamleft--;
+									status = true;
+								}
+								if (anyteamleft == 0) {
+									drafting = false;
+									status = false;
+									Thread.currentThread().interrupt();
+									endDrafting();
+								}
+								nextteam(k);
+							}
+						}
+					}
+				} catch (InterruptedException v) {
+					Thread.currentThread().interrupt();
+				}
+			}
+		};
+	}
+
+	private synchronized void nextteam(int k) {
+		try {
+			synchronized (one) {
+				while (!status) {
+					wait(100);
+				}
+			}
+		} catch (InterruptedException e1) {
+			one.interrupt();
+		}
+		try {
+			cBchangeteam.setSelectedIndex(teamfolge[k + 1]);
+		} catch (Exception e) {
+			cBchangeteam.setSelectedIndex(0);
+		}
+		status = false;
 	}
 
 	protected void opendraft() {
@@ -69,9 +135,7 @@ public class PanelDraft extends JPanel {
 			if (draftauswahl == null) {
 				draftauswahl = new int[spieler.length][15];
 				for (int k = 0; k < draftauswahl.length; k++) {
-					for (int j = 0; j < 15; j++) {
-						draftauswahl[k][j] = -1;
-					}
+					Arrays.fill(draftauswahl[k], -1);
 				}
 			}
 			if (spieler.length != draftauswahl.length) {
@@ -98,6 +162,7 @@ public class PanelDraft extends JPanel {
 		cBchangeteam.setModel(new DefaultComboBoxModel<String>(spieler));
 		if (DraftGui.getwindow().getPanelOrder().getOrder() != 1) {
 			cBchangeteam.setEnabled(false);
+			one.start();
 		}
 		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
 				DraftGui.getwindow().getFrmPokemonDraft().getY(), 1100, getDraftHight());
@@ -335,6 +400,47 @@ public class PanelDraft extends JPanel {
 	}
 
 	private void selectnext(int teamindex, String name) {
-//		System.out.println(teamindex + " " + name);
+		if (DraftGui.getwindow().getPanelOrder().getOrder() == 2) {
+			for (FilterComboBox cb : cbDraft) {
+				try {
+					cb.setEnabled(false);
+				} catch (Exception e) {
+					break;
+				}
+			}
+			status = true;
+		} else {
+			int pokecount = 0;
+			int auswahlcount = 0;
+			for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
+				pokecount += k;
+			}
+			for (int k = 0; k < DraftGui.getwindow().getPanelPlayer().player.size(); k++) {
+				for (int m = 0; m < pokecount; m++) {
+					if (draftauswahl[k][m] == -1) {
+						auswahlcount++;
+					}
+				}
+			}
+			if (auswahlcount == 0) {
+				endDrafting();
+			}
+		}
+	}
+
+	private void endDrafting() {
+		String[][] draftergebnis = new String[DraftGui.getwindow().getPanelPlayer().player.size()][15];
+		for (int h = 0; h < DraftGui.getwindow().getPanelPlayer().player.size(); h++) {
+			int m = 0;
+			int[] pokeanzahl = DraftGui.getwindow().getPanelSettings().getCountauswahl().clone();
+			for (int g = 0; g < pokeanzahl.length; g++) { // 0-5
+				while (pokeanzahl[g] > 0) {
+					draftergebnis[h][m] = Arrays.asList(data.PokemonDraft.getTierPokemon(g)).get(draftauswahl[h][m]);
+					pokeanzahl[g] -= 1;
+					m++;
+				}
+			}
+		}
+		DraftGui.getwindow().visAfterDraft(draftergebnis);
 	}
 }
