@@ -33,12 +33,12 @@ public class PanelMenu extends JPanel {
 		JButton btnLoadDraft = new JButton("Load Draft");
 		btnLoadDraft.addActionListener(e -> DraftGui.getwindow().visLoadDraft());
 		btnLoadDraft.setFont(FONT);
+		btnLoadDraft.setEnabled(false);
 		btnLoadDraft.setBounds(86, 286, 236, 68);
 		panel.add(btnLoadDraft);
 
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(e -> MainMenu.getwindow().visMainMenu());
-
 		btnExit.setFont(FONT);
 		btnExit.setBounds(85, 463, 239, 68);
 		panel.add(btnExit);

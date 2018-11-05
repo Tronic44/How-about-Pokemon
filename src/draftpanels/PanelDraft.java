@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuEvent;
 import client.FilterComboBox;
+import client.Manage;
 import client.PopupListener;
 
 @SuppressWarnings("serial")
@@ -152,12 +153,15 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			draftauswahl = new int[spieler.length][15];
-			for (int k = 0; k < draftauswahl.length; k++) {
-				for (int j = 0; j < 15; j++) {
-					draftauswahl[k][j] = -1;
-				}
-			}
+			DraftGui.getwindow().visLoading();
+			Manage.msgboxError("Da ist was schief gelaufen", DraftGui.getwindow().getFrmPokemonDraft());
+			DraftGui.getwindow().visMenu();
+//			draftauswahl = new int[spieler.length][15];
+//			for (int k = 0; k < draftauswahl.length; k++) {
+//				for (int j = 0; j < 15; j++) {
+//					draftauswahl[k][j] = -1;
+//				}
+//			}
 		}
 		cBchangeteam.setModel(new DefaultComboBoxModel<String>(spieler));
 		if (DraftGui.getwindow().getPanelOrder().getOrder() != 1) {
@@ -165,7 +169,7 @@ public class PanelDraft extends JPanel {
 			one.start();
 		}
 		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
-				DraftGui.getwindow().getFrmPokemonDraft().getY(), 1100, getDraftHight());
+				DraftGui.getwindow().getFrmPokemonDraft().getY(), 900, getDraftHight());
 		if (!DraftGui.getwindow().isFinishlayout()) {
 			data.PokemonDraft.initTierPokemon();
 			draftLayout();
@@ -174,25 +178,25 @@ public class PanelDraft extends JPanel {
 	}
 
 	protected int getDraftHight() {
-		int hight = 100;
+		int hight = 110;
 		for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
 			if (k == 0) {
 				hight += 0;
 			} else {
 				if (k <= 3) {
-					hight += 130;
+					hight += 80;
 				} else {
 					if (k <= 6) {
-						hight += 260;
+						hight += 160;
 					} else {
 						if (k <= 9) {
-							hight += 390;
+							hight += 240;
 						} else {
 							if (k <= 12) {
-								hight += 520;
+								hight += 320;
 							} else {
 								if (k <= 15) {
-									hight += 650;
+									hight += 400;
 								}
 							}
 						}
@@ -226,7 +230,7 @@ public class PanelDraft extends JPanel {
 			}
 			if (!sep) {
 				JSeparator separator = new JSeparator();
-				separator.setBounds(0, line - 60, 1100, 2);
+				separator.setBounds(0, line - 60, 900, 2);
 				DraftGui.getwindow().getPanelDraft().add(separator);
 				labellist[i] = new JLabel(DraftGui.getwindow().getPanelTierlist().getTiernamen(i));
 				labellist[i].setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -251,7 +255,7 @@ public class PanelDraft extends JPanel {
 						}
 					});
 					cbDraft[count].setSelectedIndex(-1);
-					cbDraft[count].setBounds(nxco[co], line, 169, 20);
+					cbDraft[count].setBounds(nxco[co], line-30, 170, 20);
 					cbDraft[count].setEnabled(DraftGui.getwindow().getPanelOrder().getOrder() <= 2);
 					switch (i) {
 					case 0:
@@ -284,7 +288,7 @@ public class PanelDraft extends JPanel {
 				i -= 1;
 				sep = true;
 			}
-			line += 130;
+			line += 80;
 		}
 		DraftGui.getwindow().setFinishlayout(true);
 	}
@@ -295,11 +299,11 @@ public class PanelDraft extends JPanel {
 		}
 		switch (k) {
 		case 1:
-			return new int[] { 464 };
+			return new int[] { 365 };
 		case 2:
-			return new int[] { 260, 675 };
+			return new int[] { 187, 543 };
 		case 3:
-			return new int[] { 54, 464, 860 };
+			return new int[] { 97, 365, 632 };
 		default:
 			return new int[] {};
 		}

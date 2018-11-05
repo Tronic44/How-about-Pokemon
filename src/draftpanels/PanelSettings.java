@@ -220,6 +220,8 @@ public class PanelSettings extends JPanel {
 						comboBoxes.get(ort).setEnabled(true);
 					} catch (Exception f) {
 						checkBoxes.get(ort).setSelected(false);
+						Manage.msgboxError("Du hast keine Pokemon-Slots mehr übrig, erlaubt sind maximal 15",
+								DraftGui.getwindow().getFrmPokemonDraft());
 					}
 				} else {
 					tfTiername.get(ort).setEditable(false);

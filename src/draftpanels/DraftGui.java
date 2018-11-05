@@ -226,6 +226,9 @@ public class DraftGui {
 
 	protected void visStartDraft() {
 		visLoading();
+		if(isFinishlayout()) {
+			panelStartDraft.deaktivatebtnReihenfolge();
+		}
 		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
 		panelStartDraft.setVisible(true);
 		panelloading.setVisible(false);
@@ -303,6 +306,7 @@ public class DraftGui {
 		panelOrder.setVisible(false);
 		panelDraft.setVisible(false);
 		panelMenu.setVisible(false);
+		panelAfterDraft.setVisible(false);
 		panelloading.setVisible(true);
 	}
 }

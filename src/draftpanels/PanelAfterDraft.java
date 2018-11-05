@@ -28,7 +28,6 @@ public class PanelAfterDraft extends JPanel {
 			}
 			textArea.append("\n");
 		}
-
 	}
 
 	public PanelAfterDraft() {
