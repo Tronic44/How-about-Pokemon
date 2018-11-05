@@ -277,6 +277,7 @@ public class DraftGui {
 
 	protected void visDraft() {
 		visLoading();
+		DraftGui.getwindow().getPanelDraft().reopendraft();
 		panelDraft.setVisible(true);
 		panelloading.setVisible(false);
 	}

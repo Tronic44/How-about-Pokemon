@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuEvent;
 import client.FilterComboBox;
-import client.Manage;
 import client.PopupListener;
 
 @SuppressWarnings("serial")
@@ -129,6 +128,25 @@ public class PanelDraft extends JPanel {
 		waitforstatusupdate = false;
 	}
 
+	@SuppressWarnings("unchecked")
+	protected void reopendraft() {
+		int i = 0;
+		for (JComboBox<String> k : cbDraft) {
+			try {
+				k.setSelectedIndex(draftauswahl[changeteam][i]);
+				i++;
+			} catch (Exception e) {
+				try {
+					k.setSelectedIndex(-1);
+					i++;
+				} catch (Exception f) {
+					i++;
+				}
+			}
+		}
+		
+	}
+	
 	protected void opendraft() {
 		String[] spieler = DraftGui.getwindow().getPanelPlayer().player.toArray(new String[0]);
 		DraftGui.getwindow().visLoading();
@@ -153,15 +171,12 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			DraftGui.getwindow().visLoading();
-			Manage.msgboxError("Da ist was schief gelaufen", DraftGui.getwindow().getFrmPokemonDraft());
-			DraftGui.getwindow().visMenu();
-//			draftauswahl = new int[spieler.length][15];
-//			for (int k = 0; k < draftauswahl.length; k++) {
-//				for (int j = 0; j < 15; j++) {
-//					draftauswahl[k][j] = -1;
-//				}
-//			}
+			draftauswahl = new int[spieler.length][15];
+			for (int k = 0; k < draftauswahl.length; k++) {
+				for (int j = 0; j < 15; j++) {
+					draftauswahl[k][j] = -1;
+				}
+			}
 		}
 		cBchangeteam.setModel(new DefaultComboBoxModel<String>(spieler));
 		if (DraftGui.getwindow().getPanelOrder().getOrder() != 1) {

@@ -45,6 +45,7 @@ public class PanelStartDraft extends JPanel {
 			} else {
 				Manage.msgboxError("Du kannst nicht ohne Teams keine Reihenfolge bilden",
 						DraftGui.getwindow().getFrmPokemonDraft());
+				DraftGui.getwindow().visPlayer();
 			}
 		});
 		btnReihenfolge.setBounds(74, 365, 255, 71);
@@ -53,7 +54,7 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnFertig = new JButton("Fertig");
 		btnFertig.addActionListener(e -> {
-			if(DraftGui.getwindow().getPanelDraft().finishdrafting) {
+			if (DraftGui.getwindow().getPanelDraft().finishdrafting) {
 				DraftGui.getwindow().visAfterDraft();
 				return;
 			}
@@ -138,7 +139,8 @@ public class PanelStartDraft extends JPanel {
 //					DraftGui.getwindow().getPanelDraft().opendraft();
 //					return;
 //				}
-				DraftGui.getwindow().getFrmPokemonDraft().setBounds(100, 100, 1100,
+				DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
+						DraftGui.getwindow().getFrmPokemonDraft().getY(), 900,
 						DraftGui.getwindow().getPanelDraft().getDraftHight());
 				DraftGui.getwindow().visDraft();
 			}
@@ -149,11 +151,11 @@ public class PanelStartDraft extends JPanel {
 
 		add(panel);
 	}
-	
+
 	protected void deaktivatebtnReihenfolge() {
 		btnReihenfolge.setEnabled(false);
 	}
-	
+
 	protected void aktivatebtnReihenfolge() {
 		btnReihenfolge.setEnabled(true);
 	}
