@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import client.Manage;
+import data.PokemonDraft;
 
 @SuppressWarnings("serial")
 public class PanelStartDraft extends JPanel {
@@ -65,7 +66,7 @@ public class PanelStartDraft extends JPanel {
 						count++;
 					}
 				}
-				if (count > 880) {
+				if (count > data.PokemonDraft.getPokedex().length - 25) {
 					Manage.msgboxError("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
 							DraftGui.getwindow().getFrmPokemonDraft());
 					DraftGui.getwindow().visTierlist();
@@ -95,7 +96,7 @@ public class PanelStartDraft extends JPanel {
 					DraftGui.getwindow().visOrder();
 					return;
 				}
-				if (count < data.PokemonDraft.getPokedex().length - 15) {
+				if (count > 0) {
 					Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
 					switch (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
 							"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"
@@ -109,7 +110,14 @@ public class PanelStartDraft extends JPanel {
 								data.PokemonDraft.editTierlist(k, 'X');
 							}
 						}
-						DraftGui.getwindow().visDraft();
+						if (checkforenoughPokemon()) {
+							DraftGui.getwindow().visDraft();
+
+						} else {
+							Manage.msgboxError("Du hast zu wenige Pokemon ausgewählt, damit alle Draten können",
+									DraftGui.getwindow().getFrmPokemonDraft());
+							DraftGui.getwindow().visTierlist();
+						}
 						break;
 					case 1:
 						if (DraftGui.getwindow().getPanelSettings().areSettingsChanges()) {
@@ -118,9 +126,14 @@ public class PanelStartDraft extends JPanel {
 							DraftGui.getwindow().visSettings();
 						} else {
 							DraftGui.getwindow().getPanelSettings().toTheLastTier();
-							DraftGui.getwindow().visDraft();
+							if (checkforenoughPokemon()) {
+								DraftGui.getwindow().visDraft();
+							} else {
+								Manage.msgboxError("Du hast zu wenige Pokemon ausgewählt, damit alle Draften können",
+										DraftGui.getwindow().getFrmPokemonDraft());
+								DraftGui.getwindow().visTierlist();
+							}
 						}
-
 						break;
 					case 2:
 						DraftGui.getwindow().visTierlist();
@@ -128,17 +141,11 @@ public class PanelStartDraft extends JPanel {
 					default:
 						break;
 					}
+
 				} else {
 					DraftGui.getwindow().visDraft();
 				}
 			} else {
-//				if (DraftGui.getwindow().getPanelPlayer().spieler.length != DraftGui.getwindow()
-//						.getPanelDraft().getDraftauswahllength()) {
-//					DraftGui.getwindow().getPanelDraft().resetDraft();
-//					DraftGui.getwindow().getPanelDraft().remove(DraftGui.getwindow().getPanelDraft().cBchangeteam);
-//					DraftGui.getwindow().getPanelDraft().opendraft();
-//					return;
-//				}
 				DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
 						DraftGui.getwindow().getFrmPokemonDraft().getY(), 900,
 						DraftGui.getwindow().getPanelDraft().getDraftHight());
@@ -150,6 +157,17 @@ public class PanelStartDraft extends JPanel {
 		btnFertig.setEnabled(true);
 
 		add(panel);
+	}
+
+	private boolean checkforenoughPokemon() {
+		PokemonDraft.initTierPokemon();
+		int[] auswahl = DraftGui.getwindow().getPanelSettings().getCountauswahl();
+		for (int k = 0; k < auswahl.length; k++) {
+			if (PokemonDraft.getTierPokemon(k).length<auswahl[k]*DraftGui.getwindow().getPanelPlayer().player.size()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	protected void deaktivatebtnReihenfolge() {

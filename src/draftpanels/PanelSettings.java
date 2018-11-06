@@ -105,61 +105,10 @@ public class PanelSettings extends JPanel {
 				}
 			}
 			data.PokemonDraft.cloneTierlist();
-			int count = DraftGui.getwindow().getPanelTierlist()
+			stufetierlist(DraftGui.getwindow().getPanelTierlist()
 					.setRadioButton(new boolean[] { checkBoxes.get(0).isSelected(), checkBoxes.get(1).isSelected(),
 							checkBoxes.get(2).isSelected(), checkBoxes.get(3).isSelected(),
-							checkBoxes.get(4).isSelected(), checkBoxes.get(5).isSelected() }, tiernamenlist);
-
-			for (int i = 0; i < count; i++) {
-				for (int k = 0; k < data.PokemonDraft.getTierlist().length; k++) {
-					switch (data.PokemonDraft.getTierlist(k)) {
-					case 'S':
-						if (lblStatus.get(0).getText().equals(GEBANNT)) {
-							data.PokemonDraft.editTierlist(k, 'X');
-						}
-						break;
-					case 'A':
-						if (lblStatus.get(1).getText().equals(GEBANNT)) {
-							data.PokemonDraft.editTierlist(k, 'X');
-						}
-						if (lblStatus.get(1).getText().equals(HOCHGESTUFT)) {
-							data.PokemonDraft.editTierlist(k, 'S');
-						}
-						break;
-					case 'B':
-						if (lblStatus.get(2).getText().equals(GEBANNT)) {
-							data.PokemonDraft.editTierlist(k, 'X');
-						}
-						if (lblStatus.get(2).getText().equals(HOCHGESTUFT)) {
-							data.PokemonDraft.editTierlist(k, 'A');
-						}
-						break;
-					case 'C':
-						if (lblStatus.get(3).getText().equals(GEBANNT)) {
-							data.PokemonDraft.editTierlist(k, 'X');
-						}
-						if (lblStatus.get(3).getText().equals(HOCHGESTUFT)) {
-							data.PokemonDraft.editTierlist(k, 'B');
-						}
-						break;
-					case 'D':
-						if (lblStatus.get(4).getText().equals(GEBANNT)) {
-							data.PokemonDraft.editTierlist(k, 'X');
-						}
-						if (lblStatus.get(4).getText().equals(HOCHGESTUFT)) {
-							data.PokemonDraft.editTierlist(k, 'C');
-						}
-						break;
-					case 'E':
-						if (lblStatus.get(5).getText().equals(HOCHGESTUFT)) {
-							data.PokemonDraft.editTierlist(k, 'D');
-						}
-						break;
-					default:
-						break;
-					}
-				}
-			}
+							checkBoxes.get(4).isSelected(), checkBoxes.get(5).isSelected() }, tiernamenlist));			
 			lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 		});
 		btnsafetier.setBounds(42, 342, 116, 23);
@@ -283,6 +232,59 @@ public class PanelSettings extends JPanel {
 		panel.add(btnrestoretier);
 
 		add(panel);
+	}
+
+	protected void stufetierlist(int count) {
+		for (int i = 0; i < count; i++) {
+			for (int k = 0; k < data.PokemonDraft.getTierlist().length; k++) {
+				switch (data.PokemonDraft.getTierlist(k)) {
+				case 'S':
+					if (lblStatus.get(0).getText().equals(GEBANNT)) {
+						data.PokemonDraft.editTierlist(k, 'X');
+					}
+					break;
+				case 'A':
+					if (lblStatus.get(1).getText().equals(GEBANNT)) {
+						data.PokemonDraft.editTierlist(k, 'X');
+					}
+					if (lblStatus.get(1).getText().equals(HOCHGESTUFT)) {
+						data.PokemonDraft.editTierlist(k, 'S');
+					}
+					break;
+				case 'B':
+					if (lblStatus.get(2).getText().equals(GEBANNT)) {
+						data.PokemonDraft.editTierlist(k, 'X');
+					}
+					if (lblStatus.get(2).getText().equals(HOCHGESTUFT)) {
+						data.PokemonDraft.editTierlist(k, 'A');
+					}
+					break;
+				case 'C':
+					if (lblStatus.get(3).getText().equals(GEBANNT)) {
+						data.PokemonDraft.editTierlist(k, 'X');
+					}
+					if (lblStatus.get(3).getText().equals(HOCHGESTUFT)) {
+						data.PokemonDraft.editTierlist(k, 'B');
+					}
+					break;
+				case 'D':
+					if (lblStatus.get(4).getText().equals(GEBANNT)) {
+						data.PokemonDraft.editTierlist(k, 'X');
+					}
+					if (lblStatus.get(4).getText().equals(HOCHGESTUFT)) {
+						data.PokemonDraft.editTierlist(k, 'C');
+					}
+					break;
+				case 'E':
+					if (lblStatus.get(5).getText().equals(HOCHGESTUFT)) {
+						data.PokemonDraft.editTierlist(k, 'D');
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}
 	}
 
 	private void changeSettings() {

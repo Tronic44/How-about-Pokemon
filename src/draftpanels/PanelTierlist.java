@@ -202,6 +202,22 @@ public class PanelTierlist extends JPanel {
 		btnloadtier.addActionListener(e -> {
 			data.PokemonDraft.setTierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
 			pokemonListe.select(0);
+			
+			int[] auswahl = DraftGui.getwindow().getPanelSettings().getCountauswahl();
+			boolean[] ischecked = new boolean[6];
+			for (int k = 0; k < auswahl.length; k++) {
+				if (auswahl[k] > 0) {
+					ischecked[k] =true;
+				}
+			}
+			int count = 0;
+			for (int k = 0; k < ischecked.length; k++) {
+				if (!ischecked[k]) {
+					count++;
+				}
+			}
+			DraftGui.getwindow().getPanelSettings().stufetierlist(count);
+			
 			changeTier();
 		});
 		btnloadtier.setBounds(266, 486, 89, 23);
