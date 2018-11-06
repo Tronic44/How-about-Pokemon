@@ -3,6 +3,7 @@ package draftpanels;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -13,6 +14,8 @@ import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuEvent;
 import client.FilterComboBox;
 import client.PopupListener;
+import data.PokemonDraft;
+
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
@@ -27,12 +30,12 @@ public class PanelDraft extends JPanel {
 	private int[] tierlistcB = new int[cbDraft.length];
 	private static Thread one = new Thread();
 	private int[] teamfolge;
-	private boolean waitforstatusupdate = false;	//DO NOT TOUCH
+	private boolean waitforstatusupdate = false; // DO NOT TOUCH
 	protected boolean finishdrafting = false;
-	private boolean selectnewPokemon = false;	//DO NOT TOUCH
-	private int order;	//DO NOT TOUCH
-	private int oldorder;	//DO NOT TOUCH
-	private int threadpoint; //DO NOT TOUCH
+	private boolean selectnewPokemon = false; // DO NOT TOUCH
+	private int order; // DO NOT TOUCH
+	private int oldorder; // DO NOT TOUCH
+	private int threadpoint; // DO NOT TOUCH
 
 	@SuppressWarnings("unchecked")
 	public PanelDraft() {
@@ -40,7 +43,7 @@ public class PanelDraft extends JPanel {
 		panel.setBounds(0, 0, 600, 50);
 		panel.setLayout(null);
 
-		Arrays.fill(cbDraft, 0, cbDraft.length - 1, new FilterComboBox());
+		Arrays.fill(cbDraft, 0, cbDraft.length - 1, new FilterComboBox(new ArrayList<>()));
 
 		JLabel lbteams = new JLabel("Teams:");
 		lbteams.setBounds(123, 14, 45, 14);
@@ -105,7 +108,7 @@ public class PanelDraft extends JPanel {
 									endDrafting();
 								}
 								nextteam(k);
-								if(threadpoint<k) {
+								if (threadpoint < k) {
 									k--;
 								}
 							}
@@ -357,6 +360,11 @@ public class PanelDraft extends JPanel {
 				if (draftauswahl[cBchangeteam.getSelectedIndex()][k] == null && cbDraft[k].getSelectedIndex() != -1) {
 					selectnewPokemon = true;
 				}
+				if (draftauswahl[cBchangeteam.getSelectedIndex()][k] != null && cbDraft[k].getSelectedIndex() != -1
+						&& draftauswahl[cBchangeteam.getSelectedIndex()][k] != cbDraft[k].getSelectedItem()
+								.toString()) {
+					PokemonDraft.addPokemontoTier(tierlistcB[k], draftauswahl[cBchangeteam.getSelectedIndex()][k]);
+				}
 				if (cbDraft[k].getSelectedIndex() != -1) {
 					draftauswahl[cBchangeteam.getSelectedIndex()][k] = cbDraft[k].getSelectedItem().toString();
 				}
@@ -437,6 +445,8 @@ public class PanelDraft extends JPanel {
 	}
 
 	private void selectnext(int teamindex, String name) {
+		PokemonDraft.removePokemonfromTier(name);
+		updateTierPokemon();
 		if (order == 2) {
 			if (!selectnewPokemon) {
 				return;

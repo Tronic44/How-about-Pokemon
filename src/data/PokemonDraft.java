@@ -277,52 +277,113 @@ public class PokemonDraft {
 	}
 
 	public static synchronized void initTierPokemon() {
-		for (int k = 0; k < pokedex.length; k++) {
-			switch (tierlist[k]) {
-			case '0':
-				break;
-			case 'S':
-				if (!pokemontier1.contains(pokedex[k])) {
-					pokemontier1.add(pokedex[k]);
+		if (pokemontier1.size() < 2 && pokemontier2.size() < 2 && pokemontier3.size() < 2 && pokemontier4.size() < 2
+				&& pokemontier5.size() < 2 && pokemontier6.size() < 2) {
+			for (int k = 0; k < pokedex.length; k++) {
+				switch (tierlist[k]) {
+				case '0':
+					break;
+				case 'S':
+					if (!pokemontier1.contains(pokedex[k])) {
+						pokemontier1.add(pokedex[k]);
+					}
+					removePokemonfromTier('S', k);
+					break;
+				case 'A':
+					if (!pokemontier2.contains(pokedex[k])) {
+						pokemontier2.add(pokedex[k]);
+					}
+					removePokemonfromTier('A', k);
+					break;
+				case 'B':
+					if (!pokemontier3.contains(pokedex[k])) {
+						pokemontier3.add(pokedex[k]);
+					}
+					removePokemonfromTier('B', k);
+					break;
+				case 'C':
+					if (!pokemontier4.contains(pokedex[k])) {
+						pokemontier4.add(pokedex[k]);
+					}
+					removePokemonfromTier('C', k);
+					break;
+				case 'D':
+					if (!pokemontier5.contains(pokedex[k])) {
+						pokemontier5.add(pokedex[k]);
+					}
+					removePokemonfromTier('D', k);
+					break;
+				case 'E':
+					if (!pokemontier6.contains(pokedex[k])) {
+						pokemontier6.add(pokedex[k]);
+					}
+					removePokemonfromTier('E', k);
+					break;
+				case 'X':
+					removePokemonfromTier('X', k);
+					break;
+				default:
+					break;
 				}
-				removePokemonfromTier('S', k);
-				break;
-			case 'A':
-				if (!pokemontier2.contains(pokedex[k])) {
-					pokemontier2.add(pokedex[k]);
-				}
-				removePokemonfromTier('A', k);
-				break;
-			case 'B':
-				if (!pokemontier3.contains(pokedex[k])) {
-					pokemontier3.add(pokedex[k]);
-				}
-				removePokemonfromTier('B', k);
-				break;
-			case 'C':
-				if (!pokemontier4.contains(pokedex[k])) {
-					pokemontier4.add(pokedex[k]);
-				}
-				removePokemonfromTier('C', k);
-				break;
-			case 'D':
-				if (!pokemontier5.contains(pokedex[k])) {
-					pokemontier5.add(pokedex[k]);
-				}
-				removePokemonfromTier('D', k);
-				break;
-			case 'E':
-				if (!pokemontier6.contains(pokedex[k])) {
-					pokemontier6.add(pokedex[k]);
-				}
-				removePokemonfromTier('E', k);
-				break;
-			case 'X':
-				removePokemonfromTier('X', k);
-				break;
-			default:
-				break;
 			}
+		}
+	}
+
+	public static synchronized void removePokemonfromTier(String pokemon) {
+		if (pokemontier1.contains(pokemon)) {
+			pokemontier1.remove(pokemon);
+		}
+		if (pokemontier2.contains(pokemon)) {
+			pokemontier2.remove(pokemon);
+		}
+		if (pokemontier3.contains(pokemon)) {
+			pokemontier3.remove(pokemon);
+		}
+		if (pokemontier4.contains(pokemon)) {
+			pokemontier4.remove(pokemon);
+		}
+		if (pokemontier5.contains(pokemon)) {
+			pokemontier5.remove(pokemon);
+		}
+		if (pokemontier6.contains(pokemon)) {
+			pokemontier6.remove(pokemon);
+		}
+	}
+
+	public static synchronized void addPokemontoTier(int tier, String pokemon) {
+		switch (tier) {
+		case 0:
+			if (!pokemontier1.contains(pokemon)) {
+				pokemontier1.add(pokemon);
+			}
+			break;
+		case 1:
+			if (!pokemontier2.contains(pokemon)) {
+				pokemontier2.add(pokemon);
+			}
+			break;
+		case 2:
+			if (!pokemontier3.contains(pokemon)) {
+				pokemontier3.add(pokemon);
+			}
+			break;
+		case 3:
+			if (!pokemontier4.contains(pokemon)) {
+				pokemontier4.add(pokemon);
+			}
+			break;
+		case 4:
+			if (!pokemontier5.contains(pokemon)) {
+				pokemontier5.add(pokemon);
+			}
+			break;
+		case 5:
+			if (!pokemontier6.contains(pokemon)) {
+				pokemontier6.add(pokemon);
+			}
+			break;
+		default:
+			break;
 		}
 	}
 
