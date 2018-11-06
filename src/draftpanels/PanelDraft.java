@@ -13,6 +13,7 @@ import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuEvent;
 import client.FilterComboBox;
 import client.PopupListener;
+import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class PanelDraft extends JPanel {
@@ -24,16 +25,19 @@ public class PanelDraft extends JPanel {
 	private int changeteam = 0;
 	private JLabel[] labellist = new JLabel[6];
 	private int[] tierlistcB = new int[cbDraft.length];
-	static Thread one = new Thread();
+	private static Thread one = new Thread();
 	private int[] teamfolge;
-	private boolean waitforstatusupdate = false;
+	private boolean waitforstatusupdate = false;	//DO NOT TOUCH
 	protected boolean finishdrafting = false;
-	private boolean selectnewPokemon = false;
+	private boolean selectnewPokemon = false;	//DO NOT TOUCH
+	private int order;	//DO NOT TOUCH
+	private int oldorder;	//DO NOT TOUCH
+	private int threadpoint; //DO NOT TOUCH
 
 	@SuppressWarnings("unchecked")
 	public PanelDraft() {
 
-		panel.setBounds(0, 0, 400, 50);
+		panel.setBounds(0, 0, 600, 50);
 		panel.setLayout(null);
 
 		Arrays.fill(cbDraft, 0, cbDraft.length - 1, new FilterComboBox());
@@ -76,9 +80,7 @@ public class PanelDraft extends JPanel {
 							int anyteamleft = DraftGui.getwindow().getPanelPlayer().player.size();
 							teamfolge = DraftGui.getwindow().getPanelOrder().getTeamfolge();
 							for (int k = 0; k < teamfolge.length; k++) {
-								if (k == 0) {
-									cBchangeteam.setSelectedIndex(teamfolge[k]);
-								}
+								cBchangeteam.setSelectedIndex(teamfolge[k]);
 								Thread.sleep(100);
 								int count = 0;
 								for (int m = 0; m < cbDraft.length; m++) {
@@ -102,6 +104,9 @@ public class PanelDraft extends JPanel {
 									endDrafting();
 								}
 								nextteam(k);
+								if(threadpoint<k) {
+									k--;
+								}
 							}
 						}
 					}
@@ -113,8 +118,10 @@ public class PanelDraft extends JPanel {
 	}
 
 	private synchronized void nextteam(int k) {
+		threadpoint = k;
 		try {
 			synchronized (one) {
+
 				while (!waitforstatusupdate) {
 					wait(100);
 				}
@@ -123,7 +130,7 @@ public class PanelDraft extends JPanel {
 			one.interrupt();
 		}
 		try {
-			changeteam = teamfolge[k + 1];
+			changeteam = teamfolge[threadpoint + 1];
 			cBchangeteam.setSelectedIndex(changeteam);
 		} catch (Exception e) {
 			cBchangeteam.setSelectedIndex(0);
@@ -133,6 +140,7 @@ public class PanelDraft extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	protected void opendraft() {
+		order = DraftGui.getwindow().getPanelOrder().getOrder();
 		String[] spieler = DraftGui.getwindow().getPanelPlayer().player.toArray(new String[0]);
 		DraftGui.getwindow().visLoading();
 		try {
@@ -164,9 +172,29 @@ public class PanelDraft extends JPanel {
 			}
 		}
 		cBchangeteam.setModel(new DefaultComboBoxModel<String>(spieler));
-		if (DraftGui.getwindow().getPanelOrder().getOrder() != 1 && !one.isAlive()) {
+		if (order != 1 && !one.isAlive()) {
 			cBchangeteam.setEnabled(false);
+
+			JButton btnPause = new JButton("Pause");
+			btnPause.addActionListener(e -> {
+				if (btnPause.getText().equals("Pause")) {
+					btnPause.setText("Fortsetzen");
+					oldorder = order;
+					order = 0;
+					cBchangeteam.setEnabled(true);
+				} else {
+					btnPause.setText("Pause");
+					order = oldorder;
+					cBchangeteam.setEnabled(false);
+					threadpoint -= 1;
+					waitforstatusupdate = true;
+				}
+			});
+			btnPause.setBounds(470, 10, 110, 23);
+			panel.add(btnPause);
+
 			one.start();
+
 		}
 		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
 				DraftGui.getwindow().getFrmPokemonDraft().getY(), 900, getDraftHight());
@@ -269,7 +297,7 @@ public class PanelDraft extends JPanel {
 					});
 					cbDraft[count].setSelectedIndex(-1);
 					cbDraft[count].setBounds(nxco[co], line - 30, 170, 20);
-					cbDraft[count].setEnabled(DraftGui.getwindow().getPanelOrder().getOrder() <= 2);
+					cbDraft[count].setEnabled(order <= 2);
 					switch (i) {
 					case 0:
 						cbDraft[count].setBackground(new Color(232, 198, 236));
@@ -408,7 +436,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	private void selectnext(int teamindex, String name) {
-		if (DraftGui.getwindow().getPanelOrder().getOrder() == 2) {
+		if (order == 2) {
 			if (!selectnewPokemon) {
 				return;
 			}
@@ -421,7 +449,7 @@ public class PanelDraft extends JPanel {
 			}
 			selectnewPokemon = false;
 			waitforstatusupdate = true;
-		} else {
+		} else if (order == 1) {
 			int pokecount = 0;
 			int auswahlcount = 0;
 			for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
@@ -444,12 +472,13 @@ public class PanelDraft extends JPanel {
 				}
 				endDrafting();
 			}
+		} else {
+			safeDraftAuswahl();
 		}
 	}
 
 	private void endDrafting() {
 		finishdrafting = true;
-		String[][] draftergebnis = new String[DraftGui.getwindow().getPanelPlayer().player.size()][15];
-		DraftGui.getwindow().visAfterDraft(draftergebnis);
+		DraftGui.getwindow().visAfterDraft(draftauswahl);
 	}
 }
