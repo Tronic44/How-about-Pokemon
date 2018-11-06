@@ -276,7 +276,7 @@ public class PokemonDraft {
 		return new String[] {};
 	}
 
-	public static void initTierPokemon() {
+	public static synchronized void initTierPokemon() {
 		for (int k = 0; k < pokedex.length; k++) {
 			switch (tierlist[k]) {
 			case '0':
@@ -326,7 +326,7 @@ public class PokemonDraft {
 		}
 	}
 
-	private static void removePokemonfromTier(char ch, int k) {
+	private static synchronized void removePokemonfromTier(char ch, int k) {
 		if (ch != 'S' && pokemontier1.contains(pokedex[k])) {
 			int ort = pokemontier1.indexOf(pokedex[k]);
 			pokemontier1.remove(ort);

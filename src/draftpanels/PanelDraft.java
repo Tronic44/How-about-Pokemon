@@ -194,6 +194,12 @@ public class PanelDraft extends JPanel {
 			panel.add(btnPause);
 
 			one.start();
+			try {
+				one.wait(1000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+				one.interrupt();
+			}
 
 		}
 		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
