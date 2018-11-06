@@ -12,13 +12,14 @@ import javax.swing.SwingUtilities;
 @SuppressWarnings({ "serial", "rawtypes" })
 public class FilterComboBox extends JComboBox {
 	private List<String> array;
+	JTextField textfield;
 
 	@SuppressWarnings("unchecked")
 	public FilterComboBox(List<String> array) {
 		super(array.toArray());
 		this.array = array;
 		this.setEditable(true);
-		final JTextField textfield = (JTextField) this.getEditor().getEditorComponent();
+		textfield = (JTextField) this.getEditor().getEditorComponent();
 		textfield.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent ke) {
@@ -29,19 +30,19 @@ public class FilterComboBox extends JComboBox {
 	
 	public FilterComboBox() {
 		super();
+		textfield = null;
 	}
 	
-
-	@SuppressWarnings("unchecked")
-	public FilterComboBox(String[] array) {
-		super(array);
-		List<String> arr = null;
+	public void setList(List<String> array) {
+		this.array=array;
+	}
+	
+	public void setList(String[] array) {
+		this.array = new ArrayList<>();
 		for (String k : array) {
-			arr.add(k);
+			this.array.add(k);
 		}
-		this.array = arr;
-		this.setEditable(true);
-		final JTextField textfield = (JTextField) this.getEditor().getEditorComponent();
+		textfield = (JTextField) this.getEditor().getEditorComponent();
 		textfield.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent ke) {
@@ -51,7 +52,25 @@ public class FilterComboBox extends JComboBox {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void comboFilter(String enteredText) {
+	public FilterComboBox(String[] array) {
+		super(array);
+		List<String> arr = new ArrayList<>();
+		for (String k : array) {
+			arr.add(k);
+		}
+		this.array = arr;
+		this.setEditable(true);
+		textfield = (JTextField) this.getEditor().getEditorComponent();
+		textfield.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent ke) {
+				SwingUtilities.invokeLater(() -> comboFilter(textfield.getText()));
+			}
+		});
+	}
+
+	@SuppressWarnings("unchecked")
+	private void comboFilter(String enteredText) {
 		if (!this.isPopupVisible()) {
 			this.showPopup();
 		}

@@ -406,8 +406,8 @@ public class PanelDraft extends JPanel {
 			data.PokemonDraft.initTierPokemon();
 			for (int count = 0; count < tierlistcB.length; count++) {
 				try {
-					cbDraft[count].setModel(
-							new DefaultComboBoxModel<String>(data.PokemonDraft.getTierPokemon(tierlistcB[count])));
+					cbDraft[count].setModel(new DefaultComboBoxModel<String>(data.PokemonDraft.getTierPokemon(tierlistcB[count])));
+					cbDraft[count].setList(data.PokemonDraft.getTierPokemon(tierlistcB[count]));
 					cbDraft[count].setSelectedItem(draftauswahl[changeteam][count]);
 				} catch (Exception e) {
 					break;
