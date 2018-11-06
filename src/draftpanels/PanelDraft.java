@@ -139,7 +139,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void opendraft() {
+	protected synchronized void opendraft() {
 		order = DraftGui.getwindow().getPanelOrder().getOrder();
 		String[] spieler = DraftGui.getwindow().getPanelPlayer().player.toArray(new String[0]);
 		DraftGui.getwindow().visLoading();
