@@ -76,6 +76,7 @@ public class PanelDraft extends JPanel {
 			public void run() {
 				try {
 					synchronized (one) {
+						sleep(1000);
 						while (!finishdrafting) {
 							int anyteamleft = DraftGui.getwindow().getPanelPlayer().player.size();
 							teamfolge = DraftGui.getwindow().getPanelOrder().getTeamfolge();
@@ -139,7 +140,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected synchronized void opendraft() {
+	protected void opendraft() {
 		order = DraftGui.getwindow().getPanelOrder().getOrder();
 		String[] spieler = DraftGui.getwindow().getPanelPlayer().player.toArray(new String[0]);
 		DraftGui.getwindow().visLoading();
@@ -194,12 +195,6 @@ public class PanelDraft extends JPanel {
 			panel.add(btnPause);
 
 			one.start();
-			try {
-				one.wait(1000);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-				one.interrupt();
-			}
 
 		}
 		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
