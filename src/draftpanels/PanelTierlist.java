@@ -247,7 +247,6 @@ public class PanelTierlist extends JPanel {
 				}
 			}
 			DraftGui.getwindow().getPanelSettings().stufetierlist(count);
-			
 			changeTier();
 		});
 		btnloadtier.setBounds(266, 486, 89, 23);

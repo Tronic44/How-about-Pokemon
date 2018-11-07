@@ -2,12 +2,15 @@ package draftpanels;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -15,14 +18,13 @@ import javax.swing.event.PopupMenuEvent;
 import client.FilterComboBox;
 import client.PopupListener;
 import data.PokemonDraft;
-
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class PanelDraft extends JPanel {
 
-	private JPanel panel = new JPanel();
-	private String[][] draftauswahl;
+	private JLayeredPane panel = new JLayeredPane();
+	private String[][] draftauswahl = new String[15][15];
 	private JComboBox<String> cBchangeteam = new JComboBox<>();
 	private FilterComboBox[] cbDraft = new FilterComboBox[15];
 	private int changeteam = 0;
@@ -40,13 +42,14 @@ public class PanelDraft extends JPanel {
 	@SuppressWarnings("unchecked")
 	public PanelDraft() {
 
-		panel.setBounds(0, 0, 600, 50);
+		panel.setBounds(0, 0, 900, 50);
 		panel.setLayout(null);
 
 		Arrays.fill(cbDraft, 0, cbDraft.length - 1, new FilterComboBox(new ArrayList<>()));
 
 		JLabel lbteams = new JLabel("Teams:");
 		lbteams.setBounds(123, 14, 45, 14);
+		panel.setLayer(lbteams, 1);
 		panel.add(lbteams);
 
 		cBchangeteam = new JComboBox<>();
@@ -70,6 +73,7 @@ public class PanelDraft extends JPanel {
 			}
 		});
 		cBchangeteam.setBounds(178, 11, 114, 20);
+		panel.setLayer(cBchangeteam, 1);
 		panel.add(cBchangeteam);
 
 		add(panel);
@@ -104,8 +108,8 @@ public class PanelDraft extends JPanel {
 								if (anyteamleft == 0) {
 									finishdrafting = false;
 									waitforstatusupdate = false;
-									Thread.currentThread().interrupt();
 									endDrafting();
+									Thread.currentThread().interrupt();
 								}
 								nextteam(k);
 								if (threadpoint < k) {
@@ -195,13 +199,23 @@ public class PanelDraft extends JPanel {
 				}
 			});
 			btnPause.setBounds(470, 10, 110, 23);
+			panel.setLayer(btnPause, 1);
 			panel.add(btnPause);
-
-			one.start();
-
 		}
 		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
 				DraftGui.getwindow().getFrmPokemonDraft().getY(), 900, getDraftHight());
+		panel.setBounds(0, 0, 900, getDraftHight());
+
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(900, getDraftHight(), Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 900, getDraftHight());
+		panel.setLayer(back, -5);
+		panel.add(back);
+
 		if (!DraftGui.getwindow().isFinishlayout()) {
 			data.PokemonDraft.initTierPokemon();
 			draftLayout();
@@ -220,6 +234,11 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		}
+		if (order != 1 && !one.isAlive()) {
+			one.start();
+		}
+		panel.revalidate();
+		panel.updateUI();
 	}
 
 	protected int getDraftHight() {
@@ -276,11 +295,13 @@ public class PanelDraft extends JPanel {
 			if (!sep) {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, line - 60, 900, 2);
-				DraftGui.getwindow().getPanelDraft().add(separator);
+				panel.setLayer(separator, 2);
+				add(separator);
 				labellist[i] = new JLabel(DraftGui.getwindow().getPanelTierlist().getTiernamen(i));
 				labellist[i].setFont(new Font("Tahoma", Font.BOLD, 11));
+				panel.setLayer(labellist[i], 2);
 				labellist[i].setBounds(54, line - 40, 550, 14);
-				DraftGui.getwindow().getPanelDraft().add(labellist[i]);
+				add(labellist[i]);
 			}
 			try {
 				int[] nxco = nextDraftColumn(pkan);
@@ -301,6 +322,7 @@ public class PanelDraft extends JPanel {
 					});
 					cbDraft[count].setSelectedIndex(-1);
 					cbDraft[count].setBounds(nxco[co], line - 30, 170, 20);
+					panel.setLayer(cbDraft[count], 2);
 					cbDraft[count].setEnabled(order <= 2);
 					switch (i) {
 					case 0:
@@ -324,7 +346,7 @@ public class PanelDraft extends JPanel {
 					default:
 						break;
 					}
-					DraftGui.getwindow().getPanelDraft().add(cbDraft[count]);
+					panel.add(cbDraft[count]);
 					count++;
 				}
 				sep = false;
@@ -334,7 +356,11 @@ public class PanelDraft extends JPanel {
 				sep = true;
 			}
 			line += 80;
+			panel.revalidate();
+			panel.updateUI();
 		}
+		panel.revalidate();
+		panel.updateUI();
 		DraftGui.getwindow().setFinishlayout(true);
 	}
 
@@ -406,7 +432,8 @@ public class PanelDraft extends JPanel {
 			data.PokemonDraft.initTierPokemon();
 			for (int count = 0; count < tierlistcB.length; count++) {
 				try {
-					cbDraft[count].setModel(new DefaultComboBoxModel<String>(data.PokemonDraft.getTierPokemon(tierlistcB[count])));
+					cbDraft[count].setModel(
+							new DefaultComboBoxModel<String>(data.PokemonDraft.getTierPokemon(tierlistcB[count])));
 					cbDraft[count].setList(data.PokemonDraft.getTierPokemon(tierlistcB[count]));
 					cbDraft[count].setSelectedItem(draftauswahl[changeteam][count]);
 				} catch (Exception e) {
@@ -420,8 +447,12 @@ public class PanelDraft extends JPanel {
 		String[][] safedauswahl = draftauswahl.clone();
 		for (int f = 0; f < safedauswahl.length; f++) {
 			for (int i = 0; i < safedauswahl[0].length; i++) {
-				if (safedauswahl[f][i].equals(ort)) {
-					safedauswahl[f][i] = null;
+				try {
+					if (safedauswahl[f][i].equals(ort)) {
+						safedauswahl[f][i] = null;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
@@ -488,7 +519,7 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
-	private void endDrafting() {
+	private synchronized void endDrafting() {
 		finishdrafting = true;
 		DraftGui.getwindow().visAfterDraft(draftauswahl);
 	}

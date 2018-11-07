@@ -88,13 +88,11 @@ public class PanelStartDraft extends JPanel {
 					Manage.msgboxError("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
 							DraftGui.getwindow().getFrmPokemonDraft());
 					DraftGui.getwindow().visTierlist();
-					DraftGui.getwindow().visTierlist();
 					return;
 				}
 				if (!DraftGui.getwindow().getPanelPlayer().isSafed()) {
 					Manage.msgboxError("Du hast keine Teams eingetragen", DraftGui.getwindow().getFrmPokemonDraft());
 					DraftGui.getwindow().getPanelPlayer().remove(DraftGui.getwindow().getPanelPlayer().cBTeams);
-					DraftGui.getwindow().getPanelPlayer().reloadTeamlist();
 					DraftGui.getwindow().visPlayer();
 					return;
 				}
@@ -103,7 +101,7 @@ public class PanelStartDraft extends JPanel {
 					pokeanzahl += k;
 				}
 				if (pokeanzahl == 0) {
-					Manage.msgboxError("Du hast noch nicht die Anzhal der Pokemon ausgewählt",
+					Manage.msgboxError("Du hast noch nicht die Anzahl der Pokemon ausgewählt",
 							DraftGui.getwindow().getFrmPokemonDraft());
 					DraftGui.getwindow().visSettings();
 					return;
@@ -123,7 +121,6 @@ public class PanelStartDraft extends JPanel {
 							JOptionPane.QUESTION_MESSAGE, null, options, options[2])) {
 					case 0:
 						for (int k = 0; k < data.PokemonDraft.getPokedex().length; k++) {
-
 							if (data.PokemonDraft.getTierlist(k) == '0') {
 								data.PokemonDraft.editTierlist(k, 'X');
 							}
@@ -132,7 +129,7 @@ public class PanelStartDraft extends JPanel {
 							DraftGui.getwindow().visDraft();
 
 						} else {
-							Manage.msgboxError("Du hast zu wenige Pokemon ausgewählt, damit alle Draten können",
+							Manage.msgboxError("Du hast zu wenige Pokemon ausgewählt, damit alle Draften können",
 									DraftGui.getwindow().getFrmPokemonDraft());
 							DraftGui.getwindow().visTierlist();
 						}
