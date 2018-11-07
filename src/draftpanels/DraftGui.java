@@ -14,6 +14,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DraftGui {
 
@@ -292,6 +294,7 @@ public class DraftGui {
 
 	protected void visAfterDraft(String[][] draftergebniss) {
 		visLoading();
+		frmPokemonDraft.getContentPane().remove(panelAfterDraft);
 		panelAfterDraft = new PanelAfterDraft(draftergebniss);
 		frmPokemonDraft.getContentPane().add(panelAfterDraft, "name_601634568594680");
 		visAfterDraft();
@@ -299,7 +302,8 @@ public class DraftGui {
 
 	protected void visAfterDraft() {
 		visLoading();
-		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 435, 310);
+
+		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 450, 350);
 		panelAfterDraft.setVisible(true);
 		panelloading.setVisible(false);
 	}

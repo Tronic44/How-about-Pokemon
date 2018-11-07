@@ -452,7 +452,7 @@ public class PanelDraft extends JPanel {
 						safedauswahl[f][i] = null;
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					continue;
 				}
 			}
 		}
