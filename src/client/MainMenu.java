@@ -1,14 +1,18 @@
 package client;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import draftpanels.DraftGui;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class MainMenu {
@@ -55,6 +59,15 @@ public class MainMenu {
 		frame.setBounds(100, 100, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+
+		ImageIcon background = new ImageIcon("Pokemon_logo.png");
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(490, 184, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 490, 200);
+		frame.getContentPane().add(back);
 
 		JButton btnNewButton = new JButton("Start PokemonDraft");
 		btnNewButton.addActionListener(e -> {

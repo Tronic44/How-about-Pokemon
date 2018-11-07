@@ -97,7 +97,7 @@ public class PanelStartDraft extends JPanel {
 					return;
 				}
 				if (count > 0) {
-					Object[] options = { "BANNEN", "In das untersete Tier einfügen", "Selbst einordnen" };
+					Object[] options = { "BANNEN", "In das unterste Tier einfügen", "Selbst einordnen" };
 					switch (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
 							"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"
 									+ "Alle nicht zugewisenen:",
@@ -129,7 +129,7 @@ public class PanelStartDraft extends JPanel {
 							if (checkforenoughPokemon()) {
 								DraftGui.getwindow().visDraft();
 							} else {
-								Manage.msgboxError("Du hast zu wenige Pokemon ausgewählt, damit alle Draften können",
+								Manage.msgboxError("Du hast zu wenige Pokemon ausgewählt, damit alle draften können",
 										DraftGui.getwindow().getFrmPokemonDraft());
 								DraftGui.getwindow().visTierlist();
 							}
