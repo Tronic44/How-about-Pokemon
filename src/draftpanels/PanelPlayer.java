@@ -115,7 +115,7 @@ public class PanelPlayer extends JPanel {
 	private void removeEmptyFields() throws Exception {
 		int count = 0;
 		for (int k = 0; k < teams.size(); k++) {
-			if (teams.get(k).getText().trim().length() > 1) {
+			if (teams.get(k).getText().trim().length() >= 1) {
 				count++;
 			}
 		}

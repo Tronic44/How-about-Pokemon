@@ -410,12 +410,12 @@ public class PokemonDraft {
 		}
 		if (ch != 'D' && pokemontier5.contains(pokedex[k])) {
 			int ort = pokemontier5.indexOf(pokedex[k]);
-			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier4.get(ort));
+			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier5.get(ort));
 			pokemontier5.remove(ort);
 		}
 		if (ch != 'E' && pokemontier6.contains(pokedex[k])) {
 			int ort = pokemontier6.indexOf(pokedex[k]);
-			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier4.get(ort));
+			DraftGui.getwindow().getPanelDraft().renewDraftauswahl(pokemontier6.get(ort));
 			pokemontier6.remove(ort);
 		}
 	}
