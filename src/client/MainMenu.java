@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
 import draftpanels.DraftGui;
@@ -21,6 +22,7 @@ public class MainMenu {
 	private JFrame frame;
 	private static DraftGui windowPokemonDraft;
 	private static JFrame frmPokeDraft;
+	private JLayeredPane panel;
 
 	public static void startHowAboutPokemon() {
 		EventQueue.invokeLater(() -> {
@@ -60,16 +62,32 @@ public class MainMenu {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		ImageIcon background = new ImageIcon("Pokemon_logo.png");
-		Image img = background.getImage();
+		panel = new JLayeredPane();
+		panel.setBounds(0, 0, 500, 500);
+		panel.setLayout(null);
+
+		ImageIcon logoicon = new ImageIcon(getClass().getResource("Pokemon_logo.png"));
+		Image img = logoicon.getImage();
 		Image temp = img.getScaledInstance(490, 184, Image.SCALE_SMOOTH);
-		background = new ImageIcon(temp);
+		logoicon = new ImageIcon(temp);
+		JLabel logo = new JLabel(logoicon);
+		panel.setLayer(logo, 1);
+		logo.setLayout(null);
+		logo.setBounds(0, 0, 490, 200);
+		panel.add(logo);
+
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img2 = background.getImage();
+		Image temp2 = img2.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp2);
 		JLabel back = new JLabel(background);
 		back.setLayout(null);
-		back.setBounds(0, 0, 490, 200);
-		frame.getContentPane().add(back);
+		panel.setLayer(back, 0);
+		back.setBounds(0, 0, 500, 500);
+		panel.add(back);
 
 		JButton btnNewButton = new JButton("Start PokemonDraft");
+		panel.setLayer(btnNewButton, 0);
 		btnNewButton.addActionListener(e -> {
 			if (windowPokemonDraft != null) {
 				Object[] options = { "NEUSTART", "WEITER" };
@@ -112,7 +130,9 @@ public class MainMenu {
 		});
 
 		btnNewButton.setBounds(158, 216, 178, 38);
-		frame.getContentPane().add(btnNewButton);
+		panel.setLayer(btnNewButton, 1);
+		panel.add(btnNewButton);
+		frame.getContentPane().add(panel);
 	}
 
 	public void visMainMenu() {

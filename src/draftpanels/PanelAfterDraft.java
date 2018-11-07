@@ -1,16 +1,29 @@
 package draftpanels;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import java.awt.Image;
 import java.awt.TextArea;
 
 @SuppressWarnings("serial")
 public class PanelAfterDraft extends JPanel {
 
-	private JPanel panel = new JPanel();
+	private JLayeredPane panel = new JLayeredPane();
 
 	public PanelAfterDraft(String[][] draftergebnis) {
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
+
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 409, 640);
+		panel.add(back);
 
 		TextArea textArea = new TextArea();
 		textArea.setBounds(10, 10, 430, 280);
@@ -18,7 +31,7 @@ public class PanelAfterDraft extends JPanel {
 		add(textArea);
 
 		for (String k : DraftGui.getwindow().getPanelPlayer().player) {
-			textArea.append("\t" + k + "\t"+"\t");
+			textArea.append("\t" + k + "\t" + "\t");
 		}
 		textArea.append("\n");
 		for (int m = 0; m < draftergebnis[0].length; m++) {

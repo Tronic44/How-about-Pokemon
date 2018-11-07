@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-
 import client.MainMenu;
 import client.Manage;
 import javax.swing.JLabel;
@@ -132,6 +131,7 @@ public class DraftGui {
 	}
 
 	private void initmenubar() {
+
 		JMenuBar menuBar = new JMenuBar();
 		frmPokemonDraft.setJMenuBar(menuBar);
 
@@ -256,6 +256,7 @@ public class DraftGui {
 
 	protected void visPlayer() {
 		visLoading();
+		DraftGui.getwindow().getPanelPlayer().reloadTeamlist();
 		panelPlayer.setVisible(true);
 		panelloading.setVisible(false);
 	}

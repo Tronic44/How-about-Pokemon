@@ -22,7 +22,7 @@ public class PanelMenu extends JPanel {
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 		
-		ImageIcon background = new ImageIcon("background.jpg");
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
 		Image img = background.getImage();
 		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
 		background = new ImageIcon(temp);

@@ -1,8 +1,11 @@
 package draftpanels;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -12,7 +15,7 @@ import client.Writer;
 @SuppressWarnings("serial")
 public class PanelLoadDraft extends JPanel {
 
-	private JPanel panel = new JPanel();
+	private JLayeredPane panel = new JLayeredPane();
 	private JTextField tFsafename;
 	private JComboBox<String> cBloaddraft;
 
@@ -21,6 +24,15 @@ public class PanelLoadDraft extends JPanel {
 
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
+
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 409, 640);
+		panel.add(new JLabel(background));
 
 		JLabel lblstatus = new JLabel("");
 		lblstatus.setBounds(154, 158, 152, 14);

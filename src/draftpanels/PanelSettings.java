@@ -1,12 +1,17 @@
 package draftpanels;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -19,7 +24,7 @@ import client.PopupListener;
 @SuppressWarnings("serial")
 public class PanelSettings extends JPanel {
 
-	private JPanel panel = new JPanel();
+	private JLayeredPane panel = new JLayeredPane();
 	private ArrayList<JLabel> lblTier = new ArrayList<>();
 	private JLabel lblissettingsbestaetigung;
 	private ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
@@ -38,6 +43,15 @@ public class PanelSettings extends JPanel {
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 409, 640);
+		panel.add(back);
+
 		int[] arrangey = new int[] { 84, 124, 164, 204, 244, 284 };
 		char[] standartTier = new char[] { 'S', 'A', 'B', 'C', 'D', 'E' };
 
@@ -45,11 +59,13 @@ public class PanelSettings extends JPanel {
 			lblTier.add(new JLabel(standartTier[k] + ":"));
 			lblTier.get(k).setFont(TEXTFONT);
 			lblTier.get(k).setBounds(32, arrangey[k], 35, 17);
+			panel.setLayer(lblTier.get(k), 1);
 			panel.add(lblTier.get(k));
 		}
 
 		lblissettingsbestaetigung = new JLabel("");
 		lblissettingsbestaetigung.setBounds(168, 346, 206, 14);
+		panel.setLayer(lblissettingsbestaetigung, 1);
 		panel.add(lblissettingsbestaetigung);
 
 		JTextPane txtpnAchtungnderungenHier = new JTextPane();
@@ -58,6 +74,9 @@ public class PanelSettings extends JPanel {
 		txtpnAchtungnderungenHier.setText(
 				"Achtung: Änderungen hier führen zu einer\r\nAnpassung der aktuell eingegenbenen Tierlist. \r\nWenn du das nicht möchtest, speichere sie vorher!");
 		txtpnAchtungnderungenHier.setBounds(40, 11, 323, 51);
+		txtpnAchtungnderungenHier.setOpaque(false);
+		txtpnAchtungnderungenHier.setBorder(BorderFactory.createLineBorder(Color.black));
+		panel.setLayer(txtpnAchtungnderungenHier, 1);
 		panel.add(txtpnAchtungnderungenHier);
 
 		JButton btnsafetier = new JButton("Bestätige");
@@ -108,10 +127,11 @@ public class PanelSettings extends JPanel {
 			stufetierlist(DraftGui.getwindow().getPanelTierlist()
 					.setRadioButton(new boolean[] { checkBoxes.get(0).isSelected(), checkBoxes.get(1).isSelected(),
 							checkBoxes.get(2).isSelected(), checkBoxes.get(3).isSelected(),
-							checkBoxes.get(4).isSelected(), checkBoxes.get(5).isSelected() }, tiernamenlist));			
+							checkBoxes.get(4).isSelected(), checkBoxes.get(5).isSelected() }, tiernamenlist));
 			lblissettingsbestaetigung.setText("Änderungen wurden übernommen!");
 		});
 		btnsafetier.setBounds(42, 342, 116, 23);
+		panel.setLayer(btnsafetier, 1);
 		panel.add(btnsafetier);
 
 		for (int k = 0; k < lblTier.size(); k++) {
@@ -133,11 +153,13 @@ public class PanelSettings extends JPanel {
 				}
 			});
 			tfTiername.get(k).setEditable(false);
+			panel.setLayer(tfTiername.get(k), 1);
 			panel.add(tfTiername.get(k));
 		}
 		for (int k = 0; k < lblTier.size(); k++) {
 			lblStatus.add(new JLabel(""));
 			lblStatus.get(k).setBounds(276, arrangey[k], 117, 14);
+			panel.setLayer(lblStatus.get(k), 1);
 			panel.add(lblStatus.get(k));
 		}
 		for (int k = 0; k < lblTier.size(); k++) {
@@ -145,6 +167,8 @@ public class PanelSettings extends JPanel {
 			comboBoxes.get(k).setEnabled(false);
 			comboBoxes.get(k).setSelectedIndex(-1);
 			comboBoxes.get(k).setBounds(194, arrangey[k], 61, 20);
+			comboBoxes.get(k).setOpaque(false);
+			panel.setLayer(comboBoxes.get(k), 1);
 			panel.add(comboBoxes.get(k));
 			comboBoxes.get(k).addPopupMenuListener(new PopupListener() {
 				@Override
@@ -157,6 +181,8 @@ public class PanelSettings extends JPanel {
 		for (int k = 0; k < lblTier.size(); k++) {
 			checkBoxes.add(new JCheckBox(""));
 			checkBoxes.get(k).setBounds(67, arrangey[k], 21, 23);
+			checkBoxes.get(k).setOpaque(false);
+			panel.setLayer(checkBoxes.get(k), 1);
 			panel.add(checkBoxes.get(k));
 			checkBoxes.get(k).addActionListener(e -> {
 				int ort = checkBoxes.indexOf(e.getSource());
@@ -185,6 +211,7 @@ public class PanelSettings extends JPanel {
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 383, 393, 2);
+		panel.setLayer(separator, 1);
 		panel.add(separator);
 
 		JTextPane txtpnResetetDieOben = new JTextPane();
@@ -192,7 +219,10 @@ public class PanelSettings extends JPanel {
 		txtpnResetetDieOben.setText(
 				"Resetet die oben gemachten Einstellungen auf den Urspungswert.\r\nKann gemachte Änderungen an der Tierlist nicht rückgängig machen!");
 		txtpnResetetDieOben.setEditable(false);
+		txtpnResetetDieOben.setOpaque(false);
+		txtpnResetetDieOben.setBorder(BorderFactory.createLineBorder(Color.black));
 		txtpnResetetDieOben.setBounds(35, 396, 148, 144);
+		panel.setLayer(txtpnResetetDieOben, 1);
 		panel.add(txtpnResetetDieOben);
 
 		JTextPane txtpnStelltDieEinstellungen = new JTextPane();
@@ -201,6 +231,9 @@ public class PanelSettings extends JPanel {
 		txtpnStelltDieEinstellungen.setFont(new Font(Manage.FONT, Font.PLAIN, 14));
 		txtpnStelltDieEinstellungen.setEditable(false);
 		txtpnStelltDieEinstellungen.setBounds(218, 396, 148, 144);
+		txtpnStelltDieEinstellungen.setOpaque(false);
+		txtpnStelltDieEinstellungen.setBorder(BorderFactory.createLineBorder(Color.black));
+		panel.setLayer(txtpnStelltDieEinstellungen, 1);
 		panel.add(txtpnStelltDieEinstellungen);
 
 		JButton btnresettier = new JButton("RESET");
@@ -212,6 +245,7 @@ public class PanelSettings extends JPanel {
 		});
 		btnresettier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
 		btnresettier.setBounds(65, 542, 89, 23);
+		panel.setLayer(btnresettier, 1);
 		panel.add(btnresettier);
 
 		JButton btnrestoretier = new JButton("RESTORE");
@@ -229,6 +263,7 @@ public class PanelSettings extends JPanel {
 		});
 		btnrestoretier.setFont(new Font(Manage.FONT, Font.BOLD, 11));
 		btnrestoretier.setBounds(248, 542, 89, 23);
+		panel.setLayer(btnrestoretier, 1);
 		panel.add(btnrestoretier);
 
 		add(panel);

@@ -1,6 +1,7 @@
 package draftpanels;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.List;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -8,9 +9,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -20,7 +23,7 @@ import client.Writer;
 @SuppressWarnings("serial")
 public class PanelTierlist extends JPanel {
 
-	private JPanel panel = new JPanel();
+	private JLayeredPane panel = new JLayeredPane();
 	private JRadioButton radioButtonS;
 	private JRadioButton radioButtonA;
 	private JRadioButton radioButtonB;
@@ -43,10 +46,20 @@ public class PanelTierlist extends JPanel {
 
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
+		
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 409, 640);
+		panel.add(back);
 
 		JLabel lblPokemon = new JLabel("Pokemon");
 		lblPokemon.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPokemon.setBounds(20, 0, 73, 28);
+		panel.setLayer(lblPokemon, 1);
 		panel.add(lblPokemon);
 
 		pokemonListe = new List();
@@ -60,11 +73,13 @@ public class PanelTierlist extends JPanel {
 		for (int i = 0; i < data.PokemonDraft.getPokedex().length; i++) {
 			pokemonListe.add(data.PokemonDraft.getPokedex(i));
 		}
+		panel.setLayer(pokemonListe, 1);
 		panel.add(pokemonListe);
 
 		tFPoke = new JTextField();
 		tFPoke.setEditable(false);
 		tFPoke.setBounds(248, 56, 124, 20);
+		panel.setLayer(tFPoke, 1);
 		panel.add(tFPoke);
 
 		tierlistbuttongruppe = new ButtonGroup();
@@ -79,6 +94,8 @@ public class PanelTierlist extends JPanel {
 			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonS.setBounds(256, 101, 109, 23);
+		radioButtonS.setOpaque(false);
+		panel.setLayer(radioButtonS, 1);
 		panel.add(radioButtonS);
 		tierlistbuttongruppe.add(radioButtonS);
 
@@ -92,6 +109,8 @@ public class PanelTierlist extends JPanel {
 			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonA.setBounds(256, 127, 109, 23);
+		radioButtonA.setOpaque(false);
+		panel.setLayer(radioButtonA, 1);
 		panel.add(radioButtonA);
 		tierlistbuttongruppe.add(radioButtonA);
 
@@ -105,6 +124,8 @@ public class PanelTierlist extends JPanel {
 			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonB.setBounds(256, 151, 109, 23);
+		radioButtonB.setOpaque(false);
+		panel.setLayer(radioButtonB, 1);
 		panel.add(radioButtonB);
 		tierlistbuttongruppe.add(radioButtonB);
 
@@ -118,6 +139,8 @@ public class PanelTierlist extends JPanel {
 			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonC.setBounds(256, 177, 109, 23);
+		radioButtonC.setOpaque(false);
+		panel.setLayer(radioButtonC, 1);
 		panel.add(radioButtonC);
 		tierlistbuttongruppe.add(radioButtonC);
 
@@ -131,6 +154,8 @@ public class PanelTierlist extends JPanel {
 			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonD.setBounds(256, 203, 109, 23);
+		radioButtonD.setOpaque(false);
+		panel.setLayer(radioButtonD, 1);
 		panel.add(radioButtonD);
 		tierlistbuttongruppe.add(radioButtonD);
 
@@ -144,6 +169,8 @@ public class PanelTierlist extends JPanel {
 			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonE.setBounds(256, 229, 109, 23);
+		radioButtonE.setOpaque(false);
+		panel.setLayer(radioButtonE, 1);
 		panel.add(radioButtonE);
 		tierlistbuttongruppe.add(radioButtonE);
 
@@ -157,6 +184,8 @@ public class PanelTierlist extends JPanel {
 			DraftGui.getwindow().getPanelDraft().updateTierPokemon();
 		});
 		radioButtonX.setBounds(256, 255, 109, 23);
+		radioButtonX.setOpaque(false);
+		panel.setLayer(radioButtonX, 1);
 		panel.add(radioButtonX);
 		tierlistbuttongruppe.add(radioButtonX);
 
@@ -196,6 +225,7 @@ public class PanelTierlist extends JPanel {
 			}
 		});
 		btnsafetierlist.setBounds(266, 376, 89, 23);
+		panel.setLayer(btnsafetierlist, 1);
 		panel.add(btnsafetierlist);
 
 		JButton btnloadtier = new JButton("Laden");
@@ -221,10 +251,12 @@ public class PanelTierlist extends JPanel {
 			changeTier();
 		});
 		btnloadtier.setBounds(266, 486, 89, 23);
+		panel.setLayer(btnloadtier, 1);
 		panel.add(btnloadtier);
 
 		tFTiername = new JTextField();
 		tFTiername.setBounds(267, 345, 86, 20);
+		panel.setLayer(tFTiername, 1);
 		panel.add(tFTiername);
 
 		tFsearch = new JTextField();
@@ -245,15 +277,17 @@ public class PanelTierlist extends JPanel {
 			}
 		});
 		tFsearch.setBounds(86, 555, 109, 20);
+		panel.setLayer(tFsearch, 1);
 		panel.add(tFsearch);
-		tFsearch.setColumns(10);
 
 		JLabel lblSuche = new JLabel("Suche:");
 		lblSuche.setBounds(30, 558, 46, 14);
+		panel.setLayer(lblSuche, 1);
 		panel.add(lblSuche);
 
 		cBTierlist = new JComboBox<>(new String[] {});
 		cBTierlist.setBounds(248, 447, 124, 28);
+		panel.setLayer(cBTierlist, 1);
 		panel.add(cBTierlist);
 
 		add(panel);

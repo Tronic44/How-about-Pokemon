@@ -1,10 +1,13 @@
 package draftpanels;
 
 import java.awt.Font;
+import java.awt.Image;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,7 +24,8 @@ import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class PanelPlayer extends JPanel {
-	private JPanel panel = new JPanel();
+
+	private JLayeredPane panel = new JLayeredPane();
 	protected ArrayList<String> player = new ArrayList<>();
 	protected String[] loadedteamnames;
 	private String[][] loadedteamlist;
@@ -37,6 +41,15 @@ public class PanelPlayer extends JPanel {
 
 		panel.setBounds(0, 0, 409, 600);
 		panel.setLayout(null);
+
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 409, 640);
+		panel.add(back);
 
 		btn();
 
@@ -62,6 +75,7 @@ public class PanelPlayer extends JPanel {
 					} catch (Exception f) {
 						teams.add(new JTextField());
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1).setBounds(129, hight, 151, 20);
+						panel.setLayer(teams.get(teams.indexOf(((JTextField) e.getSource())) + 1), 1);
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1).addCaretListener(clisten);
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1).addKeyListener(enterpressed);
 						panel.add(teams.get(teams.indexOf(((JTextField) e.getSource())) + 1));
@@ -79,16 +93,20 @@ public class PanelPlayer extends JPanel {
 		teams.get(0).addCaretListener(clisten);
 		teams.get(0).addKeyListener(enterpressed);
 		teams.get(0).setBounds(129, hight, 151, 20);
+		panel.setLayer(teams.get(0), 1);
 		hight += 26;
 		panel.add(teams.get(0));
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 495, 409, 3);
+		panel.setLayer(separator, 1);
 		panel.add(separator);
 
 		checkBoxSafe = new JCheckBox("");
 		checkBoxSafe.setEnabled(false);
 		checkBoxSafe.setBounds(251, 461, 97, 23);
+		checkBoxSafe.setOpaque(false);
+		panel.setLayer(checkBoxSafe, 1);
 		panel.add(checkBoxSafe);
 
 		add(panel);
@@ -181,16 +199,19 @@ public class PanelPlayer extends JPanel {
 			setSafe(true);
 		});
 		btnPlayer.setBounds(160, 461, 89, 23);
+		panel.setLayer(btnPlayer, 1);
 		panel.add(btnPlayer);
 
 		JLabel lblTeamNamen = new JLabel("Team-Namen");
 		lblTeamNamen.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTeamNamen.setBounds(151, 11, 106, 20);
+		panel.setLayer(lblTeamNamen, 1);
 		panel.add(lblTeamNamen);
 
 		JTextField tFSafeTeams = new JTextField();
 		tFSafeTeams.setColumns(10);
 		tFSafeTeams.setBounds(59, 506, 106, 20);
+		panel.setLayer(tFSafeTeams, 1);
 		panel.add(tFSafeTeams);
 
 		JButton btnsafeteams = new JButton("Speichern");
@@ -227,10 +248,12 @@ public class PanelPlayer extends JPanel {
 			reloadTeamlist();
 		});
 		btnsafeteams.setBounds(59, 541, 109, 23);
+		panel.setLayer(btnsafeteams, 1);
 		panel.add(btnsafeteams);
 
 		cBTeams = new JComboBox(new String[] {});
 		cBTeams.setBounds(224, 502, 124, 28);
+		panel.setLayer(cBTeams, 1);
 		panel.add(cBTeams);
 
 		JButton btnloadteams = new JButton("Laden");
@@ -254,6 +277,7 @@ public class PanelPlayer extends JPanel {
 			btnPlayer.doClick();
 		});
 		btnloadteams.setBounds(242, 541, 89, 23);
+		panel.setLayer(btnloadteams, 1);
 		panel.add(btnloadteams);
 	}
 

@@ -1,17 +1,22 @@
 package draftpanels;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
-
 import client.Manage;
 
 @SuppressWarnings("serial")
 public class PanelOrder extends JPanel {
 
-	private JPanel panel = new JPanel();
+	private JLayeredPane panel = new JLayeredPane();
 	private int order = 0;
 	private int[] teamfolge;
 
@@ -20,14 +25,24 @@ public class PanelOrder extends JPanel {
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
 
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 409, 640);
+		panel.add(back);
+
 		JLabel lblorder = new JLabel("Wie soll gedraftet werden?");
 		lblorder.setFont(new Font(Manage.FONT, Font.PLAIN, 15));
 		lblorder.setBounds(110, 26, 183, 27);
+		panel.setLayer(lblorder, 1);
 		panel.add(lblorder);
 
-		JCheckBox chckbxRandom = new JCheckBox("Random");		
+		JCheckBox chckbxRandom = new JCheckBox("Random");
 		chckbxRandom.setEnabled(true);
-		
+
 		JCheckBox chckbxManuell = new JCheckBox("Manuell");
 		chckbxManuell.addActionListener(e -> {
 			if (chckbxManuell.isSelected()) {
@@ -36,8 +51,10 @@ public class PanelOrder extends JPanel {
 			chckbxRandom.setSelected(false);
 		});
 		chckbxManuell.setBounds(153, 69, 97, 23);
+		chckbxManuell.setOpaque(false);
+		panel.setLayer(chckbxManuell, 1);
 		panel.add(chckbxManuell);
-		
+
 		chckbxRandom.addActionListener(e -> {
 			if (chckbxRandom.isSelected()) {
 				order = 2;
@@ -46,17 +63,25 @@ public class PanelOrder extends JPanel {
 			chckbxManuell.setSelected(false);
 		});
 		chckbxRandom.setBounds(153, 163, 97, 23);
+		chckbxRandom.setOpaque(false);
+		panel.setLayer(chckbxRandom, 1);
 		panel.add(chckbxRandom);
 
 		JTextPane txtpnJederzeitZwischenTeanms = new JTextPane();
 		txtpnJederzeitZwischenTeanms.setText("Jederzeit zwischen Teams wechseln, beliebig viele Pokemon auswählen");
 		txtpnJederzeitZwischenTeanms.setBounds(74, 108, 254, 39);
+		panel.setLayer(txtpnJederzeitZwischenTeanms, 1);
+		txtpnJederzeitZwischenTeanms.setOpaque(false);
+		txtpnJederzeitZwischenTeanms.setBorder(BorderFactory.createLineBorder(Color.black));
 		txtpnJederzeitZwischenTeanms.setEditable(false);
 		panel.add(txtpnJederzeitZwischenTeanms);
 
 		JTextPane txtpnZuflligeReihenfolgeImmer = new JTextPane();
 		txtpnZuflligeReihenfolgeImmer.setText("Zufällige Reihenfolge, immer ein Pokemon\r\n");
 		txtpnZuflligeReihenfolgeImmer.setBounds(74, 202, 254, 39);
+		txtpnZuflligeReihenfolgeImmer.setOpaque(false);
+		txtpnZuflligeReihenfolgeImmer.setBorder(BorderFactory.createLineBorder(Color.black));
+		panel.setLayer(txtpnZuflligeReihenfolgeImmer, 1);
 		txtpnZuflligeReihenfolgeImmer.setEditable(false);
 		panel.add(txtpnZuflligeReihenfolgeImmer);
 
@@ -90,7 +115,7 @@ public class PanelOrder extends JPanel {
 		randomiseTeams();
 		return order;
 	}
-	
+
 	protected int[] getTeamfolge() {
 		return teamfolge;
 	}

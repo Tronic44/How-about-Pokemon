@@ -1,6 +1,10 @@
 package draftpanels;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import client.Manage;
@@ -9,7 +13,7 @@ import data.PokemonDraft;
 @SuppressWarnings("serial")
 public class PanelStartDraft extends JPanel {
 
-	private JPanel panel = new JPanel();
+	private JLayeredPane panel = new JLayeredPane();
 	private JButton btnReihenfolge;
 
 	public PanelStartDraft() {
@@ -18,12 +22,23 @@ public class PanelStartDraft extends JPanel {
 		panel.setLayout(null);
 		panel.setVisible(true);
 
+		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+		Image img = background.getImage();
+		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
+		background = new ImageIcon(temp);
+		JLabel back = new JLabel(background);
+		back.setLayout(null);
+		back.setBounds(0, 0, 409, 640);
+		panel.add(back);
+
 		JButton btnTierlist = new JButton("Tierlist");
+		panel.setLayer(btnTierlist, 1);
 		btnTierlist.setBounds(74, 38, 255, 71);
 		btnTierlist.addActionListener(e -> DraftGui.getwindow().visTierlist());
 		panel.add(btnTierlist);
 
 		JButton btnSpielerTeams = new JButton("Spieler / Teams");
+		panel.setLayer(btnSpielerTeams, 1);
 		btnSpielerTeams.addActionListener(e -> {
 			DraftGui.getwindow().getPanelPlayer().reloadTeamlist();
 			DraftGui.getwindow().visPlayer();
@@ -32,6 +47,7 @@ public class PanelStartDraft extends JPanel {
 		panel.add(btnSpielerTeams);
 
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
+		panel.setLayer(btnAnzahlDerPokemon, 1);
 		btnAnzahlDerPokemon.addActionListener(e -> {
 			DraftGui.getwindow().visSettings();
 		});
@@ -39,6 +55,7 @@ public class PanelStartDraft extends JPanel {
 		panel.add(btnAnzahlDerPokemon);
 
 		btnReihenfolge = new JButton("Reihenfolge");
+		panel.setLayer(btnReihenfolge, 1);
 		btnReihenfolge.addActionListener(e -> {
 			if (DraftGui.getwindow().getPanelPlayer().isSafed()
 					&& DraftGui.getwindow().getPanelPlayer().player.size() > 1) {
@@ -54,6 +71,7 @@ public class PanelStartDraft extends JPanel {
 		btnReihenfolge.setEnabled(true);
 
 		JButton btnFertig = new JButton("Fertig");
+		panel.setLayer(btnFertig, 1);
 		btnFertig.addActionListener(e -> {
 			if (DraftGui.getwindow().getPanelDraft().finishdrafting) {
 				DraftGui.getwindow().visAfterDraft();
@@ -163,7 +181,8 @@ public class PanelStartDraft extends JPanel {
 		PokemonDraft.initTierPokemon();
 		int[] auswahl = DraftGui.getwindow().getPanelSettings().getCountauswahl();
 		for (int k = 0; k < auswahl.length; k++) {
-			if (PokemonDraft.getTierPokemon(k).length<auswahl[k]*DraftGui.getwindow().getPanelPlayer().player.size()) {
+			if (PokemonDraft.getTierPokemon(k).length < auswahl[k]
+					* DraftGui.getwindow().getPanelPlayer().player.size()) {
 				return false;
 			}
 		}
