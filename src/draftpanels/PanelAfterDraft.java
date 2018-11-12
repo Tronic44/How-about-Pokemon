@@ -12,6 +12,7 @@ import java.awt.Font;
 public class PanelAfterDraft extends JLayeredPane {
 
 	private JLayeredPane panel = new JLayeredPane();
+	private TextArea[] listen;
 
 	public PanelAfterDraft(String[][] draftergebnis) {
 		panel.setLayout(null);
@@ -27,12 +28,18 @@ public class PanelAfterDraft extends JLayeredPane {
 		back.setBounds(0, 0, 450, 320);
 		panel.setLayer(back, 0);
 		panel.add(back);
-
-		TextArea textArea = new TextArea();
-		textArea.setBounds(10, 10, 430, 280);
-		panel.setLayer(textArea, 1);
-		textArea.setEditable(false);
-		panel.add(textArea);
+		
+		listen = new TextArea[DraftGui.getwindow().getPanelPlayer().player.size()];
+		
+		int width= 10;
+		
+		for(TextArea k : listen) {
+			k.setBounds(width, 10, 80, 280);
+			panel.setLayer(k, 1);
+			k.setEditable(false);
+			panel.add(k);
+			width+=83;
+		}
 
 		for (String k : DraftGui.getwindow().getPanelPlayer().player) {
 			textArea.append("\t" + k + "\t" + "\t");
