@@ -14,8 +14,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DraftGui {
 

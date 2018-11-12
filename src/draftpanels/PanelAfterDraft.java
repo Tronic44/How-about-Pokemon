@@ -3,10 +3,10 @@ package draftpanels;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 import java.awt.Image;
 import java.awt.TextArea;
-import java.awt.Font;
+import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class PanelAfterDraft extends JLayeredPane {
@@ -52,17 +52,17 @@ public class PanelAfterDraft extends JLayeredPane {
 	}
 
 	public PanelAfterDraft() {
-		panel.setLayout(null);
-		panel.setVisible(true);
-
-		JLabel lblNewLabel = new JLabel("Du sollst hier nicht sein!");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel.setBounds(98, 109, 254, 82);
-		panel.setLayer(lblNewLabel, 0);
-		add(lblNewLabel);
-
-		panel.setBounds(0, 0, 409, 640);
-
-		add(panel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.setLayer(scrollPane, 1);
+		scrollPane.setBounds(0, 639, 737, -637);
+		panel.add(scrollPane);
+		
+		JTextPane txtpnTestTest = new JTextPane();
+		add(txtpnTestTest);
+		txtpnTestTest.setText("test\r\n\r\n\r\n\r\n\r\n\r\ntest");
+		txtpnTestTest.setEditable(false);
+		txtpnTestTest.setBounds(10, 13, 128, 602);
+		
 	}
 }
