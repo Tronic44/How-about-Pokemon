@@ -14,11 +14,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import client.Manage;
+import client.MyException;
 import client.Writer;
+import data.PokemonDraft;
 
 @SuppressWarnings("serial")
 public class PanelTierlist extends JPanel {
@@ -41,12 +44,14 @@ public class PanelTierlist extends JPanel {
 	private JTextField tFPoke;
 	private JTextField tFTiername;
 	private JComboBox<String> cBTierlist = new JComboBox<>();
+	private JButton btnReset;
+	private JButton btnloadtier;
 
 	public PanelTierlist() {
 
 		panel.setBounds(0, 0, 409, 640);
 		panel.setLayout(null);
-		
+
 		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
 		Image img = background.getImage();
 		Image temp = img.getScaledInstance(409, 640, Image.SCALE_SMOOTH);
@@ -228,16 +233,20 @@ public class PanelTierlist extends JPanel {
 		panel.setLayer(btnsafetierlist, 1);
 		panel.add(btnsafetierlist);
 
-		JButton btnloadtier = new JButton("Laden");
+		btnloadtier = new JButton("Laden");
 		btnloadtier.addActionListener(e -> {
-			data.PokemonDraft.setTierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
+			try {
+				data.PokemonDraft.setTierlist(tierlist[cBTierlist.getSelectedIndex()][1].toCharArray());
+			} catch (MyException e1) {
+				Manage.msgboxError("Da stimmt was mit deiner Datei nicht", DraftGui.getwindow().getFrmPokemonDraft());
+			}
 			pokemonListe.select(0);
-			
+
 			int[] auswahl = DraftGui.getwindow().getPanelSettings().getCountauswahl();
 			boolean[] ischecked = new boolean[6];
 			for (int k = 0; k < auswahl.length; k++) {
 				if (auswahl[k] > 0) {
-					ischecked[k] =true;
+					ischecked[k] = true;
 				}
 			}
 			int count = 0;
@@ -283,6 +292,24 @@ public class PanelTierlist extends JPanel {
 		lblSuche.setBounds(30, 558, 46, 14);
 		panel.setLayer(lblSuche, 1);
 		panel.add(lblSuche);
+
+		btnReset = new JButton("Reset");
+		btnReset.addActionListener(e -> {
+			Object[] options = { "Ja Tierlist resetten", "Nein, doch nicht" };
+			if (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
+					"Du hast noch nicht allen Pokenmon einen Tier zugewiesen, was möchtest du tun? " + "\n"
+							+ "Alle nicht zugewisenen:",
+					"Es sind noch Dinge ungeklärt", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+					null, options, options[1]) == 0) {
+				for (int i = 0; i < PokemonDraft.getPokedex().length; i++) {
+					PokemonDraft.editTierlist(i, '0');
+				}
+				changeTier();
+			}
+		});
+		btnReset.setBounds(266, 554, 89, 23);
+		panel.setLayer(btnReset, 1);
+		panel.add(btnReset);
 
 		cBTierlist = new JComboBox<>(new String[] {});
 		cBTierlist.setBounds(248, 447, 124, 28);
@@ -355,6 +382,9 @@ public class PanelTierlist extends JPanel {
 	}
 
 	protected void openTierlist() {
+
+		btnReset.setEnabled(!DraftGui.getwindow().isFinishlayout());
+		btnloadtier.setEnabled(!DraftGui.getwindow().isFinishlayout());
 		pokemonListe.select(0);
 		changeTier();
 		relaodtierlist();
