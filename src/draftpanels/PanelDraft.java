@@ -21,27 +21,82 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class PanelDraft extends JPanel {
 
+	/**
+	 * Stellt das Panel
+	 */
 	private JLayeredPane panel = new JLayeredPane();
+	/**
+	 * Ein Array der Größe 15x15 für 15 spieler a 15 Pokemon. In ihm werden die
+	 * Pokemonnamen gespeichert
+	 */
 	private String[][] draftauswahl = new String[15][15];
+	/**
+	 * Die ComboBox mit dem das aktuelle Team ausgewählt werden kann
+	 */
 	private JComboBox<String> cBchangeteam = new JComboBox<>();
+	/**
+	 * Ein FilterComboBox Array der Größe 15, für jedes zu draftene Pokemon eins
+	 */
 	private FilterComboBox[] cbDraft = new FilterComboBox[15];
+	/**
+	 * Ist der Index von {@link #cBchangeteam}
+	 */
 	private int changeteam = 0;
+	/**
+	 * Ein JLabel Array der Länge 6, wlche die Tiernamen anzeigen
+	 */
 	private JLabel[] labellist = new JLabel[6];
-	private int[] tierlistcB = new int[cbDraft.length];
-	private static Thread one = new Thread();
+	/**
+	 * Ein int Array der Länge 15, der zu jedem Pokemon das Tier speichert
+	 */
+	private int[] tierlistcB = new int[15];
+	/**
+	 * Der Thread, der für den Draft mit zufälliger Reihenfolge zuständig ist
+	 */
+	private static Thread randonDraft = new Thread();
+	/**
+	 * Die Reihenfolged der Teams, bei zufällliger Reihenfolge
+	 */
 	private int[] teamfolge;
+	/**
+	 * Der Knopf "Pause", der beim Draften in zufälliger Reihenfolge angezeigt wird
+	 */
 	private JButton btnPause;
+	/**
+	 * Der knopf "Ende", der beim manuellen Draften angezeigt wird, und den Draft
+	 * beendet, insofern alles gedraftet wurde
+	 */
 	private JButton btnEnd;
+	/**
+	 * Boolean der den Status des Thread {@link #randonDraft} wiedergibt.<br> DO NOT
+	 * TOUCH!
+	 */
 	private boolean waitforstatusupdate = false; // DO NOT TOUCH
+	/**
+	 * Ist true, sobald der Draft abgeschlossen ist
+	 */
 	protected boolean finishdrafting = false;
+	/**
+	 * Ist true, sobald erstmalig ein Pokemon gesetzt wurde.<br> DO NOT TOUCH!
+	 */
 	private boolean selectnewPokemon = false; // DO NOT TOUCH
+	/**
+	 * Speichert die aktuelle Draft Reihenfolge.<br> DO NOT TOUCH!
+	 */
 	private int order; // DO NOT TOUCH
+	/**
+	 * Zwischenspeichert die aktuelle Draft Reihenfolge, falls man den Draft
+	 * Pausiert. <br>DO NOT TOUCH!
+	 */
 	private int oldorder; // DO NOT TOUCH
+	/**
+	 * DO NOT TOUCH!<br> Also Wirklich nicht!
+	 */
 	private int threadpoint; // DO NOT TOUCH
 
 	/**
 	 * Konstruktor, initialisiert das Panel, alle nicht generischen Elemente, und
-	 * den Draft-Thread @see #one
+	 * den Draft-Thread {@link #randonDraft} <br> called {@link PanelDraft#endDrafting()}
 	 */
 	@SuppressWarnings("unchecked")
 	public PanelDraft() {
@@ -82,11 +137,11 @@ public class PanelDraft extends JPanel {
 
 		add(panel);
 
-		one = new Thread() {
+		randonDraft = new Thread() {
 			@Override
 			public void run() {
 				try {
-					synchronized (one) {
+					synchronized (randonDraft) {
 						sleep(1000);
 						while (!finishdrafting) {
 							int anyteamleft = DraftGui.getwindow().getPanelPlayer().player.size();
@@ -117,7 +172,7 @@ public class PanelDraft extends JPanel {
 								}
 								threadpoint = k;
 								try {
-									synchronized (one) {
+									synchronized (randonDraft) {
 										while (!waitforstatusupdate) {
 											wait(100);
 										}
@@ -149,9 +204,10 @@ public class PanelDraft extends JPanel {
 	 * Sollte bei jedem öffnen des Draftfenster aufgerufen werden.
 	 * 
 	 * Passt den Draft auf Änderungen der Teams an, dabei wird keine Zugehörigkeit
-	 * sichergestellt.
-	 * Initialisiert beim erstmaligen Aufruf, den Hintergrund und ggf einen Pause Knopf.
-	 * Startet ggf. den Draft-Thread.
+	 * sichergestellt. Initialisiert beim erstmaligen Aufruf, den Hintergrund und
+	 * ggf einen Pause Knopf. Startet ggf. den Draft-Thread.<br> called
+	 * {@link PanelDraft#endDrafting()} <br> called {@link PanelDraft#getDraftHight()} <br>
+	 * called {@link PanelDraft#buildDraftLayout()}
 	 */
 	@SuppressWarnings("unchecked")
 	protected void opendraft() {
@@ -226,7 +282,6 @@ public class PanelDraft extends JPanel {
 				DraftGui.getwindow().getFrmPokemonDraft().getY(), 900, getDraftHight());
 		panel.setBounds(0, 0, 900, getDraftHight());
 
-
 		if (!DraftGui.getwindow().isFinishlayout()) {
 			ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
 			Image img = background.getImage();
@@ -237,7 +292,7 @@ public class PanelDraft extends JPanel {
 			back.setBounds(0, 0, 900, getDraftHight());
 			panel.setLayer(back, 0);
 			panel.add(back);
-			
+
 			data.PokemonDraft.initTierPokemon();
 			buildDraftLayout();
 		}
@@ -255,8 +310,8 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		}
-		if (order != 1 && !one.isAlive()) {
-			one.start();
+		if (order != 1 && !randonDraft.isAlive()) {
+			randonDraft.start();
 		}
 		panel.revalidate();
 		panel.updateUI();
@@ -299,7 +354,11 @@ public class PanelDraft extends JPanel {
 	}
 
 	/**
-	 * Generiert das Layout und alle Elemente des Draft-Bildschrims
+	 * Generiert das Layout und alle Elemente des Draft-Bildschrims <br> 
+	 * called {@link PanelDraft#nextDraftColumn(int)} <br> 
+	 * called {@link PanelDraft#safeDraftAuswahl()} <br>
+	 * called {@link PanelDraft#endDrafting()} <br>
+	 * called [@link PanelDraft#updateTierPokemon()}
 	 */
 	@SuppressWarnings("unchecked")
 	private void buildDraftLayout() {
@@ -451,7 +510,7 @@ public class PanelDraft extends JPanel {
 
 	/**
 	 * Speichert alle aktuell ausgewählten ComboBoxen {@link draftauswahl} , setzt
-	 * {@selectnewPokemon} auf true, falls ein neuer Wert gesetzt wurde
+	 * {@link selectnewPokemon} auf true, falls ein neuer Wert gesetzt wurde
 	 */
 	private void safeDraftAuswahl() {
 		for (int k = 0; k < 15; k++) {
@@ -473,9 +532,18 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
+	/**
+	 * updatet die Tiernamen im Drafting-Fenster
+	 * 
+	 * @param k    int Tierindex
+	 * @param text String, der neue Name
+	 * @throws NullPointerException for k
+	 */
 	protected void updateTiernamen(int k, String text) throws NullPointerException {
 		DraftGui.getwindow().getPanelTierlist().setTiernamen(k, text);
 		labellist[k].setText(text.trim());
+		panel.revalidate();
+		panel.updateUI();
 	}
 
 	/**
@@ -498,7 +566,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	/**
-	 * Entfernt ein Pokemon aus {@draftauswahl}
+	 * Entfernt ein Pokemon aus {@link draftauswahl}
 	 * 
 	 * @param pokemon - String , das zu entfernende Pokemon
 	 */
@@ -519,7 +587,7 @@ public class PanelDraft extends JPanel {
 	}
 
 	/**
-	 * Entfernt ein Team aus {@draftauswahl}
+	 * Entfernt ein Team aus {@link draftauswahl}
 	 * 
 	 * @param toremove int , der Index des Teams
 	 */

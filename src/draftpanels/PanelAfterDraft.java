@@ -13,10 +13,26 @@ import javax.swing.ScrollPaneConstants;
 @SuppressWarnings("serial")
 public class PanelAfterDraft extends JLayeredPane {
 
+	/**
+	 * Stellt das Panel
+	 */
 	private JLayeredPane panel = new JLayeredPane();
+	/**
+	 * Eine ArrayList aus TextArea's, die für jedes Team eins zur verfügung stellt
+	 */
 	private ArrayList<TextArea> listen = new ArrayList<>();
+	/**
+	 * Die Breite des Fensters
+	 */
 	private int panelwidth = 10;
 
+	/**
+	 * Initialisiert das Panel, den Hintergrund, und je Team ein TextArea mit den
+	 * Pokemon
+	 * 
+	 * @param draftergebnis String[][] - die Ausgewählten, darzustellenden
+	 *                      gedrafteten Pokemon
+	 */
 	public PanelAfterDraft(String[][] draftergebnis) {
 
 		panel.setBounds(0, 0, 450, 400);
@@ -72,11 +88,15 @@ public class PanelAfterDraft extends JLayeredPane {
 
 		add(panel);
 	}
-
+	/**
+	 * @return die Breite des Panels {@link PanelAfterDraft}
+	 */
 	public int getwidth() {
 		return panelwidth + 17;
 	}
-
+	/**
+	 * leerer Konstruktor
+	 */
 	public PanelAfterDraft() {
 
 	}
