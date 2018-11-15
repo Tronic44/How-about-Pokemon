@@ -11,13 +11,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.event.PopupMenuEvent;
 import client.FilterComboBox;
 import client.PopupListener;
-import data.PokemonDraft;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
@@ -32,6 +30,8 @@ public class PanelDraft extends JPanel {
 	private int[] tierlistcB = new int[cbDraft.length];
 	private static Thread one = new Thread();
 	private int[] teamfolge;
+	private JButton btnPause;
+	private JButton btnEnd;
 	private boolean waitforstatusupdate = false; // DO NOT TOUCH
 	protected boolean finishdrafting = false;
 	private boolean selectnewPokemon = false; // DO NOT TOUCH
@@ -39,6 +39,10 @@ public class PanelDraft extends JPanel {
 	private int oldorder; // DO NOT TOUCH
 	private int threadpoint; // DO NOT TOUCH
 
+	/**
+	 * Konstruktor, initialisiert das Panel, alle nicht generischen Elemente, und
+	 * den Draft-Thread @see #one
+	 */
 	@SuppressWarnings("unchecked")
 	public PanelDraft() {
 
@@ -111,7 +115,23 @@ public class PanelDraft extends JPanel {
 									endDrafting();
 									Thread.currentThread().interrupt();
 								}
-								nextteam(k);
+								threadpoint = k;
+								try {
+									synchronized (one) {
+										while (!waitforstatusupdate) {
+											wait(100);
+										}
+									}
+								} catch (InterruptedException e1) {
+									Thread.currentThread().interrupt();
+								}
+								try {
+									changeteam = teamfolge[threadpoint + 1];
+									cBchangeteam.setSelectedIndex(changeteam);
+								} catch (Exception e) {
+									cBchangeteam.setSelectedIndex(0);
+								}
+								waitforstatusupdate = false;
 								if (threadpoint < k) {
 									k--;
 								}
@@ -125,39 +145,20 @@ public class PanelDraft extends JPanel {
 		};
 	}
 
-	private synchronized void nextteam(int k) {
-		threadpoint = k;
-		try {
-			synchronized (one) {
-
-				while (!waitforstatusupdate) {
-					wait(100);
-				}
-			}
-		} catch (InterruptedException e1) {
-			one.interrupt();
-		}
-		try {
-			changeteam = teamfolge[threadpoint + 1];
-			cBchangeteam.setSelectedIndex(changeteam);
-		} catch (Exception e) {
-			cBchangeteam.setSelectedIndex(0);
-		}
-		waitforstatusupdate = false;
-	}
-
+	/**
+	 * Sollte bei jedem öffnen des Draftfenster aufgerufen werden.
+	 * 
+	 * Passt den Draft auf Änderungen der Teams an, dabei wird keine Zugehörigkeit
+	 * sichergestellt.
+	 * Initialisiert beim erstmaligen Aufruf, den Hintergrund und ggf einen Pause Knopf.
+	 * Startet ggf. den Draft-Thread.
+	 */
 	@SuppressWarnings("unchecked")
 	protected void opendraft() {
 		order = DraftGui.getwindow().getPanelOrder().getOrder();
 		String[] spieler = DraftGui.getwindow().getPanelPlayer().player.toArray(new String[0]);
 		DraftGui.getwindow().visLoading();
 		try {
-			if (draftauswahl == null) {
-				draftauswahl = new String[spieler.length][15];
-				for (int k = 0; k < draftauswahl.length; k++) {
-					Arrays.fill(draftauswahl[k], null);
-				}
-			}
 			if (spieler.length != draftauswahl.length) {
 				String[][] clonedraftauswahl = draftauswahl.clone();
 				draftauswahl = new String[spieler.length][15];
@@ -179,11 +180,13 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		}
+
 		cBchangeteam.setModel(new DefaultComboBoxModel<String>(spieler));
-		if (order != 1 && !one.isAlive()) {
+
+		if (order == 2) {
 			cBchangeteam.setEnabled(false);
 
-			JButton btnPause = new JButton("Pause");
+			btnPause = new JButton("Pause");
 			btnPause.addActionListener(e -> {
 				if (btnPause.getText().equals("Pause")) {
 					btnPause.setText("Fortsetzen");
@@ -197,28 +200,46 @@ public class PanelDraft extends JPanel {
 					threadpoint -= 1;
 					waitforstatusupdate = true;
 				}
+				panel.revalidate();
+				panel.updateUI();
 			});
 			btnPause.setBounds(470, 10, 110, 23);
-			panel.setLayer(btnPause, 1);
+			panel.setLayer(btnPause, 2);
 			panel.add(btnPause);
+		}
+		if (finishdrafting) {
+			try {
+				panel.remove(btnPause);
+				panel.revalidate();
+				panel.updateUI();
+			} catch (Exception e) {
+			}
+			btnEnd = new JButton("End Draft");
+			btnEnd.addActionListener(e -> endDrafting());
+			btnEnd.setBounds(470, 10, 110, 23);
+			panel.setLayer(btnEnd, 2);
+			panel.add(btnEnd);
+
+			cBchangeteam.setEnabled(true);
 		}
 		DraftGui.getwindow().getFrmPokemonDraft().setBounds(DraftGui.getwindow().getFrmPokemonDraft().getX(),
 				DraftGui.getwindow().getFrmPokemonDraft().getY(), 900, getDraftHight());
 		panel.setBounds(0, 0, 900, getDraftHight());
 
-		ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
-		Image img = background.getImage();
-		Image temp = img.getScaledInstance(900, getDraftHight(), Image.SCALE_SMOOTH);
-		background = new ImageIcon(temp);
-		JLabel back = new JLabel(background);
-		back.setLayout(null);
-		back.setBounds(0, 0, 900, getDraftHight());
-		panel.setLayer(back, -5);
-		panel.add(back);
 
 		if (!DraftGui.getwindow().isFinishlayout()) {
+			ImageIcon background = new ImageIcon(getClass().getResource("background.jpg"));
+			Image img = background.getImage();
+			Image temp = img.getScaledInstance(900, getDraftHight(), Image.SCALE_SMOOTH);
+			background = new ImageIcon(temp);
+			JLabel back = new JLabel(background);
+			back.setLayout(null);
+			back.setBounds(0, 0, 900, getDraftHight());
+			panel.setLayer(back, 0);
+			panel.add(back);
+			
 			data.PokemonDraft.initTierPokemon();
-			draftLayout();
+			buildDraftLayout();
 		}
 		int i = 0;
 		for (JComboBox<String> k : cbDraft) {
@@ -241,6 +262,12 @@ public class PanelDraft extends JPanel {
 		panel.updateUI();
 	}
 
+	/**
+	 * Gibt auf basis der Anzahl der Ausgewählten Pokemon die Höhe zurück, die das
+	 * Fenster haben soll
+	 * 
+	 * @return int - 110 < X < 510
+	 */
 	protected int getDraftHight() {
 		int hight = 110;
 		for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
@@ -271,21 +298,17 @@ public class PanelDraft extends JPanel {
 		return hight;
 	}
 
+	/**
+	 * Generiert das Layout und alle Elemente des Draft-Bildschrims
+	 */
 	@SuppressWarnings("unchecked")
-	private void draftLayout() {
+	private void buildDraftLayout() {
 		DraftGui.getwindow().visLoading();
-		for (FilterComboBox k : cbDraft) {
-			try {
-				DraftGui.getwindow().getPanelDraft().remove(k);
-			} catch (Exception e) {
-				break;
-			}
-		}
+		data.PokemonDraft.initTierPokemon();
 		int[] pokeanzahl = DraftGui.getwindow().getPanelSettings().getCountauswahl().clone();
 		int count = 0;
 		int line = 120;
 		boolean sep = false;
-		// die jeweils seleceteten Pokemon (Anzahl)
 		for (int i = 0; i < pokeanzahl.length; i++) {
 			int pkan = pokeanzahl[i];
 			if (pkan == 0) {
@@ -296,12 +319,12 @@ public class PanelDraft extends JPanel {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, line - 60, 900, 2);
 				panel.setLayer(separator, 2);
-				add(separator);
+				panel.add(separator);
 				labellist[i] = new JLabel(DraftGui.getwindow().getPanelTierlist().getTiernamen(i));
 				labellist[i].setFont(new Font("Tahoma", Font.BOLD, 11));
 				panel.setLayer(labellist[i], 2);
 				labellist[i].setBounds(54, line - 40, 550, 14);
-				add(labellist[i]);
+				panel.add(labellist[i]);
 			}
 			try {
 				int[] nxco = nextDraftColumn(pkan);
@@ -311,12 +334,53 @@ public class PanelDraft extends JPanel {
 					cbDraft[count].addPopupMenuListener(new PopupListener(cbDraft[count]) {
 						@Override
 						public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
-							changeDraftPokemon(this.box);
-							if (box.getSelectedItem() != null && (box.getSelectedIndex() >= 0
-									|| !box.getSelectedItem().equals("keine Doppelten"))) {
+							if (box.getSelectedItem() != null && box.getSelectedIndex() >= 0) {
 								box.updateUI();
 								safeDraftAuswahl();
-								selectnext(cBchangeteam.getSelectedIndex(), box.getSelectedItem().toString());
+								String name = box.getSelectedItem().toString();
+								data.PokemonDraft.removePokemonfromTier(name);
+								updateTierPokemon();
+								if (order == 2) {
+									if (!selectnewPokemon) {
+										return;
+									}
+									for (FilterComboBox cb : cbDraft) {
+										try {
+											cb.setEnabled(false);
+										} catch (Exception e) {
+											break;
+										}
+									}
+									selectnewPokemon = false;
+									waitforstatusupdate = true;
+								} else if (order == 1) {
+									int pokecount = 0;
+									int auswahlcount = 0;
+									for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
+										pokecount += k;
+									}
+									for (int k = 0; k < DraftGui.getwindow().getPanelPlayer().player.size(); k++) {
+										for (int m = 0; m < pokecount; m++) {
+											if (draftauswahl[k][m] == null) {
+												auswahlcount++;
+											}
+										}
+									}
+									if (auswahlcount == 0) {
+										try {
+											btnEnd.setEnabled(true);
+										} catch (Exception e) {
+											btnEnd = new JButton("End Draft");
+											btnEnd.addActionListener(f -> endDrafting());
+											btnEnd.setBounds(470, 10, 110, 23);
+											btnEnd.setEnabled(true);
+											panel.setLayer(btnEnd, 2);
+											panel.add(btnEnd);
+										}
+										DraftGui.getwindow().getPanelOrder().setOrder();
+										DraftGui.getwindow().visDraft();
+									}
+								}
 							}
 						}
 					});
@@ -364,6 +428,11 @@ public class PanelDraft extends JPanel {
 		DraftGui.getwindow().setFinishlayout(true);
 	}
 
+	/**
+	 * @param k int Die Anzahl der Pokemon von einem Tier
+	 * @return int[] - Der Länge 1 - 3 mit den jeweiligen x-Positionsangaben für die
+	 *         Auswahl Boxen
+	 */
 	private int[] nextDraftColumn(int k) {
 		if (k > 3) {
 			k = 3;
@@ -380,6 +449,10 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
+	/**
+	 * Speichert alle aktuell ausgewählten ComboBoxen {@link draftauswahl} , setzt
+	 * {@selectnewPokemon} auf true, falls ein neuer Wert gesetzt wurde
+	 */
 	private void safeDraftAuswahl() {
 		for (int k = 0; k < 15; k++) {
 			try {
@@ -389,7 +462,7 @@ public class PanelDraft extends JPanel {
 				if (draftauswahl[cBchangeteam.getSelectedIndex()][k] != null && cbDraft[k].getSelectedIndex() != -1
 						&& draftauswahl[cBchangeteam.getSelectedIndex()][k] != cbDraft[k].getSelectedItem()
 								.toString()) {
-					PokemonDraft.addPokemontoTier(tierlistcB[k], draftauswahl[cBchangeteam.getSelectedIndex()][k]);
+					data.PokemonDraft.addPokemontoTier(tierlistcB[k], draftauswahl[cBchangeteam.getSelectedIndex()][k]);
 				}
 				if (cbDraft[k].getSelectedIndex() != -1) {
 					draftauswahl[cBchangeteam.getSelectedIndex()][k] = cbDraft[k].getSelectedItem().toString();
@@ -400,36 +473,17 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
-	private void changeDraftPokemon(JComboBox<String> box) {
-		for (int k = 0; k < cbDraft.length; k++) {
-			for (int j = 0; j < cbDraft.length; j++) {
-				if (k != j) {
-					try {
-						if (box.getSelectedItem() == "" || box.getSelectedItem().equals("keine Doppelten")) {
-							box.setSelectedIndex(-1);
-							return;
-						}
-						if (cbDraft[k].getSelectedItem().equals(cbDraft[j].getSelectedItem())) {
-							box.setSelectedItem("keine Doppelten");
-							return;
-						}
-					} catch (Exception e) {
-						break;
-					}
-				}
-			}
-		}
-	}
-
 	protected void updateTiernamen(int k, String text) throws NullPointerException {
 		DraftGui.getwindow().getPanelTierlist().setTiernamen(k, text);
 		labellist[k].setText(text.trim());
 	}
 
+	/**
+	 * Updatet die ComboBoxen auf die Aktuelle PokemonTierListe
+	 */
 	@SuppressWarnings("unchecked")
-	protected void updateTierPokemon() {
+	protected synchronized void updateTierPokemon() {
 		if (DraftGui.getwindow().isFinishlayout()) {
-			data.PokemonDraft.initTierPokemon();
 			for (int count = 0; count < tierlistcB.length; count++) {
 				try {
 					cbDraft[count].setModel(
@@ -443,12 +497,17 @@ public class PanelDraft extends JPanel {
 		}
 	}
 
-	public void renewDraftauswahl(String ort) {
+	/**
+	 * Entfernt ein Pokemon aus {@draftauswahl}
+	 * 
+	 * @param pokemon - String , das zu entfernende Pokemon
+	 */
+	public void removeEntetyFromDraftAuswahl(String pokemon) {
 		String[][] safedauswahl = draftauswahl.clone();
 		for (int f = 0; f < safedauswahl.length; f++) {
 			for (int i = 0; i < safedauswahl[0].length; i++) {
 				try {
-					if (safedauswahl[f][i].equals(ort)) {
+					if (safedauswahl[f][i].equals(pokemon)) {
 						safedauswahl[f][i] = null;
 					}
 				} catch (Exception e) {
@@ -459,10 +518,11 @@ public class PanelDraft extends JPanel {
 		draftauswahl = safedauswahl;
 	}
 
-	public int getDraftauswahllength() {
-		return draftauswahl.length;
-	}
-
+	/**
+	 * Entfernt ein Team aus {@draftauswahl}
+	 * 
+	 * @param toremove int , der Index des Teams
+	 */
 	protected void removeTeamFromDraft(int toremove) {
 		String[][] temp = new String[draftauswahl.length - 1][15];
 		for (int k = 0; k < draftauswahl.length - 1; k++) {
@@ -475,51 +535,10 @@ public class PanelDraft extends JPanel {
 		draftauswahl = temp;
 	}
 
-	private void selectnext(int teamindex, String name) {
-		PokemonDraft.removePokemonfromTier(name);
-		updateTierPokemon();
-		if (order == 2) {
-			if (!selectnewPokemon) {
-				return;
-			}
-			for (FilterComboBox cb : cbDraft) {
-				try {
-					cb.setEnabled(false);
-				} catch (Exception e) {
-					break;
-				}
-			}
-			selectnewPokemon = false;
-			waitforstatusupdate = true;
-		} else if (order == 1) {
-			int pokecount = 0;
-			int auswahlcount = 0;
-			for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
-				pokecount += k;
-			}
-			for (int k = 0; k < DraftGui.getwindow().getPanelPlayer().player.size(); k++) {
-				for (int m = 0; m < pokecount; m++) {
-					if (draftauswahl[k][m] == null) {
-						auswahlcount++;
-					}
-				}
-			}
-			if (auswahlcount == 0) {
-				Object[] options = { "Ja", "Nein" };
-				if (JOptionPane.showOptionDialog(DraftGui.getwindow().getFrmPokemonDraft(),
-						"Alle Pokemon sind gedraftet, möchtest du den Draft verlassen?", "Es sind noch Dinge ungeklärt",
-						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
-						options[1]) == 1) {
-					return;
-				}
-				endDrafting();
-			}
-		} else {
-			safeDraftAuswahl();
-		}
-	}
-
-	private synchronized void endDrafting() {
+	/**
+	 * Beendet den Draftvorgang und wechselt auf die Übersicht
+	 */
+	private void endDrafting() {
 		finishdrafting = true;
 		DraftGui.getwindow().visAfterDraft(draftauswahl);
 	}
