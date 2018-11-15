@@ -119,4 +119,10 @@ public class PanelOrder extends JPanel {
 	protected int[] getTeamfolge() {
 		return teamfolge;
 	}
+	
+	protected void setOrder() {
+		order = 1;
+	}
+	
+	
 }
