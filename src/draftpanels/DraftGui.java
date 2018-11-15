@@ -179,7 +179,6 @@ public class DraftGui {
 				Manage.msgboxError("konnte nicht gespeichert werden", frmPokemonDraft);
 			}
 		});
-
 		menuBar.add(btnDebug);
 	}
 
@@ -219,6 +218,10 @@ public class DraftGui {
 		return panelOrder;
 	}
 
+	public PanelAfterDraft getPanelAfterDraft() {
+		return panelAfterDraft;
+	}
+
 	public boolean isFinishlayout() {
 		return finishlayout;
 	}
@@ -250,7 +253,12 @@ public class DraftGui {
 	protected void visMenu() {
 		visLoading();
 		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 409, 640);
-		panelMenu.setVisible(true);
+		if (isFinishlayout()) {
+			panelMenu.renamebtn("Open Draft");
+		} else {
+			panelMenu.renamebtn("Start Draft");
+			panelMenu.setVisible(true);
+		}
 		panelloading.setVisible(false);
 	}
 
@@ -300,8 +308,7 @@ public class DraftGui {
 
 	protected void visAfterDraft() {
 		visLoading();
-
-		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), 450, 350);
+		frmPokemonDraft.setBounds(frmPokemonDraft.getX(), frmPokemonDraft.getY(), getPanelAfterDraft().getwidth(), 400);
 		panelAfterDraft.setVisible(true);
 		panelloading.setVisible(false);
 	}

@@ -440,58 +440,6 @@ public class PanelSettings extends JPanel {
 		return a;
 	}
 
-	protected void setSettings(Object[] list) {
-		resetSettings();
-//		try {
-//			for (int k = 0; k < list.length; k++) {
-//				switch (k) {
-//				case 1:
-//					checkBoxS.setSelected(list[k].equals(true));
-//					break;
-//				case 2:
-//					checkBoxS.setSelected(list[k].equals(true));
-//					break;
-//				case 3:
-//					checkBoxS.setSelected(list[k].equals(true));
-//					break;
-//				case 4:
-//					checkBoxS.setSelected(list[k].equals(true));
-//					break;
-//				case 5:
-//					checkBoxS.setSelected(list[k].equals(true));
-//					break;
-//				case 6:
-//					checkBoxS.setSelected(list[k].equals(true));
-//					break;
-//				case 7:
-//					tFS.setText(list[k].toString());
-//					break;
-//				case 8:
-//					tFA.setText(list[k].toString());
-//					break;
-//				case 9:
-//					tFB.setText(list[k].toString());
-//					break;
-//				case 10:
-//					tFC.setText(list[k].toString());
-//					break;
-//				case 11:
-//					tFD.setText(list[k].toString());
-//					break;
-//				case 12:
-//					tFE.setText(list[k].toString());
-//					break;
-//				default:
-//					break;
-//				}
-//			}
-//		} catch (Exception e) {
-//			Manage.msgboxError("Settings konnten nicht geladen werden", DraftGui.getwindow().getFrmPokemonDraft());
-//			resetSettings();
-//		}
-		changeSettings();
-	}
-
 	protected void toTheLastTier() {
 		for (int k = 0; k < data.PokemonDraft.getTierlist().length; k++) {
 			if (data.PokemonDraft.getTierlist(k) == '0') {
@@ -547,10 +495,4 @@ public class PanelSettings extends JPanel {
 
 	}
 
-	public Object[] getSettings() {
-//		Object[] k = new Object[] { checkBoxS.isSelected(), checkBoxA.isSelected(), checkBoxB.isSelected(),
-//				checkBoxC.isSelected(), checkBoxD.isSelected(), checkBoxE.isSelected(), tFS.getText(), tFA.getText(),
-//				tFB.getText(), tFC.getText(), tFD.getText(), tFE.getText() };
-		return null;
-	}
 }

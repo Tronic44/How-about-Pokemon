@@ -15,6 +15,7 @@ public class PanelMenu extends JPanel {
 
 	private JLayeredPane panel;
 	private static final Font FONT = new Font(Manage.FONT, Font.BOLD, 23);
+	private JButton btnStartButton;
 
 	public PanelMenu() {
 		
@@ -37,12 +38,12 @@ public class PanelMenu extends JPanel {
 		panel.add(lblPokemonRandomDraft);
 		lblPokemonRandomDraft.setFont(new Font(Manage.FONT, Font.BOLD, 31));
 
-		JButton btnNewButton = new JButton("Start Draft");
-		panel.setLayer(btnNewButton, 1);
-		btnNewButton.addActionListener(e -> DraftGui.getwindow().visStartDraft());
-		btnNewButton.setFont(FONT);
-		btnNewButton.setBounds(86, 109, 236, 68);
-		panel.add(btnNewButton);
+		btnStartButton = new JButton("Start Draft");
+		panel.setLayer(btnStartButton, 1);
+		btnStartButton.addActionListener(e -> DraftGui.getwindow().visStartDraft());
+		btnStartButton.setFont(FONT);
+		btnStartButton.setBounds(86, 109, 236, 68);
+		panel.add(btnStartButton);
 
 		JButton btnLoadDraft = new JButton("Load Draft");
 		panel.setLayer(btnLoadDraft, 1);
@@ -58,9 +59,11 @@ public class PanelMenu extends JPanel {
 		btnExit.setFont(FONT);
 		btnExit.setBounds(85, 463, 239, 68);
 		panel.add(btnExit);
-		
-
 
 		add(panel);
+	}
+	
+	public void renamebtn(String s) {
+		btnStartButton.setText(s);
 	}
 }

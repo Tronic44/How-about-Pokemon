@@ -35,7 +35,7 @@ public class PanelPlayer extends JPanel {
 	private CaretListener clisten;
 	private KeyAdapter enterpressed;
 	private boolean safed = false;
-	JCheckBox checkBoxSafe;
+	private JCheckBox checkBoxSafe;
 
 	public PanelPlayer() {
 
@@ -69,7 +69,7 @@ public class PanelPlayer extends JPanel {
 		clisten = new CaretListener() {
 			public void caretUpdate(CaretEvent e) {
 				if (((JTextField) e.getSource()).getText().trim().length() > 0
-						&& teams.indexOf(((JTextField) e.getSource())) < 15) {
+						&& teams.indexOf(((JTextField) e.getSource())) < 13) {
 					try {
 						teams.get(teams.indexOf(((JTextField) e.getSource())) + 1);
 					} catch (Exception f) {
@@ -135,9 +135,9 @@ public class PanelPlayer extends JPanel {
 					}
 					DraftGui.getwindow().getPanelDraft().removeTeamFromDraft(k);
 				}
-				DraftGui.getwindow().getPanelPlayer().teams.get(k).setEnabled(false);
-				DraftGui.getwindow().getPanelPlayer().teams.get(k).setBounds(0, 0, 0, 0);
-				DraftGui.getwindow().getPanelPlayer().remove(teams.get(k));
+				teams.get(k).setEnabled(false);
+				teams.get(k).setBounds(0, 0, 0, 0);
+				remove(teams.get(k));
 				teams.remove(k);
 				redrawteams();
 				removeEmptyFields();
