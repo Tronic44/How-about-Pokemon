@@ -48,9 +48,7 @@ public class PanelStartDraft extends JPanel {
 
 		JButton btnAnzahlDerPokemon = new JButton("Anzahl der Pokemon");
 		panel.setLayer(btnAnzahlDerPokemon, 1);
-		btnAnzahlDerPokemon.addActionListener(e -> {
-			DraftGui.getwindow().visSettings();
-		});
+		btnAnzahlDerPokemon.addActionListener(e -> DraftGui.getwindow().visSettings());
 		btnAnzahlDerPokemon.setBounds(74, 256, 255, 71);
 		panel.add(btnAnzahlDerPokemon);
 
@@ -78,18 +76,6 @@ public class PanelStartDraft extends JPanel {
 				return;
 			}
 			if (!DraftGui.getwindow().isFinishlayout()) {
-				int count = 0;
-				for (char k : data.PokemonDraft.getTierlist()) {
-					if (k == '0' || k == 'X') {
-						count++;
-					}
-				}
-				if (count > data.PokemonDraft.getPokedex().length - 25) {
-					Manage.msgboxError("Du hast zu wenige Pokemon ein Tier zugewiesen, um einen Draft zu starten",
-							DraftGui.getwindow().getFrmPokemonDraft());
-					DraftGui.getwindow().visTierlist();
-					return;
-				}
 				if (!DraftGui.getwindow().getPanelPlayer().isSafed()) {
 					Manage.msgboxError("Du hast keine Teams eingetragen", DraftGui.getwindow().getFrmPokemonDraft());
 					DraftGui.getwindow().getPanelPlayer().remove(DraftGui.getwindow().getPanelPlayer().cBTeams);
@@ -111,6 +97,18 @@ public class PanelStartDraft extends JPanel {
 							DraftGui.getwindow().getFrmPokemonDraft());
 					DraftGui.getwindow().visOrder();
 					return;
+				}
+				if (DraftGui.getwindow().getPanelSettings().areSettingsChanges()) {
+					Manage.msgboxError("Du hast ungespeicherte Einstellungen",
+							DraftGui.getwindow().getFrmPokemonDraft());
+					DraftGui.getwindow().visSettings();
+					return;
+				}
+				int count = 0;
+				for (char k : data.PokemonDraft.getTierlist()) {
+					if (k == '0' || k == 'X') {
+						count++;
+					}
 				}
 				if (count > 0) {
 					Object[] options = { "BANNEN", "In das unterste Tier einfügen", "Selbst einordnen" };
@@ -178,9 +176,16 @@ public class PanelStartDraft extends JPanel {
 		PokemonDraft.initTierPokemon();
 		int[] auswahl = DraftGui.getwindow().getPanelSettings().getCountauswahl();
 		for (int k = 0; k < auswahl.length; k++) {
-			if (PokemonDraft.getTierPokemon(k).length < auswahl[k]
-					* DraftGui.getwindow().getPanelPlayer().player.size()) {
-				return false;
+			if (DraftGui.getwindow().getPanelPlayer().player.size() < 15) {
+				if (PokemonDraft.getTierPokemon(k).length < auswahl[k]
+						* DraftGui.getwindow().getPanelPlayer().player.size() - 1) {
+					return false;
+				}
+			} else {
+				if (PokemonDraft.getTierPokemon(k).length < auswahl[k]
+						* DraftGui.getwindow().getPanelPlayer().player.size()) {
+					return false;
+				}
 			}
 		}
 		return true;
