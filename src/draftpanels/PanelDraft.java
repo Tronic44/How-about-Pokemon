@@ -25,11 +25,14 @@ public class PanelDraft extends JPanel {
 	 * Stellt das Panel
 	 */
 	private JLayeredPane panel = new JLayeredPane();
+	
+	private static final int MAXPLAYER = 15;
+	
 	/**
 	 * Ein Array der Größe 15x15 für 15 spieler a 15 Pokemon. In ihm werden die
 	 * Pokemonnamen gespeichert
 	 */
-	private String[][] draftauswahl = new String[15][15];
+	private String[][] draftauswahl = new String[MAXPLAYER][MAXPLAYER];
 	/**
 	 * Die ComboBox mit dem das aktuelle Team ausgewählt werden kann
 	 */
@@ -37,7 +40,7 @@ public class PanelDraft extends JPanel {
 	/**
 	 * Ein FilterComboBox Array der Größe 15, für jedes zu draftene Pokemon eins
 	 */
-	private FilterComboBox[] cbDraft = new FilterComboBox[15];
+	private FilterComboBox[] cbDraft = new FilterComboBox[MAXPLAYER];
 	/**
 	 * Ist der Index von {@link #cBchangeteam}
 	 */
@@ -49,7 +52,7 @@ public class PanelDraft extends JPanel {
 	/**
 	 * Ein int Array der Länge 15, der zu jedem Pokemon das Tier speichert
 	 */
-	private int[] tierlistcB = new int[15];
+	private int[] tierlistcB = new int[MAXPLAYER];
 	/**
 	 * Der Thread, der für den Draft mit zufälliger Reihenfolge zuständig ist
 	 */
@@ -93,7 +96,7 @@ public class PanelDraft extends JPanel {
 	 * DO NOT TOUCH!<br> Also Wirklich nicht!
 	 */
 	private int threadpoint; // DO NOT TOUCH
-
+	
 	/**
 	 * Konstruktor, initialisiert das Panel, alle nicht generischen Elemente, und
 	 * den Draft-Thread {@link #randonDraft} <br> called {@link PanelDraft#endDrafting()}
@@ -217,9 +220,9 @@ public class PanelDraft extends JPanel {
 		try {
 			if (spieler.length != draftauswahl.length) {
 				String[][] clonedraftauswahl = draftauswahl.clone();
-				draftauswahl = new String[spieler.length][15];
+				draftauswahl = new String[spieler.length][MAXPLAYER];
 				for (int k = 0; k < draftauswahl.length; k++) {
-					for (int j = 0; j < 15; j++) {
+					for (int j = 0; j < MAXPLAYER; j++) {
 						try {
 							draftauswahl[k][j] = clonedraftauswahl[k][j];
 						} catch (Exception f) {
@@ -229,9 +232,9 @@ public class PanelDraft extends JPanel {
 				}
 			}
 		} catch (Exception e) {
-			draftauswahl = new String[spieler.length][15];
+			draftauswahl = new String[spieler.length][MAXPLAYER];
 			for (int k = 0; k < draftauswahl.length; k++) {
-				for (int j = 0; j < 15; j++) {
+				for (int j = 0; j < MAXPLAYER; j++) {
 					draftauswahl[k][j] = null;
 				}
 			}
@@ -241,16 +244,17 @@ public class PanelDraft extends JPanel {
 
 		if (order == 2) {
 			cBchangeteam.setEnabled(false);
+			String s_pause = "Pause";
 
-			btnPause = new JButton("Pause");
+			btnPause = new JButton(s_pause);
 			btnPause.addActionListener(e -> {
-				if (btnPause.getText().equals("Pause")) {
+				if (btnPause.getText().equals(s_pause)) {
 					btnPause.setText("Fortsetzen");
 					oldorder = order;
 					order = 0;
 					cBchangeteam.setEnabled(true);
 				} else {
-					btnPause.setText("Pause");
+					btnPause.setText(s_pause);
 					order = oldorder;
 					cBchangeteam.setEnabled(false);
 					threadpoint -= 1;
@@ -323,6 +327,7 @@ public class PanelDraft extends JPanel {
 	 * 
 	 * @return int - 110 < X < 510
 	 */
+	//todo rework wegen maxplayer ?? scrollen?
 	protected int getDraftHight() {
 		int hight = 110;
 		for (int k : DraftGui.getwindow().getPanelSettings().getCountauswahl()) {
@@ -380,7 +385,7 @@ public class PanelDraft extends JPanel {
 				panel.setLayer(separator, 2);
 				panel.add(separator);
 				labellist[i] = new JLabel(DraftGui.getwindow().getPanelTierlist().getTiernamen(i));
-				labellist[i].setFont(new Font("Tahoma", Font.BOLD, 11));
+				labellist[i].setFont(new Font(client.Manage.FONT, Font.BOLD, 11));
 				panel.setLayer(labellist[i], 2);
 				labellist[i].setBounds(54, line - 40, 550, 14);
 				panel.add(labellist[i]);
@@ -492,7 +497,7 @@ public class PanelDraft extends JPanel {
 	 * @return int[] - Der Länge 1 - 3 mit den jeweiligen x-Positionsangaben für die
 	 *         Auswahl Boxen
 	 */
-	private int[] nextDraftColumn(int k) {
+	private static int[] nextDraftColumn(int k) {
 		if (k > 3) {
 			k = 3;
 		}
@@ -512,8 +517,9 @@ public class PanelDraft extends JPanel {
 	 * Speichert alle aktuell ausgewählten ComboBoxen {@link draftauswahl} , setzt
 	 * {@link selectnewPokemon} auf true, falls ein neuer Wert gesetzt wurde
 	 */
+	//TODO braucht man den try catch block?
 	private void safeDraftAuswahl() {
-		for (int k = 0; k < 15; k++) {
+		for (int k = 0; k < MAXPLAYER; k++) {
 			try {
 				if (draftauswahl[cBchangeteam.getSelectedIndex()][k] == null && cbDraft[k].getSelectedIndex() != -1) {
 					selectnewPokemon = true;
@@ -549,6 +555,7 @@ public class PanelDraft extends JPanel {
 	/**
 	 * Updatet die ComboBoxen auf die Aktuelle PokemonTierListe
 	 */
+	//TODO braucht man den try catch block?
 	@SuppressWarnings("unchecked")
 	protected synchronized void updateTierPokemon() {
 		if (DraftGui.getwindow().isFinishlayout()) {
@@ -570,6 +577,7 @@ public class PanelDraft extends JPanel {
 	 * 
 	 * @param pokemon - String , das zu entfernende Pokemon
 	 */
+	//TODO braucht man den try catch block?
 	public void removeEntetyFromDraftAuswahl(String pokemon) {
 		String[][] safedauswahl = draftauswahl.clone();
 		for (int f = 0; f < safedauswahl.length; f++) {
@@ -592,7 +600,7 @@ public class PanelDraft extends JPanel {
 	 * @param toremove int , der Index des Teams
 	 */
 	protected void removeTeamFromDraft(int toremove) {
-		String[][] temp = new String[draftauswahl.length - 1][15];
+		String[][] temp = new String[draftauswahl.length - 1][MAXPLAYER];
 		for (int k = 0; k < draftauswahl.length - 1; k++) {
 			if (k < toremove) {
 				temp[k] = draftauswahl[k];
