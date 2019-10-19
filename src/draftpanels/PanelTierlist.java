@@ -47,6 +47,9 @@ public class PanelTierlist extends JPanel {
 	private JButton btnReset;
 	private JButton btnloadtier;
 
+	/**
+	 * alled [@link PanelDraft#updateTierPokemon()}
+	 */
 	public PanelTierlist() {
 
 		panel.setBounds(0, 0, 409, 640);

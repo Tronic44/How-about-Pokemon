@@ -392,6 +392,9 @@ public class PokemonDraft {
 		}
 	}
 
+	/**
+	 * called {@link draftpanels.PanelDraft#removeEntetyFromDraftAuswahl(String)}
+	 */
 	private static synchronized void removePokemonfromTier(char ch, int k) {
 		if (ch != 'S' && pokemontier1.contains(pokedex[k])) {
 			int ort = pokemontier1.indexOf(pokedex[k]);

@@ -60,6 +60,7 @@ public class PanelPlayer extends JPanel {
 					try {
 						teams.get(teams.indexOf(evt.getSource()) + 1).requestFocusInWindow();
 					} catch (Exception e) {
+						teams.get(0).requestFocusInWindow();
 					}
 				}
 				setSafe(false);
@@ -112,6 +113,9 @@ public class PanelPlayer extends JPanel {
 		add(panel);
 	}
 
+	/**
+	 * called {@link PanelDraft#removeTeamFromDraft(int)}
+	 */
 	private void removeEmptyFields() throws Exception {
 		int count = 0;
 		for (int k = 0; k < teams.size(); k++) {

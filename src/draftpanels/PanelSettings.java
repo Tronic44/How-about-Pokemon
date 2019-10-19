@@ -38,6 +38,9 @@ public class PanelSettings extends JPanel {
 	private static final String HOCHGESTUFT = "wird HOCHGESTUFT";
 	private static final Font TEXTFONT = new Font(Manage.FONT, Font.PLAIN, 15);
 
+	/**
+	 * called {@link draftpanels.PanelDraft#updateTiernamen(int, String) }
+	 */
 	public PanelSettings() {
 
 		panel.setBounds(0, 0, 409, 640);

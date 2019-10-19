@@ -16,6 +16,10 @@ public class PanelStartDraft extends JPanel {
 	private JLayeredPane panel = new JLayeredPane();
 	private JButton btnReihenfolge;
 
+	
+	/**
+	 * called {@link PanelDraft#getDraftHight()}
+	 */
 	public PanelStartDraft() {
 
 		panel.setBounds(0, 0, 409, 640);

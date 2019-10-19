@@ -1,13 +1,11 @@
 package client;
 
 import java.io.*;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.json.*;
-import draftpanels.DraftGui;
 import data.PokemonDraft;
 
 /**
@@ -30,11 +28,11 @@ public class Writer {
 	 * Die Methode print ist dazu ausgelegt ein Array in eine .txt zu schreiben.
 	 * Kann die Datei neu anlegen.
 	 * 
-	 * @param datei - Der Dateiname
-	 * @param name  - Der Zuordnungsname, dieser wird verknüpft mit dem text in die
+	 * @param datei Der Dateiname
+	 * @param name  Der Zuordnungsname, dieser wird verknüpft mit dem text in die
 	 *              Datei geschrieben um später ein gezieltes lesen und verarbeiten
 	 *              zu ermöglichen
-	 * @param text  - Ein CharArray, dass ohne Zeichentrennung in die Datei
+	 * @param text  Ein CharArray, dass ohne Zeichentrennung in die Datei
 	 *              geschreiben wird
 	 */
 	public static void print(String datei, String name, char[] text) {
@@ -55,11 +53,11 @@ public class Writer {
 	 * Ist dazu ausgelegt ein Array in eine .txt zu schreiben. Kann die Datei neu
 	 * anlegen.
 	 * 
-	 * @param datei - Der Dateiname
-	 * @param name  - Der Zuordnungsname, dieser wird verknüpft mit dem text in die
+	 * @param datei Der Dateiname
+	 * @param name  Der Zuordnungsname, dieser wird verknüpft mit dem text in die
 	 *              Datei geschrieben um später ein gezieltes lesen und verarbeiten
 	 *              zu ermöglichen
-	 * @param text  - Ein StringArray, dass ohne Zeichentrennung in die Datei
+	 * @param text  Ein StringArray, dass ohne Zeichentrennung in die Datei
 	 *              geschreiben wird. Es wird Empfohlen, dass das hinter jedem
 	 *              Eintrag des Array schon ein Zeichentrenner eingefügt wurde
 	 */
@@ -83,10 +81,10 @@ public class Writer {
 	 * die zweite der Zeileninhalt gesplittet bei jedem ':'. Kann die Datei neu
 	 * anlegen.
 	 * 
-	 * @param datei - Der Dateiname, der einzulesen ist
+	 * @param datei Der Dateiname, der einzulesen ist
 	 * @return String[][]
-	 * @throws IOException
-	 * @throws MyException 
+	 * @throws IOException if the writer fails
+	 * @throws MyException not implementet
 	 */
 	public static String[][] read(String datei) throws IOException, MyException {
 		FileReader fr;
@@ -150,11 +148,11 @@ public class Writer {
 	 * Schreibt alle den Benutzer veränderbaren Variablen in die Draft.json Datei.
 	 * Überprüft auf doppelte Namensnennung. Kann die Datei neu Anlegen.
 	 * 
-	 * @param name  - Der Zuordungsname, unter dem das gepeichtere wieder einzulesen
+	 * @param name   Der Zuordungsname, unter dem das gepeichtere wieder einzulesen
 	 *              ist
-	 * @param frame - den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
+	 * @param frame den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
 	 *              Allertboxes zentriert anzuzeigen
-	 * @return int - 0 bei einem Fehler, 1 bei Erfolg, weites in Planung
+	 * @return int 0 bei einem Fehler, 1 bei Erfolg, weites in Planung
 	 */
 	public static int safeasjson(String name, JFrame frame) {
 		try {
@@ -218,7 +216,7 @@ public class Writer {
 	/**
 	 * Soll eine neu eingelesende .json Datei auf Syntax und Eingabe Fehler prüfen
 	 * 
-	 * @param frame - den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
+	 * @param frame den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
 	 *              Allertboxes zentriert anzuzeigen
 	 */
 	protected static void loadjson(JFrame frame) {
@@ -229,7 +227,7 @@ public class Writer {
 	 * list die Datei Draft.json im Ausführungsverzeichniss und prüft auf einfache
 	 * Syntaxfehler. Kann die Datei neu anlegen.
 	 * 
-	 * @param frame - den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
+	 * @param frame den Frame, von dem aus der Aufruf kommt, wird dazu genutzt
 	 *              Allertboxes zentriert anzuzeigen
 	 * @return JSONObject
 	 */
